@@ -1,0 +1,83 @@
+@CHARSET "ISO-8859-1";
+
+.table-header {
+	padding-top: 8px;
+	padding-bottom: 8px;
+	line-height: 1.42857143;
+	vertical-align: top;
+	color: white;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 16px;
+}
+
+.table-header td {
+	padding: 4px;
+}
+
+.link-header {
+	font-weight: 400;
+	color: #c0cfbc;
+	border-radius: 0;
+	background-color: transparent;
+	padding: 0px;
+	font-size: 12px;
+}
+
+.link-header:focus, .link-header:hover {
+	color: #490f4d;
+	text-decoration: underline;
+	background-color: transparent
+}
+
+.link-header, .link-header:active, .link-header:focus, .link-header:hover
+	{
+	border-color: transparent
+}
+
+.input-login {
+	display: block;
+	width: 100%;
+	height: 34px;
+	padding: 6px 12px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+		ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	position: relative;
+	z-index: 2;
+	float: left;
+	margin-bottom: 0;
+	font-size: 16px;
+	line-height: 1.3333333;
+	border-radius: 6px;
+	z-index: 3;
+}
+
+header {
+	position: fixed;
+	z-index: 2;
+	top: 0;
+	right: 0;
+	left: 0;
+	min-height: 60px;
+	-webkit-transition: all 500ms ease;
+}
+
+.body-login {
+	padding-top: 90px;
+	height: 100%;
+}
+
+body {
+	padding-top: 70px;
+	height: 100%;
+}
