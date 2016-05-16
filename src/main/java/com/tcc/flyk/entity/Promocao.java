@@ -14,6 +14,28 @@ public class Promocao {
 	
 	private Date dataFim;
 	
+	private String descricao;
+	
+	private String nomePromocao;
+	
+	
+	
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getNomePromocao() {
+		return nomePromocao;
+	}
+
+	public void setNomePromocao(String nomePromocao) {
+		this.nomePromocao = nomePromocao;
+	}
+
 	private CategoriaServicoEnum categoriaServico;
 
 	public int getCodigo() {
