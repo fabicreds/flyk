@@ -10,17 +10,22 @@ flyk.config( function($routeProvider) {
         .when("/login",
         {
             templateUrl: "login.html",
-            controller: "flykController"
+            controller: "flykCtrl" // só se for abrir uma pag nova
         })
         .when("/cadastro",
         {
             templateUrl: "cadastro.html",
-            controller: "flykController"
+            controller: "cadastroCtrl"
         })
          .when("/home",
         {
             templateUrl: "home.html",
-            controller: "flykController"
+            controller: "flykCtrl"
+        })
+         .when("/adminPage",
+        {
+            templateUrl: "adminPage.html",
+            controller: "adminPageCtrl"
         })
         .otherwise({
             redirectTo: "/home"
@@ -48,17 +53,10 @@ flyk.config( function($routeProvider) {
     }());
 }); */
  // importar $facebook
-flyk.controller("flykController", function ($scope, $location, $http, $uibModal) {
+flyk.controller("flykCtrl", function ($scope, $location, $http, $uibModal) {
 
-    $scope.teste = 1;
     //$scope.isLoggedIn = false;
-    $scope.states = [
-          "Engineering",
-            "Marketing",
-            "Finance",
-            "Administration"
-
-    ];
+  
    /* $scope.login = function () {
         $facebook.login().then(function () {
             refresh();
@@ -85,22 +83,10 @@ flyk.controller("flykController", function ($scope, $location, $http, $uibModal)
         $location.path('/login');
     };
 
-    $scope.validatePassword = function (form) {
-        
-        if(form.password != form.confirmPassword) 
-        {
-            alert("Please, enter the same password to continue!");
-        }
-    };
+    $scope.showFormAdmin = function()
 
-
-    $scope.pesquisaCep = function(userCEP)
     {
-        console.log(userCEP);
-        $http.get('http://api.postmon.com.br/v1/cep/' + userCEP).success(function (local) {
-            $scope.user.address = local;
-            console.log(local);
-        });
+    	$location.path('/adminPage');
     };
 
     $scope.showLoginModal = function () {

@@ -1,4 +1,4 @@
-Ôªø
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
@@ -13,7 +13,7 @@
                 <input type="text" id="fullName" name="fullName" class="form-control"
                        ng-model="user.fullName" ng-required="true" />
                 <span class="help-block"
-                      ng-if="userForm.fullName.$error.required">O nome √© obrigat√≥rio!</span>
+                      ng-if="userForm.fullName.$error.required">O nome È obrigatÛrio!</span>
             </div>
         </div>
 
@@ -23,7 +23,7 @@
                 <input type="email" id="email" name="email" class="form-control"
                        ng-model="user.email" ng-required="true" />
                 <span class="help-block"
-                      ng-if="userForm.email.$error">Um e-mail inv√°lido foi digitado! </span>
+                      ng-if="userForm.email.$error">Um e-mail inv·lido foi digitado! </span>
             </div>
         </div>
 
@@ -33,7 +33,7 @@
                 <input type="text" id="nickname" name="nickname" class="form-control"
                        ng-model="user.nickname" ng-required="true" />
                 <span class="help-block"
-                      ng-if="userForm.nickname.$error.required">O apelido √© obrigat√≥rio!</span>
+                      ng-if="userForm.nickname.$error.required">O apelido È obrigatÛrio!</span>
             </div>
         </div>
 
@@ -43,15 +43,15 @@
                 <span uib-tooltip="A senha deve conter letra minuscula, maiuscula, numero e caracter especial."
                       uib-tooltip-placement="right"></span>
                 <input type="password" id="password" name="password" class="form-control" ng-model="user.password"
-                 ng-required="true" ng-pattern="/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/" ng- ng-maxlength="10" /> <!--Com o form-control, ele fica responsivel. N√£o use value para inserior o valor digitado. -->
+                 ng-required="true" ng-pattern="/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/" ng- ng-maxlength="10" /> <!--Com o form-control, ele fica responsivel. N„o use value para inserior o valor digitado. -->
                 <span class="help-block"
-                      ng-if="userForm.password.$error.required">A senha √© obrigat√≥ria! </span>
+                      ng-if="userForm.password.$error.required">A senha È obrigatÛria! </span>
                 <span class="help-block"
-                      ng-if="userForm.password.$error.minlength">A senha √© muito curta! </span> <!-- mostra a mensagem at√© antes do usuario digitar. Assim que ele digita, a mensagem desaparece.-->
+                      ng-if="userForm.password.$error.minlength">A senha È muito curta! </span> <!-- mostra a mensagem atÈ antes do usuario digitar. Assim que ele digita, a mensagem desaparece.-->
                 <span class="help-block"
-                      ng-if="userForm.password.$error.maxlength">A senha √© muito longa!</span>
+                      ng-if="userForm.password.$error.maxlength">A senha È muito longa!</span>
                 <span class="help-block"
-                      ng-if="userForm.password.$error.pattern"> A senha n√£o atende aos requisitos!         
+                      ng-if="userForm.password.$error.pattern"> A senha n„o atende aos requisitos!         
                 </span>
             </div>
         </div>
@@ -60,7 +60,7 @@
             <label for="confirmPassword" class="col-sm-3 control-label"> Confirme a senha</label>
             <div class="col-sm-3">
                 <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" ng-model="user.confirmPassword"
-                       ng-required="true" ng-minlength="5" ng-maxlength="10" ng-blur="validatePassword(user)" /> <!--Com o form-control, ele fica responsivel. N√£o use value para inserior o valor digitado. -->
+                       ng-required="true" ng-minlength="5" ng-maxlength="10" ng-blur="validatePassword(user)" /> <!--Com o form-control, ele fica responsivel. N„o use value para inserior o valor digitado. -->
             </div>
         </div>
 
@@ -69,7 +69,7 @@
             <div class="col-sm-3">
                 <input type="text" id="CPF" name="CPF" class="form-control" ng-model="user.CPF" ng-required="true" ui-cpf/>
                 <span class="help-block"
-                      ng-if="userForm.CPF.$error.required">CPF √© obrigat√≥rio!</span>
+                      ng-if="userForm.CPF.$error.required">CPF È obrigatÛrio!</span>
              </div>
         </div>
 
@@ -112,7 +112,7 @@
 
         <div class="form-group" uib-collapse="!user.userTypePrestador">
             <label for="nonCompeteNotes" class="col-sm-4 control-label">
-               Tipo de servi√ßo
+               Tipo de serviÁo
             </label>
             <div class="col-sm-8">
                 <div class="radio">
@@ -131,7 +131,7 @@
         </div>
 
         <div class="form-group" show-errors>
-            <label for="address1" class="col-sm-3 control-label">Endere√ßo</label>
+            <label for="address1" class="col-sm-3 control-label">EndereÁo</label>
             <div class="col-sm-2">
                 <input type="text" id="addressPostalCode" name="addressPostalCode" class="form-control" ng-model="user.address.cep"
                        ng-blur="pesquisaCep(user.address.cep)" placeholder="CEP" /> <!--Popular a partir do banco de dados-->
@@ -145,7 +145,7 @@
                 <input type="text" id="addressStreet" name="addressStreet" class="form-control" ng-model="user.address.logradouro" placeholder="Logradouro" />
             </div>
             <div class="col-sm-1">
-                <input type="text" id="addressNumber" name="addressNumber" class="form-control" ng-model="user.address.numero" placeholder="N¬∫" />
+                <input type="text" id="addressNumber" name="addressNumber" class="form-control" ng-model="user.address.numero" placeholder="N∫" />
             </div>
             <div class="col-sm-2">
                 <input type="text" id="addressComp" name="addressComp" class="form-control" ng-model="user.address.comp" placeholder="Complemento" />
@@ -177,7 +177,7 @@
             <div class="col-sm-3">
             </div>
             <div class="col-sm-3">
-                <label for="info">* Campos obrigat√≥rios</label>
+                <label for="info">* Campos obrigatÛrios</label>
             </div>
         </div>
 
@@ -199,8 +199,5 @@
                ng-click="resetForm()" />
     </div>
 
-    <fieldset>
-        <legend>Created by </legend>
-    </fieldset>
 
 </form>

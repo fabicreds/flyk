@@ -22,15 +22,17 @@
     <title>FLYK ®</title>
     <script src="${pageContext.request.contextPath}/resources/angular/angular.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link href="${pageContext.request.contextPath}/resources/app.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/resources/css/app.css" rel="stylesheet" />
     <script src="${pageContext.request.contextPath}/resources/angular/angular-ui/ui-bootstrap-tpls.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/angular-route.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/angular/app/angularLogin.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/angular/app/ValidationDirective.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/angular/app/uiCPFdirective.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/angular/app/uiDateDirective.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/angular/app/uiTelefoneDirective.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/angular/app/uiCEPDirective.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/app.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/cadastro.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/adminPage.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/directives/ValidationDirective.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiCPFdirective.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiDateDirective.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiTelefoneDirective.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiCEPDirective.js"></script>
   <!--   <script src="//rawgithub.com/GoDisco/ngFacebook/master/ngFacebook.js"></script> --> 
 </head>
 
@@ -38,7 +40,7 @@
     <!-- Responsável por responsible pages-->
     <!--  <employee-form/>  Directive created to this new form.-->
 
-    <nav class="navbar navbar-default" ng-controller="flykController">
+    <nav class="navbar navbar-default" ng-controller="flykCtrl">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button"  class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -74,18 +76,25 @@
                             <span class="glyphicon glyphicon-envelope"></span>
                             <span class="text">CONTATO</span>
                         </a>
+                    </li>
+                    
+                    <li>
+                        <a ng-click="showFormAdmin()">
+                            <span class="glyphicon glyphicon-heart-empty"></span>
+                            <span class="text">ADMIN PAGE</span>
+                        </a>
                     </li>     
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     
                     <li uib-dropdown>
-                        <a id="navLogin" uib-dropdown-toggle ng-disabled="disabled">Login</a>
+                        <a class="link" id="navLogin" uib-dropdown-toggle ng-disabled="disabled">Login</a>
                         <div class="dropdown-menu" style="padding:17px">
                             <ul class="dropdown-menu" uib-dropdown-menu template-url="login.html" aria-labelledby="navLogin"></ul>
                         </div>
                     </li>
 
-                    <li><a ng-click="showFormCadastro()">Crie uma conta</a></li>
+                    <li class="link"><a ng-click="showFormCadastro()">Crie uma conta</a></li>
 
                  
                 </ul>
@@ -95,9 +104,7 @@
     <div ng-view>
         <!--Permite rotear a página-->
     </div>
-    <div class="footer">
         <p>© 2016 FLYK Company</p>
-    </div>
 </body>
 
 

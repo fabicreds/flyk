@@ -1,4 +1,4 @@
-ï»¿<style>
+<style>
     .jumbotron {
         width: 400px;
         margin-top: 50px;
@@ -38,7 +38,7 @@
     
   <!-- <header class="sb-page-header">
         <div class="container">
-            <p>Encontre o serviÃ§o que deseja com facilidade ou divulgue com eficiencia o seu serviÃ§o!</p>
+            <p>Encontre o serviço que deseja com facilidade ou divulgue com eficiencia o seu serviço!</p>
         </div> 
 
     </header> -->
@@ -68,7 +68,7 @@
                         <i class="glyphicon glyphicon-lock"></i>
                     </span>
                     <input type="password" id="password" name="password" class="form-control"
-                           ng-model="user.password" ng-required="true" ng-minlength="5" ng-maxlength="10" /> <!--Com o form-control, ele fica responsivel. NÃ£o use value para inserior o valor digitado. -->
+                           ng-model="user.password" ng-required="true" ng-minlength="5" ng-maxlength="10" /> <!--Com o form-control, ele fica responsivel. Não use value para inserior o valor digitado. -->
                 </div>
                 <span class="help-block"
                       ng-if="userForm.password.$error.required">Para continuar, digite uma senha!</span>
@@ -90,7 +90,7 @@
     <div class="form-group">
         <button class="btn btn-success btn-sm" ng-click="" ng-disabled="usuarioForm.$invalid">Login</button>
         <span class="text-center"> or login with</span>
-        <input type="image" src="/img/facebook.png" height="20" width="20" />
+        <input type="image" src="/images/facebook.png" height="20" width="20" />
         <!--<input type="image" class="btn-block" src="/img/facebook.png" ng-click="login()" ng-hide="isLoggedIn" height="30" width="30" />  ng-click="login()" ng-hide="isLoggedIn"-->
     
     </div>
