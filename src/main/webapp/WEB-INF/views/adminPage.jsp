@@ -95,7 +95,12 @@
               			 
               		 <input type="button" class="btn btn-default" value="Limpar"
               		 	ng-click="reset()" />
+              		 	
+   	           		 	<button class="btn btn-default" ng-bootbox-alert="Alert message!">
+    					Alert
+						</button>
               			 
+              			
               			 
               			 </div>
               		</div>
