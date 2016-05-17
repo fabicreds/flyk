@@ -33,6 +33,7 @@
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiDateDirective.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiTelefoneDirective.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiCEPDirective.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/ngBootbox.js"></script>
   <!--   <script src="//rawgithub.com/GoDisco/ngFacebook/master/ngFacebook.js"></script> --> 
 </head>
 

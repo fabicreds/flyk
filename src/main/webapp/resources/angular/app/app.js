@@ -1,7 +1,7 @@
 ﻿/// <reference path="C:\Users\vntlume\Desktop\FLYK2016\FacebookLogin\FacebookLogin\login.html" />
 /// <reference path="C:\Users\vntlume\Desktop\FLYK2016\FacebookLogin\FacebookLogin\login.html" />
 /// <reference path="C:\Users\vntlume\Desktop\FLYK2016\FacebookLogin\FacebookLogin\login.html" />
-var flyk = angular.module("flyk", ["ui.bootstrap", "ngRoute"]);
+var flyk = angular.module("flyk", ["ui.bootstrap", "ngRoute", "ngBootbox"]);
 
 //importar $facebookProvider, ngFacebook
 flyk.config( function($routeProvider) {
@@ -26,6 +26,11 @@ flyk.config( function($routeProvider) {
         {
             templateUrl: "adminPage.html",
             controller: "adminPageCtrl"
+        })
+         .when("/userPageInfos",
+        {
+            templateUrl: "userPageInfos.html",
+            controller: "userPageInfosCtrl"
         })
         .otherwise({
             redirectTo: "/home"

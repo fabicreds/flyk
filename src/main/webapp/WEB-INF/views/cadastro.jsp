@@ -7,6 +7,14 @@
 
     <fieldset>
         <legend>Cadastro - Novo cliente</legend>
+        <div class="col-sm-3">
+      	  <div class="text-center">
+        	<img src="http://lorempixel.com/200/200/people/9/" class="avatar img-circle img-thumbnail" alt="avatar">
+        	<h6>Upload a different photo...</h6>
+        <input type="file" class="text-center center-block well well-sm">
+      	  </div>
+       </div>
+       <div class="col-sm-9"> 
         <div class="form-group" show-errors>
             <label for="fullName" class="col-sm-3 control-label">Nome</label>
             <div class="col-sm-6">
@@ -181,7 +189,7 @@
             </div>
         </div>
 
-
+ </div>
 
 </fieldset>
    
@@ -190,7 +198,7 @@
 
 
 
-    <div class="col-sm-offset-3 col-sm-9">
+    <div class="col-sm-offset-5 col-sm-7">
         <input type="button" class="btn btn-default" value="Cancel"
                ng-click="cancelForm()" />
         <input type="submit" class="btn btn-primary" value="Submit"
@@ -198,6 +206,5 @@
         <input type="reset" class="btn btn-warning" value="Reset"
                ng-click="resetForm()" />
     </div>
-
 
 </form>

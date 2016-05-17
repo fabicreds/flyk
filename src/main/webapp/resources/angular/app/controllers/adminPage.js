@@ -1,5 +1,5 @@
-flyk.controller("adminPageCtrl", function ($scope, $location, $http, $uibModal) {
-	
+flyk.controller("adminPageCtrl", function ($scope, $location, $http, $uibModal, $ngBootbox) {
+
 	  
 	
 });
