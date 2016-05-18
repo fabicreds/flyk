@@ -9,10 +9,8 @@ public class MongoDB {
 	protected MongoClient mongoClient;
 	protected MongoDatabase db;
 
-	public MongoDB(MongoClient mongoClient, MongoDatabase db) {
+	public MongoDB() {
 		super();
-		this.mongoClient = mongoClient;
-		this.db = db;
 		this.conecta();
 	}
 
