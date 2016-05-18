@@ -16,26 +16,29 @@ public class LoginController {
 	LoginService loginService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String telaPrincipal() {
+
+		return "index";
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String iniciarTelaLogin() {
 
 		return "login";
 	}
+	
+	@RequestMapping(value = "/cadastro")
+	public String iniciarTelaCadastro() {
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String efetuarLogin(@RequestParam String usuario, @RequestParam String senha, ModelMap model) {
-		if (!loginService.validateUser(usuario, senha)) {
-			model.addAttribute("errorMessage", "Usuario ou senha invalidos!");
-			return "login";
-		}
+		return "cadastro";
+	}
+	
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public String telaHome() {
 
-		model.addAttribute("usuario", usuario);
-		return "perfil";
+		return "home";
 	}
 
-	@RequestMapping(value = "/resgatarSenha", method = RequestMethod.POST)
-	public String resgatarSenha(@RequestParam String usuario, ModelMap model) {
-		model.addAttribute("errorMessage", "Resgatar senha!");
-		return "login";
-	}
+
 
 }

@@ -1,68 +1,97 @@
-<html>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<style>
+    .jumbotron {
+        width: 400px;
+        margin-top: 50px;
+        margin-left: auto;
+        margin-right: auto;
+	    text-align: left;
+    }
+    .btn-success
+    {
+        background-color:#008000;
+    }
 
-<!-- Optional theme -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap-theme.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css">
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/images/FLYK.png">
+    .sb-page-header {
+        position: relative;
+        padding: 30px 15px;
+        text-align: center;
+        color: inherit;
+        background-color: #eeeeee;
+        margin-bottom: 40px;
+        font-size: 20px;
+    }
+
+     .sb-page-header p {
+    margin-bottom: 0;
+    line-height: 1.4;
+}
+</style>
+
+
 <head>
-<title>FLYK</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
 </head>
-<header>
-	<div class="container-fluid"
-		style="background-color: #68248a; box-shadow: 0 0 30px black, inset 0 -10px 30px rgba(0, 0, 0, 0.21);">
-		<div class="container">
-			<div class="row" style="padding-top: 10px; padding-bottom: 10px;">
-				<div class="col-lg-1">&nbsp;</div>
-				<div class="col-lg-6" style="color: white">
-					<img src="${pageContext.request.contextPath}/images/FLYK.png"
-						style="width: 44px; height: 50px;"> <img
-						src="${pageContext.request.contextPath}/images/FLYK-TITLE.png"
-						style="width: 62px; height: 30px">
-				</div>
-				<form action="/FLYK-TCC/login" method="POST">
-					<div class="col-lg-5" style="align: right;">
+<body>
 
-						<table class="table-header">
+    
+  <!-- <header class="sb-page-header">
+        <div class="container">
+            <p>Encontre o serviço que deseja com facilidade ou divulgue com eficiencia o seu serviço!</p>
+        </div> 
 
-							<tr style="padding-left: 10px">
-								<td>Login:</td>
-								<td><input type="text" class="input-login" name="usuario"></td>
-								<td>Senha:</td>
-								<td><input type="password" class="input-login" name="senha"></td>
-								<td><button class="btn btn-default">>></button>
-							</tr>
-							<tr>
-								<td colspan="2" />
-								<td colspan="2" style="text-align: right;">
-									<input type="submit" class="link-header" value="Esqueceu a senha?" formaction="/FLYK-TCC/resgatarSenha"/>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="4" style="text-align: right;">
-									<font color="red" style="font-size: 12px;">${errorMessage }</font>
-								</td>
-							</tr>
-						</table>
+    </header> -->
+      
+        <form name="userForm" role="form">
 
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</header>
-<body class="body-login" >
-	<div class="container-fluid"
-		style="background-color: #e6e6e6; box-shadow: 0 0 30px black, inset 0 10px 30px rgba(0, 0, 0, 0.4);height: 100%">
-		<div class="container">
-			teste<br> teste<br> teste<br>
-		</div>
-	</div>
 
+            <div class="form-group" show-errors>
+                <label for="email">Email</label>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-tag"></i>
+                    </span>
+                    <input type="email" id="email" name="email" class="form-control"
+                           ng-model="user.email" ng-required="true" />
+                </div>
+                <span class="help-block"
+                      ng-if="userForm.email.$error.required">Para continuar, digite um e-mail!</span>
+            </div>
+
+
+            <div class="form-group" show-errors>
+                <!--A classe has-error do bootstrap muda de cor todos os elementos do div de acordo com-->
+                <label for="password">Senha</label>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-lock"></i>
+                    </span>
+                    <input type="password" id="password" name="password" class="form-control"
+                           ng-model="user.password" ng-required="true" ng-minlength="5" ng-maxlength="10" /> <!--Com o form-control, ele fica responsivel. Não use value para inserior o valor digitado. -->
+                </div>
+                <span class="help-block"
+                      ng-if="userForm.password.$error.required">Para continuar, digite uma senha!</span>
+            </div>
+
+            <div class="form-group">
+                <label for="info" class="checkbox-inline">
+                    <input type="checkbox" />
+                    Remember me
+                </label>
+                <span class="pull-right">
+                    <a href="#">Forget password?</a>
+                </span>
+            </div>
+
+
+        </form>
+
+    <div class="form-group">
+        <button class="btn btn-success btn-sm" ng-click="" ng-disabled="usuarioForm.$invalid">Login</button>
+        <span class="text-center"> or login with</span>
+        <input type="image" src="/main/webapp/images/facebook.png"" height="20" width="20" />
+        <!--<input type="image" class="btn-block" src="/img/facebook.png" ng-click="login()" ng-hide="isLoggedIn" height="30" width="30" />  ng-click="login()" ng-hide="isLoggedIn"-->
+    
+    </div>
 </body>
-</html>
