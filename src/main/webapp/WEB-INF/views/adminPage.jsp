@@ -60,7 +60,7 @@
 	</div>
 
 	<div class="col-sm-6">
-		<form class="form-horizontal" name="userForm" novalidate role="form">
+		<form class="form-horizontal" name="userForm" novalidate role="form" action="/cadastroAdministrador" method="post">
 			<fieldset>
 				<div  style="background-color:#f8f8f8 ;height:40%; padding:-1%">
 					<legend>Cadastrar administrador</legend>
@@ -90,7 +90,7 @@
 						<div class="col-sm-3 control label">
 						</div>
 						<div class="col-sm-6">
-					  <input type="button" class="btn btn-default" value="Adicionar"
+					  <input type="submit" class="btn btn-default" value="Adicionar"
               			 ng-click="confirm()" style="background-color:#005E2F; color:white" />
               			 
               		 <input type="button" class="btn btn-default" value="Limpar"
