@@ -18,7 +18,7 @@
 						<input type="text" id="serchUser" name="searchUser" class="form-control" />
 						<br/>
 						 <input type="button" class="btn btn-default" value="Pesquisar"
-              		 	ng-click="reset()" style="float:right; background-color:#005E2F; color:white" />
+              		 	ng-click="pesquisar()" style="float:right; background-color:#005E2F; color:white" />
               		 	<br/>
               		 	<br/>
               		 	<p>* Ao inativar um usuário do sistema, você bloquea imediatamente o acesso do mesmo. 
@@ -96,11 +96,7 @@
               		 <input type="button" class="btn btn-default" value="Limpar"
               		 	ng-click="reset()" />
               		 	
-   	           		 	<button class="btn btn-default" ng-bootbox-alert="Alert message!">
-    					Alert
-						</button>
-              			 
-              			
+   	           		 	
               			 
               			 </div>
               		</div>

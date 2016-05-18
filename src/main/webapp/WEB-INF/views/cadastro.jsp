@@ -9,9 +9,11 @@
         <legend>Cadastro - Novo cliente</legend>
         <div class="col-sm-3">
       	  <div class="text-center">
-        	<img src="http://lorempixel.com/200/200/people/9/" class="avatar img-circle img-thumbnail" alt="avatar">
+        	<img ng-repeat="image in dummy.images" ng-src="{{image}}" width="300" class="avatar img-circle img-thumbnail" alt="avatar"/> <br/>
         	<h6>Upload a different photo...</h6>
-        <input type="file" class="text-center center-block well well-sm">
+        	<input type="file" class="text-center center-block well well-sm"  ng-model="dummy.images" accept="image/*" multiple app-filereader>
+    		<button ng-click="dummy.images = null" ng-show="!!dummy.images">Remove {{dummy.images.length}} images</button><br />
+    		{{ dummy }}
       	  </div>
        </div>
        <div class="col-sm-9"> 
@@ -20,6 +22,7 @@
             <div class="col-sm-6">
                 <input type="text" id="fullName" name="fullName" class="form-control"
                        ng-model="user.fullName" ng-required="true" />
+
                 <span class="help-block"
                       ng-if="userForm.fullName.$error.required">O nome é obrigatório!</span>
             </div>

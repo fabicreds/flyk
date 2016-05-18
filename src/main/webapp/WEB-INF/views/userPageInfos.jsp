@@ -1,12 +1,43 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<legend>Pesquisa de usuário</legend>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-xs-10">
+            <div class="well panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 text-center">
+                            <img src="http://api.randomuser.me/portraits/women/21.jpg" alt="" class="center-block img-circle img-thumbnail img-responsive">
+                            <ul class="list-inline ratings text-center" title="Ratings">
+                                <li><span class="glyphicon glyphicon-star"></span></li>
+                                <li><span class="glyphicon glyphicon-star"></span></li>
+                                <li><span class="glyphicon glyphicon-star"></span></li>
+                                <li><span class="glyphicon glyphicon-star"></span></li>
+                                <li><span class="glyphicon glyphicon-star"></span></li>
+                            </ul>
+                        </div>
+                        <!--/col-->
+                        <div class="col-xs-12 col-sm-8">
+                            <h2>Luciana</h2>
+                            <p><strong>Username: </strong> menezessluciana </p>
+                            <p><strong>Email: </strong> menezessluciana@gmail.com </p>
+                            <p><strong>Tipo de cadastro: </strong> Prestador </p>
+                            <p><input type="checkbox" name="inativo" value="inativo" />Inativar usuário </p>         
+                        </div>
+                        <!--/col-->
+                        <div class="clearfix"></div>
+                      
+                        <!--/col-->
+                        <!--/col-->
+                    </div>
+                    <!--/row-->
+                </div>
+                <!--/panel-body-->
+            </div>
+            <!--/panel-->
+        </div>
+        <!--/col-->
+    </div>
+    <!--/row-->
 
-</body>
-</html>
+</div>
+<!--/container-->

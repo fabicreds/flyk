@@ -88,9 +88,9 @@
         </form>
 
     <div class="form-group">
-        <button class="btn btn-success btn-sm" ng-click="" ng-disabled="usuarioForm.$invalid">Login</button>
+        <button class="btn btn-success btn-md" ng-click="" ng-disabled="usuarioForm.$invalid" style="background-color:#005E2F; color:white">Login</button>
         <span class="text-center"> or login with</span>
-        <input type="image" src="/images/facebook.png" height="20" width="20" />
+        <input type="image" src="images/facebook.png" height="20" width="20" />
         <!--<input type="image" class="btn-block" src="/img/facebook.png" ng-click="login()" ng-hide="isLoggedIn" height="30" width="30" />  ng-click="login()" ng-hide="isLoggedIn"-->
     
     </div>

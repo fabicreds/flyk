@@ -21,12 +21,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>FLYK ®</title>
     <script src="${pageContext.request.contextPath}/resources/angular/angular.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link href="${pageContext.request.contextPath}/resources/css/app.css" rel="stylesheet" />
     <script src="${pageContext.request.contextPath}/resources/angular/angular-ui/ui-bootstrap-tpls.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/angular-route.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/ngBootbox.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/app.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/modal/modalConfirm.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/cadastro.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/adminPage.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/ValidationDirective.js"></script>
@@ -34,8 +34,10 @@
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiDateDirective.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiTelefoneDirective.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiCEPDirective.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/directives/fileReaderDirective.js"></script>
   <!--   <script src="//rawgithub.com/GoDisco/ngFacebook/master/ngFacebook.js"></script> --> 
 </head>
+
 
 <body class="container">
     <!-- Responsável por responsible pages-->
@@ -50,7 +52,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">FLYK</a>
+                <a class="navbar-brand">
+                	<img src="images/flyklogo.png" style="height:30px; width:30px" />
+                </a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -110,3 +114,6 @@
 
 
 </html>
+
+
+

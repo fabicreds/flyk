@@ -1,11 +1,12 @@
 ﻿/// <reference path="C:\Users\vntlume\Desktop\FLYK2016\FacebookLogin\FacebookLogin\login.html" />
 /// <reference path="C:\Users\vntlume\Desktop\FLYK2016\FacebookLogin\FacebookLogin\login.html" />
 /// <reference path="C:\Users\vntlume\Desktop\FLYK2016\FacebookLogin\FacebookLogin\login.html" />
-var flyk = angular.module("flyk", ["ui.bootstrap", "ngRoute", "ngBootbox"]);
+var flyk = angular.module("flyk", ["ui.bootstrap", "ngRoute"]);
 
 //importar $facebookProvider, ngFacebook
 flyk.config( function($routeProvider) {
     // $facebookProvider.setAppId('219775141733399');
+	
     $routeProvider
         .when("/login",
         {
@@ -99,7 +100,7 @@ flyk.controller("flykCtrl", function ($scope, $location, $http, $uibModal) {
 
         $uibModal.open({
             templateUrl: "login.html",
-            controller: "flykController"
+            controller: "flykCtrl"
         });
     }
 });
