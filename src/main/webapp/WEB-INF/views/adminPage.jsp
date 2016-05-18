@@ -60,7 +60,7 @@
 	</div>
 
 	<div class="col-sm-6">
-		<form class="form-horizontal" name="userForm" novalidate role="form" action="/cadastroAdministrador" method="post">
+		<form class="form-horizontal" name="userForm" novalidate role="form" ng-submit="sendPostAdm()">
 			<fieldset>
 				<div  style="background-color:#f8f8f8 ;height:40%; padding:-1%">
 					<legend>Cadastrar administrador</legend>
@@ -68,21 +68,21 @@
 					 <div class="form-group">
             			<label for="name" class="col-sm-3 control-label">Nome</label>
             				<div class="col-sm-6">
-                				<input type="text" id="name" name="name" class="form-control" ng-model="adm.name"/>
+                				<input type="text" id="name" name="name" class="form-control" ng-model="admname"/>
                            </div>
                     </div>
                     
                      <div class="form-group">
             			<label for="name" class="col-sm-3 control-label">Usuario</label>
             				<div class="col-sm-6">
-                				<input type="text" id="username" name="username" class="form-control" ng-model="adm.username"/>
+                				<input type="text" id="username" name="username" class="form-control" ng-model="admusername"/>
                            </div>
                     </div>
                     
                     <div class="form-group">
             			<label for="name" class="col-sm-3 control-label">Senha</label>
             				<div class="col-sm-6">
-                				<input type="password" id="password" name="password" class="form-control" ng-model="adm.password"/>
+                				<input type="password" id="password" name="password" class="form-control" ng-model="admpassword"/>
                            </div>
                     </div>
 				
@@ -91,7 +91,7 @@
 						</div>
 						<div class="col-sm-6">
 					  <input type="submit" class="btn btn-default" value="Adicionar"
-              			 ng-click="confirm()" style="background-color:#005E2F; color:white" />
+              			 style="background-color:#005E2F; color:white" />
               			 
               		 <input type="button" class="btn btn-default" value="Limpar"
               		 	ng-click="reset()" />
