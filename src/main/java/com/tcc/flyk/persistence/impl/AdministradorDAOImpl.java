@@ -6,16 +6,14 @@ import java.util.Locale;
 
 import org.bson.Document;
 
-import com.mongodb.MongoClient;
-import com.mongodb.client.MongoDatabase;
 import com.tcc.flyk.entity.Administrador;
 import com.tcc.flyk.persistence.AdministradorDAO;
 import com.tcc.flyk.persistence.MongoDB;
 
 public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 
-	public AdministradorDAOImpl(MongoClient mongoClient, MongoDatabase db) {
-		super(mongoClient, db);
+	public AdministradorDAOImpl() {
+		super();
 	}
 
 	@Override
@@ -24,11 +22,11 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 			DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
 			super.db.getCollection("administrador").insertOne(
 			                new Document()
-			                        .append("nome", "ruaruaruaruaruarua")
-			                        .append("usuario", "10075")
-			                        .append("senha", "1480")
-			                        .append("ativo", true)
-			                        .append("data", format.parse("2014-10-01T00:00:00Z")));
+			                        .append("nome", adm.getNome())
+			                        .append("usuario", adm.getUsuario())
+			                        .append("senha", adm.getSenha())
+			                        .append("ativo", adm.isAtivo())
+			                        .append("data", format.parse(adm.getDataCadastro().toString())));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
