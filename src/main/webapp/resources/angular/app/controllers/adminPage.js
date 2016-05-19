@@ -15,13 +15,14 @@ flyk.controller("adminPageCtrl", function ($scope, $location, $http, $uibModal) 
 		
 	$scope.sendPostAdm = function()
 	{
+		
 		 $http({
 	            url : 'cadastroAdministrador',
 	            method : "POST",
 	            data : {
-	                'name' : $scope.admname,
-	                'user' : $scope.admuser,
-	                'password': $scope.admpassword
+	                'nome' : $scope.admname,
+	                'usuario' : $scope.admusername,
+	                'senha': $scope.admpassword
 	            }
 	        }).then(function(response) {
 	            console.log(response.data);
