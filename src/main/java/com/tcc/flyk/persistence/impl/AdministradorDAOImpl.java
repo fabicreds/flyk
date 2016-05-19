@@ -21,14 +21,14 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 	@Override
 	public void inserirNovoAdmisnistrador(Administrador adm) {
 		try {
-			DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
+//			DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
 			super.db.getCollection("administrador").insertOne(
 			                new Document()
 			                        .append("nome", adm.getNome())
 			                        .append("usuario", adm.getUsuario())
 			                        .append("senha", adm.getSenha())
 			                        .append("ativo", adm.isAtivo())
-			                        .append("data", format.parse(adm.getDataCadastro().toString())));
+			                        .append("data", adm.getDataCadastro()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
