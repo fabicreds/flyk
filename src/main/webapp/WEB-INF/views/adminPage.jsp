@@ -7,18 +7,20 @@
 
 <div class="row">
 	<div class="col-sm-6">
-		<form>
+		<form class="form-horizontal" name="inactivateForm" novalidate role="form" ng-submit="pesquisar()" >
 			<div class="form-group">
 			<fieldset>
 				<div  style="background-color:#f8f8f8 ;height:40%; padding:-1%">
 					<legend> Inativar Usuario</legend>
 					<div class="col-sm-9">
+					
 					<label for=lblsearchUser>Digite o nome/email que deseja:</label>
 					
-						<input type="text" id="serchUser" name="searchUser" class="form-control" />
+						<input type="text" id="serchUser" name="searchUser" class="form-control" ng-model="usuarioBusca"/>
 						<br/>
-						 <input type="button" class="btn btn-default" value="Pesquisar"
-              		 	ng-click="pesquisar()" style="float:right; background-color:#005E2F; color:white" />
+						<input type="checkbox" name="administrador" value="administrador" ng-model="checkAdministrador"/> Usuário Administrador
+						<br>
+						 <input type="submit" class="btn btn-default" value="Pesquisar" style="float:right; background-color:#005E2F; color:white" />
               		 	<br/>
               		 	<br/>
               		 	<p>* Ao inativar um usuário do sistema, você bloquea imediatamente o acesso do mesmo. 

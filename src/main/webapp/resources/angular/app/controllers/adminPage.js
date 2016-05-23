@@ -10,7 +10,21 @@ flyk.controller("adminPageCtrl", function ($scope, $location, $http, $uibModal) 
 	 
 	 $scope.pesquisar = function()
 		{
-			   $location.path('/userPageInfos');
+			   $http({
+		            url : 'buscarUsuarios',
+		            method : "POST",
+		            data : {
+		                'usuarioBusca' : $scope.usuarioBusca,
+		                'checkAdministrador' : $scope.checkAdministrador
+		                }
+		        }).then(function(response) {
+		            console.log(response.data);
+		            $scope.message = response.data;
+		        }, function(response) {
+		            //fail case
+		            console.log(response);
+		            $scope.message = response;
+		        });
 		}
 		
 	$scope.sendPostAdm = function()
