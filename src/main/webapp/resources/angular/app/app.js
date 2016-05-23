@@ -33,6 +33,7 @@ flyk.config( function($routeProvider) {
             templateUrl: "userPageInfos.html",
             controller: "userPageInfosCtrl"
         })
+       
         .otherwise({
             redirectTo: "/home"
         });

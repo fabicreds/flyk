@@ -8,40 +8,31 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
-
-<!-- Optional theme -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap-theme.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css">
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/images/FLYK.png">
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.3.min.js"></script>
-	        <script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
-    
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href="${pageContext.request.contextPath}/resources/css/app.css" rel="stylesheet" />
+    <script src="${pageContext.request.contextPath}/resources/angular/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/angular-route.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/app.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/modal/modalConfirm.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/cadastro.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/adminPage.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/directives/ValidationDirective.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiCPFdirective.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiDateDirective.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiTelefoneDirective.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiCEPDirective.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/directives/fileReaderDirective.js"></script>
+  
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Cadastrar promoção</title>
 </head>
 <body>
 
-	<form role="form" class="form-vertical" action="/FLYK-TCC/promocao"	method="POST">
-
-
+	<form:form  modelAttribute="formPromocao" class="form-vertical" action="/FLYK-TCC/promocao"	 method="POST">
 		<div class="form-group">
-
 			<label class="control-label">Nome da promoção:</label> 
 			<input type="text" name="nome" class="form-control">
-		</div>
-		<div class="form-group">
-			<label class="control-label">Valor normal: <input
-				type="text" name="valorNormal" class="form-control">
-			
-			</label>
 		</div>
 
 		<div class="form-group">
@@ -74,11 +65,11 @@
 						<br>
 						<button type="submit" class="btn btn-primary">Salvar</button>
 				</div>
-	</form>
+	</form:form>
 	
 	
 	
-
+	${formPromocao.descricao}
 	</div>
 </body>
 </html>

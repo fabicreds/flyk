@@ -1,4 +1,5 @@
 flyk.controller("adminPageCtrl", function ($scope, $location, $http, $uibModal) {
+	 
 	
 	 $scope.confirm = function () {
 	     
@@ -46,6 +47,31 @@ flyk.controller("adminPageCtrl", function ($scope, $location, $http, $uibModal) 
 	            console.log(response);
 	            $scope.message = response;
 	        });
+		
+	};
+	
+	$scope.sendPostProm = function()
+	{
+		
+		$http({
+            url : 'cadastroPromocao',
+            method : "POST",
+            data : {
+                'nomeprom' : $scope.promnome,
+                'descrprom' : $scope.promdescricao,
+                'datavalidade' : $scope.dataVal,
+                'valorpromocional' : $scope.valorprom
+                
+            }
+        }).then(function(response) {
+            console.log(response.data);
+            $scope.message = response.data;
+        }, function(response) {
+            //fail case
+            console.log(response);
+            $scope.message = response;
+        });
+		
 		
 	};
 });

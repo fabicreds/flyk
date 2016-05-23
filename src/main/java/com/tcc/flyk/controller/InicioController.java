@@ -24,6 +24,7 @@ public class InicioController {
 
 		return "login";
 	}
+
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String telaHome() {
