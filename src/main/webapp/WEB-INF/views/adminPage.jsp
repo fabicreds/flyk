@@ -40,14 +40,13 @@
 				<div  style="background-color:#f8f8f8 ;height:40%; padding:-1%">
 					<legend> Administrar promoções</legend>
 		
-			<div class="form-group" show-errors>
+			<div class="form-group" >
 				<label for="nomepromocao" class="col-sm-3 control-label">Nome da promoçao</label>
 				<div class="col-sm-6">                
-						   <input type="text" name="nomeprom" class="form-control"  ng-model="promnome"  ng-required="true">
-					<span class="help-block"
-						  ng-if="userForm.fullName.$error.required">O nome é obrigatório!</span>
+						   <input type="text" name="nomeprom" class="form-control"  ng-model="promnome" >
+					
 				</div>
-			</div>
+				</div>
 		
 			<div class="form-group">
 				<label for="descricao" class="col-sm-3 control-label">Descrição da promoção</label>
@@ -57,7 +56,7 @@
 				</div>
 			</div>
 					
-			<div class="form-group" show-errors>
+			<div class="form-group">
 			
 				<label for="categoria" class="col-sm-3 control-label">Categoria do serviço</label>
 				<div class="col-sm-3">                
@@ -66,19 +65,17 @@
 						<option value="${categList}">${categList}</option>
 					</c:forEach>
 					</select>
-					<span class="help-block"
-						  ng-if="userForm.fullName.$error.required">O nome é obrigatório!</span>
+					
 				</div>
 				
 				<label for="dataval" class="col-sm-3 control-label">Data de validade</label>
 					<div class="col-sm-3">                
 						<input type="text" name="datavalidade" ng-model="dataVal"class="form-control">
-						<span class="help-block"
-                      ng-if="userForm.fullName.$error.required">O nome é obrigatório!</span>
+						
 					</div>
 			</div>	
 		  	
-			<div class="form-group" show-errors>
+			<div class="form-group">
 				<label for="valorprom" class="col-sm-3 control-label">Valor promocional</label>
 				<div class="col-sm-6">                
 					<div class="input-group">
@@ -87,8 +84,7 @@
 									placeholder="Valor promocional">
 								<div class="input-group-addon">.00</div>
 							</div>
-					<span class="help-block"
-						  ng-if="userForm.fullName.$error.required">O nome é obrigatório!</span>
+					
 				</div>
 					
 			<input type="submit" class="btn btn-default" value="Adicionar" style="background-color:#005E2F; color:white" />
