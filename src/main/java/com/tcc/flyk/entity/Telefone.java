@@ -5,7 +5,6 @@ import com.tcc.flyk.entity.enumerator.OperadoraEnum;
 
 public class Telefone {
 
-	private int pais;
 	
 	private int ddd;
 	
@@ -15,13 +14,6 @@ public class Telefone {
 	
 	private OperadoraEnum operadora;
 
-	public int getPais() {
-		return pais;
-	}
-
-	public void setPais(int pais) {
-		this.pais = pais;
-	}
 
 	public int getDdd() {
 		return ddd;

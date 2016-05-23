@@ -1,15 +1,21 @@
 package com.tcc.flyk.entity;
 
+import com.tcc.flyk.entity.enumerator.CategoriaServicoEnum;
+
 public class Contrato {
 	
 	private Cliente cliente;
 	
 	private Prestador prestador;
 	
-	private Servico servico;
+	private CategoriaServicoEnum servico;
 	
 	private AvaliacaoPrestador avaliacaoPrestador;
 	
+	private int avaliacaoContratante;
+	
+	private Long custo;
+
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -26,11 +32,11 @@ public class Contrato {
 		this.prestador = prestador;
 	}
 
-	public Servico getServico() {
+	public CategoriaServicoEnum getServico() {
 		return servico;
 	}
 
-	public void setServico(Servico servico) {
+	public void setServico(CategoriaServicoEnum servico) {
 		this.servico = servico;
 	}
 
@@ -42,14 +48,22 @@ public class Contrato {
 		this.avaliacaoPrestador = avaliacaoPrestador;
 	}
 
-	public AvaliacaoContratante getAvaliacaoContratante() {
+	public int getAvaliacaoContratante() {
 		return avaliacaoContratante;
 	}
 
-	public void setAvaliacaoContratante(AvaliacaoContratante avaliacaoContratante) {
+	public void setAvaliacaoContratante(int avaliacaoContratante) {
 		this.avaliacaoContratante = avaliacaoContratante;
 	}
 
-	private AvaliacaoContratante avaliacaoContratante;
+	public Long getCusto() {
+		return custo;
+	}
+
+	public void setCusto(Long custo) {
+		this.custo = custo;
+	}
+	
+	
 
 }

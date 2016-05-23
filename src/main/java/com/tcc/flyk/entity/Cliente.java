@@ -3,17 +3,26 @@ package com.tcc.flyk.entity;
 import java.util.Date;
 import java.util.List;
 
+import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
+
 public class Cliente {
 
-	private int codigo;
+	//identificador gerado no banco
+	private String id;
 	
 	private String nome;
+	
+	//nome que irá aparecer no perfil do usuario
+	private String alias;
 	
 	private String email;
 	
 	private String senha;
 	
-	private int facebookIb;
+	//identificador de autenticação com o facebook
+	private String facebookID;
+	
+	private String fotoPerfil;
 	
 	private String CPF;
 	
@@ -29,18 +38,22 @@ public class Cliente {
 	
 	private String status;
 	
-	private List<Indicacao> listaIndicacoes;
-	
 	private List<Amizade> listaAmigos;
 	
 	private Privacidade privacidade;
 	
-	public int getCodigo() {
-		return codigo;
+	private TipoCadastroEnum tipoCadastro;
+	
+	private Prestador prestador;
+	
+	private List<Cliente> listaPrestadoresRecomendados;
+
+	public String getId() {
+		return id;
 	}
 
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -49,6 +62,14 @@ public class Cliente {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 
 	public String getEmail() {
@@ -67,12 +88,20 @@ public class Cliente {
 		this.senha = senha;
 	}
 
-	public int getFacebookIb() {
-		return facebookIb;
+	public String getFacebookID() {
+		return facebookID;
 	}
 
-	public void setFacebookIb(int facebookIb) {
-		this.facebookIb = facebookIb;
+	public void setFacebookID(String facebookID) {
+		this.facebookID = facebookID;
+	}
+
+	public String getFotoPerfil() {
+		return fotoPerfil;
+	}
+
+	public void setFotoPerfil(String fotoPerfil) {
+		this.fotoPerfil = fotoPerfil;
 	}
 
 	public String getCPF() {
@@ -131,14 +160,6 @@ public class Cliente {
 		this.status = status;
 	}
 
-	public List<Indicacao> getListaIndicacoes() {
-		return listaIndicacoes;
-	}
-
-	public void setListaIndicacoes(List<Indicacao> listaIndicacoes) {
-		this.listaIndicacoes = listaIndicacoes;
-	}
-
 	public List<Amizade> getListaAmigos() {
 		return listaAmigos;
 	}
@@ -155,6 +176,28 @@ public class Cliente {
 		this.privacidade = privacidade;
 	}
 
-	
+	public TipoCadastroEnum getTipoCadastro() {
+		return tipoCadastro;
+	}
+
+	public void setTipoCadastro(TipoCadastroEnum tipoCadastro) {
+		this.tipoCadastro = tipoCadastro;
+	}
+
+	public Prestador getPrestador() {
+		return prestador;
+	}
+
+	public void setPrestador(Prestador prestador) {
+		this.prestador = prestador;
+	}
+
+	public List<Cliente> getListaPrestadoresRecomendados() {
+		return listaPrestadoresRecomendados;
+	}
+
+	public void setListaPrestadoresRecomendados(List<Cliente> listaPrestadoresRecomendados) {
+		this.listaPrestadoresRecomendados = listaPrestadoresRecomendados;
+	}
 	
 }

@@ -2,6 +2,8 @@ package com.tcc.flyk.entity;
 
 import java.util.Date;
 
+import com.tcc.flyk.entity.enumerator.StatusCompromissoEnum;
+
 public class Compromisso {
 	
 	private Date dataInclusao;
@@ -14,6 +16,8 @@ public class Compromisso {
 	private Date dataInicio;
 	
 	private Date dataFim;
+	
+	private StatusCompromissoEnum status;
 
 	public Date getDataInclusao() {
 		return dataInclusao;
@@ -53,6 +57,14 @@ public class Compromisso {
 
 	public void setDataFim(Date dataFim) {
 		this.dataFim = dataFim;
+	}
+
+	public StatusCompromissoEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusCompromissoEnum status) {
+		this.status = status;
 	}
 
 }
