@@ -31,7 +31,7 @@ flyk.config( function($routeProvider) {
          .when("/userPageInfos",
         {
             templateUrl: "userPageInfos.html",
-            controller: "adminPageCtrl"
+            controller: "userPageInfosCtrl"
         })
        
         .otherwise({
@@ -104,4 +104,28 @@ flyk.controller("flykCtrl", function ($scope, $location, $http, $uibModal) {
             controller: "flykCtrl"
         });
     }
+    
+    $scope.sendPostLogin = function ()
+    {
+    	/*
+
+		 $http({
+	            url : 'validarLogin',
+	            method : "POST",
+	            data : {
+	                'email' : $scope.useremail,
+	                'senha' : $scope.userpassword
+	            
+	            }
+	        }).then(function(response) {
+	            console.log(response.data);
+	            $scope.message = response.data;
+	        }, function(response) {
+	            //fail case
+	            console.log(response);
+	            $scope.message = response;
+	        }); */
+    	
+    }
+    
 });

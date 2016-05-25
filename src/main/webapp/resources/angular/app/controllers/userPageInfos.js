@@ -1,4 +1,4 @@
-flyk.controller("userPageInfosCtrl", function ($scope, $location, $http) {
+flyk.controller("userPageInfosCtrl", function ($scope, $rootScope, $location, $http) {
 	
 	$scope.pesquisar = function()
 	{

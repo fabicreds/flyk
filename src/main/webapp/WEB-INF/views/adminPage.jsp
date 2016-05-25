@@ -7,7 +7,7 @@
 
 <div class="row">
 	<div class="col-sm-6">
-		<form class="form-horizontal" name="inactivateForm" novalidate role="form" ng-submit="pesquisar()" >
+		<form class="form-horizontal" name="inactivateForm" novalidate role="form" ng-submit="pesquisar()" ng-controller="adminPageCtrl">
 			<div class="form-group">
 			<fieldset>
 				<div  style="background-color:#f8f8f8 ;height:40%; padding:-1%">

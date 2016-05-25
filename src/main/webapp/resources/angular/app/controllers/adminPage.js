@@ -1,6 +1,8 @@
 flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, $uibModal) {
-	$rootScope.user = 'Teste';
-	$rootScope.data = [];
+
+
+	$rootScope.data=[];
+	
 	$scope.confirm = function() {
 
 		$uibModal.open({
@@ -18,8 +20,9 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 				'checkAdministrador' : $scope.checkAdministrador
 			}
 		}).then(function(response) {
+			delete $rootScope.data;
+			$rootScope.data=[];
 			$rootScope.data = response.data;
-			$rootScope.user = 'Teste 2';
 			$location.path('/userPageInfos');
 		}, function(response) {
 		});
