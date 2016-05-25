@@ -31,7 +31,7 @@ flyk.config( function($routeProvider) {
          .when("/userPageInfos",
         {
             templateUrl: "userPageInfos.html",
-            controller: "userPageInfosCtrl"
+            controller: "adminPageCtrl"
         })
        
         .otherwise({

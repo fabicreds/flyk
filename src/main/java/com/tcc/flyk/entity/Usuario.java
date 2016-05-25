@@ -1,5 +1,7 @@
 package com.tcc.flyk.entity;
 
+import org.json.JSONObject;
+
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 
 public class Usuario {
@@ -43,7 +45,21 @@ public class Usuario {
 	public void setTipoCadastro(TipoCadastroEnum tipoCadastro) {
 		this.tipoCadastro = tipoCadastro;
 	}
+
+	@Override
+	public String toString() {
+		return "[nome=" + nome + ", usuario=" + usuario + ", email=" + email + ", tipoCadastro=" + tipoCadastro
+				+ "]";
+	}
 	
+	public JSONObject toJSON(){
+		JSONObject jObjt = new JSONObject();
+		jObjt.put("nome", nome);
+		jObjt.put("usuario", usuario);
+		jObjt.put("email", email);
+		jObjt.put("tipoCadastro", tipoCadastro);
+		return jObjt;
+	}
 	
 
 }

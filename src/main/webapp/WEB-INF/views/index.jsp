@@ -30,6 +30,7 @@
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/modal/modalConfirm.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/cadastro.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/adminPage.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/userPageInfos.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/ValidationDirective.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiCPFdirective.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiDateDirective.js"></script>
