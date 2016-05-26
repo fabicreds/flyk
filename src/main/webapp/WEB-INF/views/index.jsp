@@ -37,6 +37,7 @@
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiTelefoneDirective.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiCEPDirective.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/fileReaderDirective.js"></script>
+
   <!--   <script src="//rawgithub.com/GoDisco/ngFacebook/master/ngFacebook.js"></script> --> 
 </head>
 
@@ -94,12 +95,8 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     
-                    <li uib-dropdown>
-                        <a class="link" id="navLogin" uib-dropdown-toggle ng-disabled="disabled">Login</a>
-                        <div class="dropdown-menu" style="padding:17px">
-                            <ul class="dropdown-menu" uib-dropdown-menu template-url="login.html" aria-labelledby="navLogin"></ul>
-                        </div>
-                    </li>
+                    <li class="link"><a ng-click="showLoginModal()">Login</a></li>
+                    
 
                     <li class="link"><a ng-click="showFormCadastro()">Crie uma conta</a></li>
 
@@ -110,8 +107,14 @@
     </nav>
     <div ng-view>
         <!--Permite rotear a página-->
+      
     </div>
-        <p>© 2016 FLYK Company</p>
+   
+    <footer class="footer">
+      		<div class="container">
+  			 © 2016 FLYK Company
+    	  </div>
+    </footer>
 </body>
 
 

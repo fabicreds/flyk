@@ -5,15 +5,12 @@
            <h4>Adicionando um novo administrador</h4>
        </div>
         <div class="modal-body" style="padding-bottom:50px">
-       
-            Ao adicionar um novo administrador, ele terá acesso á todas as ferramentas administrativas
+       			Administrador adicionado com sucesso!
             <br/>
 
             <div style="float:right">
-                <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
-                <button type="button" class="btn btn-primaty" style="background-color:#005E2F; color:white">Confirmar</button>
+                <button type="button" class="btn btn-default" ng-click="cancel()">Fechar</button>
             </div>
         </div>
-     
     </div>
 </div>

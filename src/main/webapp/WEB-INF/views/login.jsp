@@ -34,7 +34,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 </head>
-<body>
 
     
   <!-- <header class="sb-page-header">
@@ -43,8 +42,10 @@
         </div> 
 
     </header> -->
-      
-        <form name="userForm" role="form">
+     <div class="col-sm-10">
+    	<div class="modal-content">
+       		<div class="modal-header">
+        		<form name="userForm" ng-submit="sendPostLogin()">
 
 
             <div class="form-group" show-errors>
@@ -54,7 +55,7 @@
                         <i class="glyphicon glyphicon-tag"></i>
                     </span>
                     <input type="email" id="email" name="email" class="form-control"
-                           ng-model="user.email" ng-required="true" />
+                           ng-model="useremail" ng-required="true" />
                 </div>
                 <span class="help-block"
                       ng-if="userForm.email.$error.required">Para continuar, digite um e-mail!</span>
@@ -69,7 +70,7 @@
                         <i class="glyphicon glyphicon-lock"></i>
                     </span>
                     <input type="password" id="password" name="password" class="form-control"
-                           ng-model="user.password" ng-required="true" ng-minlength="5" ng-maxlength="10" /> <!--Com o form-control, ele fica responsivel. Não use value para inserior o valor digitado. -->
+                           ng-model="userpassword" ng-required="true" ng-minlength="5" ng-maxlength="10" /> <!--Com o form-control, ele fica responsivel. Não use value para inserior o valor digitado. -->
                 </div>
                 <span class="help-block"
                       ng-if="userForm.password.$error.required">Para continuar, digite uma senha!</span>
@@ -78,10 +79,10 @@
             <div class="form-group">
                 <label for="info" class="checkbox-inline">
                     <input type="checkbox" />
-                    Remember me
+                    Lembre-me
                 </label>
                 <span class="pull-right">
-                    <a href="#">Forget password?</a>
+                    <a href="#">Esqueceu a senha?</a>
                 </span>
             </div>
 
@@ -89,10 +90,12 @@
         </form>
 
     <div class="form-group">
-        <button class="btn btn-success btn-md" ng-click="" ng-disabled="usuarioForm.$invalid" style="background-color:#005E2F; color:white">Login</button>
-        <span class="text-center"> or login with</span>
-        <input type="image" src="images/facebook.png" height="20" width="20" />
+        <button class="btn btn-success-outline btn-md" ng-click="" ng-disabled="usuarioForm.$invalid" style="background-color:#005E2F; color:white; align:center">Login</button>
+        <br/><br/>
+        <input type="image" src="images/login.png" height="40" width="250" />
         <!--<input type="image" class="btn-block" src="/img/facebook.png" ng-click="login()" ng-hide="isLoggedIn" height="30" width="30" />  ng-click="login()" ng-hide="isLoggedIn"-->
     
     </div>
-</body>
+</div>
+</div>
+</div>

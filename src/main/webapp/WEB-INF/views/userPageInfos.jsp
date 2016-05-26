@@ -5,7 +5,11 @@
             <div class="well panel panel-default">
                 <div class="panel-body">
                     <div class="row" ng-repeat="usuario in data">
-                        
+                     <div class="col-md-4 col-sm-6 col-xs-12">
+      						<div class="text-center">
+        						<img src="images/admicon.jpg" class="avatar img-circle img-thumbnail" alt="avatar" style="height: 150px; width: 150px;">
+    					  </div>
+    				</div>
                         <!--/col-->
                         <div class="col-xs-12 col-sm-8">
                             <h2>{{usuario.nome}}</h2>
@@ -20,16 +24,20 @@
                         <!--/col-->
                         <!--/col-->
                     </div>
-                    <br/>
+                  
                     <!--/row-->
                 </div>
+                
                 <!--/panel-body-->
             </div>
+             <input type="submit" class="btn btn-default" value="Concluir" style="float:right; background-color:#005E2F; color:white" />
             <!--/panel-->
         </div>
         <!--/col-->
+       
     </div>
+    
     <!--/row-->
-	<br/>
+	
 </div>
 <!--/container-->

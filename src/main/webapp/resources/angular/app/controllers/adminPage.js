@@ -1,7 +1,6 @@
 flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, $uibModal) {
 
 
-	$rootScope.data=[];
 	
 	$scope.confirm = function() {
 
@@ -20,16 +19,19 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 				'checkAdministrador' : $scope.checkAdministrador
 			}
 		}).then(function(response) {
-			delete $rootScope.data;
 			$rootScope.data=[];
 			$rootScope.data = response.data;
 			$location.path('/userPageInfos');
-		}, function(response) {
 		});
 	}
 
 	$scope.sendPostAdm = function() {
 
+		$uibModal.open({
+			templateUrl : "modalConfirm.html",
+			controller : "modalConfirmCtrl"
+		});
+		
 		$http({
 			url : 'cadastroAdministrador',
 			method : "POST",
@@ -46,6 +48,15 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 			console.log(response);
 			$scope.message = response;
 		});
-
+		
+		
 	};
+	
+	$scope.reset = function()
+	{
+		 $scope.admname="";
+		 $scope.admusername="";
+		 $scope.admpassword="";
+	}
+	
 });

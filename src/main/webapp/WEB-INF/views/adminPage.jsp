@@ -10,7 +10,7 @@
 		<form class="form-horizontal" name="inactivateForm" novalidate role="form" ng-submit="pesquisar()" ng-controller="adminPageCtrl">
 			<div class="form-group">
 			<fieldset>
-				<div  style="background-color:#f8f8f8 ;height:40%; padding:-1%">
+				<div  style="background-color:#f8f8f8 ;height:50%; padding:-1%">
 					<legend> Inativar Usuario</legend>
 					<div class="col-sm-9">
 					
@@ -20,7 +20,7 @@
 						<br/>
 						<input type="checkbox" name="administrador" value="administrador" ng-model="checkAdministrador"/> Usuário Administrador
 						<br>
-						 <input type="submit" class="btn btn-default" value="Pesquisar" style="float:right; background-color:#005E2F; color:white" />
+						 <input type="submit" class="btn btn-default" value="Pesquisar" style="float:right; background-color:#005E2F; color:white" ng-disabled="inactivateForm.$invalid"/>
               		 	<br/>
               		 	<br/>
               		 	<p>* Ao inativar um usuário do sistema, você bloquea imediatamente o acesso do mesmo. 
@@ -35,9 +35,9 @@
 
 	<div class="col-sm-6">
 			
-		<form class="form-horizontal" name="promform" novalidate role="form"  ng-submit="sendPostProm()">
+		<form class="form-horizontal" name="promForm" novalidate role="form"  ng-submit="sendPostProm()">
 		<fieldset>
-				<div  style="background-color:#f8f8f8 ;height:40%; padding:-1%">
+				<div  style="background-color:#f8f8f8 ;height:50%; padding:-1%">
 					<legend> Administrar promoções</legend>
 		
 			<div class="form-group" >
@@ -87,7 +87,7 @@
 					
 				</div>
 					
-			<input type="submit" class="btn btn-default" value="Adicionar" style="background-color:#005E2F; color:white" />
+			<input type="submit" class="btn btn-default" value="Adicionar" style="background-color:#005E2F; color:white" ng-disabled="promForm.$invalid"/>
 				
 			
 			</div>		
@@ -112,7 +112,7 @@
 	<div class="col-sm-6">
 		<form>
 			<fieldset>
-				<div  style="background-color:#f8f8f8 ;height:40%; padding:-1%">
+				<div  style="background-color:#f8f8f8 ;height:50%; padding:-1%">
 					<legend> Analisar rendimentos</legend>
 				</div>
 			</fieldset>
@@ -120,29 +120,35 @@
 	</div>
 
 	<div class="col-sm-6">
-		<form class="form-horizontal" name="userForm" novalidate role="form" ng-submit="sendPostAdm()">
+		<form class="form-horizontal" name="admForm" novalidate role="form" ng-submit="sendPostAdm()">
 			<fieldset>
-				<div  style="background-color:#f8f8f8 ;height:40%; padding:-1%">
+				<div  style="background-color:#f8f8f8 ;height:50%; padding:-1%">
 					<legend>Cadastrar administrador</legend>
 					
-					 <div class="form-group">
+					 <div class="form-group" show-errors>
             			<label for="name" class="col-sm-3 control-label">Nome</label>
             				<div class="col-sm-6">
-                				<input type="text" id="name" name="name" class="form-control" ng-model="admname"/>
+                				<input type="text" id="admname" name="admname" class="form-control" ng-model="admname" ng-required="true"/>
+                				<span class="help-block"
+                     			 ng-if="admForm.admname.$error.required">O usuário é obrigatório!</span>
                            </div>
                     </div>
                     
-                     <div class="form-group">
+                     <div class="form-group" show-errors>
             			<label for="name" class="col-sm-3 control-label">Usuario</label>
             				<div class="col-sm-6">
-                				<input type="text" id="username" name="username" class="form-control" ng-model="admusername"/>
+                				<input type="text" id="admusername" name="admusername" class="form-control" ng-model="admusername" ng-required="true"/>
+                				<span class="help-block"
+                     			 ng-if="admForm.admusername.$error.required">O usuário é obrigatório!</span>
                            </div>
                     </div>
                     
-                    <div class="form-group">
+                    <div class="form-group" show-errors>
             			<label for="name" class="col-sm-3 control-label">Senha</label>
             				<div class="col-sm-6">
-                				<input type="password" id="password" name="password" class="form-control" ng-model="admpassword"/>
+                				<input type="password" id="admpassword" name="admpassword" class="form-control" ng-model="admpassword" ng-required="true"/>
+                				 <span class="help-block"
+                     			 ng-if="admForm.admpassword.$error.required">A senha é obrigatória!</span>
                            </div>
                     </div>
 				
@@ -151,7 +157,7 @@
 						</div>
 						<div class="col-sm-6">
 					  <input type="submit" class="btn btn-default" value="Adicionar"
-              			 style="background-color:#005E2F; color:white" />
+              			 style="background-color:#005E2F; color:white" ng-disabled="admForm.$invalid" />
               			 
               		 <input type="button" class="btn btn-default" value="Limpar"
               		 	ng-click="reset()" />

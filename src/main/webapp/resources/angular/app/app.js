@@ -86,9 +86,7 @@ flyk.controller("flykCtrl", function ($scope, $location, $http, $uibModal) {
         $location.path('/cadastro');
     };
 
-    $scope.showFormLogin = function () {
-        $location.path('/login');
-    };
+ 
 
     $scope.showFormAdmin = function()
 
