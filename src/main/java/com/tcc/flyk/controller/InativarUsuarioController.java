@@ -16,7 +16,7 @@ import com.tcc.flyk.entity.Usuario;
 import com.tcc.flyk.service.InativarUsuarioService;
 
 @Controller
-public class UserPageInfosController {
+public class InativarUsuarioController {
 
 	private boolean indicadorAdministrador = false;
 
