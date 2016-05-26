@@ -50,7 +50,7 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 	@Override
 	public List<Usuario> consultaUsuario(String usuario) {
 		try {
-
+			listaUsuario = new ArrayList<Usuario>();
 			BasicDBObject query = new BasicDBObject();
 			List<BasicDBObject> obj = new ArrayList<BasicDBObject>();
 			obj.add(new BasicDBObject("usuario", java.util.regex.Pattern.compile(usuario)));

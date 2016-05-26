@@ -30,7 +30,7 @@ public class UserPageInfosController {
 	}
 
 	@RequestMapping(value = "/buscarUsuarios", method = RequestMethod.POST)
-	public @ResponseBody String buscarUsuarioInativar(@RequestBody String usuario, ModelMap model) {
+	public @ResponseBody String buscarUsuarioInativar(@RequestBody String usuario) {
 
 		String busca = convertJSON(usuario);
 		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
@@ -41,7 +41,6 @@ public class UserPageInfosController {
 			listaUsuarios = service.buscarCliente(busca);
 		}
 
-		model.addAttribute("listaUsuarios", listaUsuarios);
 		return convertListToString(listaUsuarios);
 	}
 
