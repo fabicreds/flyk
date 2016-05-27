@@ -166,6 +166,14 @@
               			 
               			 </div>
               		</div>
+              		<div class=form-group>
+							<div class="col-sm-3 control label"></div>
+							<div class="col-sm-6">
+								<font color="red"> {{messageErro}}</font> 
+								<font color="green"> {{messageSucesso}}</font>
+
+							</div>
+						</div>
 					
 				</div>
 			</fieldset>

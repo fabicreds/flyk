@@ -3,7 +3,8 @@ package com.tcc.flyk.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
+import javax.annotation.Resource;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,15 +14,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tcc.flyk.entity.Usuario;
+import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
+import com.tcc.flyk.entity.form.BuscarUsuarioInativarForm;
 import com.tcc.flyk.service.InativarUsuarioService;
+import com.tcc.flyk.util.InativarUsuarioUtil;
+import com.tcc.flyk.util.UsuarioUtil;
 
 @Controller
 public class InativarUsuarioController {
 
-	private boolean indicadorAdministrador = false;
-
 	@Autowired
 	private InativarUsuarioService service;
+
+	@Resource
+	private InativarUsuarioUtil util;
+
+	@Resource
+	private UsuarioUtil usuarioUtil;
 
 	@RequestMapping(value = "/userPageInfos", method = RequestMethod.GET)
 	public String iniciarUserPage() {
@@ -29,42 +38,51 @@ public class InativarUsuarioController {
 	}
 
 	@RequestMapping(value = "/buscarUsuarios", method = RequestMethod.POST)
-	public @ResponseBody String buscarUsuarioInativar(@RequestBody String usuario) {
-
-		String busca = convertJSON(usuario);
-		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
-
-		if (indicadorAdministrador) {
-			listaUsuarios = service.buscarAdministrador(busca);
-		} else {
-			listaUsuarios = service.buscarCliente(busca);
-		}
-
-		return convertListToString(listaUsuarios);
-	}
-
-	private String convertJSON(String usuario) {
-		String user = "";
+	public @ResponseBody String buscarUsuarioInativar(@RequestBody String request) {
 		try {
-			JSONObject jObjt = new JSONObject(usuario);
-			user = jObjt.getString("usuarioBusca");
-			if (jObjt.getBoolean("checkAdministrador")) {
-				indicadorAdministrador = true;
+			BuscarUsuarioInativarForm form = util.convertJSONToForm(request);
+			List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+
+			if (form.isCheckAdministrador()) {
+				listaUsuarios = service.buscarAdministrador(form.getUsuarioBusca());
+			} else {
+				listaUsuarios = service.buscarCliente(form.getUsuarioBusca());
+			}
+			
+			if (listaUsuarios.isEmpty()) {
+				return null;
+			} else {
+				return usuarioUtil.convertListToString(listaUsuarios);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
-
-		return user;
 	}
-
-	private String convertListToString(List<Usuario> listaUsuarios) {
-		JSONArray listaJSON = new JSONArray();
-		for (Usuario usuario : listaUsuarios) {
-			listaJSON.put(usuario.toJSON());
+	
+	@RequestMapping(value = "/inativarUsuario", method = RequestMethod.POST)
+	public @ResponseBody String inativarUsuario(@RequestBody String request) {
+		try{
+			Usuario usuario = util.convertJSONToUsuario(request);
+			boolean atualizado = false;
+			if(usuario.getTipoCadastro() == TipoCadastroEnum.ADMINISTRADOR){
+				atualizado = service.atualizarStatusUsuario(usuario);
+			}
+			if(atualizado){
+				JSONObject jObjt = new JSONObject();
+				jObjt.put("retorno", "sucesso");
+				jObjt.put("mensagem", "Usuário atualizado com sucesso");
+				return jObjt.toString();
+			}else{
+				JSONObject jObjt = new JSONObject();
+				jObjt.put("retorno", "erro");
+				jObjt.put("mensagem", "Erro na atualização do usuario!");
+				return jObjt.toString();
+			}
+		}catch(Exception e){
+			return null;
 		}
-		return listaJSON.toString();
-
+		
 	}
 
 }

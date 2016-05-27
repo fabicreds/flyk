@@ -1,8 +1,8 @@
 package com.tcc.flyk.persistence.impl;
 import org.bson.Document;
 
-import com.mongodb.Block;
-import com.mongodb.client.FindIterable;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCursor;
 import com.tcc.flyk.entity.Promocao;
 import com.tcc.flyk.persistence.MongoDB;
 import com.tcc.flyk.persistence.PromocaoDAO;
@@ -19,8 +19,8 @@ public class PromocaoDAOImpl extends MongoDB implements PromocaoDAO {
 	@Override
 	public void inserirNovaPromocao(Promocao prom) {
 		try {
-			super.db.getCollection("promocao").insertOne(
-			                new Document()
+			super.db.getCollection("promocao").insert(
+					new BasicDBObject()
 			                		.append("datainicio", prom.getDataInicio())	
 			                        .append("status", true)
 			                        .append("datafim", prom.getDataFim())			                       
@@ -39,14 +39,11 @@ public class PromocaoDAOImpl extends MongoDB implements PromocaoDAO {
 
 	@Override
 	public void consultaPromocao(){
-		FindIterable<Document> iterable = db.getCollection("promocao").find();
+		DBCursor cursor = db.getCollection("promocao").find();
 		
-		iterable.forEach(new Block<Document>() {
-		    @Override
-		    public void apply(final Document document) {
-		        System.out.println(document);
-		    }
-		});
+		while(cursor.hasNext()){
+			System.out.println(cursor.next());
+		}
 	}
 
 

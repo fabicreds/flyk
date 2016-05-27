@@ -3,11 +3,9 @@ package com.tcc.flyk.persistence.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bson.Document;
-
 import com.mongodb.BasicDBObject;
-import com.mongodb.Block;
-import com.mongodb.client.FindIterable;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.tcc.flyk.entity.Usuario;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.persistence.ClienteDAO;
@@ -23,40 +21,34 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 	@Override
 	public void consulta(){
-		FindIterable<Document> iterable = db.getCollection("cliente").find();
+		DBCursor cursor = db.getCollection("cliente").find();
 		
-		iterable.forEach(new Block<Document>() {
-		    @Override
-		    public void apply(final Document document) {
-		        System.out.println(document);
-		    }
-		});
+		while(cursor.hasNext()){
+			System.out.println(cursor.next());
+		}
 	}
 	
 	@Override
-	public List<Usuario> consultaUsuario(String usuario){
+	public List<Usuario> consultaUsuario(String busca){
 		
 		BasicDBObject query = new BasicDBObject();
 	    List<BasicDBObject> obj = new ArrayList<BasicDBObject>();
-	    obj.add(new BasicDBObject("nome", usuario));
-	    obj.add(new BasicDBObject("email", usuario));
+	    obj.add(new BasicDBObject("nome", busca));
+	    obj.add(new BasicDBObject("email", busca));
 	    query.put("$or", obj);
 	  
 	    System.out.println(query.toString());
 	    
-		FindIterable<Document> iterable = db.getCollection("cliente").find(query);
+	    DBCursor cursor= db.getCollection("cliente").find(query);
 		
-		iterable.forEach(new Block<Document>() {
-		    @Override
-		    public void apply(final Document document) {
-		    	Usuario usuario = new Usuario();
-				usuario.setNome(document.get("nome").toString());
-				usuario.setUsuario(document.get("email").toString());
-				usuario.setTipoCadastro(TipoCadastroEnum.CLIENTE);
-				listaUsuario.add(usuario);
-				System.out.println(document);
-		    }
-		});
+		while(cursor.hasNext()){
+			DBObject adm = cursor.next();
+			Usuario usuario = new Usuario();
+			usuario.setNome(adm.get("nome").toString());
+			usuario.setUsuario(adm.get("usuario").toString());
+			usuario.setTipoCadastro(TipoCadastroEnum.ADMINISTRADOR);
+			listaUsuario.add(usuario);
+		}
 		
 		return new ArrayList<Usuario>();
 	}

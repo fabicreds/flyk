@@ -36,11 +36,15 @@ public class CadastroAdminstradorService {
 			return false;
 		}
 		if(adm.getUsuario() ==null || adm.getUsuario().isEmpty()){
-			System.out.println("Usuário do Administrador Nulo");
+			System.out.println("Usuï¿½rio do Administrador Nulo");
 			return false;
 		}
 		if(adm.getSenha() ==null || adm.getSenha().isEmpty()){
 			System.out.println("Senha do Administrador Nulo");
+			return false;
+		}
+		Administrador consulta = admDAO.consultaAdministradorPorUsuario(adm.getUsuario());
+		if(consulta!=null && !consulta.getUsuario().isEmpty()){
 			return false;
 		}
 		return true;

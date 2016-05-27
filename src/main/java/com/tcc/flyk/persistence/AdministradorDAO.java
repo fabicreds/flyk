@@ -9,8 +9,10 @@ public interface AdministradorDAO {
 
 	public void inserirNovoAdmisnistrador(Administrador adm);
 	
-	public void consulta();
+	public List<Usuario> consultaNomeUsuarioAdministrador(String usuario);
 	
-	public List<Usuario> consultaUsuario(String usuario);
+	public Administrador consultaAdministradorPorUsuario(String usuario);
+	
+	public boolean atualizarStatusUsuario(Usuario usuario);
 
 }

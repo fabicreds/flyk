@@ -17,10 +17,6 @@ public class InativarUsuarioService {
 	private AdministradorDAO admDAO = new AdministradorDAOImpl();
 	private ClienteDAO clienteDAO = new ClienteDAOImpl();
 
-	public boolean inativarUsuario() {
-		return true;
-	}
-
 	public List<Usuario> buscarCliente(String cliente) {
 		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 		try {
@@ -34,10 +30,18 @@ public class InativarUsuarioService {
 	public List<Usuario> buscarAdministrador(String adm) {
 		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 		try {
-			listaUsuarios = admDAO.consultaUsuario(adm);
+			listaUsuarios = admDAO.consultaNomeUsuarioAdministrador(adm);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return listaUsuarios;
+	}
+
+	public boolean atualizarStatusUsuario(Usuario usuario) {
+		try {
+			return admDAO.atualizarStatusUsuario(usuario);
+		} catch (Exception e) {
+			return false;
+		}
 	}
 }

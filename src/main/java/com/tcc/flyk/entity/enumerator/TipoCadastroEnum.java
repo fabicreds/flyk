@@ -18,14 +18,5 @@ public enum TipoCadastroEnum {
 		this.codigo = codigo;
 	}
 	
-	public TipoCadastroEnum definirTipoCadastro(int codigo){
-		switch(codigo){
-			case 1: return TipoCadastroEnum.CLIENTE;
-			case 2: return TipoCadastroEnum.PRESTADOR;
-			case 3: return TipoCadastroEnum.PREMIUM;
-			case 4: return TipoCadastroEnum.ADMINISTRADOR;
-			default: return TipoCadastroEnum.CLIENTE;
-		}
-	}
 
 }
