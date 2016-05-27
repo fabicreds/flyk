@@ -9,8 +9,22 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 			controller : "modalConfirmCtrl"
 		});
 	}
+	
+
+	$scope.alertNoUserFound = function() {
+
+		$uibModal.open({
+			templateUrl : "modalAlertInactiveUser.html"
+		});
+	}
 
 	$scope.pesquisar = function() {
+		
+		//$uibModal.open({
+		//	templateUrl : "modalAlertInactiveUser.html",
+		//    controller : "modalConfirmCtrl"
+		//});
+		
 		$http({
 			url : 'buscarUsuarios',
 			method : "POST",

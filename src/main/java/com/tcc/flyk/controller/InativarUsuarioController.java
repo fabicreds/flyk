@@ -31,6 +31,13 @@ public class InativarUsuarioController {
 
 	@Resource
 	private UsuarioUtil usuarioUtil;
+	
+
+	@RequestMapping(value = "/modalAlertInactiveUser", method = RequestMethod.GET)
+	public String abrirModalAlert() {
+		return "modalAlertInactiveUser";
+	}
+
 
 	@RequestMapping(value = "/userPageInfos", method = RequestMethod.GET)
 	public String iniciarUserPage() {
