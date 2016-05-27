@@ -12,14 +12,14 @@ public class Cliente {
 	
 	private String nome;
 	
-	//nome que ir· aparecer no perfil do usuario
+	//nome que ir√° aparecer no perfil do usuario
 	private String alias;
 	
 	private String email;
 	
 	private String senha;
 	
-	//identificador de autenticaÁ„o com o facebook
+	//identificador de autentica√ß√£o com o facebook
 	private String facebookID;
 	
 	private String fotoPerfil;

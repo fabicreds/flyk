@@ -16,7 +16,7 @@ public class CadastroController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public String realizarCadastro() {
-		System.out.println("Cadastro de usu·rio");
+		System.out.println("Cadastro de usu√°rio");
 		return "cadastro";
 	}
 

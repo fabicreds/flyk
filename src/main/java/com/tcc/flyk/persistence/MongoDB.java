@@ -16,7 +16,7 @@ public class MongoDB {
 
 	@SuppressWarnings("deprecation")
 	private void conecta() {
-		// Cria a classe mongoClient conectando na inst‚ncia local do mongodb
+		// Cria a classe mongoClient conectando na inst√¢ncia local do mongodb
 		mongoClient = new MongoClient(new ServerAddress("localhost"), new MongoClientOptions.Builder().build());
 
 		// Cria a classe db, conectada ao banco de dados test

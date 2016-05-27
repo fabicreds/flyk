@@ -8,7 +8,6 @@
 
 	<properties>
 		<org.springframework.version>3.2.13.RELEASE</org.springframework.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 
