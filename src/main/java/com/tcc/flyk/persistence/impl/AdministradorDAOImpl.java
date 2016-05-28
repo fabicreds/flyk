@@ -46,6 +46,7 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 				adm.setNome((String) object.get("nome").toString());
 				adm.setUsuario((String) object.get("usuario"));
 				adm.setDataCadastro((Date) object.get("data"));
+				adm.setSenha((String) object.get("senha"));
 				return adm;
 			} else {
 				return null;
@@ -73,6 +74,7 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 				}else{
 					usuario.setAtivo(false);
 				}
+				usuario.setSenha((String) objeto.get("senha"));
 				return usuario;
 			}else{
 				return null;

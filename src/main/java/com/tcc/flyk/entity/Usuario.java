@@ -11,6 +11,8 @@ public class Usuario {
 	private String email;
 
 	private TipoCadastroEnum tipoCadastro;
+	
+	private String senha;
 
 	private boolean ativo;
 
@@ -54,4 +56,13 @@ public class Usuario {
 		this.ativo = ativo;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	
 }

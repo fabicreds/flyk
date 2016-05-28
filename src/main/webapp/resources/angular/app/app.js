@@ -11,7 +11,7 @@ flyk.config( function($routeProvider) {
         .when("/login",
         {
             templateUrl: "login.html",
-            controller: "flykCtrl" // só se for abrir uma pag nova
+            controller: "loginPageCtrl" // só se for abrir uma pag nova
         })
         .when("/cadastro",
         {
@@ -94,36 +94,5 @@ flyk.controller("flykCtrl", function ($scope, $location, $http, $uibModal) {
     	$location.path('/adminPage');
     };
 
-    $scope.showLoginModal = function () {
-
-
-        $uibModal.open({
-            templateUrl: "login.html",
-            controller: "flykCtrl"
-        });
-    }
-    
-    $scope.sendPostLogin = function ()
-    {
-    	/*
-
-		 $http({
-	            url : 'validarLogin',
-	            method : "POST",
-	            data : {
-	                'email' : $scope.useremail,
-	                'senha' : $scope.userpassword
-	            
-	            }
-	        }).then(function(response) {
-	            console.log(response.data);
-	            $scope.message = response.data;
-	        }, function(response) {
-	            //fail case
-	            console.log(response);
-	            $scope.message = response;
-	        }); */
-    	
-    }
     
 });

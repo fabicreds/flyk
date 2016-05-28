@@ -29,6 +29,7 @@
     <script src="${pageContext.request.contextPath}/resources/angular/app/app.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/cadastro.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/adminPage.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/loginPage.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/userPageInfos.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/ValidationDirective.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiCPFdirective.js"></script>
@@ -85,16 +86,10 @@
                         </a>
                     </li>
                     
-                    <li>
-                        <a ng-click="showFormAdmin()">
-                            <span class="glyphicon glyphicon-heart-empty"></span>
-                            <span class="text">ADMIN PAGE</span>
-                        </a>
-                    </li>     
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     
-                    <li class="link"><a ng-click="showLoginModal()">Login</a></li>
+                    <li class="link"><a ng-click="showLoginModal()" ng-controller="loginPageCtrl">Login</a></li>
                     
 
                     <li class="link"><a ng-click="showFormCadastro()">Crie uma conta</a></li>

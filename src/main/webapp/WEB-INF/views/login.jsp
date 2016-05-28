@@ -49,12 +49,12 @@
 
 
             <div class="form-group" show-errors>
-                <label for="email">Email</label>
+                <label for="email">Usuário ou Email</label>
                 <div class="input-group">
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-tag"></i>
                     </span>
-                    <input type="email" id="email" name="email" class="form-control"
+                    <input type="text" id="email" name="email" class="form-control"
                            ng-model="useremail" ng-required="true" />
                 </div>
                 <span class="help-block"
@@ -78,8 +78,8 @@
 
             <div class="form-group">
                 <label for="info" class="checkbox-inline">
-                    <input type="checkbox" />
-                    Lembre-me
+                    <input type="checkbox" ng-model="lembrar" />
+                    Lembrar-me
                 </label>
                 <span class="pull-right">
                     <a href="#">Esqueceu a senha?</a>
@@ -87,12 +87,19 @@
             </div>
 
 
-        </form>
+        
 
-    <div class="form-group">
-        <button class="btn btn-success btn-block" ng-click="" ng-disabled="usuarioForm.$invalid" style="background-color:#005E2F; color:white; align:center">Login</button>
+    <div class="form-group" align="right">
+        <input type="submit" class="btn btn-success-outline btn-md" ng-disabled="usuarioForm.$invalid" style="background-color:#005E2F; color:white; align:center" value="Login"/>
+        <br/><br/>
+        <input type="image" src="images/login.png" height="40" width="250" />
+        <!--<input type="image" class="btn-block" src="/img/facebook.png" ng-click="login()" ng-hide="isLoggedIn" height="30" width="30" />  ng-click="login()" ng-hide="isLoggedIn"-->
     
     </div>
+    <div style="color: red;">
+    {{mensagemLogin}}
+    </div>
+    </form>
 </div>
 </div>
 </div>

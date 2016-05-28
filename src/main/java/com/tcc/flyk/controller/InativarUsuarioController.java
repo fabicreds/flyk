@@ -68,23 +68,27 @@ public class InativarUsuarioController {
 				atualizado = service.atualizarStatusUsuario(usuario);
 			}
 			if (atualizado) {
-				JSONObject jObjt = new JSONObject();
-				jObjt.put("retorno", "sucesso");
-				jObjt.put("mensagem", "Usuário atualizado com sucesso");
-				return jObjt.toString();
+				return mensagemSucesso();
 			} else {
-				JSONObject jObjt = new JSONObject();
-				jObjt.put("retorno", "erro");
-				jObjt.put("mensagem", "Erro na atualização do usuario!");
-				return jObjt.toString();
+				return mensagemErro();
 			}
 		} catch (Exception e) {
-			JSONObject jObjt = new JSONObject();
-			jObjt.put("retorno", "erro");
-			jObjt.put("mensagem", "Erro na atualização do usuario!");
-			return jObjt.toString();
+			return mensagemErro();
 		}
 
 	}
 
+	private String mensagemErro() {
+		JSONObject jObjt = new JSONObject();
+		jObjt.put("retorno", "erro");
+		jObjt.put("mensagem", "Erro na atualização do usuario!");
+		return jObjt.toString();
+	}
+
+	private String mensagemSucesso() {
+		JSONObject jObjt = new JSONObject();
+		jObjt.put("retorno", "sucesso");
+		jObjt.put("mensagem", "Usuário atualizado com sucesso");
+		return jObjt.toString();
+	}
 }
