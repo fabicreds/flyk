@@ -1,29 +1,8 @@
 flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, $uibModal) {
 
 
-	
-	$scope.confirm = function() {
-
-		$uibModal.open({
-			templateUrl : "modalConfirm.html",
-			controller : "modalConfirmCtrl"
-		});
-	}
-	
-
-	$scope.alertNoUserFound = function() {
-
-		$uibModal.open({
-			templateUrl : "modalAlertInactiveUser.html"
-		});
-	}
-
 	$scope.pesquisar = function() {
-		
-		//$uibModal.open({
-		//	templateUrl : "modalAlertInactiveUser.html",
-		//    controller : "modalConfirmCtrl"
-		//});
+	
 		
 		$http({
 			url : 'buscarUsuarios',
@@ -76,11 +55,46 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 		
 	};
 	
-	$scope.reset = function()
+   $scope.sendPostServices = function() {
+		
+		$http({
+			url : 'cadastroServicos', // nome do request mapping da classe java criada para cadastro de serviços
+			method : "POST",
+			data : {
+				'nome' : $scope.servname,
+				'descricao' : $scope.servdescription
+			}
+		}).then(function(response) {
+			console.log(response.data);
+			if(response.data.retorno == "erro"){
+				$scope.messageErro = response.data.mensagem; // configurar mensagem se o serviço já estiver cadastrado
+			}else{
+				$scope.messageSucesso = response.data.mensagem; // configurar mensagem para exibir que o serviço foi cadastrado com sucesso
+			}
+			$scope.servname = "";
+			$scope.servdescription = "";
+			
+		}, function(response) {
+			// fail case
+			console.log(response);
+			$scope.message = response;
+		});
+
+		
+	};
+	
+
+	$scope.resetadmform = function()
 	{
 		 $scope.admname="";
 		 $scope.admusername="";
 		 $scope.admpassword="";
+	}
+	
+	$scope.resetservform = function()
+	{
+		 $scope.servname="";
+		 $scope.servdescription="";
 	}
 	
 });

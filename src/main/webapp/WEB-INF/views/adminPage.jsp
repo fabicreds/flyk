@@ -10,7 +10,7 @@
 		<form class="form-horizontal" name="inactivateForm" novalidate role="form" ng-submit="pesquisar()" ng-controller="adminPageCtrl">
 			<div class="form-group">
 			<fieldset>
-				<div  style="background-color:#f8f8f8 ;height:50%; padding:-1%">
+				<div  style="background-color:#f8f8f8 ;height:50%; padding:-2%">
 					<legend> Inativar Usuario</legend>
 					<div class="col-sm-9">
 					
@@ -115,10 +115,42 @@
 <div class="row">
 	
 	<div class="col-sm-6">
-		<form>
+		<form class="form-horizontal" name="serviceForm" novalidate role="form" ng-submit="sendPostServices()">
 			<fieldset>
 				<div  style="background-color:#f8f8f8 ;height:50%; padding:-1%">
-					<legend> Analisar rendimentos</legend>
+					<legend> Adicionar categoria de serviços</legend>
+					
+					 <div class="form-group" show-errors>
+            			<label for="name" class="col-sm-3 control-label">Nome</label>
+            				<div class="col-sm-6">
+                				<input type="text" id="servname" name="servname" class="form-control" ng-model="servname" ng-required="true"/>
+                				<span class="help-block"
+                     			 ng-if="serviceForm.servname.$error.required">O nome do serviço é obrigatório!</span>
+                           </div>
+                    </div>
+                    
+                     <div class="form-group" show-errors>
+            			<label for="desricao" class="col-sm-3 control-label">Descrição</label>
+            				<div class="col-sm-6">
+                				<textarea rows="5" cols="50" id="servdescription" name="servdescription" class="form-control" ng-model="servdescription" ng-required="true"> </textarea>
+                				<span class="help-block"
+                     			 ng-if="serviceForm.servdescription.$error.required">A descrição do serviço é obrigatória! </span>
+                           </div>
+                    </div>
+                     <div class=form-group>
+						<div class="col-sm-3 control label">
+						</div>
+						<div class="col-sm-6">
+					  <input type="submit" class="btn btn-default" value="Adicionar"
+              			 style="background-color:#005E2F; color:white" ng-disabled="serviceForm.$invalid" />
+              			 
+              		 <input type="button" class="btn btn-default" value="Limpar"
+              		 	ng-click="resetservform()" />
+              		 	
+   	           		 	
+              			 
+              		 </div>
+              	  </div>
 				</div>
 			</fieldset>
 		</form>
@@ -165,12 +197,12 @@
               			 style="background-color:#005E2F; color:white" ng-disabled="admForm.$invalid" />
               			 
               		 <input type="button" class="btn btn-default" value="Limpar"
-              		 	ng-click="reset()" />
+              		 	ng-click="resetadmform()" />
               		 	
    	           		 	
               			 
-              			 </div>
-              		</div>
+              		 </div>
+              	</div>
 						<div class=form-group>
 							<div class="col-sm-3 control label"></div>
 							<div class="col-sm-6">

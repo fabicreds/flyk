@@ -90,10 +90,7 @@
         </form>
 
     <div class="form-group">
-        <button class="btn btn-success-outline btn-md" ng-click="" ng-disabled="usuarioForm.$invalid" style="background-color:#005E2F; color:white; align:center">Login</button>
-        <br/><br/>
-        <input type="image" src="images/login.png" height="40" width="250" />
-        <!--<input type="image" class="btn-block" src="/img/facebook.png" ng-click="login()" ng-hide="isLoggedIn" height="30" width="30" />  ng-click="login()" ng-hide="isLoggedIn"-->
+        <button class="btn btn-success btn-block" ng-click="" ng-disabled="usuarioForm.$invalid" style="background-color:#005E2F; color:white; align:center">Login</button>
     
     </div>
 </div>

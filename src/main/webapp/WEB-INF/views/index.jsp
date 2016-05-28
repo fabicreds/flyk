@@ -27,7 +27,6 @@
     <script src="${pageContext.request.contextPath}/resources/angular/angular-ui/ui-bootstrap-tpls.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/angular-route.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/app.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/modal/modalConfirm.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/cadastro.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/adminPage.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/userPageInfos.js"></script>
