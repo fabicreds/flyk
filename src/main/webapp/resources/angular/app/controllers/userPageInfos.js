@@ -6,14 +6,19 @@ flyk.controller("userPageInfosCtrl", function ($scope, $rootScope, $location, $h
 			url : 'inativarUsuario',
 			method : "POST",
 			data : {
-				'usuario' : $scope.user,
-				'tipoCadastro' :tipoCadastro,
-				'ativo': $scope.ativo
+				'usuario' : $rootScope.data.usuario,
+				'tipoCadastro' :$rootScope.data.tipoCadastro,
+				'ativo': $rootScope.data.ativo
 			}
 		}).then(function(response) {
-			$rootScope.data = response.data;
+			if(response.data.retorno == "erro"){
+				$rootScope.messageErroInativar = response.data.mensagem;
+				$rootScope.messageSucessoInativar = "";
+			}else{
+				$rootScope.messageErroInativar = "";
+				$rootScope.messageSucessoInativar = response.data.mensagem;
+			}
 			$location.path('/adminPage');
-			response.data = [];
 		}, function(response) {
 		});
 		

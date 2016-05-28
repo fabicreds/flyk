@@ -1,11 +1,9 @@
 package com.tcc.flyk.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import com.tcc.flyk.entity.Usuario;
+import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.persistence.AdministradorDAO;
 import com.tcc.flyk.persistence.ClienteDAO;
 import com.tcc.flyk.persistence.impl.AdministradorDAOImpl;
@@ -17,29 +15,39 @@ public class InativarUsuarioService {
 	private AdministradorDAO admDAO = new AdministradorDAOImpl();
 	private ClienteDAO clienteDAO = new ClienteDAOImpl();
 
-	public List<Usuario> buscarCliente(String cliente) {
-		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+	public Usuario buscarCliente(String cliente) {
+		Usuario usuario = new Usuario();
 		try {
-			listaUsuarios = clienteDAO.consultaUsuario(cliente);
+			usuario = clienteDAO.consultaUsuario(cliente);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return listaUsuarios;
+		return usuario;
 	}
 
-	public List<Usuario> buscarAdministrador(String adm) {
-		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+	public Usuario buscarAdministrador(String adm) {
+		Usuario usuario= new Usuario();
 		try {
-			listaUsuarios = admDAO.consultaNomeUsuarioAdministrador(adm);
+			usuario = admDAO.consultaUsuarioAdministrador(adm);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return listaUsuarios;
+		return usuario;
 	}
 
 	public boolean atualizarStatusUsuario(Usuario usuario) {
 		try {
-			return admDAO.atualizarStatusUsuario(usuario);
+			//atualizando para o novo status
+			if(usuario.isAtivo()){
+				usuario.setAtivo(false);
+			}else{
+				usuario.setAtivo(true);
+			}
+			if(usuario.getTipoCadastro() == TipoCadastroEnum.ADMINISTRADOR){
+				return admDAO.atualizarStatusAdministrador(usuario);
+			}else{
+				return clienteDAO.atualizarStatusCliente(usuario);
+			}
 		} catch (Exception e) {
 			return false;
 		}

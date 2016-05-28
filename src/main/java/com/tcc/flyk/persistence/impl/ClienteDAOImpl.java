@@ -1,8 +1,5 @@
 package com.tcc.flyk.persistence.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
@@ -13,44 +10,61 @@ import com.tcc.flyk.persistence.MongoDB;
 
 public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
-	private List<Usuario> listaUsuario = new ArrayList<Usuario>();
-	
 	public ClienteDAOImpl() {
 		super();
 	}
 
 	@Override
-	public void consulta(){
+	public void consulta() {
 		DBCursor cursor = db.getCollection("cliente").find();
-		
-		while(cursor.hasNext()){
+
+		while (cursor.hasNext()) {
 			System.out.println(cursor.next());
+		}
+	}
+
+	@Override
+	public Usuario consultaUsuario(String busca) {
+		try {
+			Usuario usuario = new Usuario();
+			BasicDBObject query = new BasicDBObject();
+			query.put("usuario", busca);
+
+			DBObject object = db.getCollection("cliente").findOne(query);
+
+			if(object!=null){
+				usuario.setNome(object.get("nome").toString());
+				usuario.setUsuario(object.get("usuario").toString());
+				usuario.setTipoCadastro(TipoCadastroEnum.ADMINISTRADOR);
+				if(object.get("status_pessoa").toString().equals("A")){
+					usuario.setAtivo(true);
+				}else{
+					usuario.setAtivo(false);
+				}
+				return usuario;
+			}else{
+				return null;
+			}
+
+			
+		} catch (Exception e) {
+			return null;
 		}
 	}
 	
 	@Override
-	public List<Usuario> consultaUsuario(String busca){
-		
-		BasicDBObject query = new BasicDBObject();
-	    List<BasicDBObject> obj = new ArrayList<BasicDBObject>();
-	    obj.add(new BasicDBObject("nome", busca));
-	    obj.add(new BasicDBObject("email", busca));
-	    query.put("$or", obj);
-	  
-	    System.out.println(query.toString());
-	    
-	    DBCursor cursor= db.getCollection("cliente").find(query);
-		
-		while(cursor.hasNext()){
-			DBObject adm = cursor.next();
-			Usuario usuario = new Usuario();
-			usuario.setNome(adm.get("nome").toString());
-			usuario.setUsuario(adm.get("usuario").toString());
-			usuario.setTipoCadastro(TipoCadastroEnum.ADMINISTRADOR);
-			listaUsuario.add(usuario);
-		}
-		
-		return new ArrayList<Usuario>();
-	}
+	public boolean atualizarStatusCliente(Usuario usuario) {
+		try {
+			BasicDBObject updateQuery = new BasicDBObject();
+			updateQuery.append("$set", new BasicDBObject().append("status_pessoa", "I"));
 
+			BasicDBObject searchQuery = new BasicDBObject();
+			searchQuery.append("usuario", usuario.getUsuario());
+
+			db.getCollection("cliente").update(searchQuery, updateQuery);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }

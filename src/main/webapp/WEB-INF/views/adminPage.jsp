@@ -14,7 +14,7 @@
 					<legend> Inativar Usuario</legend>
 					<div class="col-sm-9">
 					
-					<label for=lblsearchUser>Digite o nome/email que deseja:</label>
+					<label for=lblsearchUser>Digite o usuário que deseja inativar:</label>
 					
 						<input type="text" id="serchUser" name="searchUser" class="form-control" ng-model="usuarioBusca"/>
 						<br/>
@@ -23,7 +23,12 @@
 						 <input type="submit" class="btn btn-default" value="Pesquisar" style="float:right; background-color:#005E2F; color:white" ng-disabled="inactivateForm.$invalid"/>
               		 	<br/>
               		 	<br/>
-              		 	<p>* Ao inativar um usuário do sistema, você bloquea imediatamente o acesso do mesmo. 
+              		 	<p>* Ao inativar um usuário do sistema, você bloquea imediatamente o acesso do mesmo. </p>
+              		 	<p>
+								<font color="red"> {{messageErroInativar}}</font> <font color="green">
+									{{messageSucessoInativar}}</font>
+
+						</p>
 					</div>
 					
 				</div>
@@ -166,16 +171,16 @@
               			 
               			 </div>
               		</div>
-              		<div class=form-group>
+						<div class=form-group>
 							<div class="col-sm-3 control label"></div>
 							<div class="col-sm-6">
-								<font color="red"> {{messageErro}}</font> 
-								<font color="green"> {{messageSucesso}}</font>
+								<font color="red"> {{messageErroCadastro}}</font> <font color="green">
+									{{messageSucessoCadastro}}</font>
 
 							</div>
 						</div>
-					
-				</div>
+
+					</div>
 			</fieldset>
 		</form>
 	</div>

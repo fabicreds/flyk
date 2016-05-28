@@ -6,7 +6,7 @@ import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 
 @Component
 public class TipoCadastroEnumUtil {
-	
+
 	public TipoCadastroEnum definirTipoCadastro(int codigo) {
 		switch (codigo) {
 		case 1:
@@ -23,19 +23,24 @@ public class TipoCadastroEnumUtil {
 	}
 
 	public TipoCadastroEnum definirTipoCadastro(String tipoCadastro) {
-		tipoCadastro = tipoCadastro.toUpperCase();
-		if(tipoCadastro.equals("CLIENTE")){
+		if (tipoCadastro != null) {
+			tipoCadastro = tipoCadastro.toUpperCase();
+			if (tipoCadastro.equals("CLIENTE")) {
+				return TipoCadastroEnum.CLIENTE;
+			}
+			if (tipoCadastro.equals("PRESTADOR")) {
+				return TipoCadastroEnum.PRESTADOR;
+			}
+			if (tipoCadastro.equals("PREMIUM")) {
+				return TipoCadastroEnum.PREMIUM;
+			}
+			if (tipoCadastro.equals("ADMINISTRADOR")) {
+				return TipoCadastroEnum.ADMINISTRADOR;
+			}
 			return TipoCadastroEnum.CLIENTE;
+		}else{
+			return null;
 		}
-		if(tipoCadastro.equals("PRESTADOR")){
-			return TipoCadastroEnum.PRESTADOR;
-		}
-		if(tipoCadastro.equals("PREMIUM")){
-			return TipoCadastroEnum.PREMIUM;
-		}
-		if(tipoCadastro.equals("ADMINISTRADOR")){
-			return TipoCadastroEnum.ADMINISTRADOR;
-		}
-		return TipoCadastroEnum.CLIENTE;
+
 	}
 }

@@ -1,11 +1,8 @@
 package com.tcc.flyk.persistence.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.tcc.flyk.entity.Administrador;
 import com.tcc.flyk.entity.Usuario;
@@ -60,37 +57,34 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 	}
 
 	@Override
-	public List<Usuario> consultaNomeUsuarioAdministrador(String busca) {
+	public Usuario consultaUsuarioAdministrador(String busca) {
 		try {
-			List<Usuario> listaUsuario = new ArrayList<Usuario>();
+			Usuario usuario = new Usuario();
 			BasicDBObject query = new BasicDBObject();
-			List<BasicDBObject> obj = new ArrayList<BasicDBObject>();
-			obj.add(new BasicDBObject("usuario", java.util.regex.Pattern.compile(busca)));
-			obj.add(new BasicDBObject("nome", java.util.regex.Pattern.compile(busca)));
-			query.put("$or", obj);
+			query.put("usuario", busca);
 
-			DBCursor cursor = db.getCollection("administrador").find(query);
-			while (cursor.hasNext()) {
-				DBObject adm = cursor.next();
-				Usuario usuario = new Usuario();
-				usuario.setNome((String) adm.get("nome"));
-				usuario.setUsuario((String) adm.get("usuario"));
+			DBObject objeto = db.getCollection("administrador").findOne(query);
+			if(objeto!=null){
+				usuario.setNome((String) objeto.get("nome"));
+				usuario.setUsuario((String) objeto.get("usuario"));
 				usuario.setTipoCadastro(TipoCadastroEnum.ADMINISTRADOR);
-				if(adm.get("ativo").toString().equals("true")){
+				if(objeto.get("ativo").toString().equals("true")){
 					usuario.setAtivo(true);
 				}else{
 					usuario.setAtivo(false);
 				}
-				listaUsuario.add(usuario);
+				return usuario;
+			}else{
+				return null;
 			}
-			return listaUsuario;
+			
 		} catch (Exception e) {
 			return null;
 		}
 	}
 
 	@Override
-	public boolean atualizarStatusUsuario(Usuario usuario) {
+	public boolean atualizarStatusAdministrador(Usuario usuario) {
 		try {
 			BasicDBObject updateQuery = new BasicDBObject();
 			updateQuery.append("$set", new BasicDBObject().append("ativo", usuario.isAtivo()));

@@ -1,8 +1,5 @@
 package com.tcc.flyk.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.json.JSONObject;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tcc.flyk.entity.Usuario;
-import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.entity.form.BuscarUsuarioInativarForm;
 import com.tcc.flyk.service.InativarUsuarioService;
 import com.tcc.flyk.util.InativarUsuarioUtil;
@@ -48,48 +44,51 @@ public class InativarUsuarioController {
 	public @ResponseBody String buscarUsuarioInativar(@RequestBody String request) {
 		try {
 			BuscarUsuarioInativarForm form = util.convertJSONToForm(request);
-			List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+			Usuario usuario = new Usuario();
 
 			if (form.isCheckAdministrador()) {
-				listaUsuarios = service.buscarAdministrador(form.getUsuarioBusca());
+				usuario = service.buscarAdministrador(form.getUsuarioBusca());
 			} else {
-				listaUsuarios = service.buscarCliente(form.getUsuarioBusca());
+				usuario = service.buscarCliente(form.getUsuarioBusca());
 			}
-			
-			if (listaUsuarios.isEmpty()) {
+
+			if (usuario == null) {
 				return null;
 			} else {
-				return usuarioUtil.convertListToString(listaUsuarios);
+				return usuarioUtil.toJSON(usuario).toString();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
+
 	@RequestMapping(value = "/inativarUsuario", method = RequestMethod.POST)
 	public @ResponseBody String inativarUsuario(@RequestBody String request) {
-		try{
+		try {
 			Usuario usuario = util.convertJSONToUsuario(request);
 			boolean atualizado = false;
-			if(usuario.getTipoCadastro() == TipoCadastroEnum.ADMINISTRADOR){
+			if (usuario != null) {
 				atualizado = service.atualizarStatusUsuario(usuario);
 			}
-			if(atualizado){
+			if (atualizado) {
 				JSONObject jObjt = new JSONObject();
 				jObjt.put("retorno", "sucesso");
 				jObjt.put("mensagem", "Usuário atualizado com sucesso");
 				return jObjt.toString();
-			}else{
+			} else {
 				JSONObject jObjt = new JSONObject();
 				jObjt.put("retorno", "erro");
 				jObjt.put("mensagem", "Erro na atualização do usuario!");
 				return jObjt.toString();
 			}
-		}catch(Exception e){
-			return null;
+		} catch (Exception e) {
+			JSONObject jObjt = new JSONObject();
+			jObjt.put("retorno", "erro");
+			jObjt.put("mensagem", "Erro na atualização do usuario!");
+			return jObjt.toString();
 		}
-		
+
 	}
 
 }

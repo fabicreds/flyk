@@ -1,9 +1,6 @@
 package com.tcc.flyk.entity;
 
-import javax.annotation.Resource;
-
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
-import com.tcc.flyk.util.TipoCadastroEnumUtil;
 
 public class Usuario {
 
@@ -16,9 +13,6 @@ public class Usuario {
 	private TipoCadastroEnum tipoCadastro;
 
 	private boolean ativo;
-
-	@Resource
-	private TipoCadastroEnumUtil util;
 
 	public String getNome() {
 		return nome;
@@ -52,10 +46,6 @@ public class Usuario {
 		this.tipoCadastro = tipoCadastro;
 	}
 
-	public void setTipoCadastro(String tipoCadastro) {
-		this.tipoCadastro = util.definirTipoCadastro(tipoCadastro);
-	}
-
 	public boolean isAtivo() {
 		return ativo;
 	}
@@ -63,7 +53,5 @@ public class Usuario {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
-
-	
 
 }

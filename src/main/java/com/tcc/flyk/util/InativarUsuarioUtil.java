@@ -1,5 +1,7 @@
 package com.tcc.flyk.util;
 
+import javax.annotation.Resource;
+
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
@@ -8,6 +10,9 @@ import com.tcc.flyk.entity.form.BuscarUsuarioInativarForm;
 
 @Component
 public class InativarUsuarioUtil {
+	
+	@Resource
+	private TipoCadastroEnumUtil util;
 
 	public BuscarUsuarioInativarForm convertJSONToForm(String request) {
 		BuscarUsuarioInativarForm form = new BuscarUsuarioInativarForm();
@@ -28,7 +33,7 @@ public class InativarUsuarioUtil {
 			Usuario usuario = new Usuario();
 			JSONObject jObjt = new JSONObject(request);
 			usuario.setUsuario(jObjt.getString("usuario"));
-			usuario.setTipoCadastro(jObjt.getString("tipoCadastro"));
+			usuario.setTipoCadastro(util.definirTipoCadastro(jObjt.getString("tipoCadastro"))); 
 			usuario.setAtivo(jObjt.getBoolean("ativo"));
 			return usuario;
 		} catch (Exception e) {

@@ -1,6 +1,6 @@
 <legend>Pesquisa de usuário</legend>
 <div class="container">
-	<div class="row" ng-repeat="usuario in data">
+	<div class="row">
 		<div class="col-md-8 col-xs-10">
 			<div class="well panel panel-default">
 				<div class="panel-body">
@@ -15,23 +15,18 @@
 						<!--/col-->
 						<div class="col-xs-12 col-sm-8">
 							<form class="form-horizontal" name="inactivateForm" novalidate role="form"  ng-submit="inativar()">
-								<input type="hidden" value="{{usuario.usuario}}" >
-								<input type="hidden" value="{{usuario.tipoCadastro}}"
-									ng-model="tipoCadastro" > 
-								<input type="hidden"
-									value="{{usuario.ativo}}" ng-model="ativo">
 								<h2>{{usuario.nome}}</h2>
 								<p>
-									<strong>Username: </strong> <label ng-model="user">{{usuario.usuario}}</label>
+									<strong>Username: </strong>{{data.usuario}}</label>
 								</p>
 								<p>
-									<strong>Tipo de cadastro: </strong> {{usuario.tipoCadastro}}
+									<strong>Tipo de cadastro: </strong> {{data.tipoCadastro}}
 								</p>
 								<p>
 
 
 									<input type="submit" class="btn btn-default"
-										style="float: right; background-color: #005E2F; color: white" value="{{usuario.btn}}"/>
+										style="float: right; background-color: #005E2F; color: white" value="{{data.btn}}"/>
 								</p>
 							</form>
 						</div>
