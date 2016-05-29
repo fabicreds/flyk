@@ -19,17 +19,30 @@ public class PromocaoDAOImpl extends MongoDB implements PromocaoDAO {
 	@Override
 	public void inserirNovaPromocao(Promocao prom) {
 		try {
+
+			BasicDBObject updateQuery = new BasicDBObject();
+			updateQuery.append("$set", 
+				new BasicDBObject().append("status", false));
+			BasicDBObject searchQuery = new BasicDBObject();
+			searchQuery.append("status", true);
+
+			super.db.getCollection("promocao").updateMulti(searchQuery, updateQuery);	
+			
 			super.db.getCollection("promocao").insert(
 					new BasicDBObject()
 			                		.append("datainicio", prom.getDataInicio())	
 			                        .append("status", true)
 			                        .append("datafim", prom.getDataFim())			                       
-			                        .append("precos", new Document().append("valor",prom.getValorPromocional()).append("descricao", prom.getDescricao()
+			                        .append("precos", new Document().append("valor",prom.getValorPromocional()).append("descricao", prom.getDescricao()).append("nome", prom.getNomePromocao()
 			                        )	
 			                        		
 			                        		)
 			                        
 					);
+			
+			
+			//below statement set multi to true.
+			//collection.update(searchQuery, updateQuery, false, true);	
 			                       
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -97,4 +97,48 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 		 $scope.servdescription="";
 	}
 	
+	$scope.init= function() {
+		$http({
+
+            url : 'getValueCatList',
+            method : "GET",
+          
+        }).then(function(response) {           
+        	
+              $rootScope.data = response.data;  		
+  			 console.log(response.data.categoria);
+  			 $scope.cat=response.data.categoria;
+      
+        }, function(response) {
+           
+            console.log();
+            $scope.message = response;
+        });
+		
+	}
+	$scope.sendPostProm = function() {
+		
+		
+		$http({
+
+            url : 'cadastroPromocao',
+            method : "POST",
+            data : {
+                'nomeprom' : $scope.promnome,
+                'descrprom' : $scope.promdescricao,                
+                'valorpromocional' : $scope.valorprom,
+                'listacategoria' : $scope.cat                
+            }
+        }).then(function(response) {           
+        	
+              $rootScope.data = response.data;  		
+  			$location.path('/confirmaPromocao');
+      
+        }, function(response) {
+           
+            console.log();
+            $scope.message = response;
+        });
+	}
+	
 });

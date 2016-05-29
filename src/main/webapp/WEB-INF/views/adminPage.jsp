@@ -5,7 +5,7 @@
 <body>
 
 
-<div class="row">
+<div class="row" data-ng-init="init()">
 	<div class="col-sm-6">
 		<form class="form-horizontal" name="inactivateForm" novalidate role="form" ng-submit="pesquisar()" ng-controller="adminPageCtrl">
 			<div class="form-group">
@@ -40,48 +40,36 @@
 
 	<div class="col-sm-6">
 			
+			
 		<form class="form-horizontal" name="promForm" novalidate role="form"  ng-submit="sendPostProm()">
 		<fieldset>
-				<div  style="background-color:#f8f8f8 ;height:50%; padding:-1%">
-					<legend> Administrar promoções</legend>
+		<div  style="background-color:#f8f8f8 ;height:50%; padding:-1%">
+			<legend> Administrar promoções</legend>
 		
-			<div class="form-group" >
-				<label for="nomepromocao" class="col-sm-3 control-label">Nome da promoçao</label>
-				<div class="col-sm-6">                
-						   <input type="text" name="nomeprom" class="form-control"  ng-model="promnome" >
-					
+			<div class="form-group " >
+				<label for="nomepromocao" class="col-sm-4 control-label">Nome da promoçao</label>
+				<div class="col-md-4">                
+						   <input type="text" name="nomeprom"  class="form-control"  ng-model="promnome" >					
 				</div>
-				</div>
-		
+			</div>	
 			<div class="form-group">
-				<label for="descricao" class="col-sm-3 control-label">Descrição da promoção</label>
+				<label for="descricao" class="col-sm-4 control-label">Descrição da promoção</label>
 				<div class="col-sm-6">                
 					<input type="text" name="promdescricao" ng-model="promdescricao" class="form-control">
 					
 				</div>
 			</div>
-					
 			<div class="form-group">
 			
-				<label for="categoria" class="col-sm-3 control-label">Categoria do serviço</label>
-				<div class="col-sm-3">                
-					<select name="categoriaservico">
-						<c:forEach items="${catList}" var="categList">
-						<option value="${categList}">${categList}</option>
-					</c:forEach>
-					</select>
-					
-				</div>
-				
-				<label for="dataval" class="col-sm-3 control-label">Data de validade</label>
-					<div class="col-sm-3">                
-						<input type="text" name="datavalidade" ng-model="dataVal"class="form-control">
-						
-					</div>
+				<label for="categoria" class="col-sm-4 control-label">Categoria do serviço</label>
+				<div class="col-sm-4">                
+					<select name="categoriaservico" class="form-control" ng-model="listCat">						
+						<option value={{cat}}>{{cat}}</option>					
+					</select>					
+				</div>				
 			</div>	
-		  	
-			<div class="form-group">
-				<label for="valorprom" class="col-sm-3 control-label">Valor promocional</label>
+			<div class="form-group form-margem">
+				<label for="valorprom" class="col-sm-4 control-label">Valor promocional</label>
 				<div class="col-sm-6">                
 					<div class="input-group">
 								<div class="input-group-addon">$</div>
@@ -91,20 +79,21 @@
 							</div>
 					
 				</div>
+			</div>
+			<div style="float:right;margin-right:10px">	
+			     <input type="submit" class="btn btn-default" value="Adicionar" style="background-color:#005E2F; color:white" ng-disabled="promForm.$invalid"/>
 					
-			<input type="submit" class="btn btn-default" value="Adicionar" style="background-color:#005E2F; color:white" ng-disabled="promForm.$invalid"/>
-				
-			
-			</div>		
-			
-		
-				
-			
-			</form>
+			</div>
+			<div ng-controller="adminPageCtrl" class="form-group">
+				<div>{{mensagem.mensagem}}</div>
+		    </div>
+		        
+		</div>
+		</form>
 					
 		</div>
 		</fieldset>
-			</div>
+			
 		
 		
 	
