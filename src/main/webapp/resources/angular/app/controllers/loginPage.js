@@ -31,6 +31,8 @@ flyk.controller("loginPageCtrl", function($rootScope, $scope, $location, $http, 
 			}else{
 				$scope.closeLoginModal();
 				$scope.mensagemLogin = "";
+				$rootScope.usuarioLogado = response.data.usuario;
+				$rootScope.tipoUsuarioLogado = response.data.tipoCadastro;
 				$location.path('/adminPage');
 			}
 			
@@ -41,5 +43,10 @@ flyk.controller("loginPageCtrl", function($rootScope, $scope, $location, $http, 
 		});
     }
 
+    $scope.logOff = function(){
+    	$rootScope.usuarioLogado = "";
+		$rootScope.tipoUsuarioLogado = "";
+		$location.path('/home');
+    }
    
 });

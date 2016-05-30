@@ -48,6 +48,7 @@
     <!--  <employee-form/>  Directive created to this new form.-->
 
     <nav class="navbar navbar-default" ng-controller="flykCtrl">
+    <div ng-if="usuarioLogado ==''">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button"  class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -94,11 +95,112 @@
                     
 
                     <li class="link"><a ng-click="showFormCadastro()">Crie uma conta</a></li>
-
                  
                 </ul>
             </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
+     </div><!-- ng-if -->
+     <!-- Se já estiver logado e for administrador -->
+     <div ng-if="usuarioLogado !='' && tipoUsuarioLogado==4">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button"  class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand">
+                	<img src="images/flyklogo.png" style="height:30px; width:30px" />
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">
+                        <span class="glyphicon glyphicon-home"></span>
+                        <span class="text">HOME</span>
+                        </a></li>
+                    <li><a href="#">
+                         <span class="glyphicon glyphicon-user"></span>
+                         <span class="text">SOBRE NÓS</span>
+                         </a></li>
+                    <li><a href="#">
+                         <span class="glyphicon glyphicon-search"></span>
+                         <span class="text">COMO USAR</span>
+                        </a></li>
+                    <li>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-heart-empty"></span>
+                            <span class="text">ADMINISTRADOR</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="showFormLogin()">
+                            <span class="glyphicon glyphicon-envelope"></span>
+                            <span class="text">CONTATO</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li class="link"><a ng-click="logOff()" ng-controller="loginPageCtrl">Log OFF</a></li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+     </div><!-- ng-if -->
+     
+     <!-- Se já estiver logado e  NÃO for administrador -->
+     <div ng-if="usuarioLogado !='' && tipoUsuarioLogado!=4">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button"  class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand">
+                	<img src="images/flyklogo.png" style="height:30px; width:30px" />
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">
+                        <span class="glyphicon glyphicon-home"></span>
+                        <span class="text">HOME</span>
+                        </a></li>
+                    <li><a href="#">
+                         <span class="glyphicon glyphicon-user"></span>
+                         <span class="text">SOBRE NÓS</span>
+                         </a></li>
+                    <li><a href="#">
+                         <span class="glyphicon glyphicon-search"></span>
+                         <span class="text">COMO USAR</span>
+                        </a></li>
+                    <li>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-heart-empty"></span>
+                            <span class="text">CLIENTES</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="showFormLogin()">
+                            <span class="glyphicon glyphicon-envelope"></span>
+                            <span class="text">CONTATO</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li class="link"><a ng-click="logOff()" ng-controller="loginPageCtrl">Log OFF</a></li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+     </div><!-- ng-if -->
     </nav>
     <div ng-view>
         <!--Permite rotear a página-->

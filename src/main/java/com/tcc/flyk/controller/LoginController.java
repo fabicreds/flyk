@@ -27,23 +27,16 @@ public class LoginController {
 	public @ResponseBody String efetuarLogin(@RequestBody String request) {
 		try {
 			EfetuarLoginForm form = util.convertJSONToForm(request);
-			int autorizado = 0;
+			String mensagem = "";
 			if (form != null) {
-				autorizado = service.efetuarLogin(form);
+				mensagem = service.efetuarLogin(form);
 			}
-			switch (autorizado) {
-				case 1: return mensagemSucesso();
-				case 2: return mensagemErro("Usuário inativo!");
-				case 3: return mensagemErro("Usuário ou senha incorreto!");
-				case 4: return mensagemErro("Erro no processamento!");
-				case 5: return mensagemErro("Usuário ou senha incorreto!");
-				default: return mensagemErro("Erro no processamento!");
-			}
+			return mensagem;
 		} catch (Exception e) {
 			return mensagemErro("Erro no processamento!");
 		}
 	}
-
+	
 	private String mensagemErro(String mensagem) {
 		JSONObject jObjt = new JSONObject();
 		jObjt.put("retorno", "erro");
@@ -51,10 +44,6 @@ public class LoginController {
 		return jObjt.toString();
 	}
 
-	private String mensagemSucesso() {
-		JSONObject jObjt = new JSONObject();
-		jObjt.put("retorno", "sucesso");
-		return jObjt.toString();
-	}
+	
 
 }

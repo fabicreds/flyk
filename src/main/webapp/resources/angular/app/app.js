@@ -21,7 +21,7 @@ flyk.config( function($routeProvider) {
          .when("/home",
         {
             templateUrl: "home.html",
-            controller: "flykCtrl"
+            controller: "homeCtrl"
         })
          .when("/adminPage",
         {
@@ -65,7 +65,8 @@ flyk.config( function($routeProvider) {
     }());
 }); */
  // importar $facebook
-flyk.controller("flykCtrl", function ($scope, $location, $http, $uibModal) {
+flyk.controller("flykCtrl", function ($rootScope, $scope, $location, $http, $uibModal) {
+	
 
     //$scope.isLoggedIn = false;
   
@@ -100,4 +101,9 @@ flyk.controller("flykCtrl", function ($scope, $location, $http, $uibModal) {
     };
 
     
+});
+
+flyk.controller("homeCtrl", function ($rootScope, $scope, $location, $http, $uibModal) {
+	$rootScope.usuarioLogado = "";
+	$rootScope.tipoUsuarioLogado = "";
 });

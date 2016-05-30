@@ -1,5 +1,6 @@
 package com.tcc.flyk.service;
 
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import com.tcc.flyk.entity.Usuario;
@@ -20,33 +21,48 @@ public class EfetuarLoginService {
 	 * 4 - Erro no processamento
 	 * 5 - Senha incorreta
 	 */
-	public int efetuarLogin(EfetuarLoginForm form) {
+	public String efetuarLogin(EfetuarLoginForm form) {
 		try {
 			Usuario usuario = new Usuario();
 			usuario = admDAO.consultaUsuarioAdministrador(form.getEmail());
 			if(usuario==null){
 				//não foi encontrado nenhum registro com aquele usuário
-				return 3;
+				return mensagemErro("Usuário ou senha incorreto!");
 			}else {
 				if(!usuario.isAtivo()){
 					//usuario inativo
-					return 2;
+					return mensagemErro("Usuário inativo!");
 				}else{
 					if(form.getSenha().equals(usuario.getSenha())){
 						//usuario autenticado com sucesso
-						return 1;
+						return mensagemSucesso(usuario);
 					}else{
 						//senha incorreta
-						return 5;
+						return mensagemErro("Usuário ou senha incorreto!");
 					}
 				}
 			}
 
 		} catch (Exception e) {
 			//erro no processamento
-			return 4;
+			return mensagemErro("Erro no processamento!");
 		}
 
+	}
+	
+	private String mensagemErro(String mensagem) {
+		JSONObject jObjt = new JSONObject();
+		jObjt.put("retorno", "erro");
+		jObjt.put("mensagem", mensagem);
+		return jObjt.toString();
+	}
+
+	private String mensagemSucesso(Usuario usuario) {
+		JSONObject jObjt = new JSONObject();
+		jObjt.put("retorno", "sucesso");
+		jObjt.put("usuario", usuario.getUsuario());
+		jObjt.put("tipoCadastro", usuario.getTipoCadastro().getCodigo());
+		return jObjt.toString();
 	}
 
 }
