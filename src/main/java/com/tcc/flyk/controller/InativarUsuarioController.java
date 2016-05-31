@@ -81,14 +81,14 @@ public class InativarUsuarioController {
 	private String mensagemErro() {
 		JSONObject jObjt = new JSONObject();
 		jObjt.put("retorno", "erro");
-		jObjt.put("mensagem", "Erro na atualiza√ß√£o do usuario!");
+		jObjt.put("mensagem", "Erro na atualizaÁ„o do usuario!");
 		return jObjt.toString();
 	}
 
 	private String mensagemSucesso() {
 		JSONObject jObjt = new JSONObject();
 		jObjt.put("retorno", "sucesso");
-		jObjt.put("mensagem", "Usu√°rio atualizado com sucesso");
+		jObjt.put("mensagem", "Usuario atualizado com sucesso");
 		return jObjt.toString();
 	}
 }
