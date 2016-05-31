@@ -141,4 +141,20 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
         });
 	}
 	
+	$scope.add = true;
+	$scope.edit = false;
+	
+	$scope.addCategory = function()
+	{
+		this.add = !this.add;
+		this.edit = !this.edit;
+	}
+	
+	$scope.editCategory = function()
+	{
+		this.edit = !this.edit;
+		this.add = !this.add;
+	}
+	
+	
 });

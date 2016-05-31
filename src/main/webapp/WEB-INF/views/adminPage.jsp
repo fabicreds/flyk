@@ -1,3 +1,14 @@
+<style>
+.selected{
+color:red;
+}
+
+.non-selected{
+color:black;
+}
+
+</style>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
@@ -8,34 +19,34 @@
 <div class="row" data-ng-init="init()">
 	<div class="col-sm-6">
 		<form class="form-horizontal" name="inactivateForm" novalidate role="form" ng-submit="pesquisar()" ng-controller="adminPageCtrl">
-			<div class="form-group">
-			<fieldset>
-				<div  style="background-color:#f8f8f8 ;height:50%; padding:-2%">
+			
+			 <fieldset>
+				<div  style="background-color:#f8f8f8 ;height:50%; margin-bottom:1%">
 					<legend> Inativar Usuario</legend>
-					<div class="col-sm-9">
+					<div class="form-group">
+						<div class="col-sm-9">
 					
-					<label for=lblsearchUser>Digite o usuário que deseja inativar:</label>
+							<label for=lblsearchUser>Digite o usuário que deseja inativar:</label>
 					
-						<input type="text" id="serchUser" name="searchUser" class="form-control" ng-model="usuarioBusca"/>
-						<br/>
-						<input type="checkbox" name="administrador" value="administrador" ng-model="checkAdministrador"/> Usuário Administrador
-						<br>
-						 <input type="submit" class="btn btn-default" value="Pesquisar" style="float:right; background-color:#005E2F; color:white" ng-disabled="inactivateForm.$invalid"/>
-              		 	<br/>
-              		 	<br/>
-              		 	<p>* Ao inativar um usuário do sistema, você bloquea imediatamente o acesso do mesmo. </p>
-              		 	<p>
+							<input type="text" id="serchUser" name="searchUser" class="form-control" ng-model="usuarioBusca"/>
+							<br/>
+							<input type="checkbox" name="administrador" value="administrador" ng-model="checkAdministrador"/> Usuário Administrador
+							<br>
+							 <input type="submit" class="btn btn-default" value="Pesquisar" style="float:right; background-color:#005E2F; color:white" ng-disabled="inactivateForm.$invalid"/>
+              		 		<br/>
+              		 		<br/>
+              		 		<p>* Ao inativar um usuário do sistema, você bloquea imediatamente o acesso do mesmo. </p>
+              		 		<p>
 								<font color="red"> {{messageErroInativar}}</font> <font color="green">
 									{{messageSucessoInativar}}</font>
 
-						</p>
+							</p>
 					</div>
-					
 				</div>
-			</fieldset>
-			</div>
-		</form>
-	</div>
+			</div>	
+		</fieldset>
+	</form>
+ </div>
 
 
 	<div class="col-sm-6">
@@ -43,7 +54,7 @@
 			
 		<form class="form-horizontal" name="promForm" novalidate role="form"  ng-submit="sendPostProm()">
 		<fieldset>
-		<div  style="background-color:#f8f8f8 ;height:50%; padding:-1%">
+		<div  style="background-color:#f8f8f8 ;height:50%;">
 			<legend> Administrar promoções</legend>
 		
 			<div class="form-group " >
@@ -106,9 +117,14 @@
 	<div class="col-sm-6">
 		<form class="form-horizontal" name="serviceForm" novalidate role="form" ng-submit="sendPostServices()">
 			<fieldset>
-				<div  style="background-color:#f8f8f8 ;height:50%; padding:-1%">
-					<legend> Adicionar categoria de serviços</legend>
-					
+				<div  style="background-color:#f8f8f8;height:50%;">
+					<legend>Categoria de serviços
+						<span class="glyphicon glyphicon-pencil" style="float:right; margin-right:1%" ng-click="editCategory()"
+						 ng-class="{'selected': edit, 'non-selected': !edit}"> </span>
+						<span class="glyphicon glyphicon-plus" style="float:right; margin-right:1%" ng-click="addCategory()"
+						 ng-class="{'selected': add, 'non-selected': !add}"></span>
+					</legend>
+					<div ng-if="add===true">
 					 <div class="form-group" show-errors>
             			<label for="name" class="col-sm-3 control-label">Nome</label>
             				<div class="col-sm-6">
@@ -130,16 +146,17 @@
 						<div class="col-sm-3 control label">
 						</div>
 						<div class="col-sm-6">
-					  <input type="submit" class="btn btn-default" value="Adicionar"
-              			 style="background-color:#005E2F; color:white" ng-disabled="serviceForm.$invalid" />
+					  			<input type="submit" class="btn btn-default" value="Adicionar"
+              			 		style="background-color:#005E2F; color:white" ng-disabled="serviceForm.$invalid" />
               			 
-              		 <input type="button" class="btn btn-default" value="Limpar"
-              		 	ng-click="resetservform()" />
+              		 			<input type="button" class="btn btn-default" value="Limpar"
+              		 			ng-click="resetservform()" />
               		 	
    	           		 	
               			 
               		 </div>
               	  </div>
+              	 </div> <!-- ng-if -->
 				</div>
 			</fieldset>
 		</form>
@@ -148,7 +165,7 @@
 	<div class="col-sm-6">
 		<form class="form-horizontal" name="admForm" novalidate role="form" ng-submit="sendPostAdm()">
 			<fieldset>
-				<div  style="background-color:#f8f8f8 ;height:50%; padding:-1%">
+				<div  style="background-color:#f8f8f8 ;height:50%;">
 					<legend>Cadastrar administrador</legend>
 					
 					 <div class="form-group" show-errors>
@@ -195,7 +212,8 @@
 						<div class=form-group>
 							<div class="col-sm-3 control label"></div>
 							<div class="col-sm-6">
-								<font color="red"> {{messageErroCadastro}}</font> <font color="green">
+								<font color="red"> {{messageErroCadastro}}</font>
+								 <font color="green">
 									{{messageSucessoCadastro}}</font>
 
 							</div>
