@@ -16,13 +16,14 @@ color:black;
 <body>
 
 
-<div class="row" data-ng-init="init()">
+<!-- <div class="row" data-ng-init="init()"> -->
+<div class="row">
 	<div class="col-sm-6">
 		<form class="form-horizontal" name="inactivateForm" novalidate role="form" ng-submit="pesquisar()" ng-controller="adminPageCtrl">
 			
 			 <fieldset>
-				<div  style="background-color:#f8f8f8 ;height:50%; margin-bottom:1%">
-					<legend> Inativar Usuario</legend>
+				<div class="card" style="height:50%; margin-bottom:1%">
+					<legend class="tituloInat">Inativar Usuario</legend>
 					<div class="form-group">
 						<div class="col-sm-9">
 					
@@ -31,7 +32,7 @@ color:black;
 							<input type="text" id="serchUser" name="searchUser" class="form-control" ng-model="usuarioBusca"/>
 							<br/>
 							<input type="checkbox" name="administrador" value="administrador" ng-model="checkAdministrador"/> Usuário Administrador
-							 <input type="submit" class="btn btn-default" value="Pesquisar" style="float:right; background-color:#005E2F; color:white" ng-disabled="inactivateForm.$invalid"/>
+							 <input type="submit" class="btn btn-default btn-cad" value="Pesquisar" style="float:right;  color:white" ng-disabled="inactivateForm.$invalid"/>
               		 		<br/>
               		 		<br/>
               		 		<p>* Ao inativar um usuário do sistema, você bloquea imediatamente o acesso do mesmo. </p>
@@ -53,8 +54,8 @@ color:black;
 			
 		<form class="form-horizontal" name="promForm" novalidate role="form"  ng-submit="sendPostProm()">
 		<fieldset>
-		<div  style="background-color:#f8f8f8 ;height:50%;">
-			<legend> Administrar promoções</legend>
+		<div  class="card" style="height:50%;">
+			<legend class="tituloProm"> Administrar promoções</legend>
 		
 			<div class="form-group " >
 				<label for="nomepromocao" class="col-sm-4 control-label">Nome da promoçao</label>
@@ -73,7 +74,7 @@ color:black;
 			
 				<label for="categoria" class="col-sm-4 control-label">Categoria do serviço</label>
 				<div class="col-sm-4">                
-					<select name="categoriaservico" class="form-control" ng-model="listCat">						
+					<select name="categoriaservico" class="form-control" ng-model="listCat" ng-click="init()">						
 						<option value={{cat}}>{{cat}}</option>					
 					</select>					
 				</div>				
@@ -85,13 +86,13 @@ color:black;
 								<div class="input-group-addon">$</div>
 								<input type="text" class="form-control" ng-model="valorprom" name="valorpromocional"
 									placeholder="Valor promocional">
-								<div class="input-group-addon">.00</div>
+								
 							</div>
 					
 				</div>
 			</div>
-			<div style="float:right;margin-right:10px">	
-			     <input type="submit" class="btn btn-default" value="Adicionar" style="background-color:#005E2F; color:white" ng-disabled="promForm.$invalid"/>
+			<div style="float:right;margin-right:100px">	
+			     <input type="submit" class="btn btn-default btn-cad" value="Adicionar" style="color:white" ng-disabled="promForm.$invalid"/>
 					
 			</div>
 			<div ng-controller="adminPageCtrl" class="form-group">
@@ -116,8 +117,8 @@ color:black;
 	<div class="col-sm-6">
 		<form class="form-horizontal" name="serviceForm" novalidate role="form" ng-submit="sendPostServices()">
 			<fieldset>
-				<div  style="background-color:#f8f8f8;height:50%;">
-					<legend>Categoria de serviços
+				<div class="card" style="height:50%;">
+					<legend class="tituloCadCat">Categoria de serviços
 						<span class="glyphicon glyphicon-pencil" style="float:right; margin-right:1%" ng-click="editCategory()"
 						 ng-class="{'selected': edit, 'non-selected': !edit}"> </span>
 						<span class="glyphicon glyphicon-plus" style="float:right; margin-right:1%" ng-click="addCategory()"
@@ -145,8 +146,8 @@ color:black;
 						<div class="col-sm-3 control label">
 						</div>
 						<div class="col-sm-6">
-					  			<input type="submit" class="btn btn-default" value="Adicionar"
-              			 		style="background-color:#005E2F; color:white" ng-disabled="serviceForm.$invalid" />
+					  			<input type="submit" class="btn btn-default btn-cad" value="Adicionar"
+              			 		style=" color:white" ng-disabled="serviceForm.$invalid" />
               			 
               		 			<input type="button" class="btn btn-default" value="Limpar"
               		 			ng-click="resetservform()" />
@@ -164,8 +165,8 @@ color:black;
 	<div class="col-sm-6">
 		<form class="form-horizontal" name="admForm" novalidate role="form" ng-submit="sendPostAdm()">
 			<fieldset>
-				<div  style="background-color:#f8f8f8 ;height:50%;">
-					<legend>Cadastrar administrador</legend>
+				<div  class="card" style="height:50%;">
+					<legend class="tituloCadAdm" >Cadastrar administrador</legend>
 					
 					 <div class="form-group" show-errors>
             			<label for="name" class="col-sm-3 control-label">Nome</label>
@@ -198,8 +199,8 @@ color:black;
 						<div class="col-sm-3 control label">
 						</div>
 						<div class="col-sm-6">
-					  <input type="submit" class="btn btn-default" value="Adicionar"
-              			 style="background-color:#005E2F; color:white" ng-disabled="admForm.$invalid" />
+					  <input type="submit" class="btn btn-default btn-cad" value="Adicionar"
+              			 style=" color:white" ng-disabled="admForm.$invalid" />
               			 
               		 <input type="button" class="btn btn-default" value="Limpar"
               		 	ng-click="resetadmform()" />

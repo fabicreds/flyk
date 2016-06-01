@@ -108,6 +108,8 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
               $rootScope.data = response.data;  		
   			 console.log(response.data.categoria);
   			 $scope.cat=response.data.categoria;
+  			 
+  			 
       
         }, function(response) {
            
@@ -126,7 +128,7 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
             data : {
                 'nomeprom' : $scope.promnome,
                 'descrprom' : $scope.promdescricao,                
-                'valorpromocional' : $scope.valorprom,
+                'valorpromocional' : $scope.valorprom.toString(),
                 'listacategoria' : $scope.cat                
             }
         }).then(function(response) {           

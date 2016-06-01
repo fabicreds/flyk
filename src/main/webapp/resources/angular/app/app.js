@@ -38,6 +38,11 @@ flyk.config( function($routeProvider) {
             templateUrl: "confirmaPromocao.html",
             controller: "confirmaPromocaoCtrl"
         })
+             .when("/admPromocao",
+        {
+            templateUrl: "admPromocao.html",
+            controller: "admPromocaoCtrl"
+        })
        
         .otherwise({
             redirectTo: "/home"

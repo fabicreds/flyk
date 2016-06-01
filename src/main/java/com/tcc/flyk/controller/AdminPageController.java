@@ -26,7 +26,9 @@ public class AdminPageController {
 		
 		
 		JSONObject listaCat = new JSONObject();
-		listaCat.put("categoria", "Fotografia");
+		listaCat.put("categoria", "Manicure");
+		listaCat.put("cat", "Cabeleireiro");
+
 		return listaCat.toString();
 	}
 
