@@ -35,16 +35,17 @@
 
 </head>
 
-    
+     
   <!-- <header class="sb-page-header">
         <div class="container">
             <p>Encontre o serviço que deseja com facilidade ou divulgue com eficiencia o seu serviço!</p>
         </div> 
 
     </header> -->
-     <div class="col-sm-10">
+      <!-- <div class="col-sm-12"> -->
+       <div class="modal-dialog modal-sm">
     	<div class="modal-content">
-       		<div class="modal-header">
+       		<div class="modal-body">
         		<form name="userForm" ng-submit="sendPostLogin()">
 
 
@@ -70,7 +71,7 @@
                         <i class="glyphicon glyphicon-lock"></i>
                     </span>
                     <input type="password" id="password" name="password" class="form-control"
-                           ng-model="userpassword" ng-required="true" ng-minlength="5" ng-maxlength="10" /> <!--Com o form-control, ele fica responsivel. Não use value para inserior o valor digitado. -->
+                           ng-model="userpassword" ng-required="true" /> <!--Com o form-control, ele fica responsivel. Não use value para inserior o valor digitado. -->
                 </div>
                 <span class="help-block"
                       ng-if="userForm.password.$error.required">Para continuar, digite uma senha!</span>
@@ -90,16 +91,14 @@
         
 
     <div class="form-group" align="right">
-        <input type="submit" class="btn btn-success-outline btn-md" ng-disabled="usuarioForm.$invalid" style="background-color:#005E2F; color:white; align:center" value="Login"/>
-        <br/><br/>
-        <input type="image" src="images/login.png" height="40" width="250" />
-        <!--<input type="image" class="btn-block" src="/img/facebook.png" ng-click="login()" ng-hide="isLoggedIn" height="30" width="30" />  ng-click="login()" ng-hide="isLoggedIn"-->
+        <input type="submit" class="btn btn-block" ng-disabled="usuarioForm.$invalid" style="background-color:#005E2F; color:white; align:center" value="Login"/>
     
     </div>
     <div style="color: red;">
     {{mensagemLogin}}
     </div>
     </form>
-</div>
-</div>
-</div>
+  </div>
+  </div>
+ </div>
+

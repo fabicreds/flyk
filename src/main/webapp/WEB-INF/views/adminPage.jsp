@@ -31,7 +31,6 @@ color:black;
 							<input type="text" id="serchUser" name="searchUser" class="form-control" ng-model="usuarioBusca"/>
 							<br/>
 							<input type="checkbox" name="administrador" value="administrador" ng-model="checkAdministrador"/> Usuário Administrador
-							<br>
 							 <input type="submit" class="btn btn-default" value="Pesquisar" style="float:right; background-color:#005E2F; color:white" ng-disabled="inactivateForm.$invalid"/>
               		 		<br/>
               		 		<br/>
@@ -47,7 +46,7 @@ color:black;
 		</fieldset>
 	</form>
  </div>
-
+ 
 
 	<div class="col-sm-6">
 			

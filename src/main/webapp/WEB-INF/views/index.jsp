@@ -91,7 +91,12 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     
-                    <li class="link"><a ng-click="showLoginModal()" ng-controller="loginPageCtrl">Login</a></li>
+                    <li class="link">
+                    <a ng-click="showLoginModal()" ng-controller="loginPageCtrl">
+                    	 <span class="glyphicon glyphicon-log-in"></span>
+                         <span class="text">Login</span>
+                    </a>
+                    </li>
                     
 
                     <li class="link"><a ng-click="showFormCadastro()">Crie uma conta</a></li>
@@ -144,7 +149,12 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     
-                    <li class="link"><a ng-click="logOff()" ng-controller="loginPageCtrl">Log OFF</a></li>
+                    <li class="link">
+                    <a  ng-click="logOff()" ng-controller="loginPageCtrl">
+                      	 <span class="glyphicon glyphicon-log-out"></span>
+                         <span class="text">SAIR</span>
+                    </a>
+                    </li>
 
                 </ul>
             </div><!--/.nav-collapse -->
@@ -195,7 +205,12 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     
-                    <li class="link"><a ng-click="logOff()" ng-controller="loginPageCtrl">Log OFF</a></li>
+                    <li class="link">
+                    <a  ng-click="logOff()" ng-controller="loginPageCtrl">
+                      	 <span class="glyphicon glyphicon-log-out"></span>
+                         <span class="text">SAIR</span>
+                    </a>
+                    </li>
 
                 </ul>
             </div><!--/.nav-collapse -->
@@ -207,13 +222,9 @@
       
     </div>
    
-    <footer class="footer">
-      		<div class="container">
-  			 © 2016 FLYK Company
-    	  </div>
-    </footer>
+  
 </body>
 
-
+ 
 </html>
 
