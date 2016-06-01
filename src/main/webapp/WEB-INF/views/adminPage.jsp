@@ -32,7 +32,7 @@ color:black;
 							<input type="text" id="serchUser" name="searchUser" class="form-control" ng-model="usuarioBusca"/>
 							<br/>
 							<input type="checkbox" name="administrador" value="administrador" ng-model="checkAdministrador"/> Usuário Administrador
-							 <input type="submit" class="btn btn-default btn-cad" value="Pesquisar" style="float:right;  color:white" ng-disabled="inactivateForm.$invalid"/>
+							 <input type="submit" class="btn btn-success" value="Pesquisar" style="float:right;" ng-disabled="inactivateForm.$invalid"/>
               		 		<br/>
               		 		<br/>
               		 		<p>* Ao inativar um usuário do sistema, você bloquea imediatamente o acesso do mesmo. </p>
@@ -92,7 +92,7 @@ color:black;
 				</div>
 			</div>
 			<div style="float:right;margin-right:100px">	
-			     <input type="submit" class="btn btn-default btn-cad" value="Adicionar" style="color:white" ng-disabled="promForm.$invalid"/>
+			     <input type="submit" class="btn btn-success" value="Adicionar" ng-disabled="promForm.$invalid"/>
 					
 			</div>
 			<div ng-controller="adminPageCtrl" class="form-group">

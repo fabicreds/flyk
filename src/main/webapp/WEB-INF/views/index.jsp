@@ -94,14 +94,20 @@
                 <ul class="nav navbar-nav navbar-right">
                     
                     <li class="link">
-                    <a ng-click="showLoginModal()" ng-controller="loginPageCtrl">
-                    	 <span class="glyphicon glyphicon-log-in"></span>
-                         <span class="text">Login</span>
-                    </a>
+                    	<a ng-click="showLoginModal()" ng-controller="loginPageCtrl">
+								<button type="submit" class="btn btn-success">
+									<i class="glyphicon glyphicon-log-in"></i> Log In
+								</button>
+						</a>
                     </li>
                     
 
-                    <li class="link"><a ng-click="showFormCadastro()">Crie uma conta</a></li>
+                    <li class="link">
+                    	<a ng-click="showFormCadastro()">
+                    		<button type="submit" class="btn btn-info">
+									<i class="glyphicon glyphicon-plus"></i> Crie uma conta
+								</button>
+                    		</a></li>
                  
                 </ul>
             </div><!--/.nav-collapse -->
@@ -152,10 +158,11 @@
                 <ul class="nav navbar-nav navbar-right">
                     
                     <li class="link">
-                    <a  ng-click="logOff()" ng-controller="loginPageCtrl">
-                      	 <span class="glyphicon glyphicon-log-out"></span>
-                         <span class="text">SAIR</span>
-                    </a>
+                    	<a  ng-click="logOff()" ng-controller="loginPageCtrl">
+                         	<button type="submit" class="btn btn-success">
+									<i class="glyphicon glyphicon-log-out"></i> Sair
+							</button>
+						</a>
                     </li>
 
                 </ul>
@@ -209,8 +216,9 @@
                     
                     <li class="link">
                     <a  ng-click="logOff()" ng-controller="loginPageCtrl">
-                      	 <span class="glyphicon glyphicon-log-out"></span>
-                         <span class="text">SAIR</span>
+                      	 <button type="submit" class="btn btn-success">
+								<i class="glyphicon glyphicon-log-out"></i> Sair
+						</button>
                     </a>
                     </li>
 

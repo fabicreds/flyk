@@ -121,4 +121,14 @@ background-color:#016D5E; !important;
 border-color: #adadad;
 border:2px;
 }    
+
+.btn-success {
+	background-color: #005E2F;
+}
+.btn-success.focus {
+  background-color: #008040;
+}
+
+.btn-success:hover {
+  background-color: #008040;
     

@@ -7,11 +7,6 @@
         margin-right: auto;
 	    text-align: left;
     }
-    .btn-success
-    {
-        background-color:#008000;
-    }
-
     .sb-page-header {
         position: relative;
         padding: 30px 15px;
@@ -91,7 +86,7 @@
         
 
     <div class="form-group" align="right">
-        <input type="submit" class="btn btn-block" ng-disabled="usuarioForm.$invalid" style="background-color:#005E2F; color:white; align:center" value="Login"/>
+        <input type="submit" class="btn btn-block btn-success" ng-disabled="usuarioForm.$invalid" value="Log In"/>
     
     </div>
     <div style="color: red;">
