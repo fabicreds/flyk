@@ -1,7 +1,6 @@
 package com.tcc.flyk.controller;
 
 
-import java.util.Date;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tcc.flyk.entity.Categoria;
-import com.tcc.flyk.persistence.banco;
 import com.tcc.flyk.service.CategoriaService;
 
 @Controller
@@ -34,7 +32,7 @@ public class CadastroCategoriaController {
 			ret.put("mensagem", "Categoria cadastrada com sucesso");
 		}else{
 			ret.put("retorno", "erro");
-			ret.put("mensagem", "Categoria não foi gravada");
+			ret.put("mensagem", "Categoria nï¿½o foi gravada");
 		}
 		
 		//Retorna para o .js
