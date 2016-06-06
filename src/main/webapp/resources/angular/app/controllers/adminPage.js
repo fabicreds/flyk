@@ -97,6 +97,12 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 		 $scope.servdescription="";
 	}
 	
+	$scope.resetPromForm = function()
+	{
+		 $scope.promnome="";
+		 $scope.promdescricao="";
+	}
+
 	$scope.init= function() {
 		$http({
 
@@ -105,12 +111,34 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
           
         }).then(function(response) {           
         	
-              $rootScope.data = response.data;  		
-  			 console.log(response.data.categoria);
-  			 $scope.cat=response.data.categoria;
-  			 
-  			 
-      
+              $rootScope.data = response.data;   	 
+  
+              $scope.dadosCateg=JSON.stringify(response.data);  			 
+  			
+  			console.log($scope.dadosCateg);
+  			
+  				$scope.categorias = [];
+  				angular.forEach(response.data, function(item, key) {
+  							
+  					$scope.categorias.push(item.nome);
+  			  
+  				});
+  				
+  			  var obj = []
+  			  	//$scope.choices = [{option: 'Office', number: '9090909090'}, {option: 'Mobile', number: '9090909090'}];
+  			  	// $scope.choices=[{"id":1,"nome":"Manicure"},{"id":2,"nome":"Fotografia"}];
+  			  $scope.listaCategorias= response.data;
+  			  	//console.log(response.data);
+  			  $scope.addNewChoice = function() {
+  			  var newItemNo = $scope.listaCategorias.length+1;
+  			    $scope.listaCategorias.push({'id':''+newItemNo});
+  			  };
+  			    
+  			  $scope.removeChoice = function() {
+  			    var lastItem = $scope.listaCategorias.length-1;
+  			    $scope.listaCategorias.splice(lastItem);
+  			  };
+
         }, function(response) {
            
             console.log();
@@ -118,8 +146,12 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
         });
 		
 	}
+
+
+	
+	  
 	$scope.sendPostProm = function() {
-		
+		console.log($scope.choices);
 		
 		$http({
 
@@ -127,9 +159,8 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
             method : "POST",
             data : {
                 'nomeprom' : $scope.promnome,
-                'descrprom' : $scope.promdescricao,                
-                'valorpromocional' : $scope.valorprom.toString(),
-                'listacategoria' : $scope.cat                
+                'descrprom' : $scope.promdescricao               
+                
             }
         }).then(function(response) {           
         	

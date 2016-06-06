@@ -1,7 +1,12 @@
 package com.tcc.flyk.persistence.impl;
 import org.bson.Document;
+import static java.util.Arrays.asList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.tcc.flyk.entity.Promocao;
 import com.tcc.flyk.persistence.MongoDB;
@@ -28,21 +33,31 @@ public class PromocaoDAOImpl extends MongoDB implements PromocaoDAO {
 
 			super.db.getCollection("promocao").updateMulti(searchQuery, updateQuery);	
 			
-			super.db.getCollection("promocao").insert(
-					new BasicDBObject()
-			                		.append("datainicio", prom.getDataInicio())	
-			                        .append("status", true)
-			                        .append("datafim", prom.getDataFim())			                       
-			                        .append("precos", new Document().append("valor",prom.getValorPromocional()).append("descricao", prom.getDescricao()).append("nome", prom.getNomePromocao()
-			                        )	
-			                        		
-			                        		)
-			                        
-					);
-			
-			
-			//below statement set multi to true.
-			//collection.update(searchQuery, updateQuery, false, true);	
+			List<BasicDBObject> precoDocList = new ArrayList<>();			
+			DBCollection collectionProm = super.db.getCollection("promocao");
+					
+					
+				
+					BasicDBObject promDoc = new BasicDBObject();
+					
+					promDoc.append("datainicio", prom.getDataInicio())                    
+                    .append("datafim", prom.getDataFim())
+                    .append("status", true)
+                    .append("descricao", prom.getDescricao())
+                    .append("nome", prom.getNomePromocao()
+                    					
+                    );		
+					promDoc.append("precos", new Document());
+					
+					
+					for (int i = 0; i < prom.getListaPreco().size(); i++) {
+						BasicDBObject precoDoc = new BasicDBObject();						
+						precoDoc.append("preco", prom.getListaPreco().get(i).getValor()).append("categoria", prom.getListaPreco().get(i).getCategoria());
+						precoDocList.add(precoDoc);
+						promDoc.append("precos",precoDocList);						
+					}		
+					
+			collectionProm.insert(promDoc);
 			                       
 		} catch (Exception e) {
 			e.printStackTrace();

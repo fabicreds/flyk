@@ -1,5 +1,6 @@
 package com.tcc.flyk.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.tcc.flyk.entity.enumerator.CategoriaServicoEnum;
@@ -8,7 +9,6 @@ public class Promocao {
 	
 	private int codigo;
 	
-	private Float valorPromocional;
 	
 	private Date dataInicio;
 	
@@ -18,8 +18,18 @@ public class Promocao {
 	
 	private String nomePromocao;
 	
+	private ArrayList<Preco> listaPreco = new ArrayList<Preco> ();
+
 	
 	
+	public ArrayList<Preco> getListaPreco() {
+		return listaPreco;
+	}
+
+	public void setListaPreco(ArrayList<Preco> listaPreco) {
+		this.listaPreco = listaPreco;
+	}
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -46,14 +56,7 @@ public class Promocao {
 		this.codigo = codigo;
 	}
 
-	public Float getValorPromocional() {
-		return valorPromocional;
-	}
-
-	public void setValorPromocional(Float valorPromocional) {
-		this.valorPromocional = valorPromocional;
-	}
-
+	
 	public Date getDataInicio() {
 		return dataInicio;
 	}

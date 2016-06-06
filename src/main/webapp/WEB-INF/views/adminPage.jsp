@@ -16,8 +16,8 @@ color:black;
 <body>
 
 
-<!-- <div class="row" data-ng-init="init()"> -->
-<div class="row">
+ <div class="row" data-ng-init="init()">
+<!--<div class="row"> -->
 	<div class="col-sm-6">
 		<form class="form-horizontal" name="inactivateForm" novalidate role="form" ng-submit="pesquisar()" ng-controller="adminPageCtrl">
 			
@@ -66,38 +66,34 @@ color:black;
 			<div class="form-group">
 				<label for="descricao" class="col-sm-4 control-label">Descrição da promoção</label>
 				<div class="col-sm-6">                
-					<input type="text" name="promdescricao" ng-model="promdescricao" class="form-control">
+					<textarea rows="5" cols="50" name="promdescricao" ng-model="promdescricao" class="form-control">
+					</textarea>
 					
 				</div>
 			</div>
-			<div class="form-group">
-			
-				<label for="categoria" class="col-sm-4 control-label">Categoria do serviço</label>
-				<div class="col-sm-4">                
-					<select name="categoriaservico" class="form-control" ng-model="listCat" ng-click="init()">						
-						<option value={{cat}}>{{cat}}</option>					
-					</select>					
-				</div>				
-			</div>	
-			<div class="form-group form-margem">
-				<label for="valorprom" class="col-sm-4 control-label">Valor promocional</label>
-				<div class="col-sm-6">                
-					<div class="input-group">
-								<div class="input-group-addon">$</div>
-								<input type="text" class="form-control" ng-model="valorprom" name="valorpromocional"
-									placeholder="Valor promocional">
-								
-							</div>
-					
-				</div>
-			</div>
+	
+          <!--  
 			<div style="float:right;margin-right:100px">	
-			     <input type="submit" class="btn btn-success" value="Adicionar" ng-disabled="promForm.$invalid"/>
+			    
 					
 			</div>
-			<div ng-controller="adminPageCtrl" class="form-group">
-				<div>{{mensagem.mensagem}}</div>
-		    </div>
+			-->
+      <div class=form-group>
+						<div class="col-sm-4 control label">
+						</div>
+						<div class="col-sm-6">
+					  			 <input type="submit" class="btn btn-default btn-cad" value="Adicionar" style="color:white" ng-disabled="promForm.$invalid"/>
+              			 
+              		 			<input type="button" class="btn btn-default" value="Limpar"	ng-click="resetPromForm()" />
+              		 	
+   	           		 	
+              			 
+              		 </div>
+              	  </div>
+              		 
+              		 
+              		 	
+			
 		        
 		</div>
 		</form>

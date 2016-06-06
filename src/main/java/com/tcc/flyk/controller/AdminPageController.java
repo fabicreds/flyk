@@ -1,5 +1,9 @@
 package com.tcc.flyk.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,13 +27,40 @@ public class AdminPageController {
 	}
 	@RequestMapping(value = "/getValueCatList", method = RequestMethod.GET)
 	public @ResponseBody String preencherListaCat(@RequestBody String prom, ModelMap model) {
-		
-		
-		JSONObject listaCat = new JSONObject();
-		listaCat.put("categoria", "Manicure");
-		listaCat.put("cat", "Cabeleireiro");
 
-		return listaCat.toString();
+		ArrayList<JSONObject> listaCat = new <JSONObject>ArrayList();
+
+		
+		   //
+		
+		
+		JSONObject listaCatJson = new JSONObject();
+		    
+		listaCatJson.put("id", 1);
+		listaCatJson.put("nome", "Fotografia");
+		
+		listaCat.add(listaCatJson);
+		
+		JSONObject listaCatJson2 = new JSONObject();
+	    
+		listaCatJson2.put("id", 2);
+		listaCatJson2.put("nome", "Manicure");
+		   
+		listaCat.add(listaCatJson2);
+
+		    
+		  //  catList.add(listaCat);
+		
+		  JSONArray jsonAraay = new JSONArray();
+		  
+		  
+
+		  jsonAraay.put(listaCatJson2);
+		  jsonAraay.put(listaCatJson);
+
+		
+        
+		return jsonAraay.toString();
 	}
 
 
