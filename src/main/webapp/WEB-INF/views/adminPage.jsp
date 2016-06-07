@@ -131,7 +131,7 @@ color:black;
                     </div>
                     
                      <div class="form-group" show-errors>
-            			<label for="desricao" class="col-sm-3 control-label">Descrição</label>
+            			<label for="desricao" class="col-sm-3 control-label">Descrição </label>
             				<div class="col-sm-6">
                 				<textarea rows="5" cols="50" id="servdescription" name="servdescription" class="form-control" ng-model="servdescription" ng-required="true"> </textarea>
                 				<span class="help-block"
