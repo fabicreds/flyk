@@ -1,3 +1,4 @@
+
 flyk.controller("confirmaPromocaoCtrl", function($rootScope, $scope, $location, $http, $uibModal, $filter) {
 	
 	
@@ -5,10 +6,7 @@ flyk.controller("confirmaPromocaoCtrl", function($rootScope, $scope, $location, 
 	$scope.dados= $rootScope.data;	
 	$scope.nomepromo=$scope.dados.nomeprom;
 	$scope.descrprom=$scope.dados.descrprom;
-	$scope.valorpromo=$scope.dados.valorpromocional;
-	$scope.catPromo=$scope.dados.listacategoria;
-	console.log($scope.catPromo)
-	    $scope.msg = false;
+    $scope.msg = false;
 
 	
 	
@@ -18,6 +16,47 @@ flyk.controller("confirmaPromocaoCtrl", function($rootScope, $scope, $location, 
 	  };
 	  $scope.today();
 
+	  $scope.init= function() {
+			$http({
+
+	            url : 'getValueCatList',
+	            method : "GET",
+	          
+	        }).then(function(response) {           
+	        	
+	              $rootScope.data = response.data;     
+	              $scope.dadosCateg=JSON.stringify(response.data);  		  			
+	  			   console.log($scope.dadosCateg);
+	  			
+	  				$scope.categorias = [];
+	  				angular.forEach(response.data, function(item, key) {
+	  							
+	  					$scope.categorias.push(item.nome);
+	  			  
+	  				});
+	  				
+	  			  var obj = []
+	  			  				//$scope.choices = [{option: 'Office', number: '9090909090'}, {option: 'Mobile', number: '9090909090'}];
+	  			  				// $scope.choices=[{"id":1,"nome":"Manicure"},{"id":2,"nome":"Fotografia"}];
+	  			  $scope.listaCategorias= response.data;
+	  			  console.log(response.data);
+	  			  $scope.addNewCategoria = function() {
+	  			    var newItemNo = $scope.listaCategorias.length+1;
+	  			    $scope.listaCategorias.push({'id':''+newItemNo});
+	  			  };
+	  			    
+	  			  $scope.removeCategoria = function() {
+	  			    var lastItem = $scope.listaCategorias.length-1;
+	  			    $scope.listaCategorias.splice(lastItem);
+	  			  };
+
+	        }, function(response) {
+	           
+	            console.log();
+	            $scope.message = response;
+	        });
+			
+		};
 	
 	
 	
@@ -27,27 +66,32 @@ flyk.controller("confirmaPromocaoCtrl", function($rootScope, $scope, $location, 
 
    $scope.datainicio =$filter('date')( $scope.dtini, "dd/MM/yyyy");    
    $scope.datafim =$filter('date')( $scope.dtfim, "dd/MM/yyyy"); 
-  console.log($scope.datainicio)
+   console.log(JSON.stringify($scope.listaCategorias));	
 		$http({
 
             url : 'confirmaPromocao',
             method : "POST",
+         
             data : {
                 'nomeprom' : $scope.nomepromo,
-                'descrprom' : $scope.descrprom,                
-                'valorpromocional' : $scope.valorpromo   ,
+                'descrprom' : $scope.descrprom,     
                 'dataini' : 	$scope.datainicio,
-                'datafim' : 	$scope.datafim
+                'datafim' : 	$scope.datafim,
+                'listJson' : JSON.stringify($scope.listaCategorias)
 
                 
-            }
+            },
+            headers: {
+                'Content-Type': 'application/json'
+       }
         }).then(function(response) {           
         	
               $rootScope.data = response.data;  		
               $scope.mensagem=response.data;
               $scope.msg=true;
-
+             // console.log(JSON.stringify(response.data));
   			//$location.path('/confirmaPromocao');
+              console.log(response.data);
       
         }, function(response) {
            
@@ -55,15 +99,6 @@ flyk.controller("confirmaPromocaoCtrl", function($rootScope, $scope, $location, 
             $scope.message = response;
         });
 	}	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -126,8 +161,8 @@ flyk.controller("confirmaPromocaoCtrl", function($rootScope, $scope, $location, 
 	  };
 
 	  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-	  $scope.format ='dd-MM-yyyy';
-	  $scope.altInputFormats = ['dd-MMMM-yyyy'];
+	  $scope.format ='dd/MM/yyyy';
+	  $scope.altInputFormats = ['dd/MMMM/yyyy'];
 
 	  $scope.popup1 = {
 	    opened: false
@@ -169,5 +204,9 @@ flyk.controller("confirmaPromocaoCtrl", function($rootScope, $scope, $location, 
 
 	    return '';
 	  }
-	
+	 
+
+		
+	  
+		
 });
