@@ -27,15 +27,15 @@ color:black;
 					<div class="form-group">
 						<div class="col-sm-9">
 					
-							<label for=lblsearchUser>Digite o usu√°rio que deseja inativar:</label>
+							<label for=lblsearchUser>Digite o usu·rio que deseja inativar:</label>
 					
 							<input type="text" id="serchUser" name="searchUser" class="form-control" ng-model="usuarioBusca"/>
 							<br/>
-							<input type="checkbox" name="administrador" value="administrador" ng-model="checkAdministrador"/> Usu√°rio Administrador
+							<input type="checkbox" name="administrador" value="administrador" ng-model="checkAdministrador"/> Usu·rio Administrador
 							 <input type="submit" class="btn btn-default btn-cad" value="Pesquisar" style="float:right;  color:white" ng-disabled="inactivateForm.$invalid"/>
               		 		<br/>
               		 		<br/>
-              		 		<p>* Ao inativar um usu√°rio do sistema, voc√™ bloquea imediatamente o acesso do mesmo. </p>
+              		 		<p>* Ao inativar um usu·rio do sistema, vocÍ bloquea imediatamente o acesso do mesmo. </p>
               		 		<p>
 								<font color="red"> {{messageErroInativar}}</font> <font color="green">
 									{{messageSucessoInativar}}</font>
@@ -55,16 +55,16 @@ color:black;
 		<form class="form-horizontal" name="promForm" novalidate role="form"  ng-submit="sendPostProm()">
 		<fieldset>
 		<div  class="card" style="height:50%;">
-			<legend class="tituloProm"> Administrar promo√ß√µes</legend>
+			<legend class="tituloProm"> Administrar promoÁıes</legend>
 		
 			<div class="form-group " >
-				<label for="nomepromocao" class="col-sm-4 control-label">Nome da promo√ßao</label>
+				<label for="nomepromocao" class="col-sm-4 control-label">Nome</label>
 				<div class="col-md-4">                
 						   <input type="text" name="nomeprom"  class="form-control"  ng-model="promnome" >					
 				</div>
 			</div>	
 			<div class="form-group">
-				<label for="descricao" class="col-sm-4 control-label">Descri√ß√£o da promo√ß√£o</label>
+				<label for="descricao" class="col-sm-4 control-label">DescriÁ„o</label>
 				<div class="col-sm-6">                
 					<textarea rows="5" cols="50" name="promdescricao" ng-model="promdescricao" class="form-control">
 					</textarea>
@@ -114,7 +114,7 @@ color:black;
 		<form class="form-horizontal" name="serviceForm" novalidate role="form" ng-submit="sendPostServices()">
 			<fieldset>
 				<div class="card" style="height:50%;">
-					<legend class="tituloCadCat">Categoria de servi√ßos
+					<legend class="tituloCadCat">Categoria de serviÁos
 						<span class="glyphicon glyphicon-pencil" style="float:right; margin-right:1%" ng-click="editCategory()"
 						 ng-class="{'selected': edit, 'non-selected': !edit}"> </span>
 						<span class="glyphicon glyphicon-plus" style="float:right; margin-right:1%" ng-click="addCategory()"
@@ -126,16 +126,16 @@ color:black;
             				<div class="col-sm-6">
                 				<input type="text" id="servname" name="servname" class="form-control" ng-model="servname" ng-required="true"/>
                 				<span class="help-block"
-                     			 ng-if="serviceForm.servname.$error.required">O nome do servi√ßo √© obrigat√≥rio!</span>
+                     			 ng-if="serviceForm.servname.$error.required">O nome do serviÁo È  obrigatÛrio!</span>
                            </div>
                     </div>
                     
                      <div class="form-group" show-errors>
-            			<label for="desricao" class="col-sm-3 control-label">Descri√ß√£o</label>
+            			<label for="desricao" class="col-sm-3 control-label">DescriÁ„o</label>
             				<div class="col-sm-6">
                 				<textarea rows="5" cols="50" id="servdescription" name="servdescription" class="form-control" ng-model="servdescription" ng-required="true"> </textarea>
                 				<span class="help-block"
-                     			 ng-if="serviceForm.servdescription.$error.required">A descri√ß√£o do servi√ßo √© obrigat√≥ria! </span>
+                     			 ng-if="serviceForm.servdescription.$error.required">A descriÁ„o do serviÁo È obrigatÛria! </span>
                            </div>
                     </div>
                      <div class=form-group>
@@ -169,7 +169,7 @@ color:black;
             				<div class="col-sm-6">
                 				<input type="text" id="admname" name="admname" class="form-control" ng-model="admname" ng-required="true"/>
                 				<span class="help-block"
-                     			 ng-if="admForm.admname.$error.required">O usu√°rio √© obrigat√≥rio!</span>
+                     			 ng-if="admForm.admname.$error.required">O nome È obrigatÛrio!</span>
                            </div>
                     </div>
                     
@@ -178,7 +178,7 @@ color:black;
             				<div class="col-sm-6">
                 				<input type="text" id="admusername" name="admusername" class="form-control" ng-model="admusername" ng-required="true"/>
                 				<span class="help-block"
-                     			 ng-if="admForm.admusername.$error.required">O usu√°rio √© obrigat√≥rio!</span>
+                     			 ng-if="admForm.admusername.$error.required">O usu·rio È obrigatÛrio!</span>
                            </div>
                     </div>
                     
@@ -187,7 +187,7 @@ color:black;
             				<div class="col-sm-6">
                 				<input type="password" id="admpassword" name="admpassword" class="form-control" ng-model="admpassword" ng-required="true"/>
                 				 <span class="help-block"
-                     			 ng-if="admForm.admpassword.$error.required">A senha √© obrigat√≥ria!</span>
+                     			 ng-if="admForm.admpassword.$error.required">A senha È obrigatÛria!</span>
                            </div>
                     </div>
 				
