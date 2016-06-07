@@ -1,9 +1,8 @@
 package com.tcc.flyk.persistence.impl;
-import org.bson.Document;
-import static java.util.Arrays.asList;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.bson.Document;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;

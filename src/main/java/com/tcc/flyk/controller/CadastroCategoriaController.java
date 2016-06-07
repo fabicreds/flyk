@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+//import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 import com.tcc.flyk.entity.Categoria;
 import com.tcc.flyk.service.CategoriaService;
+//import static java.util.Arrays.asList;
+//import java.util.List;//CLASSE DE TESTE
 
 @Controller
 @RequestMapping(value = "/cadastroServicos")
@@ -27,12 +30,19 @@ public class CadastroCategoriaController {
 
 		JSONObject ret = new JSONObject();
 		CategoriaService servico = new CategoriaService();
-		if(servico.CadastrarNovaCategoria(novaCategoria)){
+		
+		/*List<Categoria> teste = servico.ConsultarTodasCategorias();
+		for(int i=0;i<teste.size();i++){
+			System.out.println(teste.get(i).getNome_categoria());
+		}
+		
+		if(1==1){
+		//*/if(servico.CadastrarNovaCategoria(novaCategoria)){
 			ret.put("retorno", "sucesso");
 			ret.put("mensagem", "Categoria cadastrada com sucesso");
 		}else{
 			ret.put("retorno", "erro");
-			ret.put("mensagem", "Categoria nï¿½o foi gravada");
+			ret.put("mensagem", "Categoria não foi gravada");
 		}
 		
 		//Retorna para o .js
