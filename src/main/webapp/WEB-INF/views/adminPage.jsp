@@ -25,14 +25,20 @@ color:black;
 				<div class="card" style="height:50%; margin-bottom:1%">
 					<legend class="tituloInat">Inativar Usuario</legend>
 					<div class="form-group">
-						<div class="col-sm-9">
+						<div class="col-sm-9" style="margin-left:3%" show-errors>
 					
 							<label for=lblsearchUser>Digite o usuário que deseja inativar:</label>
 					
-							<input type="text" id="serchUser" name="searchUser" class="form-control" ng-model="usuarioBusca"/>
+							<input type="text" id="serchUser" name="searchUser" class="form-control" ng-model="usuarioBusca" ng-required="true"/>
+							<span class="help-block"
+                     	    		ng-if="inactivateForm.searchUser.$error.required">O usuário é obrigatório!</span>	
 							<br/>
 							<input type="checkbox" name="administrador" value="administrador" ng-model="checkAdministrador"/> Usuário Administrador
-							 <input type="submit" class="btn btn-success" value="Pesquisar" style="float:right;" ng-disabled="inactivateForm.$invalid"/>
+							<div class="form-group" style="float:right">
+							 <input type="submit" class="btn btn-success" value="Pesquisar"  ng-disabled="inactivateForm.$invalid"/>
+							  <input type="button" class="btn btn-default" value="Limpar" ng-click="resetPromForm()" />
+							 
+							 </div>
               		 		<br/>
               		 		<br/>
               		 		<p>* Ao inativar um usuário do sistema, você bloquea imediatamente o acesso do mesmo. </p>
@@ -57,18 +63,21 @@ color:black;
 		<div  class="card" style="height:50%;">
 			<legend class="tituloProm"> Administrar promoções</legend>
 		
-			<div class="form-group " >
-				<label for="nomepromocao" class="col-sm-4 control-label">Nome da promoçao</label>
-				<div class="col-md-4">                
-						   <input type="text" name="nomeprom"  class="form-control"  ng-model="promnome" >					
+			<div class="form-group" show-errors>
+				<label for="nomepromocao" class="col-sm-3 control-label">Nome</label>
+				<div class="col-md-6">                
+						   <input type="text" name="nomeprom"  class="form-control"  ng-model="promnome" ng-required="true" >
+						   <span class="help-block"
+                     	    		ng-if="promForm.nomeprom.$error.required">O nome é obrigatório!</span>					
 				</div>
 			</div>	
-			<div class="form-group">
-				<label for="descricao" class="col-sm-4 control-label">Descrição da promoção</label>
+			<div class="form-group" show-errors>
+				<label for="descricao" class="col-sm-3 control-label">Descrição</label>
 				<div class="col-sm-6">                
-					<textarea rows="5" cols="50" name="promdescricao" ng-model="promdescricao" class="form-control">
+					<textarea rows="5" cols="50" name="promdescricao" ng-model="promdescricao" class="form-control" ng-required="true">
 					</textarea>
-					
+					<span class="help-block"
+                     	    		ng-if="promForm.promdescricao.$error.required">A descrição é obrigatória!</span>
 				</div>
 			</div>
 	
@@ -79,10 +88,10 @@ color:black;
 			</div>
 			-->
       <div class=form-group>
-						<div class="col-sm-4 control label">
+						<div class="col-sm-3 control label">
 						</div>
 						<div class="col-sm-6">
-					  			 <input type="submit" class="btn btn-default btn-cad" value="Adicionar" style="color:white" ng-disabled="promForm.$invalid"/>
+					  			 <input type="submit" class="btn btn-success" value="Adicionar" style="color:white" ng-disabled="promForm.$invalid"/>
               			 
               		 			<input type="button" class="btn btn-default" value="Limpar"	ng-click="resetPromForm()" />
               		 	
@@ -142,7 +151,7 @@ color:black;
 						<div class="col-sm-3 control label">
 						</div>
 						<div class="col-sm-6">
-					  			<input type="submit" class="btn btn-default btn-cad" value="Adicionar"
+					  			<input type="submit" class="btn btn-success" value="Adicionar"
               			 		style=" color:white" ng-disabled="serviceForm.$invalid" />
               			 
               		 			<input type="button" class="btn btn-default" value="Limpar"
@@ -195,7 +204,7 @@ color:black;
 						<div class="col-sm-3 control label">
 						</div>
 						<div class="col-sm-6">
-					  <input type="submit" class="btn btn-default btn-cad" value="Adicionar"
+					  <input type="submit" class="btn btn-success" value="Adicionar"
               			 style=" color:white" ng-disabled="admForm.$invalid" />
               			 
               		 <input type="button" class="btn btn-default" value="Limpar"

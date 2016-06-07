@@ -23,7 +23,7 @@
     <title>FLYK ®</title>
     
     <script src="${pageContext.request.contextPath}/resources/angular/angular.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href="${pageContext.request.contextPath}/resources/css/bootstrap.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/resources/css/app.css" rel="stylesheet" />
     <script src="${pageContext.request.contextPath}/resources/angular/angular-ui/ui-bootstrap-tpls.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/angular-route.min.js"></script>
@@ -41,7 +41,7 @@
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/confirmaPromocao.js"></script>
        <!--   <script src="//rawgithub.com/GoDisco/ngFacebook/master/ngFacebook.js"></script> --> 
            <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/admPromocao.js"></script>
-       
+        
 </head>
 
 
