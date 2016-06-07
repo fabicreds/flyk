@@ -1,4 +1,4 @@
-<legend>Promoção</legend>
+<legend>Promoção </legend>
 <meta charset="utf-8"/>
 <div data-ng-init="init()"></div>
 <div class=" col-md-12 " >
