@@ -22,7 +22,7 @@
                         <span class="info-box-text">Usuários</span>
                         <span class="info-box-number">Inativação</span>
                         <div class="progress">
-                           <div class="progress-bar" style="width: 50%"></div>
+                           <div class="progress-bar" style="width: 100%"></div>
                         </div>
                         <span class="progress-description">
                         Administração de usuários
@@ -66,7 +66,7 @@
                         <span class="info-box-text">Promoções</span>
                         <span class="info-box-number">Cadastro</span>
                         <div class="progress">
-                           <div class="progress-bar" style="width: 50%"></div>
+                           <div class="progress-bar" style="width: 100%"></div>
                         </div>
                         <span class="progress-description">
                         Administração de promoções
@@ -119,13 +119,13 @@
                   <div class="info-box bg-main">
                      <span class="info-box-icon"><i class="ion glyphicon glyphicon-th-large"></i></span>
                      <div class="info-box-content">
-                        <span class="info-box-text">Categorias</span>
-                        <span class="info-box-number">Serviço</span>
+                        <span class="info-box-text">Categorias de Serviços</span>
+                        <span class="info-box-number">Cadastro</span>
                         <div class="progress">
-                           <div class="progress-bar" style="width: 50%"></div>
+                           <div class="progress-bar" style="width: 100%"></div>
                         </div>
                         <span class="progress-description">
-                        Administração de categorias
+                        Inserir categorias de serviços
                         </span>
                      </div>
                      <!-- /.info-box-content -->
@@ -183,8 +183,8 @@
                      <div class="info-box-content">
                         <span class="info-box-text">Administrador</span>
                         <span class="info-box-number">Cadastro</span>
-                        <div class="progress">
-                           <div class="progress-bar" style="width: 50%"></div>
+                         <div class="progress">
+                           <div class="progress-bar" style="width: 100%"></div>
                         </div>
                         <span class="progress-description">
                         Inserir administrador
