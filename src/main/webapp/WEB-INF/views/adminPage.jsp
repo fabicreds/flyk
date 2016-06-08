@@ -129,11 +129,13 @@ color:black;
 						<span class="glyphicon glyphicon-plus" style="float:right; margin-right:1%" ng-click="addCategory()"
 						 ng-class="{'selected': add, 'non-selected': !add}"></span>
 					</legend>
-					<div ng-if="add===true">
+			 <!--  <div ng-if="add===true">-->
 					 <div class="form-group" show-errors>
             			<label for="name" class="col-sm-3 control-label">Nome</label>
             				<div class="col-sm-6">
                 				<input type="text" id="servname" name="servname" class="form-control" ng-model="servname" ng-required="true"/>
+                				
+                				
                 				<span class="help-block"
                      			 ng-if="serviceForm.servname.$error.required">O nome do serviço é obrigatório!</span>
                            </div>
@@ -161,7 +163,7 @@ color:black;
               			 
               		 </div>
               	  </div>
-              	 </div> <!-- ng-if -->
+              	<!-- </div>  ng-if -->
 				</div>
 			</fieldset>
 		</form>
