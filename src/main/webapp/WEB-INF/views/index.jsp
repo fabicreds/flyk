@@ -23,8 +23,11 @@
     <title>FLYK ®</title>
     
     <script src="${pageContext.request.contextPath}/resources/angular/angular.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
+    
     <link href="${pageContext.request.contextPath}/resources/css/bootstrap.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/resources/css/app.css" rel="stylesheet" />
+    
     <script src="${pageContext.request.contextPath}/resources/angular/angular-ui/ui-bootstrap-tpls.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/angular-route.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/app.js"></script>
@@ -49,7 +52,7 @@
     <!-- Responsável por responsible pages-->
     <!--  <employee-form/>  Directive created to this new form.-->
 
-    <nav class="navbar navbar-default" ng-controller="flykCtrl">
+    <nav class="navbar navbar-default menu" ng-controller="flykCtrl">
     <div ng-if="usuarioLogado ==''">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -95,20 +98,24 @@
                     
                     <li class="link">
                     	<a ng-click="showLoginModal()" ng-controller="loginPageCtrl">
-								<button type="submit" class="btn btn-success">
+								<!-- <button type="submit" class="btn btn-success">
 									<i class="glyphicon glyphicon-log-in"></i> Log In
-								</button>
+								</button>-->
+								<span class="glyphicon glyphicon-log-in"></span>
+								<span class="text">LOGIN</span>
 						</a>
                     </li>
                     
 
-                    <li class="link">
+                  <!--   <li >
                     	<a ng-click="showFormCadastro()">
-                    		<button type="submit" class="btn btn-info">
+                    		<!-- <button type="submit" class="btn btn-info">
 									<i class="glyphicon glyphicon-plus"></i> Crie uma conta
 								</button>
+								<span class="glyphicon glyphicon-plus"></span>
+								<span class="text">CRIE UMA CONTA</span>
                     		</a></li>
-                 
+                  -->
                 </ul>
             </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
@@ -141,8 +148,8 @@
                          <span class="glyphicon glyphicon-search"></span>
                          <span class="text">COMO USAR</span>
                         </a></li>
-                    <li>
-                        <a href="#">
+                    <li id="linkadm">
+                        <a href="#" >
                             <span class="glyphicon glyphicon-heart-empty"></span>
                             <span class="text">ADMINISTRADOR</span>
                         </a>
@@ -159,9 +166,12 @@
                     
                     <li class="link">
                     	<a  ng-click="logOff()" ng-controller="loginPageCtrl">
-                         	<button type="submit" class="btn btn-success">
+                         	<!-- <button type="submit" class="btn btn-success">
 									<i class="glyphicon glyphicon-log-out"></i> Sair
-							</button>
+							</button>-->
+							<span class="glyphicon glyphicon-log-out"></span>
+							
+							<span class="text">SAIR</span>
 						</a>
                     </li>
 
@@ -214,12 +224,15 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     
-                    <li class="link">
-                    <a  ng-click="logOff()" ng-controller="loginPageCtrl">
-                      	 <button type="submit" class="btn btn-success">
-								<i class="glyphicon glyphicon-log-out"></i> Sair
-						</button>
-                    </a>
+                <li class="link">
+                    	<a  ng-click="logOff()" ng-controller="loginPageCtrl">
+                         	<!-- <button type="submit" class="btn btn-success">
+									<i class="glyphicon glyphicon-log-out"></i> Sair
+							</button>-->
+							<span class="glyphicon glyphicon-log-out"></span>
+							
+							<span class="text">SAIR</span>
+						</a>
                     </li>
 
                 </ul>

@@ -25,7 +25,7 @@
 								<p>
 
 
-									<input type="submit" class="btn btn-default"
+									<input type="submit" class="btn btn-success"
 										style="float: right; background-color: #005E2F; color: white" value="{{data.btn}}"/>
 								</p>
 							</form>

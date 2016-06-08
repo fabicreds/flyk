@@ -13,7 +13,7 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 			}
 		}).then(function(response) {
 			if(response.data==""){
-				$rootScope.messageErroInativar = "Nenhum usuário encontrado!";
+				$rootScope.messageErroInativar = "Nenhum usuario encontrado!";
 			}else{
 				$rootScope.messageErroInativar = "";
 				$rootScope.data = response.data;
@@ -67,7 +67,7 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 		}).then(function(response) {
 			console.log(response.data);
 			if(response.data.retorno == "erro"){
-				$scope.messageErro = response.data.mensagem; // configurar mensagem se o serviço já estiver cadastrado
+				$scope.messageSucesso = response.data.mensagem; // configurar mensagem se o serviço já estiver cadastrado
 			}else{
 				$scope.messageSucesso = response.data.mensagem; // configurar mensagem para exibir que o serviço foi cadastrado com sucesso
 			}
