@@ -24,7 +24,7 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 	}
 
 	$scope.sendPostAdm = function() {
-
+	
 		$http({
 			url : 'cadastroAdministrador',
 			method : "POST",
@@ -56,7 +56,7 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 	};
 	
    $scope.sendPostServices = function() {
-		
+		console.log($scope.servname);
 		$http({
 			url : 'cadastroServicos', // nome do request mapping da classe java criada para cadastro de serviços
 			method : "POST",
@@ -71,8 +71,8 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 			}else{
 				$scope.messageSucesso = response.data.mensagem; // configurar mensagem para exibir que o serviço foi cadastrado com sucesso
 			}
-			$scope.servname = "";
-			$scope.servdescription = "";
+			//$scope.servname = "";
+			//$scope.servdescription = "";
 			
 		}, function(response) {
 			// fail case
