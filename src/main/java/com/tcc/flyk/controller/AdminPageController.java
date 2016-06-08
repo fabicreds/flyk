@@ -23,7 +23,7 @@ import com.tcc.flyk.service.PromocaoService;
 public class AdminPageController {
 	
 
-	private CategoriaService categService;	
+	private CategoriaService categService = new CategoriaService();	
 	
 	@RequestMapping(value = "/adminPage", method = RequestMethod.GET)
 	public String iniciarTelaAdmin(ModelMap model) {
@@ -38,7 +38,7 @@ public class AdminPageController {
 
 		
 		 JSONArray arrayCatJson = new JSONArray();
-/*
+
 		List<Categoria> listaCateg =categService.ConsultarTodasCategorias();
 		
 		for(int i=0; i <listaCateg.size(); i++)
@@ -48,7 +48,7 @@ public class AdminPageController {
 			listaCatJson.put("nome", listaCateg.get(i).getNome_categoria());
 			arrayCatJson.put(listaCatJson);
 		}
-		*/
+		
 		 
 		
 	JSONObject listaCatJson = new JSONObject();
@@ -72,8 +72,8 @@ public class AdminPageController {
 		  
 		  
 
-		arrayCatJson.put(listaCatJson2);
-		arrayCatJson.put(listaCatJson);
+		//arrayCatJson.put(listaCatJson2);
+		//arrayCatJson.put(listaCatJson);
 
 
 		
