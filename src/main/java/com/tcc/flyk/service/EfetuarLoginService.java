@@ -27,18 +27,18 @@ public class EfetuarLoginService {
 			usuario = admDAO.consultaUsuarioAdministrador(form.getEmail());
 			if(usuario==null){
 				//não foi encontrado nenhum registro com aquele usuário
-				return mensagemErro("Usuário ou senha incorreto!");
+				return mensagemErro("Usu�rio ou senha incorreto!");
 			}else {
 				if(!usuario.isAtivo()){
 					//usuario inativo
-					return mensagemErro("Usuário inativo!");
+					return mensagemErro("Usu�rio inativo!");
 				}else{
 					if(form.getSenha().equals(usuario.getSenha())){
 						//usuario autenticado com sucesso
 						return mensagemSucesso(usuario);
 					}else{
 						//senha incorreta
-						return mensagemErro("Usuário ou senha incorreto!");
+						return mensagemErro("Usu�rio ou senha incorreto!");
 					}
 				}
 			}
