@@ -29,9 +29,10 @@
   font-size: 14px;
 }
 .info-box .progress {
-  background: rgba(0, 0, 0, 0.2);
+  background: #FFFFFF;
   margin: 5px -10px 5px -10px;
   height: 2px;
+  padding:2px;
 }
 .info-box .progress,
 .info-box .progress .progress-bar {
@@ -124,7 +125,11 @@ margin-top:10px;
 .menu {
 	background-color:#31708F;
 	color:white;
-
+    background: -webkit-gradient(linear,left top,right bottom,color-stop(0%,#31708f),color-stop(100%,#00b29c));
+    background: -webkit-linear-gradient(-65deg,#C0DBF3 0,#00b29c 100%);
+    background: -o-linear-gradient(-65deg,#008fe2 0,#00b29c 100%);
+    background: -ms-linear-gradient(-65deg,#008fe2 0,#00b29c 100%);
+    background: linear-gradient(154deg,#286090 0,#00b29c 100%);
 }
 .navbar-default .navbar-nav > li > a
 {
@@ -242,6 +247,7 @@ margin-top:10px;
 /**	background-color: #005E2F;**/
 
 background-color:	#009688 !important;
+border-color:white !important;
 }
 
 .btn-success:hover {
