@@ -77,7 +77,7 @@
 
 			<div class="form-group" align="right">
 				<input type="submit" class="btn btn-block btn-success"
-					ng-disabled="usuarioForm.$invalid" value="Log In" />
+					ng-disabled="usuarioForm.$invalid" value="Login" />
 
 			</div>
 			<div style="color: red;">{{mensagemLogin}}</div>

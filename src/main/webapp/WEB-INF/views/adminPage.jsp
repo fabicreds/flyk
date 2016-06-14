@@ -106,6 +106,20 @@
                         <input type="button" class="btn btn-default" value="Limpar"	ng-click="resetPromForm()" />
                      </div>
                   </div>
+                  
+                  
+                  
+                  
+                   <div class="form-group" show-errors>
+                     <label for="name" class="col-sm-3 control-label"></label>
+                     <div class="col-sm-6">
+                   
+                        <font color="green">
+                       {{mensagemSucessProm}}</font>
+                  </div>
+                
+               </div>
+                  
                </div>
          </form>
       </div>
@@ -167,7 +181,20 @@
                
                
                
-      <p>{{messageSucesso}}</p>
+
+      
+      
+      
+        <div class="form-group" show-errors>
+                     <label for="name" class="col-sm-3 control-label"></label>
+                     <div class="col-sm-6">
+                       
+                        <font color="green">
+                        {{messageSucesso}}</font>
+                  </div>
+                  
+             </div>
+              
 
                </div>
             </fieldset>
@@ -226,14 +253,22 @@
                            ng-click="resetadmform()" />
                      </div>
                   </div>
-                  <div class=form-group>
+                  
+                   <div class="form-group" show-errors>
+                     <label for="name" class="col-sm-3 control-label"></label>
+                     <div class="col-sm-6">
+                       <font color="red"> {{messageErroCadastro}}</font>
+                        <font color="green">
+                        {{messageSucessoCadastro}}</font>
+                  </div>
+                  <!-- <div class=form-group>
                      <div class="col-sm-3 control label"></div>
                      <div class="col-sm-6">
                         <font color="red"> {{messageErroCadastro}}</font>
                         <font color="green">
                         {{messageSucessoCadastro}}</font>
                      </div>
-                  </div>
+                  </div>-->
                </div>
             </fieldset>
          </form>

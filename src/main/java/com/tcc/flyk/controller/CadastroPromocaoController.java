@@ -53,17 +53,15 @@ public class CadastroPromocaoController {
 		if(retorno){
 			
 			msg.put("sucesso", "Ok");
-			msg.put("msgSucesso", "Cadastro efetuado com sucesso!");
-			
-			
+			msg.put("msgSucesso", "Cadastro efetuado com sucesso!");	
 			
 		}else{
 			msg.put("error", "erro");
 		}
-		 Promocao pr   = convertJSON(prom);
-		//return msg.toString();
+		 
 		
-		//msg.put("sucesso", pr.getListaPreco().get(2).getValor());
+		
+		
 		return msg.toString();
 		
 	}
