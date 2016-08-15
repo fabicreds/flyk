@@ -1,5 +1,6 @@
 package com.tcc.flyk.persistence;
 
+import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Usuario;
 
 public interface ClienteDAO {
@@ -10,4 +11,9 @@ public interface ClienteDAO {
 	
 	public boolean atualizarStatusCliente(Usuario usuario);
 
+	public boolean inserirNovoCliente(Cliente cliente);
+
+	void consultaTudo();
+	
+	
 }

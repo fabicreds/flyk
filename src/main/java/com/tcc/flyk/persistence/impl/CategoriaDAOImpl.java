@@ -81,6 +81,51 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO{
 		}
 	}
 	
+	//****************************CONSULTA CATEGORIA POR PARTE DO NOME****************************//
+	@Override
+	public List<Categoria> ConsultarCategoriaPorParteDoNome(String nome){
+		try{
+			System.out.println("consultando categoria por parte do nome");
+
+			final List<Categoria> retorno = new ArrayList<Categoria>();
+			
+			//Busca as categorias ativa com este nome
+			FindIterable<Document> iterable = super.mongoDatabase.getCollection("FLYK").find(
+					new Document("status_categoria", "A")
+					.append("nome_categoria", new Document("$regex", nome)
+							.append("$options", "'i'")));
+			
+			//Varre a lista de resultados
+			iterable.forEach(new Block<Document>() {
+			    @Override
+			    public void apply(final Document document) {
+			        System.out.println(document);
+			        
+			        String nome = document.getString("nome_categoria");
+			        
+			        //Cria uma nova categoria
+			        Categoria cat = new Categoria();
+			        cat.setId(document.getObjectId("_id").toString());
+			        cat.setNome_categoria(nome);
+			        cat.setDescricao_categoria(document.getString("descricao_categoria"));
+			        cat.setInicio_vigencia(document.getDate("inicio_vigencia_categoria"));
+			        cat.setStatus_categoria(document.getString("status_categoria"));
+			        
+			        //Adiciona a categoria na lista de retorno
+			        retorno.add(cat);
+			    }
+			});
+
+			System.out.println("consultando categoria por parte do nome fim");
+
+			return retorno;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	//****************************CONSULTA TODAS AS CATEGORIAS****************************//
 	@Override
 	public List<Categoria> ConsultarTodasCategorias(){

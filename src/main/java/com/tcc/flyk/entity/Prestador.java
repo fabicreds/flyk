@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.tcc.flyk.entity.enumerator.CategoriaServicoEnum;
 
-public class Prestador{
+public class Prestador extends Cliente{
 	
 	private String cnpj;
 	
@@ -13,6 +13,8 @@ public class Prestador{
 	private List<Cliente> listaRecomendacao;
 	
 	private List<Compromisso> listaServicosContratados;
+
+	private List<Cliente> listaRecomendacoesRecebidas;
 	
 	//valor pago pelo perfil premium
 	private Float valorPremium;
@@ -68,4 +70,12 @@ public class Prestador{
 		this.pesoBusca = pesoBusca;
 	}
 
+
+	public List<Cliente> getListaRecomendacoesRecebidas() {
+		return listaRecomendacoesRecebidas;
+	}
+
+	public void setListaRecomendacoesRecebidas(List<Cliente> listaRecomendacoesRecebidas) {
+		this.listaRecomendacoesRecebidas = listaRecomendacoesRecebidas;
+	}
 }

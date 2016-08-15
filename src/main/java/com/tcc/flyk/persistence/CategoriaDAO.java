@@ -9,6 +9,8 @@ public interface CategoriaDAO {
 	
 	public Categoria ConsultarCategoriaPorNome(String nome);
 	
+	public List<Categoria> ConsultarCategoriaPorParteDoNome(String nome);
+	
 	public List<Categoria> ConsultarTodasCategorias();
 	
 	public Categoria ConsultarCategoriaPorId(String id);

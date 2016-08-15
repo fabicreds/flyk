@@ -46,7 +46,9 @@ public class Cliente {
 	
 	private Prestador prestador;
 	
-	private List<Cliente> listaPrestadoresRecomendados;
+	private List<Prestador> listaPrestadoresRecomendados;
+	
+	private List<Conversa> listaMensagensConversa;
 
 	public String getId() {
 		return id;
@@ -192,12 +194,20 @@ public class Cliente {
 		this.prestador = prestador;
 	}
 
-	public List<Cliente> getListaPrestadoresRecomendados() {
+	public List<Prestador> getListaPrestadoresRecomendados() {
 		return listaPrestadoresRecomendados;
 	}
 
-	public void setListaPrestadoresRecomendados(List<Cliente> listaPrestadoresRecomendados) {
+	public void setListaPrestadoresRecomendados(List<Prestador> listaPrestadoresRecomendados) {
 		this.listaPrestadoresRecomendados = listaPrestadoresRecomendados;
+	}
+
+	public List<Conversa> getlistaMensagensConversa() {
+		return this.listaMensagensConversa;
+	}
+
+	public void setlistaMensagensConversa(List<Conversa> listaMensagensConversa) {
+		this.listaMensagensConversa = listaMensagensConversa;
 	}
 	
 }
