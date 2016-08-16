@@ -12,6 +12,7 @@ import com.mongodb.DBObject;
 import com.mongodb.client.FindIterable;
 import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Usuario;
+import com.tcc.flyk.entity.Compromisso;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.persistence.ClienteDAO;
 import com.tcc.flyk.persistence.MongoDB;
@@ -323,59 +324,87 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		
 		//******************************Servicos contratados******************************//
 		lista = "";		
-		if(!(pessoa.getlistaMensagensConversa()==null)){
+		if(!(pessoa.getAgenda()==null)){
 			lista = "[";
 			
-			int count = pessoa.getlistaMensagensConversa().size();
-			System.out.println("qtd msgs: " + String.valueOf(count));
+			int count = pessoa.getAgenda().size();
+			System.out.println("qtd de servicos contratados: " + String.valueOf(count));
 			
-			//Varre a lista de mensagens, inserindo uma por uma
+			//Varre a lista de compromissos, inserindo uma por uma
 			for(int i=0;i<count;i++){
-
-				String idAmigo, flagEnviadoOuRecebido;
-				if(pessoa.getlistaMensagensConversa().get(i).getIdDestino()==pessoa.getId()){
-					idAmigo = pessoa.getlistaMensagensConversa().get(i).getIdOrigem();
-					System.out.println(String.valueOf(pessoa.getlistaMensagensConversa().get(i).getIdOrigem()));
-					flagEnviadoOuRecebido = "R";
-				}else{
-					idAmigo = pessoa.getlistaMensagensConversa().get(i).getIdDestino();
-					System.out.println(String.valueOf(pessoa.getlistaMensagensConversa().get(i).getIdDestino()));
-					flagEnviadoOuRecebido = "E";
-				}
 
 				if(i>0) lista = lista + ","; //Adiciona vírgula entre os documentos
 				
-				//Inicia o documento e grava o id da pessoa com a qual o cliente está conversando
+				//Inicia o documento e grava o id do prestador
 				lista = lista + "Document{{";
-				lista = lista + "id_usuario_conversa=";
-				lista = lista + idAmigo;
+				lista = lista + "id_prestador=";
+				lista = lista + pessoa.getAgenda().get(i).getContrato().getPrestador().getId();
 				
-				//flagEnviadoOuRecebido
-				lista = lista + ",";
-				lista = lista + "flagEnviadoOuRecebido =";
-				lista = lista + flagEnviadoOuRecebido;
-				
-				//data_hora_mensagem
-				if(!(pessoa.getlistaMensagensConversa().get(i).getData()==null)){
+				//data_servico_contratado
+				if(!(pessoa.getAgenda().get(i).getDataInicio()==null)){
 					lista = lista + ",";
-					lista = lista + "data_hora_mensagem=";
-					lista = lista + String.valueOf(pessoa.getlistaMensagensConversa().get(i).getData());
+					lista = lista + "data_servico_contratado =";
+					lista = lista + pessoa.getAgenda().get(i).getDataInicio();
 				}
 				
-				//mensagem
-				if(!(pessoa.getlistaMensagensConversa().get(i).getMsg()==null)){
+				//custo_servico_contratado
+				if(!(pessoa.getAgenda().get(i).getContrato().getCusto()==null)){
 					lista = lista + ",";
-					lista = lista + "mensagem=";
-					lista = lista + pessoa.getlistaMensagensConversa().get(i).getMsg();
+					lista = lista + "custo_servico_contratado=";
+					lista = lista + String.valueOf(pessoa.getAgenda().get(i).getContrato().getCusto());
+				}
+				
+				//status_servico_contratado
+				if(!(pessoa.getAgenda().get(i).getStatus()==null)){
+					lista = lista + ",";
+					lista = lista + "status_servico_contratado=";
+					lista = lista + pessoa.getAgenda().get(i).getStatus();
+				}
+				
+				/* vou deixar esse problema pro alex do futuro
+				//data_avaliacao_servico_contratado
+				if(!(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().==null)){
+					lista = lista + ",";
+					lista = lista + "data_avaliacao_servico_contratado=";
+					lista = lista + pessoa.getAgenda().get(i).getContrato().getPrestador().getId();
+				}
+				*/
+				
+				//nota_preco
+				if(!(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoPreco()==0)){
+					lista = lista + ",";
+					lista = lista + "nota_preco=";
+					lista = lista + String.valueOf(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoPreco());
+				}
+				
+				//nota_pontualidade
+				if(!(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoTempo()==0)){
+					lista = lista + ",";
+					lista = lista + "nota_pontualidade=";
+					lista = lista + String.valueOf(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoTempo());
+				}
+				
+				//nota_qualidade
+				if(!(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoQualidade()==0)){
+					lista = lista + ",";
+					lista = lista + "nota_qualidade=";
+					lista = lista + String.valueOf(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoQualidade());
+				}
+				
+				//nota_profissionalismo
+				if(!(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoProfissionalismo()==0)){
+					lista = lista + ",";
+					lista = lista + "nota_profissionalismo=";
+					lista = lista + String.valueOf(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoProfissionalismo());
 				}
 
 				lista = lista + "}}";
 			}
 			lista = lista + "]";
 			System.out.println(lista);
-			doc.append("mensagens_de_conversa", lista);
+			doc.append("servicos_contratados", lista);
 		}else{
-			System.out.println("sem conversas");
+			System.out.println("sem servicos contratados");
 		}
 		
 		/*                  TRECHO QUE CÓDIGO QUE VAI NO PRESTADORDAOIMPL
