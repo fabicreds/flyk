@@ -77,11 +77,20 @@
 
 			<div class="form-group" align="right">
 				<input type="submit" class="btn btn-block btn-success"
-					ng-disabled="usuarioForm.$invalid" value="Login" />
+					ng-disabled="userForm.$invalid" value="Login" />
+					
+		
 
 			</div>
 			<div style="color: red;">{{mensagemLogin}}</div>
+			
+		
+			<div class="form-group" align="right">
+				<input type="button" class="btn btn-block btn-success"
+					 value="Nova conta" ng-click="newUser()" />
+			
 		</form>
+		
 	</div>
 </div>
 </div>

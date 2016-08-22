@@ -49,4 +49,9 @@ flyk.controller("loginPageCtrl", function($rootScope, $scope, $location, $http, 
 		$location.path('/home');
     }
    
+    $scope.newUser = function()
+    {
+    	$location.path('/cadastro');
+    	$scope.modal.dismiss('cancel');
+    }
 });
