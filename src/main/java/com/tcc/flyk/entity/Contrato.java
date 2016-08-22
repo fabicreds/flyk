@@ -1,5 +1,7 @@
 package com.tcc.flyk.entity;
 
+import java.util.Date;
+
 import com.tcc.flyk.entity.enumerator.CategoriaServicoEnum;
 
 public class Contrato {
@@ -12,9 +14,11 @@ public class Contrato {
 	
 	private AvaliacaoPrestador avaliacaoPrestador;
 	
+	private Date dataAvaliacaoServico; //Data que o cliente avaliou
+	
 	private int avaliacaoContratante;
 	
-	private Long custo;
+	private float custo;
 
 	public Cliente getCliente() {
 		return cliente;
@@ -56,14 +60,23 @@ public class Contrato {
 		this.avaliacaoContratante = avaliacaoContratante;
 	}
 
-	public Long getCusto() {
+	public float getCusto() {
 		return custo;
 	}
 
-	public void setCusto(Long custo) {
+	public void setCusto(float custo) {
 		this.custo = custo;
+	}
+
+
+	public Date getdataAvaliacaoServico() {
+		return dataAvaliacaoServico;
+	}
+
+	public void setdataAvaliacaoServico(Date dataAvaliacaoServico) {
+		this.dataAvaliacaoServico = dataAvaliacaoServico;
 	}
 	
 	
-
+	
 }

@@ -4,9 +4,11 @@ import java.text.ParseException;
 import java.util.Date;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.Block;
+import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.client.FindIterable;
@@ -258,7 +260,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			}
 			lista = lista + "]";
 			System.out.println(lista);
-			doc.append("recomendações_dadas", lista);
+			doc.append("recomendacoes_dadas", lista);
 		}else{
 			System.out.println("sem recomendações dadas");
 		}
@@ -348,7 +350,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				}
 				
 				//custo_servico_contratado
-				if(!(pessoa.getAgenda().get(i).getContrato().getCusto()==null)){
+				if(!(pessoa.getAgenda().get(i).getContrato().getCusto()==0)){
 					lista = lista + ",";
 					lista = lista + "custo_servico_contratado=";
 					lista = lista + String.valueOf(pessoa.getAgenda().get(i).getContrato().getCusto());
@@ -360,15 +362,13 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 					lista = lista + "status_servico_contratado=";
 					lista = lista + pessoa.getAgenda().get(i).getStatus();
 				}
-				
-				/* vou deixar esse problema pro alex do futuro
+
 				//data_avaliacao_servico_contratado
-				if(!(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().==null)){
+				if(!(pessoa.getAgenda().get(i).getContrato().getdataAvaliacaoServico()==null)){
 					lista = lista + ",";
 					lista = lista + "data_avaliacao_servico_contratado=";
-					lista = lista + pessoa.getAgenda().get(i).getContrato().getPrestador().getId();
+					lista = lista + String.valueOf(pessoa.getAgenda().get(i).getContrato().getdataAvaliacaoServico());
 				}
-				*/
 				
 				//nota_preco
 				if(!(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoPreco()==0)){
@@ -516,6 +516,102 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		}
 	}
 	
+	@Override
+	public Cliente consultaClientePorId(String idCliente){
+		consultaTudo();
+		System.out.println("CONSULTA CLIENTE - INÍCIO");
+		
+		Cliente pessoa = new Cliente(); //Cliente que será retornado
+		
+		/*O TRECHO DE CÓDIGHO ABAIXO É USANDO OS METODOS ROOTS, VOU TENTAR USAR OUTRO POR ENQUANTO
+		//Começa a busca no banco
+		try {
+			FindIterable<Document> iterable = super.mongoDatabase.getCollection("FLYK").find(new Document("_id",new ObjectId(idCliente)));
+			
+			
+			
+			
+		} catch (Exception e) {
+			System.out.println("ERRO NA CONSULTA DE CLIENTE:" + e.getStackTrace());
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
+		//TENTATIVA DE USAR OS METODOS VELHOS PORÉM QUE FUNCIONAM
+
+		DBCollection collection = db.getCollection("FLYK");
+		BasicDBObject filtro = new BasicDBObject(new Document("_id",new ObjectId(idCliente)));
+		DBCursor cursor = collection.find(filtro);
+		DBObject resultado;
+
+		//Busca campos de resultado
+		if(cursor.hasNext()){
+			resultado = cursor.next();
+			System.out.println(resultado);
+			System.out.println("************************");
+			System.out.println(pessoa.getNome() + " é o nome que busquei no método getNome");
+
+			//ID
+			pessoa.setId(idCliente);
+			//NOME
+			pessoa.setNome(String.valueOf(resultado.get("nome_completo")));
+			//ALIAS
+			pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			//EMAIL
+			pessoa.setEmail(String.valueOf(resultado.get("email")));
+			//APELIDO
+			pessoa.setApelido(String.valueOf(resultado.get("usuario")));
+			//SENHA
+			pessoa.setSenha(String.valueOf(resultado.get("senha")));
+			//ID DO FACEBOOK
+			pessoa.setFacebookID(String.valueOf(resultado.get("facebookID")));
+			//CPF
+			pessoa.setCPF(String.valueOf(resultado.get("CPF")));
+			//FOTO DO PERFIL
+			pessoa.setFotoPerfil(String.valueOf(resultado.get("foto")));
+			//TIPO DE PERFIL
+			String tipoCadastro = String.valueOf(resultado.get("tipo_perfil"));
+			if(tipoCadastro=="1"){
+				pessoa.setTipoCadastro(TipoCadastroEnum.CLIENTE);
+			}
+			if(tipoCadastro=="2"){
+				pessoa.setTipoCadastro(TipoCadastroEnum.PRESTADOR);
+			}
+			if(tipoCadastro=="3"){
+				pessoa.setTipoCadastro(TipoCadastroEnum.PREMIUM);
+			}
+			if(tipoCadastro=="4"){
+				pessoa.setTipoCadastro(TipoCadastroEnum.ADMINISTRADOR);
+			}
+			pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			
+		}else{
+			System.out.println("Consulta de cliente pelo id " + idCliente + " não encontrou valores.");
+			return null;
+		}
+		
+		
+		
+		
+		
+		//Retorna a pessoa para o chamador
+		return pessoa;
+	}
 	@Override
 	public boolean atualizarStatusCliente(Usuario usuario) {
 		try {

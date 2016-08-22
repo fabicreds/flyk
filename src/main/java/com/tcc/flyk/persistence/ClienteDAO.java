@@ -9,6 +9,8 @@ public interface ClienteDAO {
 	
 	public Usuario consultaUsuario(String usuario);
 	
+	public Cliente consultaClientePorId(String idCliente);
+	
 	public boolean atualizarStatusCliente(Usuario usuario);
 
 	public boolean inserirNovoCliente(Cliente cliente);
