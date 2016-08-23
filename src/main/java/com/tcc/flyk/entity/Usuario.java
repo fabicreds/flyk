@@ -3,6 +3,8 @@ package com.tcc.flyk.entity;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 
 public class Usuario {
+	
+	private String id;
 
 	private String nome;
 
@@ -18,6 +20,14 @@ public class Usuario {
 
 	public String getNome() {
 		return nome;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getId() {
+		return id;
 	}
 
 	public void setNome(String nome) {

@@ -7,6 +7,8 @@ public interface ClienteDAO {
 
 	public void consulta();
 	
+	public Usuario consultaLogin(String email);
+	
 	public Usuario consultaUsuario(String usuario);
 	
 	public Cliente consultaClientePorId(String idCliente);

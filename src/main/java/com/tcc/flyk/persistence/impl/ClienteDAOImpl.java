@@ -515,6 +515,74 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			return null;
 		}
 	}
+	@Override
+	public Usuario consultaLogin(String email) {
+		try {
+			DBCollection collection = db.getCollection("FLYK");
+			BasicDBObject filtro = new BasicDBObject(new Document("email", email));
+			DBCursor cursor = collection.find(filtro);
+			DBObject resultado;
+
+			Usuario user = new Usuario();
+			//Busca campos de resultado
+			if(cursor.hasNext()){
+				resultado = cursor.next();
+				System.out.println(resultado);
+				System.out.println("************************");
+
+				//ID
+				user.setId(String.valueOf(resultado.get("_id")));
+				//NOME
+				user.setNome(String.valueOf(resultado.get("nome_completo")));
+				//EMAIL
+				user.setEmail(String.valueOf(resultado.get("email")));
+				//SENHA
+				user.setSenha(String.valueOf(resultado.get("senha")));
+				//USUARIO (EMAIL SEM O @)
+				user.setUsuario(String.valueOf(resultado.get("usuario")));
+				//TIPO CADASTRO
+				String tipoCadastro = String.valueOf(resultado.get("tipo_perfil"));
+				if(tipoCadastro=="1"){
+					user.setTipoCadastro(TipoCadastroEnum.CLIENTE);
+				}
+				if(tipoCadastro=="2"){
+					user.setTipoCadastro(TipoCadastroEnum.PRESTADOR);
+				}
+				if(tipoCadastro=="3"){
+					user.setTipoCadastro(TipoCadastroEnum.PREMIUM);
+				}
+				if(tipoCadastro=="4"){
+					user.setTipoCadastro(TipoCadastroEnum.ADMINISTRADOR);
+				}
+				//FLAG ATIVO
+				String flagAtivo = String.valueOf(resultado.get("status_pessoa"));
+				if(flagAtivo=="A"){
+					user.setAtivo(true);
+				}else{
+					user.setAtivo(false);
+				}
+				
+				/************************* MENSAGENS DE TESTE, REMOVA CASO QUERIA, MAS NÃO DÊ COMMIT PLEASE **********************/
+				System.out.println("**************");
+				System.out.println(user.getNome());
+				System.out.println(user.getId());
+				System.out.println(user.getSenha());
+				System.out.println(user.getTipoCadastro());
+				System.out.println("**************");
+				
+				
+			}else{
+				System.out.println("Consulta de cliente pelo email " + email + " não encontrou valores.");
+				return null;
+			}
+			
+			
+			return user;
+			
+		} catch (Exception e) {
+			return null;
+		}
+	}
 	
 	@Override
 	public Cliente consultaClientePorId(String idCliente){
@@ -549,7 +617,6 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			resultado = cursor.next();
 			System.out.println(resultado);
 			System.out.println("************************");
-			System.out.println(pessoa.getNome() + " é o nome que busquei no método getNome");
 
 			//ID
 			pessoa.setId(idCliente);
