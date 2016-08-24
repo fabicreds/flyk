@@ -1,4 +1,5 @@
-flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal) {
+flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal, fileReader) {
+	
 	
 	   $scope.validatePassword = function (form) {
 	        
@@ -25,10 +26,11 @@ flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal) {
 			 $scope.password="";
 			 $scope.confirmPassword="";
 			 $scope.CPF="";
+			 $scope.dateBirth="";
 			 $scope.telephone="";
-			 $scope.userTypeConsumidor="";
-			 $scope.userTypePrestador="";
-			 $scope.address.CEP="";
+			 $scope.prestador.type="";
+			 $scope.prestador.flag="";
+			 $scope.address.cep="";
 			 $scope.address.logradouro="";
 			 $scope.address.numero="";
 			 $scope.address.comp="";
@@ -36,9 +38,104 @@ flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal) {
 			 $scope.address.cidade="";
 			 $scope.address.estado="";
 			 $scope.address.pais="";
+			 $scope.imageProfile = "";
 			 
 			 
 		}
 
-	
+	    $scope.sendPostCadastroCliente = function() {
+	    	
+			$http({
+				url : 'cadastroCliente',
+				method : "POST",
+				data : {
+					'nome' : $scope.fullName,
+					'email' : $scope.email,
+					'apelido' : $scope.nickname,
+					'senha' : $scope.password,
+					'cpf' : $scope.CPF,
+					'datanascimento':  $scope.dateBirth,
+					'telefone1' : $scope.telephone1,
+					'telefone2' : $scope.telephone2,
+					'prestador' : $scope.prestador,
+					'cep' : $scope.cep,
+					'logradouro' : $scope.logradouro,
+					'numero' : $scope.numero,
+					'comp' : $scope.comp,
+					'bairro' : $scope.bairro,
+					'cidade' : $scope.cidade,
+					'estado' : $scope.estado,
+					'pais' : $scope.pais,
+					'imagem' :$scope.imageSrc
+				}
+			}).then(function(response) {
+				console.log(response.data);
+				if(response.data.retorno == "erro"){
+					$scope.messageErroCadastro = response.data.mensagem;
+					$scope.messageSucessoCadastro = "";
+				}else{
+					$scope.messageErroCadastro = "";
+					$scope.messageSucessoCadastro = response.data.mensagem;
+				}
+				 $scope.fullName="";
+				 $scope.email="";
+				 $scope.nickname="";
+				 $scope.password="";
+				 $scope.confirmPassword="";
+				 $scope.CPF="";
+				 $scope.dateBirth="";
+				 $scope.telephone="";
+				 $scope.prestador.type="";
+				 $scope.prestador.flag="";
+				 $scope.address.cep="";
+				 $scope.address.logradouro="";
+				 $scope.address.numero="";
+				 $scope.address.comp="";
+				 $scope.address.bairro="";
+				 $scope.address.cidade="";
+				 $scope.address.estado="";
+				 $scope.address.pais="";
+				
+			}, function(response) {
+				// fail case
+				console.log(response);
+				$scope.message = response;
+			});
+
+			
+		};
+		
+		//Upload imagem de perfil
+		  console.log(fileReader)
+		    $scope.getFile = function () {
+		        $scope.progress = 0;
+		        fileReader.readAsDataUrl($scope.file, $scope)
+		                      .then(function(result) {
+		                          $scope.imageSrc = result;
+		                      });
+		    };
+		 
+		    $scope.$on("fileProgress", function(e, progress) {
+		        $scope.progress = progress.loaded / progress.total;
+		    });
+		 
+
 });
+ // diretiva para carregar imagem
+flyk.directive("ngFileSelect",function(){
+
+	  return {
+	    link: function($scope,el){
+	      
+	      el.bind("change", function(e){
+	      
+	        $scope.file = (e.srcElement || e.target).files[0];
+	        $scope.getFile();
+	      })
+	      
+	    }
+	    
+	  }
+	  
+	  
+	})

@@ -27,14 +27,14 @@
     
     <link href="${pageContext.request.contextPath}/resources/css/bootstrap.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/resources/css/app.css" rel="stylesheet" />
-    
-    <script src="${pageContext.request.contextPath}/resources/angular/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/angular-ui/ui-bootstrap-tpls.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/angular-route.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/app.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/cadastro.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/adminPage.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/loginPage.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/userPageInfos.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/uploadFactory.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/ValidationDirective.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiCPFdirective.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiDateDirective.js"></script>

@@ -8,8 +8,8 @@
                 if (telefone.length > 2) {
                     telefone = telefone.substring(0, 2) + ")" + telefone.substring(2); // Se a data for maior que 2, determina que as duas primeiras substrings(0 e 1) + / + todo o resto da string.
                 }
-                if (telefone.length > 8) {
-                    telefone = telefone.substring(0, 7) + "-" + telefone.substring(7,11); // Se a data for maior que 5, determina que as duas primeiras substrings(0,1,2,3,4) + / + todo o resto da string.
+                if (telefone.length > 9) {
+                    telefone = telefone.substring(0, 8) + "-" + telefone.substring(8,12); // Se a data for maior que 5, determina que as duas primeiras substrings(0,1,2,3,4) + / + todo o resto da string.
                 }
               
                 return "(" + telefone;
@@ -23,7 +23,7 @@
 
 
             ctrl.$formatters.push(function (value) {
-                return $filter("telefone")(value, "(xx).xxxx-xxxx");
+                return $filter("telefone")(value, "(xx).xxxxx-xxxx");
             });
         }
     };

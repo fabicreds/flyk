@@ -9,11 +9,21 @@
         <legend>Cadastro - Novo cliente</legend>
         <div class="col-sm-3">
       	  <div class="text-center">
-        	<img ng-repeat="picture in pictures"ng-src="{{picture}}" width="300" class="avatar img-circle img-thumbnail" alt="avatar"/>
-        	<br/>
-        	<h4>Escolha sua foto de perfil</h4>
-    		<input type="file" accept="image/*" image="image"/>
-			<img ng-show="image" ng-src="{{image.url}}" type="{{image.file.type}}" />
+      	  <h4>Escolha sua foto de perfil</h4>
+        	<form>
+        		
+        		<input type="file" ng-file-select="onFileSelect($files)" ng-model="imageProfile" >
+				 <!--  <input type="file" ng-file-select="onFileSelect($files)" multiple> -->
+
+  
+   			</form>
+   			<b>Preview:</b><br />
+  			
+   			<img ng-src="{{imageSrc}}" style="height: 200px; width: 200px; border-radius: 50%; border: none;"/><br/>
+   			
+   			<b>Progress:</b>
+  			<progress value="{{progress}}"></progress>
+  			
       	  </div>
        </div>
        <div class="col-sm-9"> 
@@ -101,27 +111,31 @@
             </div>
 
         <div class="form-group" show-errors>
-            <label for="numberContact" class="col-sm-3 control-label">Telefone</label>
+            <label for="numberContact" class="col-sm-3 control-label">Telefone 1*</label>
             <div class="col-sm-3">
-                <input type="text" id="Telephone" name="telephone" class="form-control" ng-model="telephone" ui-telefone/>
+                <input type="text" id="telephone1" name="telephone1" class="form-control" ng-model="telephone1"  ng-required="true" ui-telefone/>
+                 <span class="help-block"
+                      ng-if="userForm.telephone1.$error.required">Este telefone é obrigatório!</span>
+           
+            </div>
+        </div>
+        
+        <div class="form-group" show-errors>
+            <label for="numberContact2" class="col-sm-3 control-label">Telefone 2</label>
+            <div class="col-sm-3">
+                <input type="text" id="telephone2" name="telephone2" class="form-control" ng-model="telephone2" ui-telefone/>
            
             </div>
         </div>
 
         <div class="form-group">
-            <label for="userType" class="col-sm-3 control-label">Tipo de cadastro</label>
+            <label for="userType" class="col-sm-3 control-label"></label>
             <div class="col-sm-9">
 
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="userType" value="consumidor"
-                               ng-model="userTypeConsumidor" /> Consumidor
-                    </label><br />
-                </div>
-                <div class="checkbox">
-                    <label>
                         <input type="checkbox" name="userType" value="prestador"
-                               ng-model="userTypePrestador" /> Prestador
+                               ng-model="prestador.flag" /> Deseja se tornar um prestador de serviço? 
                     </label><br />
                 </div>
               
@@ -129,21 +143,21 @@
             </div>
         </div>
 
-        <div class="form-group" uib-collapse="!userTypePrestador">
+        <div class="form-group" uib-collapse="!prestador.flag">
             <label for="nonCompeteNotes" class="col-sm-4 control-label">
-               Tipo de serviço
+               Tipo de Perfil
             </label>
             <div class="col-sm-8">
                 <div class="radio">
                     <label>
                         <input type="radio" name="serviceType" value="free"
-                               ng-model="serviceType" /> Free
+                               ng-model="prestador.type" /> Free 
                     </label><br />
                 </div>
                 <div class="radio">
                     <label>
                         <input type="radio" name="serviceType" value="premium"
-                               ng-model="serviceType" /> Premium
+                               ng-model="prestador.type" /> Premium 
                     </label><br />
                 </div>
             </div>
@@ -153,7 +167,7 @@
             <label for="address1" class="col-sm-3 control-label">Endereço</label>
             <div class="col-sm-2">
                 <input type="text" id="addressPostalCode" name="addressPostalCode" class="form-control" ng-model="address.cep"
-                       ng-blur="pesquisaCep(user.address.cep)" placeholder="CEP" /> <!--Popular a partir do banco de dados-->
+                       ng-blur="pesquisaCep(address.cep)" placeholder="CEP" /> <!--Popular a partir do banco de dados-->
             </div>
         </div>
 
@@ -180,7 +194,7 @@
                 <input type="text" name="addressCity" id="city" class="form-control" ng-model="address.cidade" placeholder="Cidade"/>
             </div>
             <div class="col-sm-1">
-                <input type="text" name="addressState" id="state" class="form-control" ng-model="address.estado" placeholder="Estado"/>
+                <input type="text" name="addressState" id="state" class="form-control" ng-model="address.estado" placeholder="UF"/>
                 
             </div>
             <div class="col-sm-2">
@@ -189,6 +203,9 @@
 
             </div>
         </div>
+        
+        {{address}}
+        
 
       
            
@@ -199,8 +216,23 @@
                 <label for="info">* Campos obrigatórios</label>
             </div>
         </div>
+        
+        <div class="form-group">
+    	<div class="col-sm-3">
+    	</div>
+    
+        <div class="col-sm-9">
+        <input type="submit" class="btn btn-success" value="Finalizar"
+               ng-click="sendPostCadastroCliente()"  />
+        <input type="reset" class="btn btn-default" value="Limpar"
+               ng-click="resetcadastroform()" />
+    	</div>
+    </div>
 
  </div>
+ 
+    
+    
 
 </fieldset>
    
@@ -208,13 +240,14 @@
 
 
 
-
-    <div class="col-sm-offset-3 control-label">
-        <input type="submit" class="btn btn-success" value="Finalizar"
-               ng-click="submitForm()"  />
-        <input type="reset" class="btn btn-default" value="Limpar"
-               ng-click="resetcadastroform()" />
-    </div>
+	 <div class="form-group">
+          <label for="name" class="col-sm-3 control-label"></label>
+              <div class="col-sm-6">
+                  <font color="red"> {{messageErroCadastro}}</font>
+                   <font color="green"> {{messageSucessoCadastro}}</font>
+      		  </div>
+     </div> 		  
+   
 
 </form>
 
