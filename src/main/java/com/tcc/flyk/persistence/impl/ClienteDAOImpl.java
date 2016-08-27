@@ -542,26 +542,25 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				user.setUsuario(String.valueOf(resultado.get("usuario")));
 				//TIPO CADASTRO
 				String tipoCadastro = String.valueOf(resultado.get("tipo_perfil"));
-				if(tipoCadastro=="1"){
+				if(tipoCadastro.equals("1")){
 					user.setTipoCadastro(TipoCadastroEnum.CLIENTE);
 				}
-				if(tipoCadastro=="2"){
+				if(tipoCadastro.equals("2")){
 					user.setTipoCadastro(TipoCadastroEnum.PRESTADOR);
 				}
-				if(tipoCadastro=="3"){
+				if(tipoCadastro.equals("3")){
 					user.setTipoCadastro(TipoCadastroEnum.PREMIUM);
 				}
-				if(tipoCadastro=="4"){
+				if(tipoCadastro.equals("4")){
 					user.setTipoCadastro(TipoCadastroEnum.ADMINISTRADOR);
 				}
 				//FLAG ATIVO
 				String flagAtivo = String.valueOf(resultado.get("status_pessoa"));
-				if(flagAtivo=="A"){
+				if(flagAtivo.equals("A")){
 					user.setAtivo(true);
 				}else{
 					user.setAtivo(false);
 				}
-				
 				/************************* MENSAGENS DE TESTE, REMOVA CASO QUERIA, MAS NÃO DÊ COMMIT PLEASE **********************/
 				System.out.println("**************");
 				System.out.println(user.getNome());
@@ -608,7 +607,10 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		//TENTATIVA DE USAR OS METODOS VELHOS PORÉM QUE FUNCIONAM
 
 		DBCollection collection = db.getCollection("FLYK");
-		BasicDBObject filtro = new BasicDBObject(new Document("_id",new ObjectId(idCliente)));
+		//BasicDBObject filtro = new BasicDBObject(new Document("_id",new ObjectId(idCliente)));
+		//Metodo acima alterado para
+		BasicDBObject filtro=new BasicDBObject("_id",new ObjectId(idCliente));
+
 		DBCursor cursor = collection.find(filtro);
 		DBObject resultado;
 
@@ -638,16 +640,16 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			pessoa.setFotoPerfil(String.valueOf(resultado.get("foto")));
 			//TIPO DE PERFIL
 			String tipoCadastro = String.valueOf(resultado.get("tipo_perfil"));
-			if(tipoCadastro=="1"){
+			if(tipoCadastro.equals("1")){
 				pessoa.setTipoCadastro(TipoCadastroEnum.CLIENTE);
 			}
-			if(tipoCadastro=="2"){
+			if(tipoCadastro.equals("2")){
 				pessoa.setTipoCadastro(TipoCadastroEnum.PRESTADOR);
 			}
-			if(tipoCadastro=="3"){
+			if(tipoCadastro.equals("3")){
 				pessoa.setTipoCadastro(TipoCadastroEnum.PREMIUM);
 			}
-			if(tipoCadastro=="4"){
+			if(tipoCadastro.equals("4")){
 				pessoa.setTipoCadastro(TipoCadastroEnum.ADMINISTRADOR);
 			}
 			pessoa.setAlias(String.valueOf(resultado.get("alias")));

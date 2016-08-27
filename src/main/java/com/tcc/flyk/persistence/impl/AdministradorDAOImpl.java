@@ -66,8 +66,10 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 
 			DBObject objeto = db.getCollection("administrador").findOne(query);
 			if(objeto!=null){
-				usuario.setNome((String) objeto.get("nome"));
-				usuario.setUsuario((String) objeto.get("usuario"));
+				usuario.setNome((String) objeto.get("nome").toString());
+				usuario.setUsuario((String) objeto.get("usuario").toString());
+				String id = String.valueOf(objeto.get("_id"));
+
 				usuario.setTipoCadastro(TipoCadastroEnum.ADMINISTRADOR);
 				if(objeto.get("ativo").toString().equals("true")){
 					usuario.setAtivo(true);
