@@ -35,7 +35,7 @@
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/loginPage.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/userPageInfos.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/confirmaPromocao.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/perfilCliente.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/profilePage.js"></script>
     
     <script src="${pageContext.request.contextPath}/resources/angular/app/uploadFactory.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/ValidationDirective.js"></script>

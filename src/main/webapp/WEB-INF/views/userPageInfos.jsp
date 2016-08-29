@@ -17,7 +17,7 @@
 							<form class="form-horizontal" name="inactivateForm" novalidate role="form"  ng-submit="inativar()">
 								<h2>{{usuario.nome}}</h2>
 								<p>
-									<strong>Username: </strong>{{data.usuario}}</label>
+									<strong>Username: </strong>{{data.usuario}}
 								</p>
 								<p>
 									<strong>Tipo de cadastro: </strong> {{data.tipoCadastro}}

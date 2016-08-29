@@ -32,7 +32,7 @@ public class PromocaoDAOImpl extends MongoDB implements PromocaoDAO {
 
 			super.db.getCollection("promocao").updateMulti(searchQuery, updateQuery);	
 			
-			List<BasicDBObject> precoDocList = new ArrayList<>();			
+			List<BasicDBObject> precoDocList = new ArrayList<BasicDBObject>();			
 			DBCollection collectionProm = super.db.getCollection("promocao");
 					
 					

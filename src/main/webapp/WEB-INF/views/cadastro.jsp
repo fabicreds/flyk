@@ -1,4 +1,5 @@
-
+<link href="https://fonts.googleapis.com/css?family=Amaranth"
+	rel="stylesheet">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>

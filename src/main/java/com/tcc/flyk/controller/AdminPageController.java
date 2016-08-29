@@ -1,12 +1,9 @@
 package com.tcc.flyk.controller;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tcc.flyk.entity.Categoria;
 import com.tcc.flyk.entity.enumerator.CategoriaServicoEnum;
 import com.tcc.flyk.service.CategoriaService;
-import com.tcc.flyk.service.PromocaoService;
 
 @Controller
 public class AdminPageController {

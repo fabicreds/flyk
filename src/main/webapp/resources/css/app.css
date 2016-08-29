@@ -1,4 +1,6 @@
-
+*{
+	font-family: 'Amaranth', sans-serif;
+}
 .form-group .help-block {
   display: none;
 }
@@ -6,7 +8,11 @@
 .form-group.has-error .help-block {
   display: block;
 }
-
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
 
 .link {
 	

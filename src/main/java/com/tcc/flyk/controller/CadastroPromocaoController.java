@@ -68,7 +68,6 @@ public class CadastroPromocaoController {
 	
 	private Promocao convertJSON(String prom){
 		Promocao promo = new Promocao();
-		Preco preco = new Preco();
 		JSONObject jObjt = new JSONObject(prom);
 		 ArrayList<Preco> arrayPrecoObj = new ArrayList<Preco>();
 
