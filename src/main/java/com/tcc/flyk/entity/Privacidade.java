@@ -1,54 +1,46 @@
 package com.tcc.flyk.entity;
 
+import com.tcc.flyk.entity.enumerator.PrivacidadeEnum;
+
 public class Privacidade {
 	
-	private boolean exibeCPF;
+	private PrivacidadeEnum exibeCPF;
 	
-	private boolean exibeEndereco;
+	private PrivacidadeEnum exibeEndereco;
 	
-	private boolean exibeTelefone;
+	private PrivacidadeEnum exibeTelefone;
 	
-	private boolean exibeDataNascimento;
-	
-	private boolean exibeAgenda;
+	private PrivacidadeEnum exibeAgenda;
 
-	public boolean isExibeCPF() {
+	public PrivacidadeEnum getExibeCPF() {
 		return exibeCPF;
 	}
 
-	public void setExibeCPF(boolean exibeCPF) {
+	public void setExibeCPF(PrivacidadeEnum exibeCPF) {
 		this.exibeCPF = exibeCPF;
 	}
 
-	public boolean isExibeEndereco() {
+	public PrivacidadeEnum getExibeEndereco() {
 		return exibeEndereco;
 	}
 
-	public void setExibeEndereco(boolean exibeEndereco) {
+	public void setExibeEndereco(PrivacidadeEnum exibeEndereco) {
 		this.exibeEndereco = exibeEndereco;
 	}
 
-	public boolean isExibeTelefone() {
+	public PrivacidadeEnum getExibeTelefone() {
 		return exibeTelefone;
 	}
 
-	public void setExibeTelefone(boolean exibeTelefone) {
+	public void setExibeTelefone(PrivacidadeEnum exibeTelefone) {
 		this.exibeTelefone = exibeTelefone;
 	}
 
-	public boolean isExibeDataNascimento() {
-		return exibeDataNascimento;
-	}
-
-	public void setExibeDataNascimento(boolean exibeDataNascimento) {
-		this.exibeDataNascimento = exibeDataNascimento;
-	}
-
-	public boolean isExibeAgenda() {
+	public PrivacidadeEnum getExibeAgenda() {
 		return exibeAgenda;
 	}
 
-	public void setExibeAgenda(boolean exibeAgenda) {
+	public void setExibeAgenda(PrivacidadeEnum exibeAgenda) {
 		this.exibeAgenda = exibeAgenda;
 	}
 	
