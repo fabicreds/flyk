@@ -32,10 +32,10 @@ public class InicioController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/perfilCliente", method = RequestMethod.GET)
+	@RequestMapping(value = "/profilePage", method = RequestMethod.GET)
 	public String telaPerfil() {
 
-		return "perfilCliente";
+		return "profilePage";
 	}
 
 
