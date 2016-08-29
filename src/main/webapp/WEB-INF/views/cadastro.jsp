@@ -8,8 +8,8 @@
     <fieldset>
         <legend>Cadastro - Novo cliente</legend>
         <div class="col-sm-3">
+         <h4>Escolha sua foto de perfil</h4>
       	  <div class="text-center">
-      	  <h4>Escolha sua foto de perfil</h4>
         	<form>
         		
         		<input type="file" ng-file-select="onFileSelect($files)" ng-model="imageProfile" >

@@ -13,7 +13,7 @@ flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal, f
 	    {
 	        console.log(userCEP);
 	        $http.get('http://api.postmon.com.br/v1/cep/' + userCEP).success(function (local) {
-	            $scope.user.address = local;
+	            $scope.address = local;
 	            console.log(local);
 	        });
 	    };
