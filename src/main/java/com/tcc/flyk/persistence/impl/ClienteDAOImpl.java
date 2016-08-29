@@ -1,7 +1,9 @@
 package com.tcc.flyk.persistence.impl;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -15,10 +17,24 @@ import com.mongodb.client.FindIterable;
 import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Usuario;
 import com.tcc.flyk.entity.Compromisso;
+import com.tcc.flyk.entity.Endereco;
+import com.tcc.flyk.entity.Prestador;
+import com.tcc.flyk.entity.Privacidade;
+import com.tcc.flyk.entity.Telefone;
+import com.tcc.flyk.entity.enumerator.CategoriaTelefoneEnum;
+import com.tcc.flyk.entity.enumerator.OperadoraEnum;
+import com.tcc.flyk.entity.enumerator.PrivacidadeEnum;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.persistence.ClienteDAO;
 import com.tcc.flyk.persistence.MongoDB;
+import org.bson.Document;
+import com.mongodb.Block;
+import com.mongodb.client.FindIterable;
+import com.mongodb.BasicDBList;
 
+import static com.mongodb.client.model.Filters.*;
+import static com.mongodb.client.model.Sorts.ascending;
+import static java.util.Arrays.asList;
 public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 	public ClienteDAOImpl() {
@@ -36,244 +52,270 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 	@Override
 	public boolean inserirNovoCliente(Cliente pessoa) {
-		System.out.println("inicio addCliente");
+
+		System.out.println("inicio addCliente2");
 		//Nome completo
-		Document doc = new Document("nome_completo", pessoa.getNome());
+		BasicDBObject doc = new BasicDBObject();
+		doc.put("nome_completo", pessoa.getNome());
 		
 		//Alias
 		if(!(pessoa.getAlias()==null)){
-			doc.append("alias", pessoa.getAlias());
+			doc.put("alias", pessoa.getAlias());
 		}
 		
 		//Email
 		if(!(pessoa.getEmail()==null)){
-			doc.append("email", pessoa.getEmail());
+			doc.put("email", pessoa.getEmail());
 		}
 		
 		//Senha
 		if(!(pessoa.getSenha()==null)){
-			doc.append("senha", pessoa.getSenha());
+			doc.put("senha", pessoa.getSenha());
 		}
 
 		System.out.println("1");
 		//facebookID
 		if(!(pessoa.getFacebookID()==null)){
-			doc.append("facebookID", pessoa.getFacebookID());
+			doc.put("facebookID", pessoa.getFacebookID());
 		}
 
 		System.out.println("15");
 		//CPF
 		if(!(pessoa.getCPF()==null)){
-			doc.append("CPF", pessoa.getCPF());
+			doc.put("CPF", pessoa.getCPF());
 		}
 
 		System.out.println("16");
 		//Foto do perfil
 		if(!(pessoa.getFotoPerfil()==null)){
 			System.out.println("17");
-			doc.append("foto", pessoa.getFotoPerfil());
+			doc.put("foto", pessoa.getFotoPerfil());
 		}
 		System.out.println("2");
 		
 		//Tipo de perfil
-		doc.append("tipo_perfil", pessoa.getTipoCadastro().getCodigo());
+		doc.put("tipo_perfil", pessoa.getTipoCadastro().getCodigo());
 		
 		//Status
 		if(!(pessoa.getStatus()==null)){
-			doc.append("status_pessoa", pessoa.getStatus());
+			doc.put("status_pessoa", pessoa.getStatus());
 		}
 		
 		//Logradouro
 		if(!(pessoa.getEndereco().getLogradouro()==null)){
-			doc.append("logradouro", pessoa.getEndereco().getLogradouro());
+			doc.put("logradouro", pessoa.getEndereco().getLogradouro());
 		}
 
 		System.out.println("3");
 		//Numero
 		if(!(pessoa.getEndereco().getNumero()==0)){
-			doc.append("numero", pessoa.getEndereco().getNumero());
+			doc.put("numero", pessoa.getEndereco().getNumero());
 		}
 
 		System.out.println("31");
 		//Complemento
 		if(!(pessoa.getEndereco().getComplemento()==null)){
-			doc.append("complemento", pessoa.getEndereco().getComplemento());
+			doc.put("complemento", pessoa.getEndereco().getComplemento());
 		}
 
 		System.out.println("32");
 		//Bairro
 		if(!(pessoa.getEndereco().getBairro()==null)){
-			doc.append("bairro", pessoa.getEndereco().getBairro());
+			doc.put("bairro", pessoa.getEndereco().getBairro());
 		}
 
 		System.out.println("33");
 		//Cidade
 		if(!(pessoa.getEndereco().getCidade()==null)){
-			doc.append("cidade", pessoa.getEndereco().getCidade());
+			doc.put("cidade", pessoa.getEndereco().getCidade());
 		}
 
 		System.out.println("34");
 		//Estado
 		if(!(pessoa.getEndereco().getEstado()==null)){
-			doc.append("estado", pessoa.getEndereco().getEstado());
+			doc.put("estado", pessoa.getEndereco().getEstado());
 		}
 
 		System.out.println("4");
 		//CEP
 		if(!(pessoa.getEndereco().getCep()==null)){
-			doc.append("CEP", pessoa.getEndereco().getCep());
+			doc.put("CEP", pessoa.getEndereco().getCep());
 		}
 
 		System.out.println("5");
+		//TIPO DE CADASTRO
 		if(pessoa.getTipoCadastro()==TipoCadastroEnum.PRESTADOR){
 			//CNPJ
 			if(!(pessoa.getPrestador().getCnpj()==null)){
-				doc.append("CNPJ", pessoa.getPrestador().getCnpj());
+				doc.put("CNPJ", pessoa.getPrestador().getCnpj());
 			}
 			
 			if(pessoa.getTipoCadastro()==TipoCadastroEnum.PREMIUM){
 				//Valor Premium
-				doc.append("valor_premium", pessoa.getPrestador().getValorPremium());
+				doc.put("valor_premium", pessoa.getPrestador().getValorPremium());
 			}			
 		}
 		
-
-		System.out.println("meio addCliente: " + doc.values());
 		
+
+		System.out.println("5");
+		//TIPO DE CADASTRO
+		if(pessoa.getTipoCadastro()==TipoCadastroEnum.PRESTADOR){
+			//CNPJ
+			if(!(pessoa.getPrestador().getCnpj()==null)){
+				doc.put("CNPJ", pessoa.getPrestador().getCnpj());
+			}
+			
+			if(pessoa.getTipoCadastro()==TipoCadastroEnum.PREMIUM){
+				//Valor Premium
+				doc.put("valor_premium", pessoa.getPrestador().getValorPremium());
+			}			
+		}
+		
+		//PRIVACIDADE
+		if(!(pessoa.getPrivacidade()==null)){
+			//Pega a privacidade da pessoa e joga no objeto privacidade
+			Privacidade privacidade = new Privacidade();
+			privacidade = pessoa.getPrivacidade();
+			
+			//AGENDA
+			String privacidadeString = String.valueOf(quebraPrivacidade(privacidade.getExibeAgenda()));
+			if(!(privacidadeString==null)){			
+				if(pessoa.getTipoCadastro()==TipoCadastroEnum.CLIENTE){
+					doc.put("privacidade_bloco_servicos_contratados", privacidadeString);
+				}else{
+					doc.put("privacidade_bloco_servicos_prestados", privacidadeString); 
+				}
+			}
+
+			//CPF
+			privacidadeString = String.valueOf(quebraPrivacidade(privacidade.getExibeCPF()));
+			if(!(privacidadeString==null)){
+				doc.put("privacidade_bloco_cpf_cnpj", privacidadeString);
+			}
+
+			//Endereço
+			privacidadeString = String.valueOf(quebraPrivacidade(privacidade.getExibeEndereco()));
+			if(!(privacidadeString==null)){
+				doc.put("privacidade_bloco_endereco", privacidadeString);
+			}
+
+			//Telefone
+			privacidadeString = String.valueOf(quebraPrivacidade(privacidade.getExibeTelefone()));
+			if(!(privacidadeString==null)){
+				doc.put("privacidade_bloco_telefone", privacidadeString);
+			}
+		}
+
+
 		//******************************Telefones******************************//
-		String lista = "";		
 		if(!(pessoa.getListaTelefone()==null)){
-			lista = "[";
 			
 			int count = pessoa.getListaTelefone().size();
 			System.out.println("qtd telefones: " + String.valueOf(count));
 			
 			//Varre a lista de telefones, inserindo um por um
+			BasicDBList telefones = new BasicDBList();
 			for(int i=0;i<count;i++){
-				System.out.println(String.valueOf(pessoa.getListaTelefone().get(i).getNumero()));
 
-				if(i>0) lista = lista + ","; //Adiciona vírgula entre os documentos
-				
-				//Inicia o documento e grava o número
-				lista = lista + "Document{{";
-				lista = lista + "numero=";
-				lista = lista + String.valueOf(pessoa.getListaTelefone().get(i).getNumero());
+				BasicDBObject telefone = new BasicDBObject();
+
+				//Numero
+				telefone.put("numero_telefone", String.valueOf(pessoa.getListaTelefone().get(i).getNumero()));
 				
 				//Categoria
 				if(!(pessoa.getListaTelefone().get(i).getCategoriaTelefone()==null)){
-					lista = lista + ",";
-					lista = lista + "categoria_telefone=";
-					lista = lista + String.valueOf(pessoa.getListaTelefone().get(i).getCategoriaTelefone().getCodigo());
+					telefone.put("categoria_telefone", String.valueOf(pessoa.getListaTelefone().get(i).getCategoriaTelefone().getCodigo()));
 				}
 				
 				//DDD
 				if(!(pessoa.getListaTelefone().get(i).getDdd()==0)){
-					lista = lista + ",";
-					lista = lista + "ddd=";
-					lista = lista + String.valueOf(pessoa.getListaTelefone().get(i).getDdd());
+					telefone.put("ddd_telefone", String.valueOf(pessoa.getListaTelefone().get(i).getDdd()));
 				}
 				
 				//Operadora
 				if(!(pessoa.getListaTelefone().get(i).getOperadora()==null)){
-					lista = lista + ",";
-					lista = lista + "operadora=";
-					lista = lista + String.valueOf(pessoa.getListaTelefone().get(i).getOperadora().getCodigo());
+					telefone.put("operadora_telefone", String.valueOf(pessoa.getListaTelefone().get(i).getOperadora().getCodigo()));
 				}
+				System.out.println(String.valueOf(pessoa.getListaTelefone().get(i).getNumero()));
 
-				lista = lista + "}}";
+				telefones.add(telefone);
+				System.out.println("telefone adicionado");
 			}
-			lista = lista + "]";
-			System.out.println(lista);
-			doc.append("telefones", lista);
+			doc.put("telefones", telefones);
 		}else{
 			System.out.println("sem telefones");
 		}
 		
-		
 		//******************************Amigos******************************//
-		lista = "";		
 		if(!(pessoa.getListaAmigos()==null)){
-			lista = "[";
 			
 			int count = pessoa.getListaAmigos().size();
 			System.out.println("qtd amigos: " + String.valueOf(count));
+			
+			BasicDBList amigos = new BasicDBList();
 			
 			//Varre a lista de amigos, inserindo um por um
 			for(int i=0;i<count;i++){
 				System.out.println("ID do amigo: " + String.valueOf(pessoa.getListaAmigos().get(i).getAmigo().getId()));
 
-				if(i>0) lista = lista + ","; //Adiciona vírgula entre os documentos
+				BasicDBObject amigo = new BasicDBObject();
 				
 				
 				// DAQUI PRA BAIXO É SÓ PREENCHER OS DADOS DA LISTA DE AMIGOS
 				//Inicia o documento e grava o número
-				lista = lista + "Document{{";
-				lista = lista + "id_amigo=";
-				lista = lista + String.valueOf(pessoa.getListaAmigos().get(i).getAmigo().getId());
+				amigo.put("id_amigo",String.valueOf(pessoa.getListaAmigos().get(i).getAmigo().getId()));
 				
 				//Data da amizade
 				if(!(pessoa.getListaAmigos().get(i).getDataInicioAmizade()==null)){
-					lista = lista + ",";
-					lista = lista + "data_amizade=";
-					lista = lista + String.valueOf(pessoa.getListaAmigos().get(i).getDataInicioAmizade());
+					amigo.put("data_amizade",String.valueOf(pessoa.getListaAmigos().get(i).getDataInicioAmizade()));
 				}
 				
 				//Status da amizade
 				if(!(pessoa.getListaAmigos().get(i).getStatusEnum()==null)){
-					lista = lista + ",";
-					lista = lista + "status_amizade=";
-					lista = lista + String.valueOf(pessoa.getListaAmigos().get(i).getStatusEnum());
+					amigo.put("status_amizade",String.valueOf(pessoa.getListaAmigos().get(i).getStatusEnum()));
 				}
-
-				lista = lista + "}}";
+				
+				amigos.add(amigo);
 			}
-			lista = lista + "]";
-			System.out.println(lista);
-			doc.append("amigos", lista);
+			doc.put("amigos", amigos);
 		}else{
 			System.out.println("sem amigos :(");
 		}
 
 		
 		//******************************Recomendações dadas a outro usuário******************************//
-		lista = "";		
 		if(!(pessoa.getListaPrestadoresRecomendados()==null)){
-			lista = "[";
 			
 			int count = pessoa.getListaPrestadoresRecomendados().size();
 			System.out.println("qtd prestadores recomendados: " + String.valueOf(count));
 			
+			BasicDBList prestadoresRecomendados = new BasicDBList();
 			//Varre a lista de prestadores recomendados, inserindo um por um
 			for(int i=0;i<count;i++){
 				System.out.println("ID do prestador: " + String.valueOf(pessoa.getListaPrestadoresRecomendados().get(i).getId()));
 
-				if(i>0) lista = lista + ","; //Adiciona vírgula entre os documentos
+				BasicDBObject prestadorRecomendado = new BasicDBObject();
 				
+				//Grava o número
+				prestadorRecomendado.put("id_usuario_recomendado", String.valueOf(pessoa.getListaPrestadoresRecomendados().get(i).getId()));
 				
-				// DAQUI PRA BAIXO É SÓ PREENCHER OS DADOS DA LISTA DE PRESTADORES RECOMENDADOS
-				//Inicia o documento e grava o número
-				lista = lista + "Document{{";
-				lista = lista + "id_usuario_recomendado=";
-				lista = lista + String.valueOf(pessoa.getListaPrestadoresRecomendados().get(i).getId());
-				
-				lista = lista + "}}";
+				prestadoresRecomendados.add(prestadorRecomendado);
 			}
-			lista = lista + "]";
-			System.out.println(lista);
-			doc.append("recomendacoes_dadas", lista);
+			
+			doc.put("recomendacoes_dadas", prestadoresRecomendados);
 		}else{
 			System.out.println("sem recomendações dadas");
 		}
 
 		
 		//******************************Mensagens de conversa******************************//
-		lista = "";		
 		if(!(pessoa.getlistaMensagensConversa()==null)){
-			lista = "[";
 			
 			int count = pessoa.getlistaMensagensConversa().size();
 			System.out.println("qtd msgs: " + String.valueOf(count));
 			
+			BasicDBList mensagens = new BasicDBList();
 			//Varre a lista de mensagens, inserindo uma por uma
 			for(int i=0;i<count;i++){
 
@@ -287,203 +329,122 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 					System.out.println(String.valueOf(pessoa.getlistaMensagensConversa().get(i).getIdDestino()));
 					flagEnviadoOuRecebido = "E";
 				}
-
-				if(i>0) lista = lista + ","; //Adiciona vírgula entre os documentos
+				
+				BasicDBObject mensagem = new BasicDBObject();
 				
 				//Inicia o documento e grava o id da pessoa com a qual o cliente está conversando
-				lista = lista + "Document{{";
-				lista = lista + "id_usuario_conversa=";
-				lista = lista + idAmigo;
+				mensagem.put("id_usuario_conversa", idAmigo);
 				
 				//flagEnviadoOuRecebido
-				lista = lista + ",";
-				lista = lista + "flagEnviadoOuRecebido =";
-				lista = lista + flagEnviadoOuRecebido;
+				mensagem.put("flagEnviadoOuRecebido", flagEnviadoOuRecebido);
 				
 				//data_hora_mensagem
 				if(!(pessoa.getlistaMensagensConversa().get(i).getData()==null)){
-					lista = lista + ",";
-					lista = lista + "data_hora_mensagem=";
-					lista = lista + String.valueOf(pessoa.getlistaMensagensConversa().get(i).getData());
+					mensagem.put("data_hora_mensagem", String.valueOf(pessoa.getlistaMensagensConversa().get(i).getData()));
 				}
 				
 				//mensagem
 				if(!(pessoa.getlistaMensagensConversa().get(i).getMsg()==null)){
-					lista = lista + ",";
-					lista = lista + "mensagem=";
-					lista = lista + pessoa.getlistaMensagensConversa().get(i).getMsg();
+					mensagem.put("mensagem", pessoa.getlistaMensagensConversa().get(i).getMsg());
 				}
 
-				lista = lista + "}}";
+				mensagens.add(mensagem);
 			}
-			lista = lista + "]";
-			System.out.println(lista);
-			doc.append("mensagens_de_conversa", lista);
+			
+			doc.put("mensagens_de_conversa", mensagens);
 		}else{
 			System.out.println("sem conversas");
 		}
 
 		
 		//******************************Servicos contratados******************************//
-		lista = "";		
 		if(!(pessoa.getAgenda()==null)){
-			lista = "[";
 			
 			int count = pessoa.getAgenda().size();
 			System.out.println("qtd de servicos contratados: " + String.valueOf(count));
 			
+			BasicDBList servicosContratados = new BasicDBList();
+			
 			//Varre a lista de compromissos, inserindo uma por uma
 			for(int i=0;i<count;i++){
 
-				if(i>0) lista = lista + ","; //Adiciona vírgula entre os documentos
-				
+				BasicDBObject servicoContratado = new BasicDBObject();
+
+				System.out.println("0");
 				//Inicia o documento e grava o id do prestador
-				lista = lista + "Document{{";
-				lista = lista + "id_prestador=";
-				lista = lista + pessoa.getAgenda().get(i).getContrato().getPrestador().getId();
-				
+				servicoContratado.put("id_prestador", pessoa.getAgenda().get(i).getContrato().getPrestador().getId());
+
+				System.out.println("1");
 				//data_servico_contratado
 				if(!(pessoa.getAgenda().get(i).getDataInicio()==null)){
-					lista = lista + ",";
-					lista = lista + "data_servico_contratado =";
-					lista = lista + pessoa.getAgenda().get(i).getDataInicio();
+					servicoContratado.put("data_servico_contratado", pessoa.getAgenda().get(i).getDataInicio());
 				}
+				System.out.println("2");
 				
 				//custo_servico_contratado
 				if(!(pessoa.getAgenda().get(i).getContrato().getCusto()==0)){
-					lista = lista + ",";
-					lista = lista + "custo_servico_contratado=";
-					lista = lista + String.valueOf(pessoa.getAgenda().get(i).getContrato().getCusto());
-				}
-				
-				//status_servico_contratado
-				if(!(pessoa.getAgenda().get(i).getStatus()==null)){
-					lista = lista + ",";
-					lista = lista + "status_servico_contratado=";
-					lista = lista + pessoa.getAgenda().get(i).getStatus();
+					servicoContratado.put("custo_servico_contratado", String.valueOf(pessoa.getAgenda().get(i).getContrato().getCusto()));
 				}
 
+				System.out.println("3");
+				//status_servico_contratado
+				if(!(pessoa.getAgenda().get(i).getStatus()==null)){
+					servicoContratado.put("status_servico_contratado", String.valueOf(pessoa.getAgenda().get(i).getStatus()));
+				}
+
+				System.out.println("4");
 				//data_avaliacao_servico_contratado
 				if(!(pessoa.getAgenda().get(i).getContrato().getdataAvaliacaoServico()==null)){
-					lista = lista + ",";
-					lista = lista + "data_avaliacao_servico_contratado=";
-					lista = lista + String.valueOf(pessoa.getAgenda().get(i).getContrato().getdataAvaliacaoServico());
+					servicoContratado.put("data_avaliacao_servico_contratado", String.valueOf(pessoa.getAgenda().get(i).getContrato().getdataAvaliacaoServico()));
 				}
-				
+
+				System.out.println("5");
 				//nota_preco
 				if(!(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoPreco()==0)){
-					lista = lista + ",";
-					lista = lista + "nota_preco=";
-					lista = lista + String.valueOf(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoPreco());
+					servicoContratado.put("nota_preco", String.valueOf(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoPreco()));
 				}
+				System.out.println("6");
 				
 				//nota_pontualidade
 				if(!(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoTempo()==0)){
-					lista = lista + ",";
-					lista = lista + "nota_pontualidade=";
-					lista = lista + String.valueOf(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoTempo());
+					servicoContratado.put("nota_pontualidade", String.valueOf(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoTempo()));
 				}
+				System.out.println("7");
 				
 				//nota_qualidade
 				if(!(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoQualidade()==0)){
-					lista = lista + ",";
-					lista = lista + "nota_qualidade=";
-					lista = lista + String.valueOf(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoQualidade());
+					servicoContratado.put("nota_qualidade", String.valueOf(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoQualidade()));
 				}
+				System.out.println("8");
 				
 				//nota_profissionalismo
 				if(!(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoProfissionalismo()==0)){
-					lista = lista + ",";
-					lista = lista + "nota_profissionalismo=";
-					lista = lista + String.valueOf(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoProfissionalismo());
+					servicoContratado.put("nota_profissionalismo", String.valueOf(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoProfissionalismo()));
 				}
 
-				lista = lista + "}}";
+				System.out.println("9");
+				servicosContratados.add(servicoContratado);
+				System.out.println("10");
 			}
-			lista = lista + "]";
-			System.out.println(lista);
-			doc.append("servicos_contratados", lista);
+			doc.put("servicos_contratados", servicosContratados);
 		}else{
 			System.out.println("sem servicos contratados");
 		}
-		
-		/*                  TRECHO QUE CÓDIGO QUE VAI NO PRESTADORDAOIMPL
-		//******************************Recomendações recebidas de outro usuário******************************
-		lista = "";		
-		if(!(pessoa.getListaRecomendacoesRecebidas()==null)){
-			lista = "[";
-			
-			int count = pessoa.getListaRecomendacoesRecebidas().size();
-			System.out.println("qtd recomendacoes recebidas: " + String.valueOf(count));
-			
-			//Varre a lista de recomendacoes recebidas, inserindo um por um
-			for(int i=0;i<count;i++){
-				System.out.println("ID do cliente: " + String.valueOf(pessoa.getListaRecomendacoesRecebidas().get(i).getId()));
 
-				if(i>0) lista = lista + ","; //Adiciona vírgula entre os documentos
-				
-				
-				// DAQUI PRA BAIXO É SÓ PREENCHER OS DADOS DA LISTA DE RECOMENDAÇÕES RECEBIDAS
-				//Inicia o documento e grava o número
-				lista = lista + "Document{{";
-				lista = lista + "id_usuario_recomendador=";
-				lista = lista + String.valueOf(pessoa.getListaRecomendacoesRecebidas().get(i).getId());
-				
-				lista = lista + "}}";
-			}
-			lista = lista + "]";
-			System.out.println(lista);
-			doc.append("recomendações_recebidas", lista);
-		}else{
-			System.out.println("sem recomendações recebidas");
-		}
-
-		
-		//******************************Categoria de serviços prestados******************************
-		lista = "";		
-		if(!(pessoa.getListaRecomendacoesRecebidas()==null)){
-			lista = "[";
-			
-			int count = pessoa.getListaRecomendacoesRecebidas().size();
-			System.out.println("qtd recomendacoes recebidas: " + String.valueOf(count));
-			
-			//Varre a lista de recomendacoes recebidas, inserindo um por um
-			for(int i=0;i<count;i++){
-				System.out.println("ID do cliente: " + String.valueOf(pessoa.getListaRecomendacoesRecebidas().get(i).getId()));
-
-				if(i>0) lista = lista + ","; //Adiciona vírgula entre os documentos
-				
-				
-				// DAQUI PRA BAIXO É SÓ PREENCHER OS DADOS DA LISTA DE RECOMENDAÇÕES RECEBIDAS
-				//Inicia o documento e grava o número
-				lista = lista + "Document{{";
-				lista = lista + "id_usuario_recomendador=";
-				lista = lista + String.valueOf(pessoa.getListaRecomendacoesRecebidas().get(i).getId());
-				
-				lista = lista + "}}";
-			}
-			lista = lista + "]";
-			System.out.println(lista);
-			doc.append("recomendações_recebidas", lista);
-		}else{
-			System.out.println("sem recomendações recebidas");
-		}
-		
-		*/
-		
-		
-		//insere o cliente
+		System.out.println("11");
+		System.out.println(doc);
+		//Insere o cliente
 		System.out.println(doc.toString());
 		try {
-			super.mongoDatabase.getCollection("FLYK").insertOne(doc);
-			System.out.println("Usuário cadastrado com sucesso:" + doc.values());
+			super.db.getCollection("FLYK").insert(doc);
+			System.out.println("Usuário cadastrado com sucesso");
 		} catch (Exception e) {
 			System.out.println("ERRO:" + e.getStackTrace());
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 		
-		consultaTudo();
 		return true;
 	}
 
@@ -515,6 +476,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			return null;
 		}
 	}
+	
 	@Override
 	public Usuario consultaLogin(String email) {
 		try {
@@ -590,22 +552,6 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		
 		Cliente pessoa = new Cliente(); //Cliente que será retornado
 		
-		/*O TRECHO DE CÓDIGHO ABAIXO É USANDO OS METODOS ROOTS, VOU TENTAR USAR OUTRO POR ENQUANTO
-		//Começa a busca no banco
-		try {
-			FindIterable<Document> iterable = super.mongoDatabase.getCollection("FLYK").find(new Document("_id",new ObjectId(idCliente)));
-			
-			
-			
-			
-		} catch (Exception e) {
-			System.out.println("ERRO NA CONSULTA DE CLIENTE:" + e.getStackTrace());
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		
-		//TENTATIVA DE USAR OS METODOS VELHOS PORÉM QUE FUNCIONAM
-
 		DBCollection collection = db.getCollection("FLYK");
 		//BasicDBObject filtro = new BasicDBObject(new Document("_id",new ObjectId(idCliente)));
 		//Metodo acima alterado para
@@ -652,35 +598,90 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			if(tipoCadastro.equals("4")){
 				pessoa.setTipoCadastro(TipoCadastroEnum.ADMINISTRADOR);
 			}
-			pessoa.setAlias(String.valueOf(resultado.get("alias")));
-			pessoa.setAlias(String.valueOf(resultado.get("alias")));
-			pessoa.setAlias(String.valueOf(resultado.get("alias")));
-			pessoa.setAlias(String.valueOf(resultado.get("alias")));
-			pessoa.setAlias(String.valueOf(resultado.get("alias")));
-			pessoa.setAlias(String.valueOf(resultado.get("alias")));
-			pessoa.setAlias(String.valueOf(resultado.get("alias")));
-			pessoa.setAlias(String.valueOf(resultado.get("alias")));
-			pessoa.setAlias(String.valueOf(resultado.get("alias")));
-			pessoa.setAlias(String.valueOf(resultado.get("alias")));
-			pessoa.setAlias(String.valueOf(resultado.get("alias")));
-			pessoa.setAlias(String.valueOf(resultado.get("alias")));
-			pessoa.setAlias(String.valueOf(resultado.get("alias")));
-			pessoa.setAlias(String.valueOf(resultado.get("alias")));
-			pessoa.setAlias(String.valueOf(resultado.get("alias")));
-			pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			//STATUS DA PESSOA
+			pessoa.setStatus(String.valueOf(resultado.get("status_pessoa")));
+			//ENDEREÇO
+			Endereco enderecoPessoa = new Endereco();
+			enderecoPessoa.setBairro(String.valueOf(resultado.get("bairro")));
+			enderecoPessoa.setCep(String.valueOf(resultado.get("CEP")));
+			enderecoPessoa.setCidade(String.valueOf(resultado.get("cidade")));
+			enderecoPessoa.setComplemento(String.valueOf(resultado.get("complemento")));
+			enderecoPessoa.setEstado(String.valueOf(resultado.get("estado")));
+			enderecoPessoa.setLogradouro(String.valueOf(resultado.get("logradouro")));
+			enderecoPessoa.setNumero(Integer.valueOf(String.valueOf(resultado.get("numero"))));
+			pessoa.setEndereco(enderecoPessoa);
+			
+			//********************* DAQUI PRA BAIXO SÃO AS LISTAS *********************//
+			//Busca a lista de telefones e coloca na telefonesBD
+			BasicDBList telefonesDB = (BasicDBList) resultado.get("telefones");
+
+			//Varre a lista de telefones, preenchendo o array telefones
+			List<Telefone> telefones = new ArrayList<Telefone>();
+		    BasicDBObject[] lightArr = telefonesDB.toArray(new BasicDBObject[0]);
+		    for(BasicDBObject telefone : lightArr) {
+		        // shows each item from the lights array
+		    	System.out.println(telefone.get("numero_telefone"));
+		    	
+		    	Telefone tel = new Telefone();
+
+		    	//numero
+		    	tel.setNumero(Integer.valueOf(telefone.getString("numero_telefone")));
+		    	
+		    	//DDD
+		    	if(!(telefone.getString("ddd_telefone")==null)){
+		    		tel.setDdd(Integer.valueOf(telefone.getString("ddd_telefone")));
+		    	}
+		    	
+		    	//categoria_telefone
+		    	if(!(telefone.getString("categoria_telefone")==null)){
+		    		String categoria = telefone.getString("categoria_telefone");
+		    		if(categoria=="F"){
+			    		tel.setCategoriaTelefone(CategoriaTelefoneEnum.FIXO);
+		    		}
+		    		if(categoria=="C"){
+			    		tel.setCategoriaTelefone(CategoriaTelefoneEnum.COMERCIAL);
+		    		}
+		    		if(categoria=="M"){
+			    		tel.setCategoriaTelefone(CategoriaTelefoneEnum.MOVEL);
+		    		}
+		    	}
+		    	
+		    	//operadora_telefone
+		    	if(!(telefone.getString("operadora_telefone")==null)){
+		    		String operadora = telefone.getString("operadora_telefone");
+
+		    		if(operadora=="1"){
+			    		tel.setOperadora(OperadoraEnum.CLARO);	
+		    		}
+		    		if(operadora=="2"){
+			    		tel.setOperadora(OperadoraEnum.VIVO);	
+		    		}
+		    		if(operadora=="3"){
+			    		tel.setOperadora(OperadoraEnum.TIM);	
+		    		}
+		    		if(operadora=="4"){
+			    		tel.setOperadora(OperadoraEnum.OI);	
+		    		}
+		    		if(operadora=="5"){
+			    		tel.setOperadora(OperadoraEnum.NEXTEL);	
+		    		}
+		    	}
+		    	
+		    	telefones.add(tel);
+		    } 
+			
+		    //Adiciona o array telefones na pessoa 
+			pessoa.setListaTelefone(telefones);
 			
 		}else{
 			System.out.println("Consulta de cliente pelo id " + idCliente + " não encontrou valores.");
 			return null;
 		}
 		
-		
-		
-		
-		
 		//Retorna a pessoa para o chamador
 		return pessoa;
 	}
+	
 	@Override
 	public boolean atualizarStatusCliente(Usuario usuario) {
 		try {
@@ -697,6 +698,20 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		}
 	}
 
+	//Retorna o valor numérico da privacidde
+	public int quebraPrivacidade(PrivacidadeEnum privacidade){
+		if(privacidade==PrivacidadeEnum.PUBLICO){
+			return 1;
+		}
+		if(privacidade==PrivacidadeEnum.APENAS_AMIGOS){
+			return 2;
+		}
+		if(privacidade==PrivacidadeEnum.PRIVADO){
+			return 3;
+		}
+		return 1;
+	}
+	
 	//****************************CONSULTA TODOS OS DOCUMENTOS DO BANCO****************************//
 	@Override
 	public void consultaTudo(){
