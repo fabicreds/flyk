@@ -31,10 +31,10 @@ public class Tests {
 		Cliente pessoa = new Cliente();
 		pessoa.setNome("Alex Kita_total2");
 		pessoa.setAlias("Kira");
-		pessoa.setEmail("prestador");
+		pessoa.setEmail("cliente");
 		pessoa.setSenha("123");
 		pessoa.setCPF("92930028301");
-		pessoa.setTipoCadastro(TipoCadastroEnum.PRESTADOR);
+		pessoa.setTipoCadastro(TipoCadastroEnum.CLIENTE);
 		pessoa.setStatus("A");
 
 		//endereço

@@ -1,4 +1,4 @@
-flyk.controller("perfilPageCtrl", function ($scope, $rootScope, $location, $http) {
+flyk.controller("profilePageCtrl", function ($scope, $rootScope, $location, $http) {
 	
 	
 	
