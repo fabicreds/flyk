@@ -2,12 +2,14 @@ package com.tcc.flyk.entity.enumerator;
 
 public enum OperadoraEnum {
 	
-	CLARO(1), VIVO(2), TIM(3), OI(4), NEXTEL(5);
+	CLARO(1, "Claro"), VIVO(2, "Vivo"), TIM(3, "Tim"), OI(4, "Oi"), NEXTEL(5, "Nextel"), OUTROS(6, "Outros");
 	
 	private int codigo;
+	private String descricao;
 	
-	private OperadoraEnum(int codigo){
+	private OperadoraEnum(int codigo, String descricao){
 		this.codigo = codigo;
+		this.descricao = descricao;
 	}
 
 	public int getCodigo() {
@@ -16,6 +18,14 @@ public enum OperadoraEnum {
 
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 	
 	

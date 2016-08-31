@@ -209,5 +209,16 @@ public class Cliente {
 	public void setlistaMensagensConversa(List<Conversa> listaMensagensConversa) {
 		this.listaMensagensConversa = listaMensagensConversa;
 	}
+
+	@Override
+	public String toString() {
+		return "{id:\"" + id + "\", nome:\"" + nome + "\", alias:\"" + alias + "\", email:\"" + email + "\", senha:\"" + senha
+				+ "\", facebookID:\"" + facebookID + "\", fotoPerfil:\"" + fotoPerfil + "\", CPF:\"" + CPF + "\", endereco:\""
+				+ endereco + "\", listaTelefone:\"" + listaTelefone + "\", nascimento:\"" + nascimento + "\", apelido:\"" + apelido
+				+ "\", agenda:\"" + agenda + "\", status:\"" + status + "\", listaAmigos:\"" + listaAmigos + "\", privacidade:\""
+				+ privacidade + "\", tipoCadastro:\"" + tipoCadastro + "\", prestador:\"" + prestador
+				+ "\", listaPrestadoresRecomendados:\"" + listaPrestadoresRecomendados + "\", listaMensagensConversa:\""
+				+ listaMensagensConversa + "\"}";
+	}
 	
 }

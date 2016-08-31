@@ -1,13 +1,12 @@
 package com.tcc.flyk.persistence.impl;
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.Block;
 import com.mongodb.DBCollection;
@@ -15,26 +14,16 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.client.FindIterable;
 import com.tcc.flyk.entity.Cliente;
-import com.tcc.flyk.entity.Usuario;
-import com.tcc.flyk.entity.Compromisso;
 import com.tcc.flyk.entity.Endereco;
-import com.tcc.flyk.entity.Prestador;
 import com.tcc.flyk.entity.Privacidade;
 import com.tcc.flyk.entity.Telefone;
+import com.tcc.flyk.entity.Usuario;
 import com.tcc.flyk.entity.enumerator.CategoriaTelefoneEnum;
 import com.tcc.flyk.entity.enumerator.OperadoraEnum;
 import com.tcc.flyk.entity.enumerator.PrivacidadeEnum;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.persistence.ClienteDAO;
 import com.tcc.flyk.persistence.MongoDB;
-import org.bson.Document;
-import com.mongodb.Block;
-import com.mongodb.client.FindIterable;
-import com.mongodb.BasicDBList;
-
-import static com.mongodb.client.model.Filters.*;
-import static com.mongodb.client.model.Sorts.ascending;
-import static java.util.Arrays.asList;
 public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 	public ClienteDAOImpl() {
@@ -635,35 +624,25 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		    	//categoria_telefone
 		    	if(!(telefone.getString("categoria_telefone")==null)){
 		    		String categoria = telefone.getString("categoria_telefone");
-		    		if(categoria=="F"){
-			    		tel.setCategoriaTelefone(CategoriaTelefoneEnum.FIXO);
-		    		}
-		    		if(categoria=="C"){
-			    		tel.setCategoriaTelefone(CategoriaTelefoneEnum.COMERCIAL);
-		    		}
-		    		if(categoria=="M"){
-			    		tel.setCategoriaTelefone(CategoriaTelefoneEnum.MOVEL);
+		    		switch(categoria){
+		    			case "1": tel.setCategoriaTelefone(CategoriaTelefoneEnum.FIXO);break;
+		    			case "2": tel.setCategoriaTelefone(CategoriaTelefoneEnum.COMERCIAL);break;
+		    			case "3": tel.setCategoriaTelefone(CategoriaTelefoneEnum.MOVEL);break;
+		    			default: tel.setCategoriaTelefone(CategoriaTelefoneEnum.FIXO);break;
 		    		}
 		    	}
 		    	
 		    	//operadora_telefone
 		    	if(!(telefone.getString("operadora_telefone")==null)){
 		    		String operadora = telefone.getString("operadora_telefone");
-
-		    		if(operadora=="1"){
-			    		tel.setOperadora(OperadoraEnum.CLARO);	
-		    		}
-		    		if(operadora=="2"){
-			    		tel.setOperadora(OperadoraEnum.VIVO);	
-		    		}
-		    		if(operadora=="3"){
-			    		tel.setOperadora(OperadoraEnum.TIM);	
-		    		}
-		    		if(operadora=="4"){
-			    		tel.setOperadora(OperadoraEnum.OI);	
-		    		}
-		    		if(operadora=="5"){
-			    		tel.setOperadora(OperadoraEnum.NEXTEL);	
+		    		switch(operadora){
+		    			case "1": tel.setOperadora(OperadoraEnum.CLARO);break;
+		    			case "2": tel.setOperadora(OperadoraEnum.VIVO);break;
+		    			case "3": tel.setOperadora(OperadoraEnum.TIM);break;
+		    			case "4": tel.setOperadora(OperadoraEnum.OI);break;
+		    			case "5": tel.setOperadora(OperadoraEnum.NEXTEL);break;
+		    			case "6": tel.setOperadora(OperadoraEnum.OUTROS);break;
+		    			default: tel.setOperadora(OperadoraEnum.OUTROS);break;
 		    		}
 		    	}
 		    	

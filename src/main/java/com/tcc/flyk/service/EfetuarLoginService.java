@@ -1,5 +1,8 @@
 package com.tcc.flyk.service;
 
+
+import javax.annotation.Resource;
+
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +13,7 @@ import com.tcc.flyk.entity.form.EfetuarLoginForm;
 import com.tcc.flyk.persistence.AdministradorDAO;
 import com.tcc.flyk.persistence.impl.AdministradorDAOImpl;
 import com.tcc.flyk.persistence.impl.ClienteDAOImpl;
+import com.tcc.flyk.util.ClienteUtil;
 
 @Service
 public class EfetuarLoginService {
@@ -17,7 +21,8 @@ public class EfetuarLoginService {
 	private AdministradorDAO admDAO = new AdministradorDAOImpl();
 	private ClienteDAOImpl cliDAO = new ClienteDAOImpl();
 
-
+	@Resource
+	private ClienteUtil util;
 	
 	public String efetuarLogin(EfetuarLoginForm form) {
 		try {
@@ -83,7 +88,8 @@ public class EfetuarLoginService {
 		jObjt.put("usuario", cliente.getEmail());
 		jObjt.put("tipoCadastro", cliente.getTipoCadastro().getCodigo() );
 		jObjt.put("tipoCadastroDescricao" , cliente.getTipoCadastro().getDescricao());
-		jObjt.put("cliente" , cliente);
+		
+		jObjt.put("cliente" , util.toJSON(cliente));
 		
 		return jObjt.toString();
 	}

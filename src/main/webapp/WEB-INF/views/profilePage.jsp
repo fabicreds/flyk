@@ -34,24 +34,42 @@
 						<div class="col-xs-8 col-sm-4 vcenter">
 							<form class="form-horizontal" name="inactivateForm" novalidate
 								role="form">
-								<h3>{{usuario.nome}}</h3>
+								<h3>{{data.nome}}</h3>
+								<div  ng-if="data.apelido != null">
 								<p>
-									<strong>Apelido: </strong> {{data}}
+									<strong>Apelido: </strong> 
+									<p>{{data.apelido}}</p>
+								</p>
+								</div>
+								<p>
+									<strong>Email: </strong> 
+									<p>{{data.email}}</p>
 								</p>
 								<p>
-									<strong>Email: </strong> {{data.nome}}
+									<strong>Endereco: </strong> 
+									<p>
+									{{data.endereco.logradouro}} , {{data.endereco.numero}} - {{data.endereco.bairro}} <br>
+									{{data.endereco.cidade}} - {{data.endereco.estado}} , {{data.endereco.cep}}
+									</p>
 								</p>
 								<p>
-									<strong>Endereco: </strong> {{data.endereco}}
+									<strong>Perfil: </strong> 
+									<p>{{data.tipoCadastro}}</p>
 								</p>
 								<p>
-									<strong>Perfil: </strong> {{data.tipoCadastroDescricao}}
+									<strong>Telefone: </strong> 
+									<p>{{data.listaTelefone.telefone.categoria}} - ({{data.listaTelefone.telefone.ddd}})  {{data.listaTelefone.telefone.numero}} - {{data.listaTelefone.telefone.operadora}}</p>
+									<div ng-repeat="telefone in data.listaTelefone"> 
+										{{telefone.categoria}} - ({{telefone.ddd}})  {{telefone.numero}} - {{telefone.operadora}}
+									</div>
 								</p>
 								<p>
-									<strong>Telefone: </strong> {{data.telefone}}
+									<strong>CPF/CNPJ: </strong> 
+									<p>{{data.cpf}}</p>
 								</p>
 								<p>
-									<strong>CPF/CNPJ: </strong> {{data.cpfCnpj}}
+									<strong>Nascimento: </strong> 
+									<p>{{data.nascimento}}</p>
 								</p>
 							</form>
 						</div>
@@ -61,13 +79,12 @@
 									<p>
 										<!-- 									<span class="glyphicon glyphicon-wrench"></span> -->
 										<strong>Serviços Contratados: </strong>
-										{{data.numServicosContratados}}
 									</p>
 									<p>
-										<strong>Média de Avaliação: </strong> {{data.endereco}}
+										<strong>Média de Avaliação: </strong> 
 									</p>
 									<p>
-										<strong>Nível Avaliador: </strong> {{data.telefone}}
+										<strong>Nível Avaliador: </strong> 
 									</p>
 								</div>
 							</div>
