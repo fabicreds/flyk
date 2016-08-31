@@ -14,7 +14,7 @@
 </head>
 <body>
 	<form class="form-horizontal" name="inactivateForm" novalidate
-		role="form" ng-submit="pesquisar()" ng-controller="perfilPageCtrl">
+		role="form" ng-submit="pesquisar()" ng-controller="profilePageCtrl">
 		<div class="row" data-ng-init="">
 			<div class="well panel panel-default">
 				<div class="panel-heading">
@@ -78,49 +78,23 @@
 							<!-- Se o usuário estiver logado e for um prestador -->
 							<div class="panel-heading">
 								<div ng-if="usuarioLogado !='' && tipoUsuarioLogado==2">
-									<ul class="nav nav-tabs">
-										<li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-										<li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
-										<li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
-									</ul>
-
-									<div class="tab-content clearfix">
-										<div id="home" class="tab-pane fade in active">
-											<h3>HOME</h3>
-											<p>Some content.</p>
-										</div>
-										<div id="menu1" class="tab-pane fade">
-											<h3>Menu 1</h3>
-											<p>Some content in menu 1.</p>
-										</div>
-										<div id="menu2" class="tab-pane fade">
-											<h3>Menu 2</h3>
-											<p>Some content in melnu 2.</p>
-										</div>
-									</div>
+									<uib-tabset active="active">
+    									<uib-tab index="0" heading="TAB1">TAB1</uib-tab>
+    									<uib-tab index="1" heading="TAB2">TAB2</uib-tab>
+    									<uib-tab index="2" heading="TAB3">TAB3</uib-tab>
+    									<uib-tab index="3" heading="TAB4">TAB4</uib-tab>
+   										
+  									</uib-tabset>
 								</div>
 								<!-- Se o usuário estiver logado e for um cliente -->
 								<div ng-if="usuarioLogado !='' && tipoUsuarioLogado==1">
-									<ul class="nav nav-tabs">
-										<li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-										<li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
-										<li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
-									</ul>
-
-									<div class="tab-content">
-										<div id="home" class="tab-pane fade in active">
-											<h3>HOME</h3>
-											<p>Some content.</p>
-										</div>
-										<div id="menu1" class="tab-pane fade">
-											<h3>Menu 1</h3>
-											<p>Some content in menu 1.</p>
-										</div>
-										<div id="menu2" class="tab-pane fade">
-											<h3>Menu 2</h3>
-											<p>Some content in menu 2.</p>
-										</div>
-									</div>
+									 <uib-tabset active="active">
+    									<uib-tab index="0" heading="TAB1">TAB1</uib-tab>
+    									<uib-tab index="1" heading="TAB2">TAB2</uib-tab>
+    									<uib-tab index="2" heading="TAB3">TAB3</uib-tab>
+    									<uib-tab index="3" heading="TAB4">TAB4</uib-tab>
+   										
+  									</uib-tabset>
 								</div>
 							</div>
 						</div>
