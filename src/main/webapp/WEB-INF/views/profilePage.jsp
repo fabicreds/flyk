@@ -35,7 +35,7 @@
 							<form class="form-horizontal" name="inactivateForm" novalidate
 								role="form">
 								<h3>{{data.nome}}</h3>
-								<div  ng-if="data.apelido != null">
+								<div  ng-show="$root.data.apelido != null">
 								<p>
 									<strong>Apelido: </strong> 
 									<p>{{data.apelido}}</p>
@@ -58,7 +58,6 @@
 								</p>
 								<p>
 									<strong>Telefone: </strong> 
-									<p>{{data.listaTelefone.telefone.categoria}} - ({{data.listaTelefone.telefone.ddd}})  {{data.listaTelefone.telefone.numero}} - {{data.listaTelefone.telefone.operadora}}</p>
 									<div ng-repeat="telefone in data.listaTelefone"> 
 										{{telefone.categoria}} - ({{telefone.ddd}})  {{telefone.numero}} - {{telefone.operadora}}
 									</div>

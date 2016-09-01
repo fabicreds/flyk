@@ -61,6 +61,7 @@ public class ClienteUtil {
 	private JSONObject listaTelefoneJSON(List<Telefone> listaTelefone) {
 		JSONObject jObjt = new JSONObject();
 		if (listaTelefone != null) {
+			int i = 0;
 			for (Telefone tel : listaTelefone) {
 				JSONObject jObjt1 = new JSONObject();
 				jObjt1.put("ddd", tel.getDdd());
@@ -71,7 +72,8 @@ public class ClienteUtil {
 				}else{
 					jObjt1.put("operadora", OperadoraEnum.OUTROS.getDescricao());
 				}
-				jObjt.put("telefone", jObjt1);
+				jObjt.put("telefone" + i, jObjt1);
+				i++;
 			}
 		}
 		return jObjt;

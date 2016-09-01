@@ -36,6 +36,7 @@ public class Tests {
 		pessoa.setCPF("92930028301");
 		pessoa.setTipoCadastro(TipoCadastroEnum.CLIENTE);
 		pessoa.setStatus("A");
+		pessoa.setNascimento(new Date());
 
 		//endereço
 		Endereco endereco = new Endereco();
