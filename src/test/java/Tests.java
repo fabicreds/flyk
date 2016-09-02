@@ -103,7 +103,7 @@ public class Tests {
 		avaliacaoPrestador1.setAvaliacaoTempo(5);
 		contrato1.setAvaliacaoPrestador(avaliacaoPrestador1);
 		contrato1.setServico(CategoriaServicoEnum.ENCANADOR);
-		contrato1.setdataAvaliacaoServico(new Date());
+		contrato1.setDataAvaliacaoServico(new Date());
 		servico1.setContrato(contrato1);
 		servico1.setDataFim(new Date());
 		servico1.setDataInclusao(new Date());

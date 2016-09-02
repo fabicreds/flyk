@@ -22,10 +22,18 @@ public class UsuarioUtil {
 	
 	public JSONObject toJSON(Usuario usuario){
 		JSONObject jObjt = new JSONObject();
+		if(usuario.getNome()!=null){
 		jObjt.put("nome", usuario.getNome());
+		}
+		if(usuario.getUsuario()!=null){
 		jObjt.put("usuario", usuario.getUsuario());
+		}
+		if(usuario.getEmail()!=null){
 		jObjt.put("email", usuario.getEmail());
-		jObjt.put("tipoCadastro", usuario.getTipoCadastro());
+		}
+		if(usuario.getTipoCadastro()!=null){
+		jObjt.put("tipoCadastro", usuario.getTipoCadastro().getCodigo());
+		}
 		jObjt.put("ativo", usuario.isAtivo());
 		if(usuario.isAtivo()){
 			jObjt.put("btn", "Desativar" );

@@ -2,7 +2,7 @@ package com.tcc.flyk.entity.enumerator;
 
 public enum CategoriaServicoEnum {
 
-	ENCANADOR(1,"Encanador"), CONSTRUCAO(1, "ContruÃ§Ã£o");
+	ENCANADOR(1,"Encanador"), CONSTRUCAO(2, "Construção"),OUTROS(3, "Outros") ;
 	
 	private int codigo;
 	private String descricao;

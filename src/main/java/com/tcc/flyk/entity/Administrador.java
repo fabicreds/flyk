@@ -4,15 +4,15 @@ import java.util.Date;
 
 public class Administrador {
 	
-	private String nome;
+	private String nome = "";
 	
-	private String usuario;
+	private String usuario= "";
 	
-	private String senha;
+	private String senha= "";
 	
-	private Date dataCadastro;
+	private Date dataCadastro = new Date();
 	
-	private boolean ativo;
+	private boolean ativo = false;
 
 	public String getNome() {
 		return nome;

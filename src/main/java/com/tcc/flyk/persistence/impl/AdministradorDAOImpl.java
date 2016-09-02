@@ -19,7 +19,7 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 	@Override
 	public void inserirNovoAdmisnistrador(Administrador adm) {
 		try {
-			super.db.getCollection("administrador")
+			super.db.getCollection("FLYK")
 					.insert(new BasicDBObject().append("nome", adm.getNome()).append("usuario", adm.getUsuario())
 							.append("senha", adm.getSenha()).append("ativo", adm.isAtivo())
 							.append("data", adm.getDataCadastro()));
@@ -36,7 +36,7 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 			BasicDBObject query = new BasicDBObject();
 			query.put("usuario", usuario);
 
-			DBObject object = db.getCollection("administrador").findOne(query);
+			DBObject object = db.getCollection("FLYK").findOne(query);
 			if (object != null) {
 				if(object.get("ativo").toString().equals("true")){
 					adm.setAtivo(true);
@@ -64,7 +64,7 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 			BasicDBObject query = new BasicDBObject();
 			query.put("usuario", busca);
 
-			DBObject objeto = db.getCollection("administrador").findOne(query);
+			DBObject objeto = db.getCollection("FLYK").findOne(query);
 			if(objeto!=null){
 				usuario.setNome((String) objeto.get("nome").toString());
 				usuario.setUsuario((String) objeto.get("usuario").toString());
@@ -77,6 +77,7 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 					usuario.setAtivo(false);
 				}
 				usuario.setSenha((String) objeto.get("senha"));
+				usuario.setId(id);
 				return usuario;
 			}else{
 				return null;
@@ -96,7 +97,7 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 			BasicDBObject searchQuery = new BasicDBObject();
 			searchQuery.append("usuario", usuario.getUsuario());
 
-			db.getCollection("administrador").update(searchQuery, updateQuery);
+			db.getCollection("FLYK").update(searchQuery, updateQuery);
 			return true;
 		} catch (Exception e) {
 			return false;

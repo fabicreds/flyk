@@ -69,11 +69,11 @@ public class Contrato {
 	}
 
 
-	public Date getdataAvaliacaoServico() {
+	public Date getDataAvaliacaoServico() {
 		return dataAvaliacaoServico;
 	}
 
-	public void setdataAvaliacaoServico(Date dataAvaliacaoServico) {
+	public void setDataAvaliacaoServico(Date dataAvaliacaoServico) {
 		this.dataAvaliacaoServico = dataAvaliacaoServico;
 	}
 	

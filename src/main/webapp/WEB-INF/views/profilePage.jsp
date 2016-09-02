@@ -35,12 +35,10 @@
 							<form class="form-horizontal" name="inactivateForm" novalidate
 								role="form">
 								<h3>{{data.nome}}</h3>
-								<div  ng-show="$root.data.apelido != null">
 								<p>
 									<strong>Apelido: </strong> 
 									<p>{{data.apelido}}</p>
 								</p>
-								</div>
 								<p>
 									<strong>Email: </strong> 
 									<p>{{data.email}}</p>
@@ -95,21 +93,21 @@
 							<div class="panel-heading">
 								<div ng-if="usuarioLogado !='' && tipoUsuarioLogado==2">
 									<uib-tabset active="active">
-    									<uib-tab index="0" heading="TAB1">TAB1</uib-tab>
-    									<uib-tab index="1" heading="TAB2">TAB2</uib-tab>
-    									<uib-tab index="2" heading="TAB3">TAB3</uib-tab>
-    									<uib-tab index="3" heading="TAB4">TAB4</uib-tab>
+    									<uib-tab index="0" heading="Serviços">
+    									
+    									</uib-tab>
+    									<uib-tab index="1" heading="Histórico">TAB2</uib-tab>
+    									<uib-tab index="2" heading="Agenda">TAB3</uib-tab>
+    									<uib-tab index="3" heading="Amigos">TAB4</uib-tab>
    										
   									</uib-tabset>
 								</div>
 								<!-- Se o usuário estiver logado e for um cliente -->
 								<div ng-if="usuarioLogado !='' && tipoUsuarioLogado==1">
 									 <uib-tabset active="active">
-    									<uib-tab index="0" heading="TAB1">TAB1</uib-tab>
-    									<uib-tab index="1" heading="TAB2">TAB2</uib-tab>
-    									<uib-tab index="2" heading="TAB3">TAB3</uib-tab>
-    									<uib-tab index="3" heading="TAB4">TAB4</uib-tab>
-   										
+    									<uib-tab index="0" heading="Serviços Contratados">Teste 123</uib-tab>
+    									<uib-tab index="1" heading="Agenda">TAB2</uib-tab>
+    									<uib-tab index="2" heading="Amigos">TAB3</uib-tab>
   									</uib-tabset>
 								</div>
 							</div>

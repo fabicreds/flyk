@@ -383,8 +383,8 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 				System.out.println("4");
 				//data_avaliacao_servico_contratado
-				if(!(pessoa.getAgenda().get(i).getContrato().getdataAvaliacaoServico()==null)){
-					servicoContratado.put("data_avaliacao_servico_contratado", String.valueOf(pessoa.getAgenda().get(i).getContrato().getdataAvaliacaoServico()));
+				if(!(pessoa.getAgenda().get(i).getContrato().getDataAvaliacaoServico()==null)){
+					servicoContratado.put("data_avaliacao_servico_contratado", String.valueOf(pessoa.getAgenda().get(i).getContrato().getDataAvaliacaoServico()));
 				}
 
 				System.out.println("5");
@@ -429,7 +429,6 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			System.out.println("Usuário cadastrado com sucesso");
 		} catch (Exception e) {
 			System.out.println("ERRO:" + e.getStackTrace());
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
