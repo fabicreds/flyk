@@ -1,7 +1,7 @@
 ﻿/// <reference path="C:\Users\vntlume\Desktop\FLYK2016\FacebookLogin\FacebookLogin\login.html" />
 /// <reference path="C:\Users\vntlume\Desktop\FLYK2016\FacebookLogin\FacebookLogin\login.html" />
 /// <reference path="C:\Users\vntlume\Desktop\FLYK2016\FacebookLogin\FacebookLogin\login.html" />
-var flyk = angular.module("flyk", ["ngAnimate","ui.bootstrap", "ngRoute"]);
+var flyk = angular.module("flyk", ["ui.bootstrap", "ngRoute"]);
 
 //importar $facebookProvider, ngFacebook
 flyk.config( function($routeProvider) {
@@ -46,6 +46,11 @@ flyk.config( function($routeProvider) {
                 .when("/profilePage",
         {
             templateUrl: "profilePage.html",
+            controller: "profilePageCtrl"
+        })
+        	.when("/profilePageEdit",
+        {
+            templateUrl: "profilePageEdit.html",
             controller: "profilePageCtrl"
         })
         .otherwise({
@@ -96,6 +101,12 @@ flyk.controller("flykCtrl", function ($rootScope, $scope, $location, $http, $uib
     } 
 
     refresh(); */
+	
+	
+	  $scope.showProfilePageEdit = function () {
+	        $location.path('/profilePageEdit');
+	    };
+
 
     $scope.showFormCadastro = function () {
         $location.path('/cadastro');

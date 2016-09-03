@@ -1,20 +1,7 @@
-<script
-	src="${pageContext.request.contextPath}/resources/angular/angular.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Amaranth"
-	rel="stylesheet">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.css"
-	rel="stylesheet" />
-<script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
-<link href="${pageContext.request.contextPath}/resources/css/app.css"
-	rel="stylesheet" />
-</head>
+
 <body>
 	<form class="form-horizontal" name="inactivateForm" novalidate
-		role="form" ng-submit="pesquisar()" ng-controller="profilePageCtrl">
+		role="form" ng-submit="pesquisar()">
 		<div class="row" data-ng-init="">
 			<div class="well panel panel-default">
 				<div class="panel-heading">
@@ -68,6 +55,7 @@
 									<strong>Nascimento: </strong> 
 									<p>{{data.nascimento}}</p>
 								</p>
+								
 							</form>
 						</div>
 						<div class="col-xs-6 col-sm-3 vcenter"">
@@ -87,6 +75,7 @@
 							</div>
 						</div>
 					</div>
+					
 					<div class="row">
 						<div class="panel panel-default">
 							<!-- Se o usuário estiver logado e for um prestador -->

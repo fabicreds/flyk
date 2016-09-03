@@ -222,6 +222,15 @@
                         </a>
                             
                     </li>
+                    
+                     <li>
+                        <a ng-click="showProfilePageEdit()">
+                            <span class="glyphicon glyphicon-envelope"></span>
+                            <span class="text">EDITAR PERFIL</span>
+                        </a>
+                            
+                    </li>
+               
                
                      
                 
