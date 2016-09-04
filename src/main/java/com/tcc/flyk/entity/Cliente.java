@@ -44,11 +44,12 @@ public class Cliente {
 	
 	private TipoCadastroEnum tipoCadastro;
 	
-	private Prestador prestador;
+	//private Prestador prestador;
 	
 	private List<Prestador> listaPrestadoresRecomendados;
 	
 	private List<Conversa> listaMensagensConversa;
+
 
 	public String getId() {
 		return id;
@@ -185,7 +186,7 @@ public class Cliente {
 	public void setTipoCadastro(TipoCadastroEnum tipoCadastro) {
 		this.tipoCadastro = tipoCadastro;
 	}
-
+/*
 	public Prestador getPrestador() {
 		return prestador;
 	}
@@ -193,7 +194,7 @@ public class Cliente {
 	public void setPrestador(Prestador prestador) {
 		this.prestador = prestador;
 	}
-
+*/
 	public List<Prestador> getListaPrestadoresRecomendados() {
 		return listaPrestadoresRecomendados;
 	}
@@ -216,7 +217,7 @@ public class Cliente {
 				+ "\", facebookID:\"" + facebookID + "\", fotoPerfil:\"" + fotoPerfil + "\", CPF:\"" + CPF + "\", endereco:\""
 				+ endereco + "\", listaTelefone:\"" + listaTelefone + "\", nascimento:\"" + nascimento + "\", apelido:\"" + apelido
 				+ "\", agenda:\"" + agenda + "\", status:\"" + status + "\", listaAmigos:\"" + listaAmigos + "\", privacidade:\""
-				+ privacidade + "\", tipoCadastro:\"" + tipoCadastro + "\", prestador:\"" + prestador
+				+ privacidade + "\", tipoCadastro:\"" + tipoCadastro 
 				+ "\", listaPrestadoresRecomendados:\"" + listaPrestadoresRecomendados + "\", listaMensagensConversa:\""
 				+ listaMensagensConversa + "\"}";
 	}

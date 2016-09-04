@@ -85,9 +85,6 @@ public class ClienteUtil {
 		if (cliente.getTipoCadastro() != null) {
 			jObjt.put("tipoCadastro", cliente.getTipoCadastro().getDescricao());
 		}
-		if (cliente.getPrestador() != null) {
-			jObjt.put("prestador", prestadorUtil.toJSON(cliente.getPrestador()));
-		}
 		if (cliente.getListaPrestadoresRecomendados() != null) {
 			jObjt.put("listaPrestadoresRecomendados",
 					listaPrestadoresRecomendadosJSON(cliente.getListaPrestadoresRecomendados()));

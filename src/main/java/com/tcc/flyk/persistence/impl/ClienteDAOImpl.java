@@ -1,29 +1,49 @@
 package com.tcc.flyk.persistence.impl;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
-import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.Block;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.client.FindIterable;
+import com.tcc.flyk.entity.Amizade;
+import com.tcc.flyk.entity.AvaliacaoPrestador;
 import com.tcc.flyk.entity.Cliente;
+import com.tcc.flyk.entity.Usuario;
+import com.tcc.flyk.entity.Compromisso;
+import com.tcc.flyk.entity.Contrato;
+import com.tcc.flyk.entity.Conversa;
 import com.tcc.flyk.entity.Endereco;
+import com.tcc.flyk.entity.Prestador;
 import com.tcc.flyk.entity.Privacidade;
 import com.tcc.flyk.entity.Telefone;
-import com.tcc.flyk.entity.Usuario;
 import com.tcc.flyk.entity.enumerator.CategoriaTelefoneEnum;
 import com.tcc.flyk.entity.enumerator.OperadoraEnum;
 import com.tcc.flyk.entity.enumerator.PrivacidadeEnum;
+import com.tcc.flyk.entity.enumerator.StatusAmizadeEnum;
+import com.tcc.flyk.entity.enumerator.StatusCompromissoEnum;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.persistence.ClienteDAO;
 import com.tcc.flyk.persistence.MongoDB;
+import org.bson.Document;
+import com.mongodb.Block;
+import com.mongodb.client.FindIterable;
+import com.mongodb.BasicDBList;
+
+import static com.mongodb.client.model.Filters.*;
+import static com.mongodb.client.model.Sorts.ascending;
+import static java.util.Arrays.asList;
 public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 	public ClienteDAOImpl() {
@@ -130,7 +150,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		if(!(pessoa.getEndereco().getCep()==null)){
 			doc.put("CEP", pessoa.getEndereco().getCep());
 		}
-
+/*
 		System.out.println("5");
 		//TIPO DE CADASTRO
 		if(pessoa.getTipoCadastro()==TipoCadastroEnum.PRESTADOR){
@@ -160,7 +180,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				doc.put("valor_premium", pessoa.getPrestador().getValorPremium());
 			}			
 		}
-		
+		*/
 		//PRIVACIDADE
 		if(!(pessoa.getPrivacidade()==null)){
 			//Pega a privacidade da pessoa e joga no objeto privacidade
@@ -262,7 +282,11 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				
 				//Status da amizade
 				if(!(pessoa.getListaAmigos().get(i).getStatusEnum()==null)){
-					amigo.put("status_amizade",String.valueOf(pessoa.getListaAmigos().get(i).getStatusEnum()));
+					if(pessoa.getListaAmigos().get(i).getStatusEnum()==StatusAmizadeEnum.ATIVA){
+						amigo.put("status_amizade","1");
+					}else{
+						amigo.put("status_amizade","2");						
+					}
 				}
 				
 				amigos.add(amigo);
@@ -378,7 +402,20 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				System.out.println("3");
 				//status_servico_contratado
 				if(!(pessoa.getAgenda().get(i).getStatus()==null)){
-					servicoContratado.put("status_servico_contratado", String.valueOf(pessoa.getAgenda().get(i).getStatus()));
+					String status = "";
+					if(pessoa.getAgenda().get(i).getStatus()==StatusCompromissoEnum.PRETENDIDO){
+						status = "1";
+					}
+					if(pessoa.getAgenda().get(i).getStatus()==StatusCompromissoEnum.MARCADO){
+						status = "2";
+					}
+					if(pessoa.getAgenda().get(i).getStatus()==StatusCompromissoEnum.CANCELADO){
+						status = "3";
+					}
+					if(pessoa.getAgenda().get(i).getStatus()==StatusCompromissoEnum.REALIZADO){
+						status = "4";
+					}
+					servicoContratado.put("status_servico_contratado", status);
 				}
 
 				System.out.println("4");
@@ -429,6 +466,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			System.out.println("Usuário cadastrado com sucesso");
 		} catch (Exception e) {
 			System.out.println("ERRO:" + e.getStackTrace());
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -557,49 +595,108 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			//ID
 			pessoa.setId(idCliente);
 			//NOME
-			pessoa.setNome(String.valueOf(resultado.get("nome_completo")));
+			if(!(String.valueOf(resultado.get("nome_completo"))==null)){
+				pessoa.setNome(String.valueOf(resultado.get("nome_completo")));
+			}
 			//ALIAS
-			pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			if(!(String.valueOf(resultado.get("alias"))==null)){
+				pessoa.setAlias(String.valueOf(resultado.get("alias")));
+			}
 			//EMAIL
-			pessoa.setEmail(String.valueOf(resultado.get("email")));
+			if(!(String.valueOf(resultado.get("email"))==null)){
+				pessoa.setEmail(String.valueOf(resultado.get("email")));
+			}
 			//APELIDO
-			pessoa.setApelido(String.valueOf(resultado.get("usuario")));
+			if(!(String.valueOf(resultado.get("usuario"))==null)){
+				pessoa.setApelido(String.valueOf(resultado.get("usuario")));
+			}
 			//SENHA
-			pessoa.setSenha(String.valueOf(resultado.get("senha")));
+			if(!(String.valueOf(resultado.get("senha"))==null)){
+				pessoa.setSenha(String.valueOf(resultado.get("senha")));
+			}
 			//ID DO FACEBOOK
-			pessoa.setFacebookID(String.valueOf(resultado.get("facebookID")));
+			if(!(String.valueOf(resultado.get("facebookID"))==null)){
+				pessoa.setFacebookID(String.valueOf(resultado.get("facebookID")));
+			}
 			//CPF
-			pessoa.setCPF(String.valueOf(resultado.get("CPF")));
+			if(!(String.valueOf(resultado.get("CPF"))==null)){
+				pessoa.setCPF(String.valueOf(resultado.get("CPF")));
+			}
 			//FOTO DO PERFIL
-			pessoa.setFotoPerfil(String.valueOf(resultado.get("foto")));
+			if(!(String.valueOf(resultado.get("foto"))==null)){
+				pessoa.setFotoPerfil(String.valueOf(resultado.get("foto")));
+			}
 			//TIPO DE PERFIL
-			String tipoCadastro = String.valueOf(resultado.get("tipo_perfil"));
-			if(tipoCadastro.equals("1")){
-				pessoa.setTipoCadastro(TipoCadastroEnum.CLIENTE);
-			}
-			if(tipoCadastro.equals("2")){
-				pessoa.setTipoCadastro(TipoCadastroEnum.PRESTADOR);
-			}
-			if(tipoCadastro.equals("3")){
-				pessoa.setTipoCadastro(TipoCadastroEnum.PREMIUM);
-			}
-			if(tipoCadastro.equals("4")){
-				pessoa.setTipoCadastro(TipoCadastroEnum.ADMINISTRADOR);
+			if(!(String.valueOf(resultado.get("tipo_perfil"))==null)){
+				String tipoCadastro = String.valueOf(resultado.get("tipo_perfil"));
+				if(tipoCadastro.equals("1")){
+					pessoa.setTipoCadastro(TipoCadastroEnum.CLIENTE);
+				}
+				if(tipoCadastro.equals("2")){
+					pessoa.setTipoCadastro(TipoCadastroEnum.PRESTADOR);
+				}
+				if(tipoCadastro.equals("3")){
+					pessoa.setTipoCadastro(TipoCadastroEnum.PREMIUM);
+				}
+				if(tipoCadastro.equals("4")){
+					pessoa.setTipoCadastro(TipoCadastroEnum.ADMINISTRADOR);
+				}
 			}
 			//STATUS DA PESSOA
-			pessoa.setStatus(String.valueOf(resultado.get("status_pessoa")));
+			if(!(String.valueOf(resultado.get("status_pessoa"))==null)){
+				pessoa.setStatus(String.valueOf(resultado.get("status_pessoa")));
+			}
 			//ENDEREÇO
 			Endereco enderecoPessoa = new Endereco();
-			enderecoPessoa.setBairro(String.valueOf(resultado.get("bairro")));
-			enderecoPessoa.setCep(String.valueOf(resultado.get("CEP")));
-			enderecoPessoa.setCidade(String.valueOf(resultado.get("cidade")));
-			enderecoPessoa.setComplemento(String.valueOf(resultado.get("complemento")));
-			enderecoPessoa.setEstado(String.valueOf(resultado.get("estado")));
-			enderecoPessoa.setLogradouro(String.valueOf(resultado.get("logradouro")));
-			enderecoPessoa.setNumero(Integer.valueOf(String.valueOf(resultado.get("numero"))));
+			if(!(String.valueOf(resultado.get("bairro"))==null)){
+				enderecoPessoa.setBairro(String.valueOf(resultado.get("bairro")));
+			}
+			if(!(String.valueOf(resultado.get("CEP"))==null)){
+				enderecoPessoa.setCep(String.valueOf(resultado.get("CEP")));
+			}
+			if(!(String.valueOf(resultado.get("cidade"))==null)){
+				enderecoPessoa.setCidade(String.valueOf(resultado.get("cidade")));
+			}
+			if(!(String.valueOf(resultado.get("complemento"))==null)){
+				enderecoPessoa.setComplemento(String.valueOf(resultado.get("complemento")));
+			}
+			if(!(String.valueOf(resultado.get("estado"))==null)){
+				enderecoPessoa.setEstado(String.valueOf(resultado.get("estado")));
+			}
+			if(!(String.valueOf(resultado.get("logradouro"))==null)){
+				enderecoPessoa.setLogradouro(String.valueOf(resultado.get("logradouro")));
+			}
+			if(!(String.valueOf(resultado.get("numero"))==null)){
+				enderecoPessoa.setNumero(Integer.valueOf(String.valueOf(resultado.get("numero"))));
+			}
 			pessoa.setEndereco(enderecoPessoa);
+
+			//PRIVACIDADE
+			Privacidade privacidade = new Privacidade();
+			//privacidade_bloco_cpf_cnpj
+			if(!(String.valueOf(resultado.get("privacidade_bloco_cpf_cnpj"))==null)){
+				String codigo = String.valueOf(resultado.get("privacidade_bloco_cpf_cnpj"));
+				privacidade.setExibeCPF(montaPrivacidade(Integer.valueOf(codigo)));
+			}
+			//privacidade_bloco_endereco
+			if(!(String.valueOf(resultado.get("privacidade_bloco_endereco"))==null)){
+				String codigo = String.valueOf(resultado.get("privacidade_bloco_endereco"));
+				privacidade.setExibeEndereco(montaPrivacidade(Integer.valueOf(codigo)));
+			}
+			//privacidade_bloco_telefone
+			if(!(String.valueOf(resultado.get("privacidade_bloco_telefone"))==null)){
+				String codigo = String.valueOf(resultado.get("privacidade_bloco_telefone"));
+				privacidade.setExibeTelefone(montaPrivacidade(Integer.valueOf(codigo)));
+			}
+			//privacidade_bloco_servicos_contratados
+			if(!(String.valueOf(resultado.get("privacidade_bloco_servicos_contratados"))==null)){
+				String codigo = String.valueOf(resultado.get("privacidade_bloco_servicos_contratados"));
+				privacidade.setExibeAgenda(montaPrivacidade(Integer.valueOf(codigo)));
+			}
+			pessoa.setPrivacidade(privacidade);
 			
-			//********************* DAQUI PRA BAIXO SÃO AS LISTAS *********************//
+			
+			//********************* LISTA DE TELEFONES *********************
 			//Busca a lista de telefones e coloca na telefonesBD
 			BasicDBList telefonesDB = (BasicDBList) resultado.get("telefones");
 
@@ -608,10 +705,11 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		    BasicDBObject[] lightArr = telefonesDB.toArray(new BasicDBObject[0]);
 		    for(BasicDBObject telefone : lightArr) {
 		        // shows each item from the lights array
-		    	System.out.println(telefone.get("numero_telefone"));
+		    	System.out.println("numero_telefone: " + telefone.get("numero_telefone"));
 		    	
 		    	Telefone tel = new Telefone();
 
+	    		tel.setCategoriaTelefone(CategoriaTelefoneEnum.FIXO);
 		    	//numero
 		    	tel.setNumero(Integer.valueOf(telefone.getString("numero_telefone")));
 		    	
@@ -623,39 +721,272 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		    	//categoria_telefone
 		    	if(!(telefone.getString("categoria_telefone")==null)){
 		    		String categoria = telefone.getString("categoria_telefone");
-		    		switch(categoria){
-		    			case "1": tel.setCategoriaTelefone(CategoriaTelefoneEnum.FIXO);break;
-		    			case "2": tel.setCategoriaTelefone(CategoriaTelefoneEnum.COMERCIAL);break;
-		    			case "3": tel.setCategoriaTelefone(CategoriaTelefoneEnum.MOVEL);break;
-		    			default: tel.setCategoriaTelefone(CategoriaTelefoneEnum.FIXO);break;
+		    		if(categoria.equals("1")){
+			    		tel.setCategoriaTelefone(CategoriaTelefoneEnum.FIXO);
+		    		}
+		    		if(categoria.equals("2")){
+			    		tel.setCategoriaTelefone(CategoriaTelefoneEnum.COMERCIAL);
+		    		}
+		    		if(categoria.equals("3")){
+			    		tel.setCategoriaTelefone(CategoriaTelefoneEnum.MOVEL);
 		    		}
 		    	}
 		    	
 		    	//operadora_telefone
 		    	if(!(telefone.getString("operadora_telefone")==null)){
 		    		String operadora = telefone.getString("operadora_telefone");
-		    		switch(operadora){
-		    			case "1": tel.setOperadora(OperadoraEnum.CLARO);break;
-		    			case "2": tel.setOperadora(OperadoraEnum.VIVO);break;
-		    			case "3": tel.setOperadora(OperadoraEnum.TIM);break;
-		    			case "4": tel.setOperadora(OperadoraEnum.OI);break;
-		    			case "5": tel.setOperadora(OperadoraEnum.NEXTEL);break;
-		    			case "6": tel.setOperadora(OperadoraEnum.OUTROS);break;
-		    			default: tel.setOperadora(OperadoraEnum.OUTROS);break;
+
+		    		if(operadora.equals("1")){
+			    		tel.setOperadora(OperadoraEnum.CLARO);	
+		    		}
+		    		if(operadora.equals("2")){
+			    		tel.setOperadora(OperadoraEnum.VIVO);	
+		    		}
+		    		if(operadora.equals("3")){
+			    		tel.setOperadora(OperadoraEnum.TIM);	
+		    		}
+		    		if(operadora.equals("4")){
+			    		tel.setOperadora(OperadoraEnum.OI);	
+		    		}
+		    		if(operadora.equals("5")){
+			    		tel.setOperadora(OperadoraEnum.NEXTEL);	
 		    		}
 		    	}
 		    	
 		    	telefones.add(tel);
 		    } 
-			
 		    //Adiciona o array telefones na pessoa 
 			pessoa.setListaTelefone(telefones);
+	    	System.out.println(" telefones fim");
+			
+			//********************* LISTA DE AMIGOS *********************
+			//Busca a lista de telefones e coloca na telefonesBD
+			BasicDBList amigosDB = (BasicDBList) resultado.get("amigos");
+		
+			if(!(amigosDB==null)){
+				//Varre a lista de telefones, preenchendo o array telefones
+				List<Amizade> amigos = new ArrayList<Amizade>();
+			    lightArr = amigosDB.toArray(new BasicDBObject[0]);
+			    for(BasicDBObject amigoDB : lightArr) {
+			        // shows each item from the lights array
+			    	System.out.println("id_amigo: " + amigoDB.get("id_amigo"));
+			    	
+			    	Amizade amizade = new Amizade();
+			    	Cliente amigo = new Cliente();
+	
+			    	//numero
+			    	amigo.setId(String.valueOf(amigoDB.get("_id")));
+			    	amizade.setAmigo(amigo);
+			    	
+			    	//data_amizade
+			    	if(!(String.valueOf(amigoDB.get("data_amizade"))==null)){
+	
+			    		DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
+						SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+			    		String dataAmizadeS = String.valueOf(amigoDB.get("data_amizade"));
+			    		System.out.println(dataAmizadeS);
+						//Date dataAmizade = new Date(dataAmizadeS);
+						Date dataAmizade = new Date();//(Date)dataAmizadeS;
+						amizade.setDataInicioAmizade(dataAmizade);
+			    	}
+			    	
+			    	//status_amizade
+			    	if(!(String.valueOf(amigoDB.get("status_amizade"))==null)){
+			    		if(amigoDB.getString("status_amizade")=="1"){
+				    		amizade.setStatusEnum(StatusAmizadeEnum.ATIVA);
+			    		}else{
+				    		amizade.setStatusEnum(StatusAmizadeEnum.INATIVA);
+			    		}
+			    	}
+			    	
+			    	amigos.add(amizade);
+			    } 
+			    //Adiciona o array telefones na pessoa 
+				pessoa.setListaAmigos(amigos);
+			}
+
+
+			//********************* LISTA DE SERVICOS CONTRATADOS *********************
+			//Busca a lista de compromissos e coloca na servicosContratadosDB
+			BasicDBList servicosContratadosDB = (BasicDBList) resultado.get("servicos_contratados");
+
+			if(!(servicosContratadosDB==null)){				
+				//Varre a lista de compromissos, preenchendo o array agenda
+				List<Compromisso> agenda = new ArrayList<Compromisso>();
+			    lightArr = servicosContratadosDB.toArray(new BasicDBObject[0]);
+			    for(BasicDBObject compromissoDB : lightArr) {
+			        // shows each item from the lights array
+			    	System.out.println("id_prestador: " + compromissoDB.getString("id_prestador"));
+			    	
+			    	Compromisso compromisso = new Compromisso();
+			    	Contrato contrato = new Contrato();
+	
+			    	//id_prestador
+			    	Prestador prestador = new Prestador();
+			    	prestador.setId(String.valueOf(compromissoDB.get("_id")));
+			    	contrato.setPrestador(prestador);
+			    	
+			    	//data_servico_contratado
+					SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		    		try {
+						compromisso.setDataInicio(formato.parse(compromissoDB.getString("data_servico_contratado")));
+		    		}catch(Exception e){
+						System.out.println("ERRO AO BUSCAR DATA DA data_servico_contratado NO METODO consultaClientePorId" + idCliente);
+						e.printStackTrace();
+		    		}
+		    		
+		    		//status_servico_contratado
+		    		if(!(compromissoDB.get("status_servico_contratado")==null)){
+			    		String status = compromissoDB.getString("status_servico_contratado");
+			    		if(status.equals("1")){
+			    			compromisso.setStatus(StatusCompromissoEnum.PRETENDIDO);
+			    		}
+			    		if(status.equals("2")){
+			    			compromisso.setStatus(StatusCompromissoEnum.MARCADO);
+			    		}
+			    		if(status.equals("3")){
+			    			compromisso.setStatus(StatusCompromissoEnum.CANCELADO);
+			    		}
+			    		if(status.equals("4")){
+			    			compromisso.setStatus(StatusCompromissoEnum.REALIZADO);
+			    		}
+		    			
+		    		}
+	
+		    		//data_avaliacao_servico_contratado
+		    		if(!(compromissoDB.get("data_avaliacao_servico_contratado")==null)){
+			    		try {
+			    			contrato.setDataAvaliacaoServico(formato.parse(compromissoDB.getString("data_avaliacao_servico_contratado")));
+			    		}catch(Exception e){
+							System.out.println("ERRO AO BUSCAR DATA DA data_avaliacao_servico_contratado NO METODO consultaClientePorId" + idCliente);
+							e.printStackTrace();
+			    		}	    			
+		    		}
+	
+		    		AvaliacaoPrestador avaliacao = new AvaliacaoPrestador();
+		    		//nota_preco
+		    		if(!(compromissoDB.get("nota_preco")==null)){
+		    			String notaS = String.valueOf(compromissoDB.get("nota_preco"));
+		    			int notaI = Integer.valueOf(notaS);
+			    		avaliacao.setAvaliacaoPreco(notaI);
+		    		}
+		    		
+		    		//nota_pontualidade
+		    		if(!(compromissoDB.get("nota_pontualidade")==null)){
+		    			String notaS = String.valueOf(compromissoDB.get("nota_pontualidade"));
+		    			int notaI = Integer.valueOf(notaS);
+		    			avaliacao.setAvaliacaoPreco(notaI);
+		    		}
+		    		
+		    		//nota_qualidade
+		    		if(!(compromissoDB.get("nota_qualidade")==null)){
+		    			String notaS = String.valueOf(compromissoDB.get("nota_qualidade"));
+		    			int notaI = Integer.valueOf(notaS);
+		    			avaliacao.setAvaliacaoPreco(notaI);
+		    		}
+		    		
+		    		//nota_profissionalismo
+		    		if(!(compromissoDB.get("nota_profissionalismo")==null)){
+		    			String notaS = String.valueOf(compromissoDB.get("nota_profissionalismo"));
+		    			int notaI = Integer.valueOf(notaS);
+		    			avaliacao.setAvaliacaoPreco(notaI);
+		    		}
+		    		contrato.setAvaliacaoPrestador(avaliacao);
+		    		
+		    		//Seta o contrato no compromisso
+		    		compromisso.setContrato(contrato);
+		    		
+		    		//Adiciona o compromisso na agenda
+			    	agenda.add(compromisso);
+			    } 
+			    //Adiciona o array compromissos na pessoa 
+				pessoa.setAgenda(agenda);
+			}
+			
+			//********************* LISTA DE RECOMENDAÇÕES DADAS *********************
+			//Busca a lista de prestadores recomendados e coloca na telefonesBD
+			BasicDBList recomendacoesDadasBD = (BasicDBList) resultado.get("recomendacoes_dadas");
+		
+
+			if(!(recomendacoesDadasBD==null)){				
+				//Varre a lista de prestadores recomendados, preenchendo o array recomendacoesDadas
+				List<Prestador> recomendacoesDadas = new ArrayList<Prestador>();
+			    lightArr = recomendacoesDadasBD.toArray(new BasicDBObject[0]);
+			    for(BasicDBObject recomendacaoDadaDB : lightArr) {
+			        // shows each item from the lights array
+			    	System.out.println("id_usuario_recomendado: " + recomendacaoDadaDB.get("id_usuario_recomendado"));
+			    	
+			    	Prestador prestador = new Prestador();
+			    	prestador.setId(recomendacaoDadaDB.getString("id_usuario_recomendado"));
+			    	
+			    	recomendacoesDadas.add(prestador);
+			    } 
+			    //Adiciona o array prestadores recomendados na pessoa 
+				pessoa.setListaPrestadoresRecomendados(recomendacoesDadas);
+			}
+			
+			
+			//********************* LISTA DE CONVERSAS *********************
+			//Busca a lista de conversa e coloca na conversaDB
+			BasicDBList conversaDB = (BasicDBList) resultado.get("mensagens_de_conversa");
+		
+
+			if(!(conversaDB==null)){	
+				//Varre a lista de conversa, preenchendo o array mensagens
+				List<Conversa> mensagens = new ArrayList<Conversa>();
+			    lightArr = conversaDB.toArray(new BasicDBObject[0]);
+			    for(BasicDBObject mensagemDB : lightArr) {
+			        // shows each item from the lights array
+			    	System.out.println("id_usuario_conversa" + mensagemDB.get("id_usuario_conversa"));
+			    	
+			    	Conversa mensagem = new Conversa();
+	
+			    	//flag enviado ou recebido
+			    	String flagEnviadoOuRecebido = String.valueOf(mensagemDB.get("flagEnviadoOuRecebido")); 
+			    	
+			    	//id
+			    	if(flagEnviadoOuRecebido.equals("E")){
+				    	mensagem.setIdDestino(String.valueOf(mensagemDB.get("id_usuario_conversa")));
+			    	}else{
+				    	mensagem.setIdOrigem(String.valueOf(mensagemDB.get("id_usuario_conversa")));
+			    	}
+			    	
+			    	//data_hora_mensagem
+			    	if(!(String.valueOf(mensagemDB.get("data_hora_mensagem"))==null)){
+	
+			    		DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
+						SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+			    		String mensagemS = String.valueOf(mensagemDB.get("data_hora_mensagem"));
+			    		System.out.println(mensagemS);
+	
+						Date dataMensagem = new Date();//(Date)dataAmizadeS;
+						try {
+							dataMensagem = formato.parse(mensagemS);
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						mensagem.setData(dataMensagem);
+			    	}
+			    	
+			    	//mensagem
+			    	if(!(String.valueOf(mensagemDB.getString("mensagem"))==null)){
+			    		mensagem.setMsg(mensagemDB.getString("mensagem"));
+			    	}
+			    	
+			    	mensagens.add(mensagem);
+			    } 
+			    //Adiciona o array mensagens na pessoa 
+				pessoa.setlistaMensagensConversa(mensagens);
+			}
+			
+			
 			
 		}else{
-			System.out.println("Consulta de cliente pelo id " + idCliente + " não encontrou valores.");
+			System.out.println("Consulta de prestadores recomendados pelo id " + idCliente + " não encontrou valores.");
 			return null;
 		}
-		
+
 		//Retorna a pessoa para o chamador
 		return pessoa;
 	}
@@ -688,6 +1019,20 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			return 3;
 		}
 		return 1;
+	}
+
+	//Retorna o valor enum da privacidde
+	public PrivacidadeEnum montaPrivacidade(int codigo){
+		if(codigo==1){
+			return PrivacidadeEnum.PUBLICO;
+		}
+		if(codigo==2){
+			return PrivacidadeEnum.APENAS_AMIGOS;
+		}
+		if(codigo==3){
+			return PrivacidadeEnum.PRIVADO;
+		}
+		return null;
 	}
 	
 	//****************************CONSULTA TODOS OS DOCUMENTOS DO BANCO****************************//
