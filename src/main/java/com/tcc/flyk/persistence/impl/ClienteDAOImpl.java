@@ -11,6 +11,7 @@ import java.util.Locale;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.Block;
 import com.mongodb.DBCollection;
@@ -20,7 +21,6 @@ import com.mongodb.client.FindIterable;
 import com.tcc.flyk.entity.Amizade;
 import com.tcc.flyk.entity.AvaliacaoPrestador;
 import com.tcc.flyk.entity.Cliente;
-import com.tcc.flyk.entity.Usuario;
 import com.tcc.flyk.entity.Compromisso;
 import com.tcc.flyk.entity.Contrato;
 import com.tcc.flyk.entity.Conversa;
@@ -28,6 +28,7 @@ import com.tcc.flyk.entity.Endereco;
 import com.tcc.flyk.entity.Prestador;
 import com.tcc.flyk.entity.Privacidade;
 import com.tcc.flyk.entity.Telefone;
+import com.tcc.flyk.entity.Usuario;
 import com.tcc.flyk.entity.enumerator.CategoriaTelefoneEnum;
 import com.tcc.flyk.entity.enumerator.OperadoraEnum;
 import com.tcc.flyk.entity.enumerator.PrivacidadeEnum;
@@ -36,14 +37,6 @@ import com.tcc.flyk.entity.enumerator.StatusCompromissoEnum;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.persistence.ClienteDAO;
 import com.tcc.flyk.persistence.MongoDB;
-import org.bson.Document;
-import com.mongodb.Block;
-import com.mongodb.client.FindIterable;
-import com.mongodb.BasicDBList;
-
-import static com.mongodb.client.model.Filters.*;
-import static com.mongodb.client.model.Sorts.ascending;
-import static java.util.Arrays.asList;
 public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 	public ClienteDAOImpl() {
@@ -595,39 +588,39 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			//ID
 			pessoa.setId(idCliente);
 			//NOME
-			if(!(String.valueOf(resultado.get("nome_completo"))==null)){
+			if(resultado.get("nome_completo")!=null){
 				pessoa.setNome(String.valueOf(resultado.get("nome_completo")));
 			}
 			//ALIAS
-			if(!(String.valueOf(resultado.get("alias"))==null)){
+			if(resultado.get("alias")!=null){
 				pessoa.setAlias(String.valueOf(resultado.get("alias")));
 			}
 			//EMAIL
-			if(!(String.valueOf(resultado.get("email"))==null)){
+			if(resultado.get("email")!=null){
 				pessoa.setEmail(String.valueOf(resultado.get("email")));
 			}
 			//APELIDO
-			if(!(String.valueOf(resultado.get("usuario"))==null)){
+			if(resultado.get("usuario")!=null){
 				pessoa.setApelido(String.valueOf(resultado.get("usuario")));
 			}
 			//SENHA
-			if(!(String.valueOf(resultado.get("senha"))==null)){
+			if(resultado.get("senha")!=null){
 				pessoa.setSenha(String.valueOf(resultado.get("senha")));
 			}
 			//ID DO FACEBOOK
-			if(!(String.valueOf(resultado.get("facebookID"))==null)){
+			if(resultado.get("facebookID")!=null){
 				pessoa.setFacebookID(String.valueOf(resultado.get("facebookID")));
 			}
 			//CPF
-			if(!(String.valueOf(resultado.get("CPF"))==null)){
+			if(resultado.get("CPF")!=null){
 				pessoa.setCPF(String.valueOf(resultado.get("CPF")));
 			}
 			//FOTO DO PERFIL
-			if(!(String.valueOf(resultado.get("foto"))==null)){
+			if(resultado.get("foto")!=null){
 				pessoa.setFotoPerfil(String.valueOf(resultado.get("foto")));
 			}
 			//TIPO DE PERFIL
-			if(!(String.valueOf(resultado.get("tipo_perfil"))==null)){
+			if(resultado.get("tipo_perfil")!=null){
 				String tipoCadastro = String.valueOf(resultado.get("tipo_perfil"));
 				if(tipoCadastro.equals("1")){
 					pessoa.setTipoCadastro(TipoCadastroEnum.CLIENTE);
@@ -643,30 +636,30 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				}
 			}
 			//STATUS DA PESSOA
-			if(!(String.valueOf(resultado.get("status_pessoa"))==null)){
+			if(resultado.get("status_pessoa")!=null){
 				pessoa.setStatus(String.valueOf(resultado.get("status_pessoa")));
 			}
 			//ENDEREÇO
 			Endereco enderecoPessoa = new Endereco();
-			if(!(String.valueOf(resultado.get("bairro"))==null)){
+			if(resultado.get("bairro")!=null){
 				enderecoPessoa.setBairro(String.valueOf(resultado.get("bairro")));
 			}
-			if(!(String.valueOf(resultado.get("CEP"))==null)){
+			if(resultado.get("CEP")!=null){
 				enderecoPessoa.setCep(String.valueOf(resultado.get("CEP")));
 			}
-			if(!(String.valueOf(resultado.get("cidade"))==null)){
+			if(resultado.get("cidade")!=null){
 				enderecoPessoa.setCidade(String.valueOf(resultado.get("cidade")));
 			}
-			if(!(String.valueOf(resultado.get("complemento"))==null)){
+			if(resultado.get("complemento")!=null){
 				enderecoPessoa.setComplemento(String.valueOf(resultado.get("complemento")));
 			}
-			if(!(String.valueOf(resultado.get("estado"))==null)){
+			if(resultado.get("estado")!=null){
 				enderecoPessoa.setEstado(String.valueOf(resultado.get("estado")));
 			}
-			if(!(String.valueOf(resultado.get("logradouro"))==null)){
+			if(resultado.get("logradouro")!=null){
 				enderecoPessoa.setLogradouro(String.valueOf(resultado.get("logradouro")));
 			}
-			if(!(String.valueOf(resultado.get("numero"))==null)){
+			if(resultado.get("numero")!=null){
 				enderecoPessoa.setNumero(Integer.valueOf(String.valueOf(resultado.get("numero"))));
 			}
 			pessoa.setEndereco(enderecoPessoa);
@@ -779,7 +772,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			    	amizade.setAmigo(amigo);
 			    	
 			    	//data_amizade
-			    	if(!(String.valueOf(amigoDB.get("data_amizade"))==null)){
+			    	if(amigoDB.get("data_amizade")!=null){
 	
 			    		DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
 						SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -791,7 +784,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			    	}
 			    	
 			    	//status_amizade
-			    	if(!(String.valueOf(amigoDB.get("status_amizade"))==null)){
+			    	if(amigoDB.get("status_amizade")!=null){
 			    		if(amigoDB.getString("status_amizade")=="1"){
 				    		amizade.setStatusEnum(StatusAmizadeEnum.ATIVA);
 			    		}else{
@@ -952,7 +945,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			    	}
 			    	
 			    	//data_hora_mensagem
-			    	if(!(String.valueOf(mensagemDB.get("data_hora_mensagem"))==null)){
+			    	if(mensagemDB.get("data_hora_mensagem")!=null){
 	
 			    		DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
 						SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -970,7 +963,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			    	}
 			    	
 			    	//mensagem
-			    	if(!(String.valueOf(mensagemDB.getString("mensagem"))==null)){
+			    	if(mensagemDB.getString("mensagem")!=null){
 			    		mensagem.setMsg(mensagemDB.getString("mensagem"));
 			    	}
 			    	
