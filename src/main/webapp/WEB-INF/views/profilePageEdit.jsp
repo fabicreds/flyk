@@ -11,16 +11,30 @@
 					<div class="row">
 						<div class="col-sm-3">
 							<div class="text-center">
-								<img
-									src="${pageContext.request.contextPath}/images/pessoa-feliz.png"
-									class="avatar img-circle img-thumbnail" alt="avatar"
-									style="height: 200px; width: 200px;">
+								<h4>Escolha sua foto de perfil</h4>
+						      	  <div class="text-center">
+						        	<form>
+						        		
+						        		<input type="file" ng-file-select="onFileSelect($files)" ng-model="imageProfile" >
+										 <!--  <input type="file" ng-file-select="onFileSelect($files)" multiple> -->
+						
+						  
+						   			</form>
+						   			<b>Preview:</b><br />
+						  			
+						   			<img ng-src="{{imageSrc}}" style="height: 200px; width: 200px; border-radius: 50%; border: none;"/><br/>
+						   			
+						   			<b>Progress:</b>
+						  			<progress value="{{progress}}"></progress>
+						  			
+						      	  </div>
 							</div>
 						</div>
 						<!--/col-->
 						<div class="col-sm-9">
 							<form class="form-horizontal" name="inactivateForm" novalidate
 								role="form">
+								
 								<h3>{{data.nome}}</h3>
 								<div ng-show="$root.data.apelido != null">
 									 <label for="nickname">Apelido</label>
@@ -149,7 +163,7 @@
 							<div class="panel-heading">
 								<div ng-if="usuarioLogado !='' && tipoUsuarioLogado==2">
 									<uib-tabset active="active">
-    									<uib-tab index="0" heading="TAB1">TAB1</uib-tab>
+    									<uib-tab index="0" heading="TAB1">{{data}}</uib-tab>
     									<uib-tab index="1" heading="TAB2">TAB2</uib-tab>
     									<uib-tab index="2" heading="TAB3">TAB3</uib-tab>
     									<uib-tab index="3" heading="TAB4">TAB4</uib-tab>

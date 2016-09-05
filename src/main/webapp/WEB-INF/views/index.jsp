@@ -223,13 +223,6 @@
                             
                     </li>
                     
-                     <li>
-                        <a ng-click="showProfilePageEdit()">
-                            <span class="glyphicon glyphicon-envelope"></span>
-                            <span class="text">EDITAR PERFIL</span>
-                        </a>
-                            
-                    </li>
                
                
                      
@@ -237,7 +230,12 @@
                     
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    
+                     <li>
+                        <a ng-click="showProfilePageEdit()">
+                            <span class="glyphicon glyphicon-user"></span>
+                        </a>
+                            
+                    </li>
                 <li class="link">
                     	<a  ng-click="logOff()" ng-controller="loginPageCtrl">
                          	<!-- <button type="submit" class="btn btn-success">
