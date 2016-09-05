@@ -83,7 +83,8 @@ public class ClienteUtil {
 			jObjt.put("privacidade", privacidadeUtil.toJSON(cliente.getPrivacidade()));
 		}
 		if (cliente.getTipoCadastro() != null) {
-			jObjt.put("tipoCadastro", cliente.getTipoCadastro().getDescricao());
+			jObjt.put("tipoCadastro", cliente.getTipoCadastro().getCodigo());
+			jObjt.put("perfil", cliente.getTipoCadastro().getDescricao());
 		}
 		if (cliente.getListaPrestadoresRecomendados() != null) {
 			jObjt.put("listaPrestadoresRecomendados",

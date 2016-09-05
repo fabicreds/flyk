@@ -10,6 +10,7 @@ public enum TipoCadastroEnum {
 
 	private TipoCadastroEnum(int codigo, String descricao) {
 		this.codigo = codigo;
+		this.descricao = descricao;
 	}
 
 	public int getCodigo() {

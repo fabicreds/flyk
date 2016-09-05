@@ -674,22 +674,22 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			//PRIVACIDADE
 			Privacidade privacidade = new Privacidade();
 			//privacidade_bloco_cpf_cnpj
-			if(!(String.valueOf(resultado.get("privacidade_bloco_cpf_cnpj"))==null)){
+			if(resultado.get("privacidade_bloco_cpf_cnpj")!=null){
 				String codigo = String.valueOf(resultado.get("privacidade_bloco_cpf_cnpj"));
 				privacidade.setExibeCPF(montaPrivacidade(Integer.valueOf(codigo)));
 			}
 			//privacidade_bloco_endereco
-			if(!(String.valueOf(resultado.get("privacidade_bloco_endereco"))==null)){
+			if(resultado.get("privacidade_bloco_endereco")!=null){
 				String codigo = String.valueOf(resultado.get("privacidade_bloco_endereco"));
 				privacidade.setExibeEndereco(montaPrivacidade(Integer.valueOf(codigo)));
 			}
 			//privacidade_bloco_telefone
-			if(!(String.valueOf(resultado.get("privacidade_bloco_telefone"))==null)){
+			if(resultado.get("privacidade_bloco_telefone")!=null){
 				String codigo = String.valueOf(resultado.get("privacidade_bloco_telefone"));
 				privacidade.setExibeTelefone(montaPrivacidade(Integer.valueOf(codigo)));
 			}
 			//privacidade_bloco_servicos_contratados
-			if(!(String.valueOf(resultado.get("privacidade_bloco_servicos_contratados"))==null)){
+			if(resultado.get("privacidade_bloco_servicos_contratados")!=null){
 				String codigo = String.valueOf(resultado.get("privacidade_bloco_servicos_contratados"));
 				privacidade.setExibeAgenda(montaPrivacidade(Integer.valueOf(codigo)));
 			}

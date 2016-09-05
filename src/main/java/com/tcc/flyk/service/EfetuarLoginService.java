@@ -45,7 +45,7 @@ public class EfetuarLoginService {
 			} else {
 				if (form.getSenha().equals(usuario.getSenha())) {
 					// usuario autenticado com sucesso
-					if(usuario.getTipoCadastro() == TipoCadastroEnum.CLIENTE){
+					if(usuario.getTipoCadastro() == TipoCadastroEnum.CLIENTE || usuario.getTipoCadastro() == TipoCadastroEnum.PRESTADOR){
 						Cliente cliente = new Cliente();
 						cliente = cliDAO.consultaClientePorId(usuario.getId());
 						return mensagemSucesso(cliente);
