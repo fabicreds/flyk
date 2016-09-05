@@ -38,6 +38,7 @@
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/profilePage.js"></script>
     
     <script src="${pageContext.request.contextPath}/resources/angular/app/uploadFactory.js"></script>
+      <script src="${pageContext.request.contextPath}/resources/angular/app/directives/ngFileSelect.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/ValidationDirective.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiCPFdirective.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/directives/uiDateDirective.js"></script>

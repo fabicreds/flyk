@@ -1,6 +1,49 @@
 flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal, fileReader) {
 	
 	
+	  
+    $scope.categorias = [
+        {
+    	  id: 1,
+    	  label: 'FIXO'
+    	}, 
+    	{
+    	  id: 2,
+    	  label: 'COMERCIAL',
+    	},
+    	{
+      	  id: 3,
+      	  label: 'MOVEL',
+      	}
+    ];
+    
+    $scope.operadoras = [
+        {
+    	 id: 1,
+  	  	 label: 'CLARO'
+  		}, 
+  		{
+  		 id: 2,
+  	     label: 'VIVO',
+  		}, 
+  		{
+  		 id: 3,
+  		 label: 'TIM',
+  		}, 
+  		{
+  	     id: 4,
+  	     label: 'OI',
+  		}, 
+  		{
+  	  	 id: 5,
+  	  	 label: 'NEXTEL',
+  	  	}, 
+  		{
+  	     id: 6,
+  	     label: 'OUTROS',
+  		}
+  	];
+	
 	   $scope.validatePassword = function (form) {
 	        
 	        if(form.password != form.confirmPassword) 
@@ -121,21 +164,3 @@ flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal, f
 		 
 
 });
- // diretiva para carregar imagem
-flyk.directive("ngFileSelect",function(){
-
-	  return {
-	    link: function($scope,el){
-	      
-	      el.bind("change", function(e){
-	      
-	        $scope.file = (e.srcElement || e.target).files[0];
-	        $scope.getFile();
-	      })
-	      
-	    }
-	    
-	  }
-	  
-	  
-	})

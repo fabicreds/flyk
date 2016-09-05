@@ -118,10 +118,10 @@
                    							 ng-model="telefone.numero"  ng-bind="telefone.numero" /> 
 										</div>
 										<div class="col-sm-2">
-										<select ng-options="item as item.label for item in operadoras track by operadoras.id" ng-model="telefone.operadora"></select>
+										<select class="form-control" ng-options="item as item.label for item in operadoras track by operadoras.id" ng-model="telefone.operadora"></select>
 										</div>
 										<div class="col-sm-2">
-										<select ng-options="item as item.label for item in categorias track by categorias.id" ng-model="telefone.categoria"></select>
+										<select class="form-control" ng-options="item as item.label for item in categorias track by categorias.id" ng-model="telefone.categoria"></select>
 										</div>
 
 								</div>

@@ -62,10 +62,8 @@
         <div class="form-group" show-errors>          
             <label for="password" class="col-sm-3 control-label">Senha*</label>
             <div class="col-sm-3">
-                <span uib-tooltip="A senha deve conter letra minuscula, maiuscula, numero e caracter especial."
-                      uib-tooltip-placement="right"></span>
                 <input type="password" id="password" name="password" class="form-control" ng-model="password"
-                 ng-required="true" ng-pattern="/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/" ng- ng-maxlength="10" /> <!--Com o form-control, ele fica responsivel. Não use value para inserior o valor digitado. -->
+                 ng-required="true" ng-pattern="/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/" ng- ng-maxlength="10" uib-tooltip="A senha deve conter letra minuscula, maiuscula, numero e caracter especial." /> <!--Com o form-control, ele fica responsivel. Não use value para inserior o valor digitado. -->
                 <span class="help-block"
                       ng-if="userForm.password.$error.required">A senha é obrigatória! </span>
                 <span class="help-block"
@@ -77,14 +75,6 @@
                 </span>
             </div>
         </div>
-        
-          <div class="form-group">
-          		<div class="col-sm-3 control-label">
-         		</div>
-         		<div class="col-sm-9">
-         		<label for="warningpass"><h8>A senha deve conter letra minuscula, maiuscula, numero e caracter especial.</h8></label>
-         		</div>
-          </div>
 
         <div class="form-group" show-errors>
             <label for="confirmPassword" class="col-sm-3 control-label"> Confirme a senha*</label>
@@ -114,19 +104,31 @@
         <div class="form-group" show-errors>
             <label for="numberContact" class="col-sm-3 control-label">Telefone 1*</label>
             <div class="col-sm-3">
-                <input type="text" id="telephone1" name="telephone1" class="form-control" ng-model="telephone1"  ng-required="true" ui-telefone/>
+                <input type="text" id="telephone1" name="telephone1" class="form-control" ng-model="telephone1.number"  ng-required="true" ui-telefone/>
                  <span class="help-block"
                       ng-if="userForm.telephone1.$error.required">Este telefone é obrigatório!</span>
            
             </div>
+            <div class="col-sm-2">
+					<select  class="form-control" ng-options="item as item.label for item in operadoras track by operadoras.id" ng-model="telephone1.operadora"></select>
+			</div>
+			<div class="col-sm-2">
+					<select  class="form-control" ng-options="item as item.label for item in categorias track by categorias.id" ng-model="telephone1.categoria"></select>
+			</div>
         </div>
         
         <div class="form-group" show-errors>
             <label for="numberContact2" class="col-sm-3 control-label">Telefone 2</label>
             <div class="col-sm-3">
-                <input type="text" id="telephone2" name="telephone2" class="form-control" ng-model="telephone2" ui-telefone/>
+                <input type="text" id="telephone2" name="telephone2" class="form-control" ng-model="telephone2.number" ui-telefone/>
            
             </div>
+             <div class="col-sm-2">
+					<select class="form-control" ng-options="item as item.label for item in operadoras track by operadoras.id" ng-model="telephone2.operadora"></select>
+			</div>
+			<div class="col-sm-2">
+					<select class="form-control" ng-options="item as item.label for item in categorias track by categorias.id" ng-model="telephone2.categoria"></select>
+			</div>
         </div>
 
         <div class="form-group">
@@ -146,19 +148,19 @@
 
         <div class="form-group" uib-collapse="!prestador.flag">
             <label for="nonCompeteNotes" class="col-sm-4 control-label">
-               Tipo de Perfil
+               Tipo de acesso
             </label>
             <div class="col-sm-8">
                 <div class="radio">
-                    <label>
+                    <label uib-tooltip="FREE: BLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLA">
                         <input type="radio" name="serviceType" value="free"
                                ng-model="prestador.type" /> Free 
                     </label><br />
                 </div>
                 <div class="radio">
-                    <label>
+                    <label uib-tooltip="PREMIUM: BLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLA">
                         <input type="radio" name="serviceType" value="premium"
-                               ng-model="prestador.type" /> Premium 
+                               ng-model="prestador.type"  /> Premium 
                     </label><br />
                 </div>
             </div>
