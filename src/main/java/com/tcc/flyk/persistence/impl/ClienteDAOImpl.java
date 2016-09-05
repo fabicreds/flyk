@@ -707,12 +707,12 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		    	tel.setNumero(Integer.valueOf(telefone.getString("numero_telefone")));
 		    	
 		    	//DDD
-		    	if(!(telefone.getString("ddd_telefone")==null)){
+		    	if(telefone.get("ddd_telefone")!=null){
 		    		tel.setDdd(Integer.valueOf(telefone.getString("ddd_telefone")));
 		    	}
 		    	
 		    	//categoria_telefone
-		    	if(!(telefone.getString("categoria_telefone")==null)){
+		    	if(telefone.get("categoria_telefone")!=null){
 		    		String categoria = telefone.getString("categoria_telefone");
 		    		if(categoria.equals("1")){
 			    		tel.setCategoriaTelefone(CategoriaTelefoneEnum.FIXO);
@@ -726,7 +726,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		    	}
 		    	
 		    	//operadora_telefone
-		    	if(!(telefone.getString("operadora_telefone")==null)){
+		    	if(telefone.get("operadora_telefone")!=null){
 		    		String operadora = telefone.getString("operadora_telefone");
 
 		    		if(operadora.equals("1")){
@@ -756,7 +756,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			//Busca a lista de telefones e coloca na telefonesBD
 			BasicDBList amigosDB = (BasicDBList) resultado.get("amigos");
 		
-			if(!(amigosDB==null)){
+			if(amigosDB!=null){
 				//Varre a lista de telefones, preenchendo o array telefones
 				List<Amizade> amigos = new ArrayList<Amizade>();
 			    lightArr = amigosDB.toArray(new BasicDBObject[0]);
@@ -803,7 +803,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			//Busca a lista de compromissos e coloca na servicosContratadosDB
 			BasicDBList servicosContratadosDB = (BasicDBList) resultado.get("servicos_contratados");
 
-			if(!(servicosContratadosDB==null)){				
+			if(servicosContratadosDB!=null){				
 				//Varre a lista de compromissos, preenchendo o array agenda
 				List<Compromisso> agenda = new ArrayList<Compromisso>();
 			    lightArr = servicosContratadosDB.toArray(new BasicDBObject[0]);
@@ -829,7 +829,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		    		}
 		    		
 		    		//status_servico_contratado
-		    		if(!(compromissoDB.get("status_servico_contratado")==null)){
+		    		if(compromissoDB.get("status_servico_contratado")!=null){
 			    		String status = compromissoDB.getString("status_servico_contratado");
 			    		if(status.equals("1")){
 			    			compromisso.setStatus(StatusCompromissoEnum.PRETENDIDO);
@@ -847,7 +847,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		    		}
 	
 		    		//data_avaliacao_servico_contratado
-		    		if(!(compromissoDB.get("data_avaliacao_servico_contratado")==null)){
+		    		if(compromissoDB.get("data_avaliacao_servico_contratado")!=null){
 			    		try {
 			    			contrato.setDataAvaliacaoServico(formato.parse(compromissoDB.getString("data_avaliacao_servico_contratado")));
 			    		}catch(Exception e){
@@ -858,28 +858,28 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 	
 		    		AvaliacaoPrestador avaliacao = new AvaliacaoPrestador();
 		    		//nota_preco
-		    		if(!(compromissoDB.get("nota_preco")==null)){
+		    		if(compromissoDB.get("nota_preco")!=null){
 		    			String notaS = String.valueOf(compromissoDB.get("nota_preco"));
 		    			int notaI = Integer.valueOf(notaS);
 			    		avaliacao.setAvaliacaoPreco(notaI);
 		    		}
 		    		
 		    		//nota_pontualidade
-		    		if(!(compromissoDB.get("nota_pontualidade")==null)){
+		    		if(compromissoDB.get("nota_pontualidade")!=null){
 		    			String notaS = String.valueOf(compromissoDB.get("nota_pontualidade"));
 		    			int notaI = Integer.valueOf(notaS);
 		    			avaliacao.setAvaliacaoPreco(notaI);
 		    		}
 		    		
 		    		//nota_qualidade
-		    		if(!(compromissoDB.get("nota_qualidade")==null)){
+		    		if(compromissoDB.get("nota_qualidade")!=null){
 		    			String notaS = String.valueOf(compromissoDB.get("nota_qualidade"));
 		    			int notaI = Integer.valueOf(notaS);
 		    			avaliacao.setAvaliacaoPreco(notaI);
 		    		}
 		    		
 		    		//nota_profissionalismo
-		    		if(!(compromissoDB.get("nota_profissionalismo")==null)){
+		    		if(compromissoDB.get("nota_profissionalismo")!=null){
 		    			String notaS = String.valueOf(compromissoDB.get("nota_profissionalismo"));
 		    			int notaI = Integer.valueOf(notaS);
 		    			avaliacao.setAvaliacaoPreco(notaI);
@@ -901,7 +901,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			BasicDBList recomendacoesDadasBD = (BasicDBList) resultado.get("recomendacoes_dadas");
 		
 
-			if(!(recomendacoesDadasBD==null)){				
+			if(recomendacoesDadasBD!=null){				
 				//Varre a lista de prestadores recomendados, preenchendo o array recomendacoesDadas
 				List<Prestador> recomendacoesDadas = new ArrayList<Prestador>();
 			    lightArr = recomendacoesDadasBD.toArray(new BasicDBObject[0]);
@@ -924,7 +924,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			BasicDBList conversaDB = (BasicDBList) resultado.get("mensagens_de_conversa");
 		
 
-			if(!(conversaDB==null)){	
+			if(conversaDB!=null){	
 				//Varre a lista de conversa, preenchendo o array mensagens
 				List<Conversa> mensagens = new ArrayList<Conversa>();
 			    lightArr = conversaDB.toArray(new BasicDBObject[0]);
