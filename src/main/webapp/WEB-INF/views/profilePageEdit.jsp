@@ -98,13 +98,41 @@
 										</div>
 
 								</div>
+								 <div class="form-group">
 
-								<div class="form-group">
-									
-                        			<input type="checkbox" name="tipoCadastro" value="prestador"
-                               				ng-model="data.tipoCadastro" /> Prestador 
-                    			
-								</div>
+						            <div class="col-sm-9">
+						
+						                <div class="checkbox">
+						                    <label>
+						                        <input type="checkbox" name="userType" value="prestador"
+						                               ng-model="data.tipoCadastro" /> Prestador 
+						                    </label><br />
+						                </div>
+						              
+						
+						            </div>
+						        </div>
+						        
+						          <div class="form-group" uib-collapse="!data.tipoCadastro">
+						            <label for="nonCompeteNotes" class="col-sm-3 control-label">
+						               Tipo de acesso
+						            </label>
+						            <div class="col-sm-8">
+						                <div class="radio">
+						                    <label uib-tooltip="FREE: BLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLA">
+						                        <input type="radio" name="serviceType" value="free"
+						                               ng-model="prestador.type" /> Free 
+						                    </label><br />
+						                </div>
+						                <div class="radio">
+						                    <label uib-tooltip="PREMIUM: BLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLA">
+						                        <input type="radio" name="serviceType" value="premium"
+						                               ng-model="prestador.type"  /> Premium 
+						                    </label><br />
+						                </div>
+						            </div>
+						        </div>
+							
 								
 								<label for="telefone">Telefone:</label>
 								<div ng-repeat="telefone in data.listaTelefone"> 
@@ -129,17 +157,17 @@
 								
 								<label for="cpf">CPF/CNPJ:</label>
 									<div class="form-group">
-										<div class="col-sm-2"> 
+										<div class="col-sm-3"> 
 											<input type="text" id="cpf" name="cpf" class="form-control"
-                   							   ng-model="data.cpf" ng-bind="{{data.cpf}}"  /> 
+                   							   ng-model="data.cpf" ng-bind="{{data.cpf}}" ui-cpf /> 
                    					    </div>
                    					 </div>
 								
 									<label for="cpf">Nascimento:</label>
 									<div class="form-group">
-										<div class="col-sm-2"> 
+										<div class="col-sm-3"> 
 											<input type="text" id="nascimento" name="nascimento" class="form-control"
-                   							   ng-model="data.nascimento" ng-bind="{{data.nascimento}}"/> 
+                   							   ng-model="data.nascimento" ng-bind="{{data.nascimento}}"/  ui-date> 
                    					    </div>
                    					 </div>
                    					 

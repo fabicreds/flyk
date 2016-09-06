@@ -1,4 +1,4 @@
-flyk.controller("profilePageCtrl", function ($scope, $rootScope, $location, $http) {
+flyk.controller("profilePageCtrl", function ($scope, $rootScope, $location, $http, fileReader) {
 
     $scope.showProfilePageEdit = function() {
     	$location.path('/profilePageEdit');
