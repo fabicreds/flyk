@@ -1,5 +1,6 @@
 package com.tcc.flyk.util;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.tcc.flyk.entity.Amizade;
 import com.tcc.flyk.entity.Cliente;
+import com.tcc.flyk.entity.Compromisso;
 import com.tcc.flyk.entity.Conversa;
 import com.tcc.flyk.entity.Prestador;
 import com.tcc.flyk.entity.Telefone;
@@ -31,6 +33,11 @@ public class ClienteUtil {
 	
 	@Resource
 	private EnderecoUtil enderecoUtil;
+	
+	@Resource
+	private CompromissoUtil compromissoUtil;
+	
+	private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 	public JSONObject toJSON(Cliente cliente) {
 		JSONObject jObjt = new JSONObject();
@@ -65,13 +72,14 @@ public class ClienteUtil {
 			jObjt.put("listaTelefone", listaTelefoneJSON(cliente.getListaTelefone()));
 		}
 		if (cliente.getNascimento() != null) {
-			jObjt.put("nascimento", cliente.getNascimento());
+			jObjt.put("nascimento", format.format(cliente.getNascimento()));
 		}
 		if (cliente.getApelido() != null) {
 			jObjt.put("apelido", cliente.getApelido());
 		}
 		if (cliente.getAgenda() != null) {
-			jObjt.put("agenda", cliente.getAgenda());
+			jObjt.put("numServicosContratados", cliente.getQtdeServicosContratados());
+			jObjt.put("agenda", agendaJSON(cliente.getAgenda()));
 		}
 		if (cliente.getStatus() != null) {
 			jObjt.put("status", cliente.getStatus());
@@ -102,7 +110,7 @@ public class ClienteUtil {
 			int i = 0;
 			for (Amizade amizade : listaAmigos) {
 				JSONObject jObjt1 = amizadeUtil.toJSON(amizade);
-				jObjt.put("amigo" + i, jObjt1);
+				jObjt.put("amizade" + i, jObjt1);
 				i++;
 			}
 		}
@@ -117,11 +125,14 @@ public class ClienteUtil {
 				JSONObject jObjt1 = new JSONObject();
 				jObjt1.put("ddd", tel.getDdd());
 				jObjt1.put("numero", tel.getNumero());
-				jObjt1.put("categoria", tel.getCategoriaTelefone());
+				jObjt1.put("categoria", tel.getCategoriaTelefone().getCodigo());
+				jObjt1.put("categoriaDescricao", tel.getCategoriaTelefone().getDescricao());
 				if (tel.getOperadora() != null) {
-					jObjt1.put("operadora", tel.getOperadora().getDescricao());
+					jObjt1.put("operadora", tel.getOperadora().getCodigo());
+					jObjt1.put("operadoraDescricao", tel.getOperadora().getDescricao());
 				} else {
-					jObjt1.put("operadora", OperadoraEnum.OUTROS.getDescricao());
+					jObjt1.put("operadora", OperadoraEnum.OUTROS.getCodigo());
+					jObjt1.put("operadoraDescricao", OperadoraEnum.OUTROS.getDescricao());
 				}
 				jObjt.put("telefone" + i, jObjt1);
 				i++;
@@ -150,6 +161,19 @@ public class ClienteUtil {
 			for (Conversa conversa : listaMensagensConversa) {
 				JSONObject jObjt1 = conversaUtil.toJSON(conversa);
 				jObjt.put("conversa" + i, jObjt1);
+				i++;
+			}
+		}
+		return jObjt;
+	}
+	
+	private JSONObject agendaJSON(List<Compromisso> agenda) {
+		JSONObject jObjt = new JSONObject();
+		if (agenda != null) {
+			int i = 0;
+			for (Compromisso compromisso : agenda) {
+				JSONObject jObjt1 = compromissoUtil.toJSON(compromisso);
+				jObjt.put("compromisso" + i, jObjt1);
 				i++;
 			}
 		}

@@ -7,49 +7,48 @@ import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 
 public class Cliente {
 
-	//identificador gerado no banco
+	// identificador gerado no banco
 	private String id;
-	
+
 	private String nome;
-	
-	//nome que irá aparecer no perfil do usuario
+
+	// nome que irá aparecer no perfil do usuario
 	private String alias;
-	
+
 	private String email;
-	
+
 	private String senha;
-	
-	//identificador de autenticação com o facebook
+
+	// identificador de autenticação com o facebook
 	private String facebookID;
-	
+
 	private String fotoPerfil;
-	
+
 	private String CPF;
-	
+
 	private Endereco endereco;
-	
+
 	private List<Telefone> listaTelefone;
 
 	private Date nascimento;
-	
-	private String apelido;	
-	
-	private List<Compromisso> agenda;
-	
-	private String status;
-	
-	private List<Amizade> listaAmigos;
-	
-	private Privacidade privacidade;
-	
-	private TipoCadastroEnum tipoCadastro;
-	
-	//private Prestador prestador;
-	
-	private List<Prestador> listaPrestadoresRecomendados;
-	
-	private List<Conversa> listaMensagensConversa;
 
+	private String apelido;
+
+	private List<Compromisso> agenda;
+
+	private String status;
+
+	private List<Amizade> listaAmigos;
+
+	private Privacidade privacidade;
+
+	private TipoCadastroEnum tipoCadastro;
+
+	// private Prestador prestador;
+
+	private List<Prestador> listaPrestadoresRecomendados;
+
+	private List<Conversa> listaMensagensConversa;
 
 	public String getId() {
 		return id;
@@ -186,15 +185,7 @@ public class Cliente {
 	public void setTipoCadastro(TipoCadastroEnum tipoCadastro) {
 		this.tipoCadastro = tipoCadastro;
 	}
-/*
-	public Prestador getPrestador() {
-		return prestador;
-	}
 
-	public void setPrestador(Prestador prestador) {
-		this.prestador = prestador;
-	}
-*/
 	public List<Prestador> getListaPrestadoresRecomendados() {
 		return listaPrestadoresRecomendados;
 	}
@@ -211,15 +202,15 @@ public class Cliente {
 		this.listaMensagensConversa = listaMensagensConversa;
 	}
 
-	@Override
-	public String toString() {
-		return "{id:\"" + id + "\", nome:\"" + nome + "\", alias:\"" + alias + "\", email:\"" + email + "\", senha:\"" + senha
-				+ "\", facebookID:\"" + facebookID + "\", fotoPerfil:\"" + fotoPerfil + "\", CPF:\"" + CPF + "\", endereco:\""
-				+ endereco + "\", listaTelefone:\"" + listaTelefone + "\", nascimento:\"" + nascimento + "\", apelido:\"" + apelido
-				+ "\", agenda:\"" + agenda + "\", status:\"" + status + "\", listaAmigos:\"" + listaAmigos + "\", privacidade:\""
-				+ privacidade + "\", tipoCadastro:\"" + tipoCadastro 
-				+ "\", listaPrestadoresRecomendados:\"" + listaPrestadoresRecomendados + "\", listaMensagensConversa:\""
-				+ listaMensagensConversa + "\"}";
+	public int getQtdeServicosContratados() {
+		int qtde = 0;
+		if (this.agenda != null) {
+			for (Compromisso compromisso : this.agenda) {
+				if (!compromisso.isIndicadorFerias()) {
+					qtde++;
+				}
+			}
+		}
+		return qtde;
 	}
-	
 }

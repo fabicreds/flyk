@@ -10,7 +10,7 @@ public class AvaliacaoPrestadorUtil {
 
 	public JSONObject toJSON(AvaliacaoPrestador avaliacao) {
 		JSONObject jObjt = new JSONObject();
-		jObjt.put("avaliacaoTempo", avaliacao.getAvaliacaoTempo());
+		jObjt.put("avaliacaoTempo", avaliacao.getAvaliacaoPontualidade());
 		jObjt.put("avaliacaoQualidade", avaliacao.getAvaliacaoQualidade());
 		jObjt.put("avaliacaoPreco", avaliacao.getAvaliacaoPreco());
 		jObjt.put("avaliacaoProfissionalismo", avaliacao.getAvaliacaoProfissionalismo());

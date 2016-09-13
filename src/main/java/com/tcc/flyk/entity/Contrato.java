@@ -18,7 +18,7 @@ public class Contrato {
 	
 	private int avaliacaoContratante;
 	
-	private float custo;
+	private Double custo;
 
 	public Cliente getCliente() {
 		return cliente;
@@ -60,11 +60,11 @@ public class Contrato {
 		this.avaliacaoContratante = avaliacaoContratante;
 	}
 
-	public float getCusto() {
+	public Double getCusto() {
 		return custo;
 	}
 
-	public void setCusto(float custo) {
+	public void setCusto(Double custo) {
 		this.custo = custo;
 	}
 

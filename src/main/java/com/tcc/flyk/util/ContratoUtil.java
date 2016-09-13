@@ -1,5 +1,7 @@
 package com.tcc.flyk.util;
 
+import java.text.SimpleDateFormat;
+
 import javax.annotation.Resource;
 
 import org.json.JSONObject;
@@ -18,6 +20,8 @@ public class ContratoUtil {
 
 	@Resource
 	private AvaliacaoPrestadorUtil avaliacaoPrestadorUtil;
+	
+	private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 	public JSONObject toJSON(Contrato contrato) {
 		JSONObject jObjt = new JSONObject();
@@ -34,7 +38,7 @@ public class ContratoUtil {
 			jObjt.put("avaliacaoPrestador", avaliacaoPrestadorUtil.toJSON(contrato.getAvaliacaoPrestador()));
 		}
 		if (contrato.getDataAvaliacaoServico() != null) {
-			jObjt.put("dataAvaliacaoServico", contrato.getDataAvaliacaoServico());
+			jObjt.put("dataAvaliacaoServico", format.format(contrato.getDataAvaliacaoServico()));
 		}
 		if (contrato.getAvaliacaoContratante() != 0) {
 			jObjt.put("avaliacaoContratante", contrato.getAvaliacaoContratante());

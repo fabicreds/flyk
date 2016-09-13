@@ -2,7 +2,7 @@ package com.tcc.flyk.entity;
 
 public class Preco {
 	
-	private Float valor;
+	private Double valor;
 	private String categoria;
 
 	public String getCategoria() {
@@ -13,11 +13,11 @@ public class Preco {
 		this.categoria = categoria;
 	}
 
-	public Float getValor() {
+	public Double getValor() {
 		return valor;
 	}
 
-	public void setValor(Float valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 

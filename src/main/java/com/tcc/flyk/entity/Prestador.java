@@ -17,7 +17,7 @@ public class Prestador extends Cliente{
 	private List<Cliente> listaRecomendacoesRecebidas;
 	
 	//valor pago pelo perfil premium
-	private Float valorPremium;
+	private Double valorPremium;
 	
 	// se o perfil for PREMIUM, peso na busca deve ser maior para perfil ficar em destaque
 	private int pesoBusca;
@@ -54,11 +54,11 @@ public class Prestador extends Cliente{
 		this.listaServicosContratados = listaServicosContratados;
 	}
 
-	public Float getValorPremium() {
+	public Double getValorPremium() {
 		return valorPremium;
 	}
 
-	public void setValorPremium(Float valorPremium) {
+	public void setValorPremium(Double valorPremium) {
 		this.valorPremium = valorPremium;
 	}
 

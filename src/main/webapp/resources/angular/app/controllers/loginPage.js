@@ -35,7 +35,6 @@ flyk.controller("loginPageCtrl", function($rootScope, $scope, $location, $http, 
 				$rootScope.tipoUsuarioLogado = response.data.tipoCadastro;
 				if(response.data.tipoCadastro == "1" || response.data.tipoCadastro == "2"){
 					$rootScope.data = response.data.cliente;
-					$scope.listaTelefone = response.data.cliente.listaTelefone;
 					$location.path('/profilePage');
 				}else{
 					$location.path('/adminPage');

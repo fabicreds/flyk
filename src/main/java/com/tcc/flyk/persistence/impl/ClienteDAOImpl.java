@@ -1,12 +1,8 @@
 package com.tcc.flyk.persistence.impl;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -29,6 +25,7 @@ import com.tcc.flyk.entity.Prestador;
 import com.tcc.flyk.entity.Privacidade;
 import com.tcc.flyk.entity.Telefone;
 import com.tcc.flyk.entity.Usuario;
+import com.tcc.flyk.entity.enumerator.CategoriaServicoEnum;
 import com.tcc.flyk.entity.enumerator.CategoriaTelefoneEnum;
 import com.tcc.flyk.entity.enumerator.OperadoraEnum;
 import com.tcc.flyk.entity.enumerator.PrivacidadeEnum;
@@ -68,6 +65,11 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		//Email
 		if(!(pessoa.getEmail()==null)){
 			doc.put("email", pessoa.getEmail());
+		}
+		
+		//Data de Nascimento
+		if(!(pessoa.getNascimento()==null)){
+			doc.put("data_nascimento", pessoa.getNascimento());
 		}
 		
 		//Senha
@@ -382,21 +384,8 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 				System.out.println("3");
 				//status_servico_contratado
-				if(!(pessoa.getAgenda().get(i).getStatus()==null)){
-					String status = "";
-					if(pessoa.getAgenda().get(i).getStatus()==StatusCompromissoEnum.PRETENDIDO){
-						status = "1";
-					}
-					if(pessoa.getAgenda().get(i).getStatus()==StatusCompromissoEnum.MARCADO){
-						status = "2";
-					}
-					if(pessoa.getAgenda().get(i).getStatus()==StatusCompromissoEnum.CANCELADO){
-						status = "3";
-					}
-					if(pessoa.getAgenda().get(i).getStatus()==StatusCompromissoEnum.REALIZADO){
-						status = "4";
-					}
-					servicoContratado.put("status_servico_contratado", status);
+				if(pessoa.getAgenda().get(i).getStatus()!=null){
+					servicoContratado.put("status_servico_contratado", pessoa.getAgenda().get(i).getStatus().getCodigo());
 				}
 
 				System.out.println("4");
@@ -413,8 +402,8 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				System.out.println("6");
 				
 				//nota_pontualidade
-				if(!(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoTempo()==0)){
-					servicoContratado.put("nota_pontualidade", String.valueOf(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoTempo()));
+				if(!(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoPontualidade()==0)){
+					servicoContratado.put("nota_pontualidade", String.valueOf(pessoa.getAgenda().get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoPontualidade()));
 				}
 				System.out.println("7");
 				
@@ -587,6 +576,10 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			//EMAIL
 			if(resultado.get("email")!=null){
 				pessoa.setEmail(String.valueOf(resultado.get("email")));
+			}
+			//EMAIL
+			if(resultado.get("data_nascimento")!=null){
+				pessoa.setNascimento((Date)resultado.get("data_nascimento"));
 			}
 			//APELIDO
 			if(resultado.get("usuario")!=null){
@@ -786,93 +779,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			BasicDBList servicosContratadosDB = (BasicDBList) resultado.get("servicos_contratados");
 
 			if(servicosContratadosDB!=null){				
-				//Varre a lista de compromissos, preenchendo o array agenda
-				List<Compromisso> agenda = new ArrayList<Compromisso>();
-			    lightArr = servicosContratadosDB.toArray(new BasicDBObject[0]);
-			    for(BasicDBObject compromissoDB : lightArr) {
-			        // shows each item from the lights array
-			    	System.out.println("id_prestador: " + compromissoDB.getString("id_prestador"));
-			    	
-			    	Compromisso compromisso = new Compromisso();
-			    	Contrato contrato = new Contrato();
-	
-			    	//id_prestador
-			    	Prestador prestador = new Prestador();
-			    	prestador.setId(String.valueOf(compromissoDB.get("_id")));
-			    	contrato.setPrestador(prestador);
-			    	
-			    	//data_servico_contratado
-		    		try {
-						compromisso.setDataInicio((Date)compromissoDB.get("data_servico_contratado"));
-		    		}catch(Exception e){
-						System.out.println("ERRO AO BUSCAR DATA DA data_servico_contratado NO METODO consultaClientePorId" + idCliente);
-						e.printStackTrace();
-		    		}
-		    		
-		    		//status_servico_contratado
-		    		if(compromissoDB.get("status_servico_contratado")!=null){
-			    		String status = compromissoDB.getString("status_servico_contratado");
-			    		if(status.equals("1")){
-			    			compromisso.setStatus(StatusCompromissoEnum.PRETENDIDO);
-			    		}
-			    		if(status.equals("2")){
-			    			compromisso.setStatus(StatusCompromissoEnum.MARCADO);
-			    		}
-			    		if(status.equals("3")){
-			    			compromisso.setStatus(StatusCompromissoEnum.CANCELADO);
-			    		}
-			    		if(status.equals("4")){
-			    			compromisso.setStatus(StatusCompromissoEnum.REALIZADO);
-			    		}
-		    			
-		    		}
-	
-		    		//data_avaliacao_servico_contratado
-		    		if(compromissoDB.get("data_avaliacao_servico_contratado")!=null){
-			    		try {
-			    			contrato.setDataAvaliacaoServico((Date)compromissoDB.get("data_avaliacao_servico_contratado"));
-			    		}catch(Exception e){
-							System.out.println("ERRO AO BUSCAR DATA DA data_avaliacao_servico_contratado NO METODO consultaClientePorId" + idCliente);
-							e.printStackTrace();
-			    		}	    			
-		    		}
-	
-		    		AvaliacaoPrestador avaliacao = new AvaliacaoPrestador();
-		    		//nota_preco
-		    		if(compromissoDB.get("nota_preco")!=null){
-		    			String notaS = String.valueOf(compromissoDB.get("nota_preco"));
-		    			int notaI = Integer.valueOf(notaS);
-			    		avaliacao.setAvaliacaoPreco(notaI);
-		    		}
-		    		
-		    		//nota_pontualidade
-		    		if(compromissoDB.get("nota_pontualidade")!=null){
-		    			String notaS = String.valueOf(compromissoDB.get("nota_pontualidade"));
-		    			int notaI = Integer.valueOf(notaS);
-		    			avaliacao.setAvaliacaoPreco(notaI);
-		    		}
-		    		
-		    		//nota_qualidade
-		    		if(compromissoDB.get("nota_qualidade")!=null){
-		    			String notaS = String.valueOf(compromissoDB.get("nota_qualidade"));
-		    			int notaI = Integer.valueOf(notaS);
-		    			avaliacao.setAvaliacaoPreco(notaI);
-		    		}
-		    		
-		    		//nota_profissionalismo
-		    		if(compromissoDB.get("nota_profissionalismo")!=null){
-		    			String notaS = String.valueOf(compromissoDB.get("nota_profissionalismo"));
-		    			int notaI = Integer.valueOf(notaS);
-		    			avaliacao.setAvaliacaoPreco(notaI);
-		    		}
-		    		contrato.setAvaliacaoPrestador(avaliacao);
-		    		
-		    		//Seta o contrato no compromisso
-		    		compromisso.setContrato(contrato);
-		    		
-		    		//Adiciona o compromisso na agenda
-			    	agenda.add(compromisso);
-			    } 
+				List<Compromisso> agenda = montarServicosContratados(idCliente, servicosContratadosDB); 
 			    //Adiciona o array compromissos na pessoa 
 				pessoa.setAgenda(agenda);
 			}
@@ -946,6 +853,88 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 		//Retorna a pessoa para o chamador
 		return pessoa;
+	}
+
+	private List<Compromisso> montarServicosContratados(String idCliente, BasicDBList servicosContratadosDB) {
+		BasicDBObject[] lightArr;
+		//Varre a lista de compromissos, preenchendo o array agenda
+		List<Compromisso> agenda = new ArrayList<Compromisso>();
+		lightArr = servicosContratadosDB.toArray(new BasicDBObject[0]);
+		for(BasicDBObject compromissoDB : lightArr) {
+		   
+			//Instancia do Compromisso
+			Compromisso compromisso = new Compromisso();
+			
+			//Instancia do Contrato que fará parte do Compromisso
+			Contrato contrato = new Contrato();
+			
+			//Instancia do Prestador que fará parte do Contrato
+			Prestador prestador = new Prestador();
+			
+			//Instancia da Avaliacao do Prestador que fará parte do Contrato
+			AvaliacaoPrestador avaliacaoPrestador = new AvaliacaoPrestador();
+			
+			//Setando os dados do Prestador
+			if(compromissoDB.get("id_prestador")!=null){
+				prestador.setId(compromissoDB.getString("id_prestador"));
+			}
+//			prestador.setNome(nome);
+			
+			//Setando os Dados da Avaliacao do Prestador
+			if(compromissoDB.get("nota_preco")!=null){
+				avaliacaoPrestador.setAvaliacaoPreco(Integer.valueOf(compromissoDB.getString("nota_preco")));
+			}
+			if(compromissoDB.get("nota_pontualidade")!=null){
+				avaliacaoPrestador.setAvaliacaoProfissionalismo(Integer.valueOf(compromissoDB.getString("nota_pontualidade")));
+			}
+			if(compromissoDB.get("nota_qualidade")!=null){
+				avaliacaoPrestador.setAvaliacaoQualidade(Integer.valueOf(compromissoDB.getString("nota_qualidade")));
+			}
+			if(compromissoDB.get("nota_profissionalismo")!=null){
+				avaliacaoPrestador.setAvaliacaoPontualidade(Integer.valueOf(compromissoDB.getString("nota_profissionalismo")));
+			}
+			
+			//Setando os Dados do Contrato
+			contrato.setAvaliacaoContratante(0);
+			contrato.setAvaliacaoPrestador(avaliacaoPrestador);
+			if(compromissoDB.get("custo_servico_contratado")!=null){
+				contrato.setCusto(Double.valueOf(compromissoDB.getString("custo_servico_contratado")));
+			}
+			if(compromissoDB.get("data_avaliacao_servico_contratado")!=null){
+				contrato.setDataAvaliacaoServico(compromissoDB.getDate("data_avaliacao_servico_contratado"));
+			}
+			contrato.setPrestador(prestador);
+			
+			//TODO Alterar o cadastro de Servicos
+			contrato.setServico(CategoriaServicoEnum.OUTROS);
+			
+			//Setando os Dados do Compromisso
+			compromisso.setContrato(contrato);
+			if(compromissoDB.getDate("data_servico_contratado")!=null){
+				compromisso.setDataInicio(compromissoDB.getDate("data_servico_contratado"));
+			}
+			//TODO Alterar para data de fim do servico
+			if(compromissoDB.getDate("data_servico_contratado")!=null){
+				compromisso.setDataFim(compromissoDB.getDate("data_servico_contratado"));
+			}
+			//TODO Verificar necessidade do Indicador de Ferias
+			compromisso.setIndicadorFerias(false);
+			
+			//Compromisso - Status
+			if(compromissoDB.getString("status_servico_contratado")!=null){
+				switch(compromissoDB.getString("status_servico_contratado")){
+					case "1": compromisso.setStatus(StatusCompromissoEnum.PRETENDIDO); break;
+					case "2": compromisso.setStatus(StatusCompromissoEnum.MARCADO); break;
+					case "3": compromisso.setStatus(StatusCompromissoEnum.CANCELADO);break;
+					case "4": compromisso.setStatus(StatusCompromissoEnum.REALIZADO);break;
+					default: compromisso.setStatus(StatusCompromissoEnum.PRETENDIDO); break;
+				}
+			}
+			
+			//Adiciona o compromisso na agenda
+			agenda.add(compromisso);
+		}
+		return agenda;
 	}
 	
 	@Override

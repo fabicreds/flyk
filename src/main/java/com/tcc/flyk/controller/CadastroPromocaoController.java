@@ -94,7 +94,7 @@ public class CadastroPromocaoController {
 			            jsonObj = jsonArr.getJSONObject(i);
 			            Preco p = new Preco();
 			            p.setCategoria(jsonObj.getString("nome"));
-			            Float val = Float.parseFloat(jsonObj.getString("valorpromocional"));
+			            Double val = Double.parseDouble(jsonObj.getString("valorpromocional"));
 			            p.setValor(val);    	
 			            arrayPrecoObj.add(p);		           
 			        }

@@ -6,8 +6,6 @@ import com.tcc.flyk.entity.enumerator.StatusCompromissoEnum;
 
 public class Compromisso {
 	
-	private Date dataInclusao;
-	
 	private Contrato contrato;
 	
 	//se o objeto de contrato estiver vazio, o indicador de ferias deve estar S
@@ -18,14 +16,6 @@ public class Compromisso {
 	private Date dataFim;
 	
 	private StatusCompromissoEnum status;
-
-	public Date getDataInclusao() {
-		return dataInclusao;
-	}
-
-	public void setDataInclusao(Date dataInclusao) {
-		this.dataInclusao = dataInclusao;
-	}
 
 	public Contrato getContrato() {
 		return contrato;

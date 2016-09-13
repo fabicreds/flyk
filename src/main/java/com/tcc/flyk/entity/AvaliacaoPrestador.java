@@ -2,7 +2,7 @@ package com.tcc.flyk.entity;
 
 public class AvaliacaoPrestador {
 	
-	private int avaliacaoTempo;
+	private int avaliacaoPontualidade;
 	
 	private int avaliacaoQualidade;
 	
@@ -10,12 +10,12 @@ public class AvaliacaoPrestador {
 	
 	private int avaliacaoProfissionalismo;
 
-	public int getAvaliacaoTempo() {
-		return avaliacaoTempo;
+	public int getAvaliacaoPontualidade() {
+		return avaliacaoPontualidade;
 	}
 
-	public void setAvaliacaoTempo(int avaliacaoTempo) {
-		this.avaliacaoTempo = avaliacaoTempo;
+	public void setAvaliacaoPontualidade(int avaliacaoPontualidade) {
+		this.avaliacaoPontualidade = avaliacaoPontualidade;
 	}
 
 	public int getAvaliacaoQualidade() {

@@ -32,13 +32,14 @@ public class Tests {
 	public void testeCliente(){
 
 		Cliente pessoa = new Cliente();
-		pessoa.setNome("cliente3");
-		pessoa.setAlias("Kira");
-		pessoa.setEmail("cliente3");
+		pessoa.setNome("Cliente Com Data de Nascimento");
+		pessoa.setAlias("cliente4");
+		pessoa.setEmail("cliente4");
 		pessoa.setSenha("123");
 		pessoa.setCPF("92930028301");
 		pessoa.setTipoCadastro(TipoCadastroEnum.CLIENTE);
 		pessoa.setStatus("A");
+		pessoa.setNascimento(new Date());
 		
 		//privacidade
 		Privacidade privacidade =  new Privacidade();
@@ -104,24 +105,47 @@ public class Tests {
 		Cliente cliente1 = new Cliente(); //Cliente para adicionar no contrato
 		cliente1.setId("deveria_ser_o_mesmo_id_deste_cliente");
 		contrato1.setCliente(cliente1);
-		contrato1.setCusto(23456);
+		contrato1.setCusto(new Double("23456"));
 		contrato1.setAvaliacaoContratante(5);
 		AvaliacaoPrestador avaliacaoPrestador1 = new AvaliacaoPrestador(); //Avaliacao para adicionar no contrato
 		avaliacaoPrestador1.setAvaliacaoPreco(5);
 		avaliacaoPrestador1.setAvaliacaoProfissionalismo(5);
 		avaliacaoPrestador1.setAvaliacaoQualidade(5);
-		avaliacaoPrestador1.setAvaliacaoTempo(5);
+		avaliacaoPrestador1.setAvaliacaoPontualidade(5);
 		contrato1.setAvaliacaoPrestador(avaliacaoPrestador1);
 		contrato1.setServico(CategoriaServicoEnum.ENCANADOR);
 		contrato1.setDataAvaliacaoServico(new Date());
 		servico1.setContrato(contrato1);
 		servico1.setDataFim(new Date());
-		servico1.setDataInclusao(new Date());
 		servico1.setDataInicio(new Date());
 		servico1.setIndicadorFerias(false);
 		servico1.setStatus(StatusCompromissoEnum.REALIZADO);
 		
+		
+		Compromisso servico2 = new Compromisso();
+		Contrato contrato2 = new Contrato(); //Contrato para adicionar no serviço
+		Prestador prestadorDoServico2 = new Prestador();
+		prestadorDoServico2.setId("h76v3bj97hfb4897gr4f4f444f4f4f4f3");
+		contrato2.setPrestador(prestadorDoServico1);
+		contrato2.setCliente(cliente1);
+		contrato2.setCusto(new Double("23456"));
+		contrato2.setAvaliacaoContratante(5);
+		AvaliacaoPrestador avaliacaoPrestador2 = new AvaliacaoPrestador(); //Avaliacao para adicionar no contrato
+		avaliacaoPrestador2.setAvaliacaoPreco(5);
+		avaliacaoPrestador2.setAvaliacaoProfissionalismo(5);
+		avaliacaoPrestador2.setAvaliacaoQualidade(5);
+		avaliacaoPrestador2.setAvaliacaoPontualidade(5);
+		contrato2.setAvaliacaoPrestador(avaliacaoPrestador1);
+		contrato2.setServico(CategoriaServicoEnum.ENCANADOR);
+		contrato2.setDataAvaliacaoServico(new Date());
+		servico2.setContrato(contrato1);
+		servico2.setDataFim(new Date());
+		servico2.setDataInicio(new Date());
+		servico2.setIndicadorFerias(false);
+		servico2.setStatus(StatusCompromissoEnum.REALIZADO);
+		
 		servicosContratados.add(servico1);
+		servicosContratados.add(servico2);
 		
 		pessoa.setAgenda(servicosContratados);
 	
