@@ -45,7 +45,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 	@Override
 	public void consulta() {
-		DBCursor cursor = db.getCollection("cliente").find();
+		DBCursor cursor = db.getCollection("FLYK").find();
 
 		while (cursor.hasNext()) {
 			System.out.println(cursor.next());
@@ -270,7 +270,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				
 				//Data da amizade
 				if(!(pessoa.getListaAmigos().get(i).getDataInicioAmizade()==null)){
-					amigo.put("data_amizade",String.valueOf(pessoa.getListaAmigos().get(i).getDataInicioAmizade()));
+					amigo.put("data_amizade",pessoa.getListaAmigos().get(i).getDataInicioAmizade());
 				}
 				
 				//Status da amizade
@@ -324,29 +324,17 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			BasicDBList mensagens = new BasicDBList();
 			//Varre a lista de mensagens, inserindo uma por uma
 			for(int i=0;i<count;i++){
-
-				String idAmigo, flagEnviadoOuRecebido;
-				if(pessoa.getlistaMensagensConversa().get(i).getIdDestino()==pessoa.getId()){
-					idAmigo = pessoa.getlistaMensagensConversa().get(i).getIdOrigem();
-					System.out.println(String.valueOf(pessoa.getlistaMensagensConversa().get(i).getIdOrigem()));
-					flagEnviadoOuRecebido = "R";
-				}else{
-					idAmigo = pessoa.getlistaMensagensConversa().get(i).getIdDestino();
-					System.out.println(String.valueOf(pessoa.getlistaMensagensConversa().get(i).getIdDestino()));
-					flagEnviadoOuRecebido = "E";
-				}
-				
 				BasicDBObject mensagem = new BasicDBObject();
 				
 				//Inicia o documento e grava o id da pessoa com a qual o cliente está conversando
-				mensagem.put("id_usuario_conversa", idAmigo);
+				mensagem.put("id_usuario_conversa", pessoa.getlistaMensagensConversa().get(i).getIdUsuario());
 				
 				//flagEnviadoOuRecebido
-				mensagem.put("flagEnviadoOuRecebido", flagEnviadoOuRecebido);
+				mensagem.put("flagEnviadoOuRecebido", pessoa.getlistaMensagensConversa().get(i).getflagEnviadoRecebido());
 				
 				//data_hora_mensagem
 				if(!(pessoa.getlistaMensagensConversa().get(i).getData()==null)){
-					mensagem.put("data_hora_mensagem", String.valueOf(pessoa.getlistaMensagensConversa().get(i).getData()));
+					mensagem.put("data_hora_mensagem", pessoa.getlistaMensagensConversa().get(i).getData());
 				}
 				
 				//mensagem
@@ -414,7 +402,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				System.out.println("4");
 				//data_avaliacao_servico_contratado
 				if(!(pessoa.getAgenda().get(i).getContrato().getDataAvaliacaoServico()==null)){
-					servicoContratado.put("data_avaliacao_servico_contratado", String.valueOf(pessoa.getAgenda().get(i).getContrato().getDataAvaliacaoServico()));
+					servicoContratado.put("data_avaliacao_servico_contratado", pessoa.getAgenda().get(i).getContrato().getDataAvaliacaoServico());
 				}
 
 				System.out.println("5");
@@ -463,6 +451,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			e.printStackTrace();
 			return false;
 		}
+		consultaTudo();
 		
 		return true;
 	}
@@ -773,14 +762,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			    	
 			    	//data_amizade
 			    	if(amigoDB.get("data_amizade")!=null){
-	
-			    		DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
-						SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-			    		String dataAmizadeS = String.valueOf(amigoDB.get("data_amizade"));
-			    		System.out.println(dataAmizadeS);
-						//Date dataAmizade = new Date(dataAmizadeS);
-						Date dataAmizade = new Date();//(Date)dataAmizadeS;
-						amizade.setDataInicioAmizade(dataAmizade);
+						amizade.setDataInicioAmizade((Date)amigoDB.get("data_amizade"));
 			    	}
 			    	
 			    	//status_amizade
@@ -820,9 +802,8 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			    	contrato.setPrestador(prestador);
 			    	
 			    	//data_servico_contratado
-					SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		    		try {
-						compromisso.setDataInicio(formato.parse(compromissoDB.getString("data_servico_contratado")));
+						compromisso.setDataInicio((Date)compromissoDB.get("data_servico_contratado"));
 		    		}catch(Exception e){
 						System.out.println("ERRO AO BUSCAR DATA DA data_servico_contratado NO METODO consultaClientePorId" + idCliente);
 						e.printStackTrace();
@@ -849,7 +830,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		    		//data_avaliacao_servico_contratado
 		    		if(compromissoDB.get("data_avaliacao_servico_contratado")!=null){
 			    		try {
-			    			contrato.setDataAvaliacaoServico(formato.parse(compromissoDB.getString("data_avaliacao_servico_contratado")));
+			    			contrato.setDataAvaliacaoServico((Date)compromissoDB.get("data_avaliacao_servico_contratado"));
 			    		}catch(Exception e){
 							System.out.println("ERRO AO BUSCAR DATA DA data_avaliacao_servico_contratado NO METODO consultaClientePorId" + idCliente);
 							e.printStackTrace();
@@ -935,31 +916,14 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			    	Conversa mensagem = new Conversa();
 	
 			    	//flag enviado ou recebido
-			    	String flagEnviadoOuRecebido = String.valueOf(mensagemDB.get("flagEnviadoOuRecebido")); 
+			    	mensagem.setflagEnviadoRecebido(String.valueOf(mensagemDB.get("flagEnviadoOuRecebido"))); 
 			    	
 			    	//id
-			    	if(flagEnviadoOuRecebido.equals("E")){
-				    	mensagem.setIdDestino(String.valueOf(mensagemDB.get("id_usuario_conversa")));
-			    	}else{
-				    	mensagem.setIdOrigem(String.valueOf(mensagemDB.get("id_usuario_conversa")));
-			    	}
+			    	mensagem.setidUsuario(String.valueOf(mensagemDB.get("id_usuario_conversa")));
 			    	
 			    	//data_hora_mensagem
 			    	if(mensagemDB.get("data_hora_mensagem")!=null){
-	
-			    		DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
-						SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-			    		String mensagemS = String.valueOf(mensagemDB.get("data_hora_mensagem"));
-			    		System.out.println(mensagemS);
-	
-						Date dataMensagem = new Date();//(Date)dataAmizadeS;
-						try {
-							dataMensagem = formato.parse(mensagemS);
-						} catch (ParseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						mensagem.setData(dataMensagem);
+						mensagem.setData((Date)mensagemDB.get("data_hora_mensagem"));
 			    	}
 			    	
 			    	//mensagem

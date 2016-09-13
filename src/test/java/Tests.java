@@ -14,10 +14,12 @@ import com.tcc.flyk.entity.Contrato;
 import com.tcc.flyk.entity.Conversa;
 import com.tcc.flyk.entity.Endereco;
 import com.tcc.flyk.entity.Prestador;
+import com.tcc.flyk.entity.Privacidade;
 import com.tcc.flyk.entity.Telefone;
 import com.tcc.flyk.entity.enumerator.CategoriaServicoEnum;
 import com.tcc.flyk.entity.enumerator.CategoriaTelefoneEnum;
 import com.tcc.flyk.entity.enumerator.OperadoraEnum;
+import com.tcc.flyk.entity.enumerator.PrivacidadeEnum;
 import com.tcc.flyk.entity.enumerator.StatusAmizadeEnum;
 import com.tcc.flyk.entity.enumerator.StatusCompromissoEnum;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
@@ -28,15 +30,23 @@ public class Tests {
 
 	@Test
 	public void testeCliente(){
+
 		Cliente pessoa = new Cliente();
-		pessoa.setNome("Alex Kita_total2");
+		pessoa.setNome("cliente3");
 		pessoa.setAlias("Kira");
-		pessoa.setEmail("cliente");
+		pessoa.setEmail("cliente3");
 		pessoa.setSenha("123");
 		pessoa.setCPF("92930028301");
 		pessoa.setTipoCadastro(TipoCadastroEnum.CLIENTE);
 		pessoa.setStatus("A");
-		pessoa.setNascimento(new Date());
+		
+		//privacidade
+		Privacidade privacidade =  new Privacidade();
+		privacidade.setExibeAgenda(PrivacidadeEnum.PUBLICO);
+		privacidade.setExibeCPF(PrivacidadeEnum.PUBLICO);
+		privacidade.setExibeEndereco(PrivacidadeEnum.PUBLICO);
+		privacidade.setExibeTelefone(PrivacidadeEnum.PUBLICO);
+		pessoa.setPrivacidade(privacidade);
 
 		//endereço
 		Endereco endereco = new Endereco();
@@ -121,7 +131,7 @@ public class Tests {
 		Prestador recomendado1 = new Prestador();
 		recomendado1.setId("idprestador12394e0e9309d");
 		Prestador recomendado2 = new Prestador();
-		recomendado1.setId("idprestador22394e0e9309d");
+		recomendado2.setId("idprestador22394e0e9309d");
 		
 		listaPrestadoresRecomendados.add(recomendado1);
 		listaPrestadoresRecomendados.add(recomendado2);
@@ -131,15 +141,15 @@ public class Tests {
 		//Mensagens de conversa
 		Conversa scrap1 = new Conversa();
 		scrap1.setData(new Date());
-		scrap1.setIdDestino("vby787y6bn98hbnk08h");
-		scrap1.setIdOrigem("jijfoijsodifjdosi");
+		scrap1.setidUsuario("f0943jf043jt09349j");
+		scrap1.setflagEnviadoRecebido("E");
 	    scrap1.setMsg("olá");
 	    
 		Conversa scrap2 = new Conversa();
 		scrap2.setData(new Date());
-		scrap2.setIdDestino("efee3343443f43f34fh");
-		scrap2.setIdOrigem("jij7jt7jt7jtjyjdffdsi");
-	    scrap2.setMsg("bom dia");
+		scrap2.setidUsuario("gh98hjf03093j0f9309f");
+		scrap1.setflagEnviadoRecebido("R");
+	    scrap2.setMsg("Olá " + pessoa.getEmail());
 	    
 	    List<Conversa> listaConversa = new ArrayList<Conversa>();
 
@@ -148,7 +158,7 @@ public class Tests {
 	    
 	    pessoa.setlistaMensagensConversa(listaConversa);
 				
-		
+			
 		ClienteDAO clienteDAO = new ClienteDAOImpl();
 		if(clienteDAO.inserirNovoCliente(pessoa)){
 			System.out.println("sucessooooooo");

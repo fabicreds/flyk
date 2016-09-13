@@ -10,11 +10,11 @@ public class ConversaUtil {
 
 	public JSONObject toJSON(Conversa conversa) {
 		JSONObject jObjt = new JSONObject();
-		if (conversa.getIdOrigem() != null) {
-			jObjt.put("idOrigem", conversa.getIdOrigem());
+		if (conversa.getIdUsuario() != null) {
+			jObjt.put("idUsuario", conversa.getIdUsuario());
 		}
-		if (conversa.getIdDestino() != null) {
-			jObjt.put("idDestino", conversa.getIdDestino());
+		if (conversa.getflagEnviadoRecebido() != null) {
+			jObjt.put("flagEnviadoOuRecebido", conversa.getflagEnviadoRecebido());
 		}
 		if (conversa.getMsg() != null) {
 			jObjt.put("msg", conversa.getMsg());

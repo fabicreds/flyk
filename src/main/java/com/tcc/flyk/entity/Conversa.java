@@ -5,30 +5,29 @@ import java.util.Date;
 public class Conversa {
 	
 	//id do cliente que esta enviando a mensagem
-	private String idOrigem;
-
-	//id do cliente que esta recebendo a msg	
-	private String idDestino;
+	private String idUsuario;
 
 	//A MENSAGEM
 	private String msg;
 	
 	private Date data;
+	
+	private String flagEnviadoRecebido;
 
-	public String getIdOrigem() {
-		return idOrigem;
+	public String getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setIdOrigem(String idOrigem) {
-		this.idOrigem = idOrigem;
+	public void setidUsuario(String idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
-	public String getIdDestino() {
-		return idDestino;
+	public String getflagEnviadoRecebido() {
+		return flagEnviadoRecebido;
 	}
 
-	public void setIdDestino(String idDestino) {
-		this.idDestino = idDestino;
+	public void setflagEnviadoRecebido(String flagEnviadoRecebido) {
+		this.flagEnviadoRecebido = flagEnviadoRecebido;
 	}
 
 	public String getMsg() {
