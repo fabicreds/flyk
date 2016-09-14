@@ -10,13 +10,11 @@ public class AtualizarPerfilController {
 	
 		@RequestMapping(method = RequestMethod.GET)
 		public String iniciarTelaCadastro() {
-
 			return "profilePageEdit";
 		}
 		
 		@RequestMapping(method = RequestMethod.POST)
 		public String realizarCadastro() {
-			System.out.println("Cadastro de usuário");
 			return "cadastro";
 		}
 

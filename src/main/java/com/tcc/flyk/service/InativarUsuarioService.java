@@ -18,7 +18,7 @@ public class InativarUsuarioService {
 	public Usuario buscarCliente(String cliente) {
 		Usuario usuario = new Usuario();
 		try {
-			usuario = clienteDAO.consultaUsuario(cliente);
+			usuario = clienteDAO.consultaLogin(cliente);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

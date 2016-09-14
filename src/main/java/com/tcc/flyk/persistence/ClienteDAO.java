@@ -9,8 +9,6 @@ public interface ClienteDAO {
 	
 	public Usuario consultaLogin(String email);
 	
-	public Usuario consultaUsuario(String usuario);
-	
 	public Cliente consultaClientePorId(String idCliente);
 	
 	public boolean atualizarStatusCliente(Usuario usuario);
@@ -19,5 +17,6 @@ public interface ClienteDAO {
 
 	void consultaTudo();
 	
+	public Usuario consultaLoginById(String id);
 	
 }

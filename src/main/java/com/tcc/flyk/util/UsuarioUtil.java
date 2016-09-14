@@ -10,7 +10,7 @@ import com.tcc.flyk.entity.Usuario;
 
 @Component
 public class UsuarioUtil {
-	
+
 	public String convertListToString(List<Usuario> listaUsuarios) {
 		JSONArray listaJSON = new JSONArray();
 		for (Usuario usuario : listaUsuarios) {
@@ -19,25 +19,26 @@ public class UsuarioUtil {
 		return listaJSON.toString();
 
 	}
-	
-	public JSONObject toJSON(Usuario usuario){
+
+	public JSONObject toJSON(Usuario usuario) {
 		JSONObject jObjt = new JSONObject();
-		if(usuario.getNome()!=null){
-		jObjt.put("nome", usuario.getNome());
+		if (usuario.getNome() != null) {
+			jObjt.put("nome", usuario.getNome());
 		}
-		if(usuario.getUsuario()!=null){
-		jObjt.put("usuario", usuario.getUsuario());
+		if (usuario.getUsuario() != null) {
+			jObjt.put("usuario", usuario.getUsuario());
 		}
-		if(usuario.getEmail()!=null){
-		jObjt.put("email", usuario.getEmail());
+		if (usuario.getEmail() != null) {
+			jObjt.put("email", usuario.getEmail());
 		}
-		if(usuario.getTipoCadastro()!=null){
-		jObjt.put("tipoCadastro", usuario.getTipoCadastro().getCodigo());
+		if (usuario.getTipoCadastro() != null) {
+			jObjt.put("tipoCadastro", usuario.getTipoCadastro().getCodigo());
+			jObjt.put("tipoCadastroDescricao", usuario.getTipoCadastro().getDescricao());
 		}
 		jObjt.put("ativo", usuario.isAtivo());
-		if(usuario.isAtivo()){
-			jObjt.put("btn", "Desativar" );
-		}else{
+		if (usuario.isAtivo()) {
+			jObjt.put("btn", "Desativar");
+		} else {
 			jObjt.put("btn", "Ativar");
 		}
 		return jObjt;

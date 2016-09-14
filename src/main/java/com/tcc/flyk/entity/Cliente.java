@@ -12,8 +12,8 @@ public class Cliente {
 
 	private String nome;
 
-	// nome que irá aparecer no perfil do usuario
-	private String alias;
+	// email sem o @
+	private String usuario;
 
 	private String email;
 
@@ -66,12 +66,12 @@ public class Cliente {
 		this.nome = nome;
 	}
 
-	public String getAlias() {
-		return alias;
+	public String getUsuario() {
+		return usuario;
 	}
 
-	public void setAlias(String alias) {
-		this.alias = alias;
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getEmail() {

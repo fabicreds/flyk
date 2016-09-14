@@ -20,7 +20,7 @@
 									<strong>Username: </strong>{{data.usuario}}
 								</p>
 								<p>
-									<strong>Tipo de cadastro: </strong> {{data.tipoCadastro}}
+									<strong>Tipo de cadastro: </strong> {{data.tipoCadastro}} - {{data.tipoCadastroDescricao}}
 								</p>
 								<p>
 

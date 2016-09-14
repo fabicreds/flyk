@@ -35,6 +35,7 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 			Administrador adm = new Administrador();
 			BasicDBObject query = new BasicDBObject();
 			query.put("usuario", usuario);
+					
 
 			DBObject object = db.getCollection("FLYK").findOne(query);
 			if (object != null) {

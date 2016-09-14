@@ -1,5 +1,5 @@
-<link href="https://fonts.googleapis.com/css?family=Amaranth"
-	rel="stylesheet">
+<script src="${pageContext.request.contextPath}/resources/angular/app/controllers/calendar.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Amaranth" rel="stylesheet">
 <body>
 	<form class="form-horizontal" name="inactivateForm" novalidate
 		role="form">
@@ -22,7 +22,7 @@
 						<div class="col-xs-8 col-sm-4 vcenter">
 							<form class="form-horizontal" name="inactivateForm" novalidate
 								role="form">
-								<h3>{{data.alias}}</h3>
+								<h3>{{data.usuario}}</h3>
 								<p>
 									<strong>Nome: </strong>
 								<p style="text-indent: 1em;">{{data.nome}}</p>
@@ -63,23 +63,23 @@
 
 							</form>
 						</div>
-						<div class="col-xs-6 col-sm-3 vcenter"">
-							<div class="panel panel-default ">
-								<div class="panel-body">
-									<p>
-										<strong>Serviços Contratados: </strong>
-									<p style="text-indent: 1em;">
-										{{data.numServicosContratados}}</p>
-									</p>
-									<p>
-										<strong>Média de Avaliação: </strong>
-									</p>
-									<p>
-										<strong>Nível Avaliador: </strong>
-									</p>
-								</div>
-							</div>
-						</div>
+<!-- 						<div class="col-xs-6 col-sm-3 vcenter""> -->
+<!-- 							<div class="panel panel-default "> -->
+<!-- 								<div class="panel-body"> -->
+<!-- 									<p> -->
+<!-- 										<strong>Serviços Contratados: </strong> -->
+<!-- 									<p style="text-indent: 1em;"> -->
+<!-- 										{{data.numServicosContratados}}</p> -->
+<!-- 									</p> -->
+<!-- 									<p> -->
+<!-- 										<strong>Média de Avaliação: </strong> -->
+<!-- 									</p> -->
+<!-- 									<p> -->
+<!-- 										<strong>Nível Avaliador: </strong> -->
+<!-- 									</p> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 					</div>
 
 					<div class="row">
@@ -91,40 +91,77 @@
 										heading="Serviços"> </uib-tab> <uib-tab index="1"
 										heading="Histórico">TAB2</uib-tab> <uib-tab index="2"
 										heading="Agenda">TAB3</uib-tab> <uib-tab index="3"
-										heading="Amigos">TAB4</uib-tab> </uib-tabset>
+										heading="Amigos"><br>
+										<div ng-repeat="amizade in $root.data.listaAmigos">
+											<div class="panel panel-default">
+												<div class="panel-body">
+													<p>
+														<strong>Nome: </strong>
+														<p style="text-indent: 1em;">{{amizade.amigo.nome}}</p>
+													</p>
+													<p>
+														<strong>Data de Início da Amizade: </strong>
+														<p style="text-indent: 1em;">{{amizade.dataInicioAmizade}}</p>
+													</p>
+													<p>
+														<strong>Status da Amizade: </strong>
+														<p style="text-indent: 1em;">{{amizade.statusDescricao}}</p>
+													</p>
+												</div>
+											</div>
+										</div>
+									</uib-tab> </uib-tabset>
 								</div>
 								<!-- Se o usuário estiver logado e for um cliente -->
 								<div ng-if="usuarioLogado !='' && tipoUsuarioLogado==1">
 									<uib-tabset active="active"> <uib-tab index="0"
-										heading="Serviços Contratados">
-											<br>
-											<div ng-repeat="compromisso in $root.data.agenda">
-												<div class="panel panel-default">
-													<div class="panel-body">
-														<p>
-															<strong>Data de Início: </strong>
-														<p style="text-indent: 1em;">{{compromisso.dataInicio}}</p>
-														</p>
-														<p>
-															<strong>Data de Fim: </strong>
-														<p style="text-indent: 1em;">{{compromisso.dataFim}}</p>
-														</p>
-														<p>
-															<strong>Prestador: </strong>
-														<p style="text-indent: 1em;">{{compromisso.contrato.prestador.cliente.nome}}</p>
-														</p>
-														<p>
-															<strong>Serviço: </strong>
-														<p style="text-indent: 1em;">{{compromisso.contrato.servico}}</p>
-														</p>
-													</div>
-												</div>
+										heading="Serviços Contratados"> <br>
+									<div ng-repeat="compromisso in $root.data.agenda">
+										<div class="panel panel-default">
+											<div class="panel-body">
+												<p>
+													<strong>Data de Início: </strong>
+												<p style="text-indent: 1em;">{{compromisso.dataInicio}}</p>
+												</p>
+												<p>
+													<strong>Data de Fim: </strong>
+												<p style="text-indent: 1em;">{{compromisso.dataFim}}</p>
+												</p>
+												<p>
+													<strong>Prestador: </strong>
+												<p style="text-indent: 1em;">{{compromisso.contrato.prestador.nome}}</p>
+												</p>
+												<p>
+													<strong>Serviço: </strong>
+												<p style="text-indent: 1em;">{{compromisso.contrato.servico}}</p>
+												</p>
 											</div>
+										</div>
+									</div>
 
-									</uib-tab> <uib-tab index="1" heading="Agenda">TAB2</uib-tab> <uib-tab
-										index="2" heading="Amigos">
+									</uib-tab> 
+									<uib-tab index="1" heading="Agenda">
+									</uib-tab> 
+									<uib-tab index="2" heading="Amigos">
+										<br>
 									<div ng-repeat="amizade in $root.data.listaAmigos">
-										{{amizade.amigo.nome}}</div>
+										<div class="panel panel-default">
+											<div class="panel-body">
+												<p>
+													<strong>Nome: </strong>
+													<p style="text-indent: 1em;">{{amizade.amigo.nome}}</p>
+												</p>
+												<p>
+													<strong>Data de Início da Amizade: </strong>
+													<p style="text-indent: 1em;">{{amizade.dataInicioAmizade}}</p>
+												</p>
+												<p>
+													<strong>Status da Amizade: </strong>
+													<p style="text-indent: 1em;">{{amizade.statusDescricao}}</p>
+												</p>
+											</div>
+										</div>
+									</div>
 									</uib-tab> </uib-tabset>
 								</div>
 							</div>

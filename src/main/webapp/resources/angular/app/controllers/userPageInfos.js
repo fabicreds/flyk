@@ -11,6 +11,8 @@ flyk.controller("userPageInfosCtrl", function ($scope, $rootScope, $location, $h
 				'ativo': $rootScope.data.ativo
 			}
 		}).then(function(response) {
+			$rootScope.messageSucessoInativar = "";
+			$rootScope.messageErroInativar = "";
 			if(response.data.retorno == "erro"){
 				$rootScope.messageErroInativar = response.data.mensagem;
 				$rootScope.messageSucessoInativar = "";

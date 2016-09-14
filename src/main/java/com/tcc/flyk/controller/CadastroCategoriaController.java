@@ -19,7 +19,7 @@ import com.tcc.flyk.service.CategoriaService;
 public class CadastroCategoriaController {
 
 	@RequestMapping(method  = RequestMethod.POST )
-	public @ResponseBody String CadastrarNovaCategoria(@RequestBody String JSONN){
+	public @ResponseBody String cadastrarNovaCategoria(@RequestBody String JSONN){
 		JSONObject objeto = new JSONObject(JSONN);
 		
 		
@@ -37,7 +37,7 @@ public class CadastroCategoriaController {
 		}
 		
 		if(1==1){
-		//*/if(servico.CadastrarNovaCategoria(novaCategoria)){
+		//*/if(servico.cadastrarNovaCategoria(novaCategoria)){
 			ret.put("retorno", "sucesso");
 			ret.put("mensagem", "Categoria cadastrada com sucesso");
 		}else{

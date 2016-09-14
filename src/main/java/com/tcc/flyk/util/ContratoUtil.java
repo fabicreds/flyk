@@ -32,7 +32,7 @@ public class ContratoUtil {
 			jObjt.put("prestador", prestadorUtil.toJSON(contrato.getPrestador()));
 		}
 		if (contrato.getServico() != null) {
-			jObjt.put("servico", contrato.getServico().getDescricao());
+			jObjt.put("servico", contrato.getServico().getDescricao_categoria());
 		}
 		if (contrato.getAvaliacaoPrestador() != null) {
 			jObjt.put("avaliacaoPrestador", avaliacaoPrestadorUtil.toJSON(contrato.getAvaliacaoPrestador()));

@@ -2,15 +2,13 @@ package com.tcc.flyk.entity;
 
 import java.util.Date;
 
-import com.tcc.flyk.entity.enumerator.CategoriaServicoEnum;
-
 public class Contrato {
 	
 	private Cliente cliente;
 	
 	private Prestador prestador;
 	
-	private CategoriaServicoEnum servico;
+	private Categoria servico;
 	
 	private AvaliacaoPrestador avaliacaoPrestador;
 	
@@ -36,11 +34,11 @@ public class Contrato {
 		this.prestador = prestador;
 	}
 
-	public CategoriaServicoEnum getServico() {
+	public Categoria getServico() {
 		return servico;
 	}
 
-	public void setServico(CategoriaServicoEnum servico) {
+	public void setServico(Categoria servico) {
 		this.servico = servico;
 	}
 

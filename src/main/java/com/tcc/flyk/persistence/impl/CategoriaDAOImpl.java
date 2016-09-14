@@ -23,7 +23,7 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO{
 
 	//****************************CADASTRA CATEGORIA****************************//
 	@Override
-	public boolean CadastrarNovaCategoria(Categoria cat){
+	public boolean cadastrarNovaCategoria(Categoria cat){
 		try{
 			
 			System.out.println("gravando categoria");
@@ -44,7 +44,7 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO{
 	
 	//****************************CONSULTA CATEGORIA POR NOME****************************//
 	@Override
-	public Categoria ConsultarCategoriaPorNome(String nome){
+	public Categoria consultarCategoriaPorNome(String nome){
 		try{
 			System.out.println("consultando categoria");
 
@@ -83,7 +83,7 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO{
 	
 	//****************************CONSULTA CATEGORIA POR PARTE DO NOME****************************//
 	@Override
-	public List<Categoria> ConsultarCategoriaPorParteDoNome(String nome){
+	public List<Categoria> consultarCategoriaPorParteDoNome(String nome){
 		try{
 			System.out.println("consultando categoria por parte do nome");
 
@@ -128,7 +128,7 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO{
 	
 	//****************************CONSULTA TODAS AS CATEGORIAS****************************//
 	@Override
-	public List<Categoria> ConsultarTodasCategorias(){
+	public List<Categoria> consultarTodasCategorias(){
 		try{
 			
 			System.out.println("consultando todas as categorias");
@@ -170,7 +170,7 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO{
 	
 	//****************************CONSULTA CATEGORIA POR ID****************************//
 	@Override
-	public Categoria ConsultarCategoriaPorId(String id){
+	public Categoria consultarCategoriaPorId(String id){
 		try{
 			
 			System.out.println("consultando categoria");

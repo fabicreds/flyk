@@ -12,11 +12,11 @@ public class CategoriaService {
 	private CategoriaDAO catDAO = new CategoriaDAOImpl();
 	
 	//CADASTRO DE CATEGORIA
-	public boolean CadastrarNovaCategoria(Categoria cat){
+	public boolean cadastrarNovaCategoria(Categoria cat){
 		try {
 			if(validaCategoria(cat)){
 				cat.setInicio_vigencia(new Date());
-				catDAO.CadastrarNovaCategoria(cat);
+				catDAO.cadastrarNovaCategoria(cat);
 			}else{
 				return false;
 			}
@@ -29,9 +29,9 @@ public class CategoriaService {
 	}
 	
 	//CONSULTA SE UMA CATEGORIA EXISTE OU NÃO
-	public boolean ExisteCategoria(String nome){
+	public boolean existeCategoria(String nome){
 		try {
-			Categoria cat = catDAO.ConsultarCategoriaPorNome(nome);
+			Categoria cat = catDAO.consultarCategoriaPorNome(nome);
 			if(cat.getNome_categoria()==""){
 				return false;
 			}else{
@@ -57,7 +57,7 @@ public class CategoriaService {
 		}
 		
 		//Valida nome duplicado
-		if(ExisteCategoria(cat.getNome_categoria())){
+		if(existeCategoria(cat.getNome_categoria())){
 			System.out.println("Categoria já existe");
 			return false;
 		}
@@ -68,9 +68,9 @@ public class CategoriaService {
 	}
 	
 	//****************************CONSULTA TODAS AS CATEGORIAS****************************//
-	public List<Categoria> ConsultarTodasCategorias(){
+	public List<Categoria> consultarTodasCategorias(){
 		try{
-			final List<Categoria> retorno = catDAO.ConsultarTodasCategorias();
+			final List<Categoria> retorno = catDAO.consultarTodasCategorias();
 
 			if(retorno==null){
 				return null;

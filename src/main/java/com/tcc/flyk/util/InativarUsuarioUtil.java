@@ -33,7 +33,7 @@ public class InativarUsuarioUtil {
 			Usuario usuario = new Usuario();
 			JSONObject jObjt = new JSONObject(request);
 			usuario.setUsuario(jObjt.getString("usuario"));
-			usuario.setTipoCadastro(util.definirTipoCadastro(jObjt.getString("tipoCadastro"))); 
+			usuario.setTipoCadastro(util.definirTipoCadastro(jObjt.getInt("tipoCadastro"))); 
 			usuario.setAtivo(jObjt.getBoolean("ativo"));
 			return usuario;
 		} catch (Exception e) {

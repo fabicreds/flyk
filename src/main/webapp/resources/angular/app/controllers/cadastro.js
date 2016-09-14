@@ -89,7 +89,7 @@ flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal, f
 	    $scope.sendPostCadastroCliente = function() {
 	    	
 			$http({
-				url : 'cadastroCliente',
+				url : 'cadastro',
 				method : "POST",
 				data : {
 					'nome' : $scope.fullName,

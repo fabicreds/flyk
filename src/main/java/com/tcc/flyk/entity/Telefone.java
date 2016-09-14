@@ -14,7 +14,6 @@ public class Telefone {
 	
 	private OperadoraEnum operadora;
 
-
 	public int getDdd() {
 		return ddd;
 	}
@@ -46,6 +45,6 @@ public class Telefone {
 	public void setOperadora(OperadoraEnum operadora) {
 		this.operadora = operadora;
 	}
-	
+
 	
 }

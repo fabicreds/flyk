@@ -7,10 +7,10 @@ import javax.annotation.Resource;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
+import com.tcc.flyk.entity.Categoria;
 import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Compromisso;
 import com.tcc.flyk.entity.Prestador;
-import com.tcc.flyk.entity.enumerator.CategoriaServicoEnum;
 
 @Component
 public class PrestadorUtil {
@@ -26,7 +26,7 @@ public class PrestadorUtil {
 	
 	public JSONObject toJSON(Prestador prestador) {
 		JSONObject jObjt = new JSONObject();
-		jObjt.put("cliente", clienteUtil.toJSON((Cliente) prestador));
+		jObjt = clienteUtil.toJSON((Cliente) prestador);
 		if(prestador.getCnpj()!=null){
 		jObjt.put("cnpj", prestador.getCnpj());
 		}
@@ -51,13 +51,13 @@ public class PrestadorUtil {
 		return jObjt;
 	}
 
-	private JSONObject listaServicosJSON(List<CategoriaServicoEnum> listaServicos) {
+	private JSONObject listaServicosJSON(List<Categoria> listaServicos) {
 		JSONObject jObjt = new JSONObject();
 		if (listaServicos != null) {
 			int i = 0;
-			for (CategoriaServicoEnum servico : listaServicos) {
+			for (Categoria servico : listaServicos) {
 				JSONObject jObjt1 = new JSONObject();
-				jObjt1.put("descricao", servico.getDescricao());
+				jObjt1.put("descricao", servico.getDescricao_categoria());
 				jObjt.put("servico" + i, jObjt1);
 				i++;
 			}

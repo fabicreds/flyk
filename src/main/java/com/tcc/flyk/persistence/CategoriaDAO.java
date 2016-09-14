@@ -5,15 +5,15 @@ import com.tcc.flyk.entity.Categoria;
 
 public interface CategoriaDAO {
 
-	public boolean CadastrarNovaCategoria(Categoria cat);
+	public boolean cadastrarNovaCategoria(Categoria cat);
 	
-	public Categoria ConsultarCategoriaPorNome(String nome);
+	public Categoria consultarCategoriaPorNome(String nome);
 	
-	public List<Categoria> ConsultarCategoriaPorParteDoNome(String nome);
+	public List<Categoria> consultarCategoriaPorParteDoNome(String nome);
 	
-	public List<Categoria> ConsultarTodasCategorias();
+	public List<Categoria> consultarTodasCategorias();
 	
-	public Categoria ConsultarCategoriaPorId(String id);
+	public Categoria consultarCategoriaPorId(String id);
 	
 	public void consultaTudo();
 

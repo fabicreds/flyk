@@ -2,13 +2,11 @@ package com.tcc.flyk.entity;
 
 import java.util.List;
 
-import com.tcc.flyk.entity.enumerator.CategoriaServicoEnum;
-
 public class Prestador extends Cliente{
 	
 	private String cnpj;
 	
-	private List<CategoriaServicoEnum> listaServicos;
+	private List<Categoria> listaServicos;
 	
 	private List<Cliente> listaRecomendacao;
 	
@@ -30,11 +28,11 @@ public class Prestador extends Cliente{
 		this.cnpj = cnpj;
 	}
 
-	public List<CategoriaServicoEnum> getListaServicos() {
+	public List<Categoria> getListaServicos() {
 		return listaServicos;
 	}
 
-	public void setListaServicos(List<CategoriaServicoEnum> listaServicos) {
+	public void setListaServicos(List<Categoria> listaServicos) {
 		this.listaServicos = listaServicos;
 	}
 

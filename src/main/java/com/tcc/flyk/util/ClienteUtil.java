@@ -47,8 +47,8 @@ public class ClienteUtil {
 		if (cliente.getNome() != null) {
 			jObjt.put("nome", cliente.getNome());
 		}
-		if (cliente.getAlias() != null) {
-			jObjt.put("alias", cliente.getAlias());
+		if (cliente.getUsuario() != null) {
+			jObjt.put("usuario", cliente.getUsuario());
 		}
 		if (cliente.getEmail() != null) {
 			jObjt.put("email", cliente.getEmail());
