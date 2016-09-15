@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -28,23 +26,13 @@ import com.tcc.flyk.entity.Prestador;
 import com.tcc.flyk.entity.Privacidade;
 import com.tcc.flyk.entity.Telefone;
 import com.tcc.flyk.entity.Usuario;
-import com.tcc.flyk.entity.enumerator.CategoriaTelefoneEnum;
-import com.tcc.flyk.entity.enumerator.OperadoraEnum;
 import com.tcc.flyk.entity.enumerator.StatusAmizadeEnum;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.persistence.ClienteDAO;
 import com.tcc.flyk.persistence.MongoDB;
-import com.tcc.flyk.util.PrivacidadeUtil;
-import com.tcc.flyk.util.StatusCompromissoEnumUtil;
 
 public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 	
-	@Resource
-	PrivacidadeUtil privacidadeUtil;
-	
-	@Resource
-	StatusCompromissoEnumUtil statusCompromissoEnumUtil;
-
 	public ClienteDAOImpl() {
 		super();
 	}
@@ -632,22 +620,22 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			// privacidade_bloco_cpf_cnpj
 			if (resultado.get("privacidade_bloco_cpf_cnpj") != null) {
 				String codigo = String.valueOf(resultado.get("privacidade_bloco_cpf_cnpj"));
-				privacidade.setExibeCPF(privacidadeUtil.definePrivacidade(Integer.valueOf(codigo)));
+				privacidade.setExibeCPF(Integer.valueOf(codigo));
 			}
 			// privacidade_bloco_endereco
 			if (resultado.get("privacidade_bloco_endereco") != null) {
 				String codigo = String.valueOf(resultado.get("privacidade_bloco_endereco"));
-				privacidade.setExibeEndereco(privacidadeUtil.definePrivacidade(Integer.valueOf(codigo)));
+				privacidade.setExibeEndereco(Integer.valueOf(codigo));
 			}
 			// privacidade_bloco_telefone
 			if (resultado.get("privacidade_bloco_telefone") != null) {
 				String codigo = String.valueOf(resultado.get("privacidade_bloco_telefone"));
-				privacidade.setExibeTelefone(privacidadeUtil.definePrivacidade(Integer.valueOf(codigo)));
+				privacidade.setExibeTelefone(Integer.valueOf(codigo));
 			}
 			// privacidade_bloco_servicos_contratados
 			if (resultado.get("privacidade_bloco_servicos_contratados") != null) {
 				String codigo = String.valueOf(resultado.get("privacidade_bloco_servicos_contratados"));
-				privacidade.setExibeAgenda(privacidadeUtil.definePrivacidade(Integer.valueOf(codigo)));
+				privacidade.setExibeAgenda(Integer.valueOf(codigo));
 			}
 			pessoa.setPrivacidade(privacidade);
 
@@ -664,7 +652,6 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 				Telefone tel = new Telefone();
 
-				tel.setCategoriaTelefone(CategoriaTelefoneEnum.FIXO);
 				// numero
 				tel.setNumero(Integer.valueOf(telefone.getString("numero_telefone")));
 
@@ -676,36 +663,13 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				// categoria_telefone
 				if (telefone.get("categoria_telefone") != null) {
 					String categoria = telefone.getString("categoria_telefone");
-					if (categoria.equals("1")) {
-						tel.setCategoriaTelefone(CategoriaTelefoneEnum.FIXO);
-					}
-					if (categoria.equals("2")) {
-						tel.setCategoriaTelefone(CategoriaTelefoneEnum.COMERCIAL);
-					}
-					if (categoria.equals("3")) {
-						tel.setCategoriaTelefone(CategoriaTelefoneEnum.MOVEL);
-					}
+					tel.setCategoriaTelefone(Integer.valueOf(categoria));
 				}
 
 				// operadora_telefone
 				if (telefone.get("operadora_telefone") != null) {
 					String operadora = telefone.getString("operadora_telefone");
-
-					if (operadora.equals("1")) {
-						tel.setOperadora(OperadoraEnum.CLARO);
-					}
-					if (operadora.equals("2")) {
-						tel.setOperadora(OperadoraEnum.VIVO);
-					}
-					if (operadora.equals("3")) {
-						tel.setOperadora(OperadoraEnum.TIM);
-					}
-					if (operadora.equals("4")) {
-						tel.setOperadora(OperadoraEnum.OI);
-					}
-					if (operadora.equals("5")) {
-						tel.setOperadora(OperadoraEnum.NEXTEL);
-					}
+					tel.setOperadora(Integer.valueOf(operadora));
 				}
 
 				telefones.add(tel);
@@ -906,7 +870,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 			// Compromisso - Status
 			if (compromissoDB.getString("status_servico_contratado") != null) {
-				compromisso.setStatus(statusCompromissoEnumUtil.defineStatusCompromisso(Integer.valueOf(compromissoDB.getString("status_servico_contratado"))));
+				compromisso.setStatus(Integer.valueOf(compromissoDB.getString("status_servico_contratado")));
 			}
 
 			// Adiciona o compromisso na agenda

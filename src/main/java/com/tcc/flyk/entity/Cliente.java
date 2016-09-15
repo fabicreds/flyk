@@ -186,6 +186,25 @@ public class Cliente {
 		this.tipoCadastro = tipoCadastro;
 	}
 
+	public void setTipoCadastro(int codigo) {
+		switch (codigo) {
+		case 1:
+			this.tipoCadastro = TipoCadastroEnum.CLIENTE;
+			break;
+		case 2:
+			this.tipoCadastro = TipoCadastroEnum.PRESTADOR;
+			break;
+		case 3:
+			this.tipoCadastro = TipoCadastroEnum.PREMIUM;
+			break;
+		case 4:
+			this.tipoCadastro = TipoCadastroEnum.ADMINISTRADOR;
+			break;
+		default:
+			this.tipoCadastro = TipoCadastroEnum.CLIENTE;
+		}
+	}
+
 	public List<Prestador> getListaPrestadoresRecomendados() {
 		return listaPrestadoresRecomendados;
 	}
