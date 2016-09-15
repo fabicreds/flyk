@@ -978,4 +978,75 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			return null;
 		}
 	}
+	
+	@Override
+	public Cliente atualizaCliente(String id, Cliente c) {
+		try {
+			Cliente cli = new Cliente();
+			cli = this.consultaClientePorId(String.valueOf(id));
+
+			BasicDBObject updateQuery = new BasicDBObject();
+			
+
+			if (!(c.getListaTelefone() == null)) {
+
+				int count = c.getListaTelefone().size();
+				System.out.println("qtd telefones: " + String.valueOf(count));
+
+				// Varre a lista de telefones, inserindo um por um
+				BasicDBList telefones = new BasicDBList();
+				for (int i = 0; i < count; i++) {
+
+					BasicDBObject telefone = new BasicDBObject();
+
+					// Numero
+					telefone.put("numero_telefone", String.valueOf(c.getListaTelefone().get(i).getNumero()));
+
+					// Categoria
+					if (!(c.getListaTelefone().get(i).getCategoriaTelefone() == null)) {
+						telefone.put("categoria_telefone",
+								String.valueOf(c.getListaTelefone().get(i).getCategoriaTelefone().getCodigo()));
+					}
+
+					// DDD
+					if (!(c.getListaTelefone().get(i).getDdd() == 0)) {
+						telefone.put("ddd_telefone", String.valueOf(c.getListaTelefone().get(i).getDdd()));
+					}
+
+					// Operadora
+					if (!(c.getListaTelefone().get(i).getOperadora() == null)) {
+						telefone.put("operadora_telefone",
+								String.valueOf(c.getListaTelefone().get(i).getOperadora().getCodigo()));
+					}
+					System.out.println(String.valueOf(c.getListaTelefone().get(i).getNumero()));
+
+					telefones.add(telefone);
+					System.out.println("telefone adicionado uhul");
+				}
+
+				updateQuery.append("$set", new BasicDBObject().append("CPF", c.getCPF()).append("email", c.getEmail())
+						.append("telefones", telefones).append("logradouro", c.getEndereco().getLogradouro())
+						.append("bairro", c.getEndereco().getBairro()).append("cep", c.getEndereco().getCep())
+						.append("cidade", c.getEndereco().getCidade()).append("estado", c.getEndereco().getEstado())
+						.append("complemento", c.getEndereco().getComplemento())
+						.append("numero", c.getEndereco().getNumero())
+
+				);
+
+			}
+
+			BasicDBObject searchQuery = new BasicDBObject();
+			searchQuery.append("_id", new ObjectId(cli.getId()));
+
+			DBCollection collection = db.getCollection("FLYK");
+
+			collection.update(searchQuery, updateQuery);
+			cli = this.consultaClientePorId(String.valueOf(id));
+
+			return cli;
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
 }

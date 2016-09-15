@@ -23,7 +23,8 @@
     <title>FLYK ®</title>
     
     <script src="${pageContext.request.contextPath}/resources/angular/angular.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
+    <script src="https://cdn.jsdelivr.net/ngstorage/0.3.6/ngStorage.min.js"></script>
     
     <link href="${pageContext.request.contextPath}/resources/css/bootstrap.css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/resources/css/app.css" rel="stylesheet" />
@@ -36,6 +37,8 @@
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/userPageInfos.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/confirmaPromocao.js"></script>
     <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/profilePage.js"></script>
+            <script src="${pageContext.request.contextPath}/resources/angular/app/controllers/atualizaPerfil.js"></script>
+    
     
     <script src="${pageContext.request.contextPath}/resources/angular/app/uploadFactory.js"></script>
       <script src="${pageContext.request.contextPath}/resources/angular/app/directives/ngFileSelect.js"></script>

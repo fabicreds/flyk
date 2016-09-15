@@ -19,4 +19,7 @@ public interface ClienteDAO {
 	
 	public Usuario consultaLoginById(String id);
 	
+	public Cliente atualizaCliente (String idCliente, Cliente c);
+
+	
 }

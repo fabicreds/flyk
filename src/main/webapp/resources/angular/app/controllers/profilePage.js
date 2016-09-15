@@ -3,8 +3,8 @@ flyk.controller("profilePageCtrl", function ($scope, $rootScope, $location, $htt
     $scope.showProfilePageEdit = function() {
     	$location.path('/profilePageEdit');
     }
-
     
+  
     $scope.categorias = [
         {
     	  id: 1,
@@ -46,6 +46,19 @@ flyk.controller("profilePageCtrl", function ($scope, $rootScope, $location, $htt
   	     label: 'OUTROS',
   		}
   	];
+    
+	$scope.tipoprivacidade = [ 
+       {
+		id : 1,
+		label : 'Publico'
+	   }, {
+		id : 2,
+		label : 'Apenas amigos',
+	   }, {
+		id : 3,
+		label : 'Privado',
+	
+	   }];
 	
     
     $scope.pesquisaCep = function(userCEP)
@@ -69,4 +82,8 @@ flyk.controller("profilePageCtrl", function ($scope, $rootScope, $location, $htt
     $scope.$on("fileProgress", function(e, progress) {
         $scope.progress = progress.loaded / progress.total;
     });
+    
+    
+	
+	
 });
