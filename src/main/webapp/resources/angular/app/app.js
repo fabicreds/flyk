@@ -119,6 +119,28 @@ flyk.controller("flykCtrl", function ($rootScope, $scope, $location, $http, $uib
     {
     	$location.path('/adminPage');
     };
+    
+    $scope.showProfilePage = function(){
+    	$http({
+			url : 'profilePage',
+			method : "POST",
+			data : {
+				'usuario' : $rootScope.usuarioLogado,
+				'idUsuario' : $rootScope.idUsuarioLogado,
+				'tipoUsuario' : $rootScope.tipoUsuarioLogado
+			}
+		}).then(function(response) {
+			if(response.data.retorno != "erro"){
+				$rootScope.usuarioLogado = response.data.usuario;
+				$rootScope.tipoUsuarioLogado = response.data.tipoCadastro;
+				$rootScope.idUsuarioLogado = response.data.cliente.id;
+				$rootScope.data = response.data.cliente;
+				$location.path('/profilePage');
+			}
+		}, function(response) {
+			
+		});
+    };
 
     
 });

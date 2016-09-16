@@ -202,35 +202,23 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">
-                        <span class="glyphicon glyphicon-home"></span>
-                        <span class="text">HOME</span>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <span class="text">BUSCA</span>
                         </a></li>
-                    <li><a href="#">
+                    <li><a href="#" ng-click="showProfilePage()">
                          <span class="glyphicon glyphicon-user"></span>
-                         <span class="text">SOBRE NÓS</span>
+                         <span class="text">PERFIL</span>
                          </a></li>
                     <li><a href="#">
-                         <span class="glyphicon glyphicon-search"></span>
-                         <span class="text">COMO USAR</span>
+                         <span class="glyphicon glyphicon-heart-empty"></span>
+                         <span class="text">AMIGOS</span>
                         </a></li>
                     <li>
                         <a href="#">
                             <span class="glyphicon glyphicon-heart-empty"></span>
-                            <span class="text">CLIENTES</span>
+                            <span class="text">CONTRATOS</span>
                         </a>
                     </li>
-                    <li>
-                        <a ng-click="showFormLogin()">
-                            <span class="glyphicon glyphicon-envelope"></span>
-                            <span class="text">CONTATO</span>
-                        </a>
-                            
-                    </li>
-                    
-               
-               
-                     
-                
                     
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

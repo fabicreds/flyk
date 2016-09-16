@@ -12,6 +12,7 @@ import com.tcc.flyk.entity.Categoria;
 import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Compromisso;
 import com.tcc.flyk.entity.Usuario;
+import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.persistence.impl.CategoriaDAOImpl;
 import com.tcc.flyk.persistence.impl.ClienteDAOImpl;
 import com.tcc.flyk.util.ClienteUtil;
@@ -26,13 +27,21 @@ public class ProfilePageService {
 	@Resource
 	private ClienteUtil util;
 
-	public String montarDadosPerfil(String id) {
+	public String montarDadosPerfil(String id, TipoCadastroEnum tipoCadastro) {
+		List<Categoria> listaCategoriasCadastradas = categoriaDAO.consultarTodasCategorias();
 		Cliente cliente = new Cliente();
-		cliente = cliDAO.consultaClientePorId(id);
+		if (tipoCadastro == TipoCadastroEnum.CLIENTE) {
+			cliente = cliDAO.consultaClientePorId(id);
+		} else {
+			// busca pelos Dados do Prestador
+			// Prestador prestador = new Prestador();
+			// prestador = prestadorDAO.consultaPrestadorPorId(id);
+			cliente = cliDAO.consultaClientePorId(id);
+		}
 		// buscando os detalhes dos Amigos
 		buscarDadosAmigos(cliente);
 		// buscando os detalhes do servicos contratados
-		buscarDadosServicosContratados(cliente);
+		buscarDadosServicosContratados(cliente, listaCategoriasCadastradas);
 		return mensagemSucesso(cliente);
 	}
 
@@ -65,8 +74,8 @@ public class ProfilePageService {
 
 	}
 
-	private void buscarDadosServicosContratados(Cliente cliente) {
-		List<Categoria> listaCategoriasCadastradas = categoriaDAO.consultarTodasCategorias();
+	private void buscarDadosServicosContratados(Cliente cliente, List<Categoria> listaCategoriasCadastradas) {
+
 		if (cliente.getAgenda() != null) {
 			for (Compromisso compromisso : cliente.getAgenda()) {
 				if (compromisso.getContrato() != null) {
@@ -87,10 +96,12 @@ public class ProfilePageService {
 									compromisso.getContrato().getServico().setNome_categoria(cat.getNome_categoria());
 								}
 								if (cat.getDescricao_categoria() != null) {
-									compromisso.getContrato().getServico().setDescricao_categoria(cat.getDescricao_categoria());
+									compromisso.getContrato().getServico()
+											.setDescricao_categoria(cat.getDescricao_categoria());
 								}
 								if (cat.getStatus_categoria() != null) {
-									compromisso.getContrato().getServico().setStatus_categoria(cat.getStatus_categoria());
+									compromisso.getContrato().getServico()
+											.setStatus_categoria(cat.getStatus_categoria());
 								}
 								if (cat.getInicio_vigencia() != null) {
 									compromisso.getContrato().getServico().setInicio_vigencia(cat.getInicio_vigencia());

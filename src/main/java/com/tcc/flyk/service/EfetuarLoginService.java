@@ -44,8 +44,7 @@ public class EfetuarLoginService {
 				if (form.getSenha().equals(usuario.getSenha())) {
 					// usuario autenticado com sucesso
 					if (usuario.getTipoCadastro() != TipoCadastroEnum.ADMINISTRADOR) {
-						return profilePageService.montarDadosPerfil(usuario.getId());
-						
+						return profilePageService.montarDadosPerfil(usuario.getId(), usuario.getTipoCadastro());
 					}
 					return mensagemSucesso(usuario);
 				} else {
