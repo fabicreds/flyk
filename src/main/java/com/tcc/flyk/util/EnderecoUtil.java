@@ -31,5 +31,31 @@ public class EnderecoUtil {
 		}
 		return jObjt;
 	}
+	
+	public Endereco toEndero(JSONObject json){
+		Endereco endereco = new Endereco();
+		if (!json.isNull("cep")) {
+			endereco.setCep(json.getString("cep"));
+		}
+		if (!json.isNull("logradouro")){
+			endereco.setLogradouro(json.getString("logradouro"));
+		}
+		if (!json.isNull("numero")){
+			endereco.setNumero(json.getInt("numero"));
+		}
+		if (!json.isNull("comp")){
+			endereco.setComplemento(json.getString("comp"));
+		}
+		if (!json.isNull("bairro")){
+			endereco.setBairro(json.getString("bairro"));
+		}
+		if (!json.isNull("cidade")){
+			endereco.setCidade(json.getString("cidade"));
+		}
+		if (!json.isNull("estado")){
+			endereco.setEstado(json.getString("estado"));
+		}
+		return endereco;
+	}
 
 }

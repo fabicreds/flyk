@@ -15,8 +15,6 @@ import com.tcc.flyk.entity.Compromisso;
 import com.tcc.flyk.entity.Conversa;
 import com.tcc.flyk.entity.Endereco;
 import com.tcc.flyk.entity.Prestador;
-import com.tcc.flyk.entity.Telefone;
-import com.tcc.flyk.entity.enumerator.OperadoraEnum;
 
 @Component
 public class ClienteUtil {
@@ -39,7 +37,11 @@ public class ClienteUtil {
 	@Resource
 	private CompromissoUtil compromissoUtil;
 
+	@Resource
+	private TelefoneUtil telefoneUtil;
+
 	private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	private SimpleDateFormat formatoSimples = new SimpleDateFormat("dd/MM/yyyy");
 
 	public JSONObject toJSON(Cliente cliente) {
 		JSONObject jObjt = new JSONObject();
@@ -73,7 +75,7 @@ public class ClienteUtil {
 			jObjt.put("endereco", endToJSON(cliente.getEndereco()));
 		}
 		if (cliente.getListaTelefone() != null) {
-			jObjt.put("listaTelefone", listaTelefoneJSON(cliente.getListaTelefone()));
+			jObjt.put("listaTelefone", telefoneUtil.listaTelefoneJSON(cliente.getListaTelefone()));
 
 		}
 		if (cliente.getNascimento() != null) {
@@ -93,7 +95,8 @@ public class ClienteUtil {
 			jObjt.put("listaAmigos", listaAmigosJSON(cliente.getListaAmigos()));
 		}
 		if (cliente.getPrivacidade() != null) {
-		    //jObjt.put("privacidade", privacidadeUtil.toJSON(cliente.getPrivacidade()));
+			// jObjt.put("privacidade",
+			// privacidadeUtil.toJSON(cliente.getPrivacidade()));
 		}
 		if (cliente.getTipoCadastro() != null) {
 			jObjt.put("tipoCadastro", cliente.getTipoCadastro().getCodigo());
@@ -116,30 +119,6 @@ public class ClienteUtil {
 			for (Amizade amizade : listaAmigos) {
 				JSONObject jObjt1 = amizadeUtil.toJSON(amizade);
 				jObjt.put("amizade" + i, jObjt1);
-				i++;
-			}
-		}
-		return jObjt;
-	}
-
-	private JSONObject listaTelefoneJSON(List<Telefone> listaTelefone) {
-		JSONObject jObjt = new JSONObject();
-		if (listaTelefone != null) {
-			int i = 0;
-			for (Telefone tel : listaTelefone) {
-				JSONObject jObjt1 = new JSONObject();
-				jObjt1.put("ddd", tel.getDdd());
-				jObjt1.put("numero", tel.getNumero());
-				//jObjt1.put("categoria", tel.getCategoriaTelefone().getCodigo());
-				//jObjt1.put("categoriaDescricao", tel.getCategoriaTelefone().getDescricao());
-				if (tel.getOperadora() != null) {
-					jObjt1.put("operadora", tel.getOperadora().getCodigo());
-					jObjt1.put("operadoraDescricao", tel.getOperadora().getDescricao());
-				} else {
-					jObjt1.put("operadora", OperadoraEnum.OUTROS.getCodigo());
-					jObjt1.put("operadoraDescricao", OperadoraEnum.OUTROS.getDescricao());
-				}
-				jObjt.put("telefone" + i, jObjt1);
 				i++;
 			}
 		}
@@ -192,7 +171,7 @@ public class ClienteUtil {
 		}
 		if (end.getBairro() != null) {
 			jObjt.put("bairro", end.getBairro());
-			
+
 		}
 		/*
 		 * if (end.getNumero() != null) { { jObjt.put("numero",
@@ -213,106 +192,47 @@ public class ClienteUtil {
 		return jObjt;
 	}
 
-	public Endereco JSONToEnd(JSONObject j) {
-		Endereco e = new Endereco();
-		if (j.getString("logradouro") != null) {
-			e.setLogradouro(j.getString("logradouro"));
-		}
-		if (j.getString("bairro") != null) {
-			e.setBairro(j.getString("bairro"));
-		}
-		// if (j.getInt("numero") != null) {
-		// e.setNumero(j.getInt("numero"));
-		// }
-		System.out.println("METODO JSONTOEnd " + j.toString());
-
-		if (j.getString("complemento") != null) {
-			e.setComplemento(j.getString("complemento"));
-		}
-		if (j.getString("cep") != null) {
-			e.setCep(j.getString("cep"));
-		}
-		if (j.getString("cidade") != null) {
-			e.setCidade(j.getString("cidade"));
-		}
-		if (j.getString("estado") != null) {
-			e.setEstado(j.getString("estado"));
-		}
-
-		return e;
-	}
-
 	public Cliente toCliente(JSONObject json) {
 		Cliente cli = new Cliente();
-		JSONObject jsonCliente = json.getJSONObject("cliente");
-		
 
-		if (jsonCliente.getString("cpf") != null) {
-
-			cli.setCPF(jsonCliente.getString("cpf"));
+		if (!json.isNull("nome") && !json.getString("nome").isEmpty()) {
+			cli.setNome(json.getString("nome"));
 		}
-		if (jsonCliente.getString("email") != null) {
-			cli.setEmail(jsonCliente.getString("email"));
+		if (!json.isNull("email") && !json.getString("email").isEmpty()) {
+			cli.setEmail(json.getString("email"));
+		}
+		if (!json.isNull("apelido") && !json.getString("apelido").isEmpty()) {
+			cli.setApelido(json.getString("apelido"));
+		}
+		if (!json.isNull("senha") && !json.getString("senha").isEmpty()) {
+			cli.setSenha(json.getString("senha"));
+		}
+		if (!json.isNull("cpf") && !json.getString("cpf").isEmpty()) {
+			cli.setCPF(json.getString("cpf"));
+		}
+		if (!json.isNull("datanascimento") && !json.getString("datanascimento").isEmpty()) {
+			try {
+				cli.setNascimento(formatoSimples.parse(json.getString("datanascimento")));
+			} catch (Exception e) {
+				cli.setNascimento(null);
+			}
+		}
+		if (!json.isNull("telefone1") && !json.isNull("telefone2")) {
+			List<String> listaTelefones = new ArrayList<String>();
+			listaTelefones.add(json.get("telefone1").toString());
+			listaTelefones.add(json.get("telefone2").toString());
+			cli.setListaTelefone(telefoneUtil.jsonToListaTelefone(listaTelefones));
 		}
 
-		if (jsonCliente.getString("id") != null) {
-			cli.setId(jsonCliente.getString("id"));
+		// DADOS DO ENDEREÇO
+		cli.setEndereco(enderecoUtil.toEndero(json));
+
+		// 'imagem' :$scope.imageSrc
+		if (!json.isNull("imagem")) {
+			cli.setFotoPerfil(json.getString("imagem"));
 		}
 
-		
-		JSONObject jEndereco = new JSONObject();
-		
-		if (jsonCliente.getJSONObject("endereco") != null) {
-			jEndereco = jsonCliente.getJSONObject("endereco");
-			cli.setEndereco(JSONToEnd(jEndereco));
-		}
-		
-		List<Telefone> telefones = new ArrayList<Telefone>();
-
-		telefones = JSONToListaTelefone(json.getJSONObject("listaTelefone"), telefones);
-		
-		cli.setListaTelefone(telefones);
-
-		
-
-		/*
-		 * Comentado pois falta adicionar na pagina de atualizacao
-		 * if (jsonCliente.getString("nome") != null) {
-		 * cli.setNome(jsonCliente.getString("nome"));
-		 * 
-		 * } if (jsonCliente.getString("apelido") != null) {
-		 * cli.setApelido(jsonCliente.getString("apelido")); } if
-		 * (jsonCliente.getString("facebookID") != null) {
-		 * cli.setFacebookID(jsonCliente.getString("facebookID")); } if
-		 * (jsonCliente.getString("foto") != null) {
-		 * cli.setFotoPerfil(jsonCliente.getString("foto")); } if
-		 * (jsonCliente.getString("nascimento") != null) {
-		 * cli.setNascimento((Date) jsonCliente.get("nascimento")); }
-		 * 
-		 * if (jsonCliente.getString("senha") != null) {
-		 * cli.setSenha(jsonCliente.getString("senha")); } if
-		 * (jsonCliente.getString("status") != null) {
-		 * cli.setStatus(jsonCliente.getString("status")); }
-		 */
 		return cli;
-	}
-
-	private List<Telefone> JSONToListaTelefone(JSONObject lista, List<Telefone> telefones) {
-
-	
-
-		for (Object k : lista.keySet()) {
-			String chave = (String) k;			
-			JSONObject jsonTel = new JSONObject();
-			jsonTel = lista.getJSONObject(chave);
-			Telefone t = new Telefone();
-			t.setDdd(jsonTel.getInt("ddd"));
-			t.setNumero(jsonTel.getInt("numero"));
-			telefones.add(t);
-
-		}
-
-		return telefones;
 	}
 
 }

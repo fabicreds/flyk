@@ -1,13 +1,12 @@
 package com.tcc.flyk.service;
 
-import java.util.Date;
-import java.util.List;
+import org.springframework.stereotype.Service;
 
 import com.tcc.flyk.entity.Cliente;
-import com.tcc.flyk.entity.Usuario;
 import com.tcc.flyk.persistence.ClienteDAO;
 import com.tcc.flyk.persistence.impl.ClienteDAOImpl;
 
+@Service
 public class ClienteService {
 
 
@@ -16,30 +15,32 @@ public class ClienteService {
 	//CADASTRO DE CLIENTE
 	//Recebe um objeto cliente de parâmetro, valida o cliente e cadastra o mesmo
 	//Retorna uma string vazia em caso de sucesso, ou a mensagem de erro em caso de falha
-	public String CadastrarNovoCliente(Cliente cli){
+	public boolean cadastrarNovoCliente(Cliente cli){
 		String retorno = "";
 		try {
 			String erro = validaCliente(cli);
 			if(erro==""){
 				//cat.setInicio_vigencia(new Date());
 				System.out.println("CLIENTESERVICE: INSERINDO CLIENTE " + cli.toString());
-				cliDAO.inserirNovoCliente(cli);
+//				cliDAO.inserirNovoCliente(cli);
 				retorno = "Cadastro realizado com sucesso.";
 			}else{
 				retorno = erro;
+				return false;
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			retorno = "Erro ao cadastrar cliente.";
+			return false;
 		}
-		return retorno;
+		return true;
 	}
 	
 	//CONSULTA SE UM USUARIO EXISTE OU NAO
 	//Verifica se um usuário com o email enviado de parâmetro já existe no banco
 	//Retorna verdadeiro caso já exista, e falso caso não
-	public boolean ExisteCliente(String email){
+	public boolean existeCliente(String email){
 		try {
 			if(cliDAO.consultaLogin(email)!=null){
 				return true;
@@ -68,7 +69,7 @@ public class ClienteService {
 		}
 		
 		//Valida email duplicado
-		if(ExisteCliente(cli.getEmail())){
+		if(existeCliente(cli.getEmail())){
 			retorno = "Já existe um cadastro para o email " + cli.getEmail() + ".";
 			System.out.println(retorno);
 			return retorno;

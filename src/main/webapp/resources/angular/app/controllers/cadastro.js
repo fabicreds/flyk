@@ -89,7 +89,7 @@ flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal, f
 	    $scope.sendPostCadastroCliente = function() {
 	    	
 			$http({
-				url : 'cadastro',
+				url : 'cadastroCliente',
 				method : "POST",
 				data : {
 					'nome' : $scope.fullName,
@@ -101,14 +101,14 @@ flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal, f
 					'telefone1' : $scope.telephone1,
 					'telefone2' : $scope.telephone2,
 					'prestador' : $scope.prestador,
-					'cep' : $scope.cep,
-					'logradouro' : $scope.logradouro,
-					'numero' : $scope.numero,
-					'comp' : $scope.comp,
-					'bairro' : $scope.bairro,
-					'cidade' : $scope.cidade,
-					'estado' : $scope.estado,
-					'pais' : $scope.pais,
+					'cep' : $scope.address.cep,
+					'logradouro' : $scope.address.logradouro,
+					'numero' : $scope.address.numero,
+					'comp' : $scope.address.comp,
+					'bairro' : $scope.address.bairro,
+					'cidade' : $scope.address.cidade,
+					'estado' : $scope.address.estado,
+					'pais' : $scope.address.pais,
 					'imagem' :$scope.imageSrc
 				}
 			}).then(function(response) {
@@ -120,7 +120,7 @@ flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal, f
 					$scope.messageErroCadastro = "";
 					$scope.messageSucessoCadastro = response.data.mensagem;
 				}
-				 $scope.fullName="";
+				$scope.fullName="";
 				 $scope.email="";
 				 $scope.nickname="";
 				 $scope.password="";
@@ -138,7 +138,7 @@ flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal, f
 				 $scope.address.cidade="";
 				 $scope.address.estado="";
 				 $scope.address.pais="";
-				
+				 $scope.imageProfile = "";				
 			}, function(response) {
 				// fail case
 				console.log(response);
