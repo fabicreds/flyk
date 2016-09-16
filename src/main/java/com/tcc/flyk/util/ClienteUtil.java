@@ -210,6 +210,9 @@ public class ClienteUtil {
 		if (!json.isNull("cpf") && !json.getString("cpf").isEmpty()) {
 			cli.setCPF(json.getString("cpf"));
 		}
+		if(!json.isNull("tipoCadastro")){
+			cli.setTipoCadastro(json.getInt("tipoCadastro"));
+		}
 		if (!json.isNull("datanascimento") && !json.getString("datanascimento").isEmpty()) {
 			try {
 				cli.setNascimento(formatoSimples.parse(json.getString("datanascimento")));

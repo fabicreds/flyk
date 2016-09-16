@@ -82,7 +82,8 @@ flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal, f
 			 $scope.address.estado="";
 			 $scope.address.pais="";
 			 $scope.imageProfile = "";
-			 
+			 $scope.messageErroCadastro = "";
+			 $scope.messageSucessoCadastro = "";
 			 
 		}
 
@@ -100,7 +101,6 @@ flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal, f
 					'datanascimento':  $scope.dateBirth,
 					'telefone1' : $scope.telephone1,
 					'telefone2' : $scope.telephone2,
-					'prestador' : $scope.prestador,
 					'cep' : $scope.address.cep,
 					'logradouro' : $scope.address.logradouro,
 					'numero' : $scope.address.numero,
@@ -109,6 +109,8 @@ flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal, f
 					'cidade' : $scope.address.cidade,
 					'estado' : $scope.address.estado,
 					'pais' : $scope.address.pais,
+					'indicadorPrestador' : $scope.prestador.flag,
+					'tipoPrestador' : $scope.prestador.type,
 					'imagem' :$scope.imageSrc
 				}
 			}).then(function(response) {
@@ -127,24 +129,17 @@ flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal, f
 				 $scope.confirmPassword="";
 				 $scope.CPF="";
 				 $scope.dateBirth="";
-				 $scope.telephone="";
+				 $scope.telephone1="";
+				 $scope.telephone2="";
 				 $scope.prestador.type="";
 				 $scope.prestador.flag="";
-				 $scope.address.cep="";
-				 $scope.address.logradouro="";
-				 $scope.address.numero="";
-				 $scope.address.comp="";
-				 $scope.address.bairro="";
-				 $scope.address.cidade="";
-				 $scope.address.estado="";
-				 $scope.address.pais="";
-				 $scope.imageProfile = "";				
+				 $scope.address = "";
+				 $scope.imageProfile = "";
 			}, function(response) {
 				// fail case
 				console.log(response);
 				$scope.message = response;
 			});
-
 			
 		};
 		

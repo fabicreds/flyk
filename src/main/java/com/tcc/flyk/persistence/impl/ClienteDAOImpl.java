@@ -32,7 +32,7 @@ import com.tcc.flyk.persistence.ClienteDAO;
 import com.tcc.flyk.persistence.MongoDB;
 
 public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
-	
+
 	public ClienteDAOImpl() {
 		super();
 	}
@@ -95,8 +95,9 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		System.out.println("2");
 
 		// Tipo de perfil
-		doc.put("tipo_perfil", pessoa.getTipoCadastro().getCodigo());
-
+		if (pessoa.getTipoCadastro() != null) {
+			doc.put("tipo_perfil", pessoa.getTipoCadastro().getCodigo());
+		}
 		// Status
 		if (!(pessoa.getStatus() == null)) {
 			doc.put("status_pessoa", pessoa.getStatus());
@@ -895,7 +896,6 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		}
 	}
 
-
 	// ****************************CONSULTA TODOS OS DOCUMENTOS DO
 	// BANCO****************************//
 	@Override
@@ -978,7 +978,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			return null;
 		}
 	}
-	
+
 	@Override
 	public Cliente atualizaCliente(String id, Cliente c) {
 		try {
@@ -986,7 +986,6 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			cli = this.consultaClientePorId(String.valueOf(id));
 
 			BasicDBObject updateQuery = new BasicDBObject();
-			
 
 			if (!(c.getListaTelefone() == null)) {
 

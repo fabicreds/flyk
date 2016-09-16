@@ -32,13 +32,12 @@
 								<p style="text-indent: 1em;">{{data.email}}</p>
 								</p>
 								<p>
-									<strong>Endereco: </strong>
-								<p style="text-indent: 1em;">
-									{{data.endereco.logradouro}} , {{data.endereco.numero}} -
-									{{data.endereco.bairro}} <br>
+									<strong>CPF/CNPJ: </strong>
+								<p style="text-indent: 1em;">{{data.cpf}}</p>
 								</p>
-								<p style="text-indent: 1em;">{{data.endereco.cidade}} -
-									{{data.endereco.estado}} , {{data.endereco.cep}}</p>
+								<p>
+									<strong>Nascimento: </strong>
+								<p style="text-indent: 1em;">{{data.nascimento}}</p>
 								</p>
 								<p>
 									<strong>Perfil: </strong>
@@ -53,13 +52,16 @@
 								</div>
 								</p>
 								<p>
-									<strong>CPF/CNPJ: </strong>
-								<p style="text-indent: 1em;">{{data.cpf}}</p>
+									<strong>Endereco: </strong>
+								<p style="text-indent: 1em;">
+									{{data.endereco.logradouro}} , {{data.endereco.numero}} -
+									{{data.endereco.bairro}} <br>
 								</p>
-								<p>
-									<strong>Nascimento: </strong>
-								<p style="text-indent: 1em;">{{data.nascimento}}</p>
+								<p style="text-indent: 1em;">{{data.endereco.cidade}} -
+									{{data.endereco.estado}} , {{data.endereco.cep}}</p>
 								</p>
+								
+								
 
 							</form>
 						</div>
@@ -86,7 +88,7 @@
 						<div class="panel panel-default">
 							<!-- Se o usuário estiver logado e for um prestador -->
 							<div class="panel-heading">
-								<div ng-if="usuarioLogado !='' && tipoUsuarioLogado==2">
+								<div ng-if="usuarioLogado !='' && tipoUsuarioLogado!=1">
 									<uib-tabset active="active"> <uib-tab index="0"
 										heading="Serviços"> </uib-tab> <uib-tab index="1"
 										heading="Histórico">TAB2</uib-tab> <uib-tab index="2"

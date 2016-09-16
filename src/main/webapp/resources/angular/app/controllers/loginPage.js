@@ -33,11 +33,11 @@ flyk.controller("loginPageCtrl", function($rootScope, $scope, $location, $http, 
 				$scope.mensagemLogin = "";
 				$rootScope.usuarioLogado = response.data.usuario;
 				$rootScope.tipoUsuarioLogado = response.data.tipoCadastro;
-				if(response.data.tipoCadastro == "1" || response.data.tipoCadastro == "2"){
+				if(response.data.tipoCadastro == "4"){
+					$location.path('/adminPage');
+				}else{
 					$rootScope.data = response.data.cliente;
 					$location.path('/profilePage');
-				}else{
-					$location.path('/adminPage');
 				}
 			}
 			

@@ -154,7 +154,7 @@
                 <div class="radio">
                     <label uib-tooltip="FREE: BLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLA">
                         <input type="radio" name="serviceType" value="free"
-                               ng-model="prestador.type" /> Free 
+                               ng-model="prestador.type" checked="checked"/> Free 
                     </label><br />
                 </div>
                 <div class="radio">

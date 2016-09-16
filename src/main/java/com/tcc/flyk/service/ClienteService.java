@@ -15,26 +15,22 @@ public class ClienteService {
 	//CADASTRO DE CLIENTE
 	//Recebe um objeto cliente de parâmetro, valida o cliente e cadastra o mesmo
 	//Retorna uma string vazia em caso de sucesso, ou a mensagem de erro em caso de falha
-	public boolean cadastrarNovoCliente(Cliente cli){
+	public String cadastrarNovoCliente(Cliente cli){
 		String retorno = "";
 		try {
 			String erro = validaCliente(cli);
 			if(erro==""){
-				//cat.setInicio_vigencia(new Date());
-				System.out.println("CLIENTESERVICE: INSERINDO CLIENTE " + cli.toString());
-//				cliDAO.inserirNovoCliente(cli);
-				retorno = "Cadastro realizado com sucesso.";
+				cliDAO.inserirNovoCliente(cli);
+				retorno = null;
 			}else{
 				retorno = erro;
-				return false;
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			retorno = "Erro ao cadastrar cliente.";
-			return false;
 		}
-		return true;
+		return retorno;
 	}
 	
 	//CONSULTA SE UM USUARIO EXISTE OU NAO
