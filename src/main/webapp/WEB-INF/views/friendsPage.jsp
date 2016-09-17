@@ -31,5 +31,10 @@
 				</div>
 			</div>
 		</div>
+		<div ng-if="$root.data.numAmigos == 0" style="text-align: center;">
+			<img
+				src="${pageContext.request.contextPath}/images/no-friends-minios.png" />
+			<h3>Você ainda não tem amigos!</h3>
+		</div>
 	</div>
 </body>

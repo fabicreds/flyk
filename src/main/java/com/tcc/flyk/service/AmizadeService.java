@@ -18,19 +18,19 @@ public class AmizadeService {
 
 	@Resource
 	private ClienteUtil util;
-	
+
 	private ClienteDAOImpl cliDAO = new ClienteDAOImpl();
-	
-	
-	public String montarListaAmigos(String id){
+
+	public String montarListaAmigos(String id) {
 		List<Amizade> listaAmigos = new ArrayList<Amizade>();
-		
+
 		listaAmigos = cliDAO.consultarAmigosById(id);
 		buscarDadosAmigos(listaAmigos);
 		return mensagemSucesso(listaAmigos);
 	}
-	
+
 	private void buscarDadosAmigos(List<Amizade> listaAmigos) {
+		if (listaAmigos != null) {
 			for (Amizade amizade : listaAmigos) {
 				if (amizade.getAmigo() != null) {
 					Usuario usuario = cliDAO.consultaLoginById(amizade.getAmigo().getId());
@@ -41,15 +41,20 @@ public class AmizadeService {
 						amizade.getAmigo().setTipoCadastro(usuario.getTipoCadastro());
 					}
 				}
+			}
 		}
 
 	}
-	
+
 	private String mensagemSucesso(List<Amizade> listaAmigos) {
 		JSONObject jObjt = new JSONObject();
 		jObjt.put("retorno", "sucesso");
 		jObjt.put("listaAmigos", util.listaAmigosJSON(listaAmigos));
-
+		if (listaAmigos == null) {
+			jObjt.put("numAmigos", 0);
+		} else {
+			jObjt.put("numAmigos", listaAmigos.size());
+		}
 		return jObjt.toString();
 	}
 }

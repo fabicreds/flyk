@@ -28,6 +28,9 @@ flyk.controller("friendsPageCtrl", function ($scope, $rootScope, $location, $htt
 
 			});
 		} else {
+			if($rootScope.data.listaAmigos == null){
+				$rootScope.data.numAmigos = 0;
+			}
 			$location.path('/friendsPage');
 		}
 	};
