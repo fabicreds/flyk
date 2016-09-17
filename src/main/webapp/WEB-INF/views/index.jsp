@@ -214,15 +214,20 @@
 						<li class="link"><a ng-click="showSearchPage()"> <span
 								class="glyphicon glyphicon-search"></span> <span class="text">BUSCA</span>
 						</a></li>
-						<li class="link"><a ng-click="showProfilePage()"> <span
+						<li class="link"><a ng-click="showProfilePage()" ng-controller="profilePageCtrl"> <span
 								class="glyphicon glyphicon-user"></span> <span class="text">PERFIL</span>
 						</a></li>
-						<li class="link"><a ng-click="showFriendsPage()"> <span
+						<li class="link"><a ng-click="showFriendsPage()" ng-controller="friendsPageCtrl"> <span
 								class="glyphicon glyphicon-heart-empty"></span> <span
 								class="text">AMIGOS</span>
 						</a></li>
 						<li class="link"><a> <span
-								class="glyphicon glyphicon-envelope"></span> <span class="text">CONTRATOS</span>
+								class="glyphicon glyphicon-list-alt"></span> 
+								<span class="text">SERVIÇOS CONTRATADOS</span>
+						</a></li>
+						<li class="link" ng-if="tipoUsuarioLogado!=1"><a> <span
+								class="glyphicon glyphicon-wrench"></span> 
+								<span class="text">SERVIÇOS PRESTADOS</span>
 						</a></li>
 
 					</ul>

@@ -3,7 +3,7 @@
 <body>
 	<form class="form-horizontal" name="inactivateForm" novalidate
 		role="form">
-		<div class="row" data-ng-init="">
+		<div class="row" data-ng-init="init()">
 			<div class="well panel panel-default">
 				<div class="panel-heading">
 					<h3>Perfil do Usuário</h3>

@@ -90,58 +90,7 @@ flyk.controller("flykCtrl", function($rootScope, $scope, $location, $http,
 		$location.path('/searchPage');
 	};
 
-	$scope.showProfilePage = function() {
-		if ($rootScope.usuarioLogado == null) {
-			$http({
-				url : 'profilePage',
-				method : "POST",
-				data : {
-					'usuario' : localStorage.getItem("usuarioLogado"),
-					'idUsuario' : localStorage.getItem("idUsuarioLogado"),
-					'tipoUsuario' : localStorage.getItem("tipoUsuarioLogado")
-				}
-			}).then(function(response) {
-				if (response.data.retorno != "erro") {
-					$rootScope.usuarioLogado = response.data.usuario;
-					$rootScope.tipoUsuarioLogado = response.data.tipoCadastro;
-					$rootScope.idUsuarioLogado = response.data.cliente.id;
-					$rootScope.data = response.data.cliente;
-					$location.path('/profilePage');
-				} else {
-					$location.path('/profilePage');
-				}
-			}, function(response) {
-
-			});
-		} else {
-			$location.path('/profilePage');
-		}
-	};
-
-	$scope.showFriendsPage = function() {
-		if ($rootScope.usuarioLogado == null) {
-			$http({
-				url : 'friendsPage',
-				method : "POST",
-				data : {
-					'usuario' : localStorage.getItem("usuarioLogado"),
-					'idUsuario' : localStorage.getItem("idUsuarioLogado"),
-					'tipoUsuario' : localStorage.getItem("tipoUsuarioLogado")
-				}
-			}).then(function(response) {
-				if (response.data.retorno != "erro") {
-					$rootScope.data = response.data;
-					$location.path('/friendsPage');
-				} else {
-					$location.path('/friendsPage');
-				}
-			}, function(response) {
-
-			});
-		} else {
-			$location.path('/friendsPage');
-		}
-	};
+	
 });
 flyk.directive('ngCarousel', function() {
 	return function(scope, element, attrs) {
