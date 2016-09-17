@@ -112,7 +112,7 @@ public class ClienteUtil {
 		return jObjt;
 	}
 
-	private JSONObject listaAmigosJSON(List<Amizade> listaAmigos) {
+	public JSONObject listaAmigosJSON(List<Amizade> listaAmigos) {
 		JSONObject jObjt = new JSONObject();
 		if (listaAmigos != null) {
 			int i = 0;
@@ -125,7 +125,7 @@ public class ClienteUtil {
 		return jObjt;
 	}
 
-	private JSONObject listaPrestadoresRecomendadosJSON(List<Prestador> listaPrestadoresRecomendados) {
+	public JSONObject listaPrestadoresRecomendadosJSON(List<Prestador> listaPrestadoresRecomendados) {
 		JSONObject jObjt = new JSONObject();
 		if (listaPrestadoresRecomendados != null) {
 			int i = 0;
@@ -138,7 +138,7 @@ public class ClienteUtil {
 		return jObjt;
 	}
 
-	private JSONObject listaMensagensConversaJSON(List<Conversa> listaMensagensConversa) {
+	public JSONObject listaMensagensConversaJSON(List<Conversa> listaMensagensConversa) {
 		JSONObject jObjt = new JSONObject();
 		if (listaMensagensConversa != null) {
 			int i = 0;
@@ -151,7 +151,7 @@ public class ClienteUtil {
 		return jObjt;
 	}
 
-	private JSONObject agendaJSON(List<Compromisso> agenda) {
+	public JSONObject agendaJSON(List<Compromisso> agenda) {
 		JSONObject jObjt = new JSONObject();
 		if (agenda != null) {
 			int i = 0;

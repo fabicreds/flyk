@@ -1,5 +1,5 @@
-<script src="${pageContext.request.contextPath}/resources/angular/app/controllers/calendar.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Amaranth" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Amaranth"
+	rel="stylesheet">
 <body>
 	<form class="form-horizontal" name="inactivateForm" novalidate
 		role="form">
@@ -60,28 +60,28 @@
 								<p style="text-indent: 1em;">{{data.endereco.cidade}} -
 									{{data.endereco.estado}} , {{data.endereco.cep}}</p>
 								</p>
-								
-								
+
+
 
 							</form>
 						</div>
-<!-- 						<div class="col-xs-6 col-sm-3 vcenter""> -->
-<!-- 							<div class="panel panel-default "> -->
-<!-- 								<div class="panel-body"> -->
-<!-- 									<p> -->
-<!-- 										<strong>Serviços Contratados: </strong> -->
-<!-- 									<p style="text-indent: 1em;"> -->
-<!-- 										{{data.numServicosContratados}}</p> -->
-<!-- 									</p> -->
-<!-- 									<p> -->
-<!-- 										<strong>Média de Avaliação: </strong> -->
-<!-- 									</p> -->
-<!-- 									<p> -->
-<!-- 										<strong>Nível Avaliador: </strong> -->
-<!-- 									</p> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
+						<!-- 						<div class="col-xs-6 col-sm-3 vcenter""> -->
+						<!-- 							<div class="panel panel-default "> -->
+						<!-- 								<div class="panel-body"> -->
+						<!-- 									<p> -->
+						<!-- 										<strong>Serviços Contratados: </strong> -->
+						<!-- 									<p style="text-indent: 1em;"> -->
+						<!-- 										{{data.numServicosContratados}}</p> -->
+						<!-- 									</p> -->
+						<!-- 									<p> -->
+						<!-- 										<strong>Média de Avaliação: </strong> -->
+						<!-- 									</p> -->
+						<!-- 									<p> -->
+						<!-- 										<strong>Nível Avaliador: </strong> -->
+						<!-- 									</p> -->
+						<!-- 								</div> -->
+						<!-- 							</div> -->
+						<!-- 						</div> -->
 					</div>
 
 					<div class="row">
@@ -93,25 +93,26 @@
 										heading="Serviços"> </uib-tab> <uib-tab index="1"
 										heading="Histórico">TAB2</uib-tab> <uib-tab index="2"
 										heading="Agenda">TAB3</uib-tab> <uib-tab index="3"
-										heading="Amigos"><br>
-										<div ng-repeat="amizade in $root.data.listaAmigos">
-											<div class="panel panel-default">
-												<div class="panel-body">
-													<p>
-														<strong>Nome: </strong>
-														<p style="text-indent: 1em;">{{amizade.amigo.nome}}</p>
-													</p>
-													<p>
-														<strong>Data de Início da Amizade: </strong>
-														<p style="text-indent: 1em;">{{amizade.dataInicioAmizade}}</p>
-													</p>
-													<p>
-														<strong>Status da Amizade: </strong>
-														<p style="text-indent: 1em;">{{amizade.statusDescricao}}</p>
-													</p>
-												</div>
+										heading="Amigos">
+									<br>
+									<div ng-repeat="amizade in $root.data.listaAmigos">
+										<div class="panel panel-default">
+											<div class="panel-body">
+												<p>
+													<strong>Nome: </strong>
+												<p style="text-indent: 1em;">{{amizade.amigo.nome}}</p>
+												</p>
+												<p>
+													<strong>Data de Início da Amizade: </strong>
+												<p style="text-indent: 1em;">{{amizade.dataInicioAmizade}}</p>
+												</p>
+												<p>
+													<strong>Status da Amizade: </strong>
+												<p style="text-indent: 1em;">{{amizade.statusDescricao}}</p>
+												</p>
 											</div>
 										</div>
+									</div>
 									</uib-tab> </uib-tabset>
 								</div>
 								<!-- Se o usuário estiver logado e for um cliente -->
@@ -141,26 +142,34 @@
 										</div>
 									</div>
 
-									</uib-tab> 
-									<uib-tab index="1" heading="Agenda">
-									</uib-tab> 
-									<uib-tab index="2" heading="Amigos">
-										<br>
+									</uib-tab> <uib-tab index="1" heading="Agenda"> </uib-tab> <uib-tab
+										index="2" heading="Amigos"> <br>
 									<div ng-repeat="amizade in $root.data.listaAmigos">
 										<div class="panel panel-default">
 											<div class="panel-body">
-												<p>
-													<strong>Nome: </strong>
+												<div class="col-md-4 col-sm-6 col-xs-12 vcenter">
+													<div class="text-center">
+														<img
+															src="${pageContext.request.contextPath}/images/pessoa-feliz.png"
+															class="avatar img-circle img-thumbnail" alt="avatar"
+															style="height: 150px; width: 150px;">
+													</div>
+												</div>
+												<!--/col-->
+												<div class="col-xs-8 col-sm-4 vcenter">
+													<p>
+														<strong>Nome: </strong>
 													<p style="text-indent: 1em;">{{amizade.amigo.nome}}</p>
-												</p>
-												<p>
-													<strong>Data de Início da Amizade: </strong>
+													</p>
+													<p>
+														<strong>Data de Início da Amizade: </strong>
 													<p style="text-indent: 1em;">{{amizade.dataInicioAmizade}}</p>
-												</p>
-												<p>
-													<strong>Status da Amizade: </strong>
+													</p>
+													<p>
+														<strong>Status da Amizade: </strong>
 													<p style="text-indent: 1em;">{{amizade.statusDescricao}}</p>
-												</p>
+													</p>
+												</div>
 											</div>
 										</div>
 									</div>

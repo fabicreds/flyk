@@ -1,0 +1,55 @@
+package com.tcc.flyk.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.json.JSONObject;
+import org.springframework.stereotype.Service;
+
+import com.tcc.flyk.entity.Amizade;
+import com.tcc.flyk.entity.Usuario;
+import com.tcc.flyk.persistence.impl.ClienteDAOImpl;
+import com.tcc.flyk.util.ClienteUtil;
+
+@Service
+public class AmizadeService {
+
+	@Resource
+	private ClienteUtil util;
+	
+	private ClienteDAOImpl cliDAO = new ClienteDAOImpl();
+	
+	
+	public String montarListaAmigos(String id){
+		List<Amizade> listaAmigos = new ArrayList<Amizade>();
+		
+		listaAmigos = cliDAO.consultarAmigosById(id);
+		buscarDadosAmigos(listaAmigos);
+		return mensagemSucesso(listaAmigos);
+	}
+	
+	private void buscarDadosAmigos(List<Amizade> listaAmigos) {
+			for (Amizade amizade : listaAmigos) {
+				if (amizade.getAmigo() != null) {
+					Usuario usuario = cliDAO.consultaLoginById(amizade.getAmigo().getId());
+					if (usuario != null) {
+						amizade.getAmigo().setNome(usuario.getNome());
+						amizade.getAmigo().setEmail(usuario.getEmail());
+						amizade.getAmigo().setUsuario(usuario.getUsuario());
+						amizade.getAmigo().setTipoCadastro(usuario.getTipoCadastro());
+					}
+				}
+		}
+
+	}
+	
+	private String mensagemSucesso(List<Amizade> listaAmigos) {
+		JSONObject jObjt = new JSONObject();
+		jObjt.put("retorno", "sucesso");
+		jObjt.put("listaAmigos", util.listaAmigosJSON(listaAmigos));
+
+		return jObjt.toString();
+	}
+}

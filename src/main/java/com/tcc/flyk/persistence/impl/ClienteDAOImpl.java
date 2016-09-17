@@ -705,7 +705,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 					// status_amizade
 					if (amigoDB.get("status_amizade") != null) {
-						if (amigoDB.getString("status_amizade") == "1") {
+						if (amigoDB.getString("status_amizade").equals("1")) {
 							amizade.setStatusEnum(StatusAmizadeEnum.ATIVA);
 						} else {
 							amizade.setStatusEnum(StatusAmizadeEnum.INATIVA);
@@ -1047,5 +1047,53 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			return null;
 		}
 
+	}
+
+	public List<Amizade> consultarAmigosById(String id) {
+		List<Amizade> amigos = new ArrayList<Amizade>();
+
+		DBCollection collection = db.getCollection("FLYK");
+		BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(id));
+		BasicDBObject fieldObject = new BasicDBObject();
+		fieldObject.put("amigos", 1);
+		
+		DBCursor cursor = collection.find(filtro, fieldObject);
+		DBObject resultado;
+
+		// Busca campos de resultado
+		if (cursor.hasNext()) {
+			resultado = cursor.next();
+			BasicDBList amigosDB = (BasicDBList) resultado.get("amigos");
+
+			BasicDBObject[] lightArr = amigosDB.toArray(new BasicDBObject[0]);
+			for (BasicDBObject amigoDB : lightArr) {
+				// shows each item from the lights array
+				System.out.println("id_amigo: " + amigoDB.get("id_amigo"));
+
+				Amizade amizade = new Amizade();
+				Cliente amigo = new Cliente();
+
+				// numero
+				amigo.setId(String.valueOf(amigoDB.get("id_amigo")));
+				amizade.setAmigo(amigo);
+
+				// data_amizade
+				if (amigoDB.get("data_amizade") != null) {
+					amizade.setDataInicioAmizade((Date) amigoDB.get("data_amizade"));
+				}
+
+				// status_amizade
+				if (amigoDB.get("status_amizade") != null) {
+					if (amigoDB.getString("status_amizade").equals("1")) {
+						amizade.setStatusEnum(StatusAmizadeEnum.ATIVA);
+					} else {
+						amizade.setStatusEnum(StatusAmizadeEnum.INATIVA);
+					}
+				}
+
+				amigos.add(amizade);
+			}
+		}
+		return amigos;
 	}
 }
