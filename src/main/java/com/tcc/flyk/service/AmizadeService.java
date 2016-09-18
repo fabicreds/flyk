@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.tcc.flyk.entity.Amizade;
 import com.tcc.flyk.entity.Usuario;
+import com.tcc.flyk.entity.enumerator.StatusAmizadeEnum;
 import com.tcc.flyk.persistence.impl.ClienteDAOImpl;
 import com.tcc.flyk.util.ClienteUtil;
 
@@ -33,12 +34,17 @@ public class AmizadeService {
 		if (listaAmigos != null) {
 			for (Amizade amizade : listaAmigos) {
 				if (amizade.getAmigo() != null) {
-					Usuario usuario = cliDAO.consultaLoginById(amizade.getAmigo().getId());
-					if (usuario != null) {
-						amizade.getAmigo().setNome(usuario.getNome());
-						amizade.getAmigo().setEmail(usuario.getEmail());
-						amizade.getAmigo().setUsuario(usuario.getUsuario());
-						amizade.getAmigo().setTipoCadastro(usuario.getTipoCadastro());
+					if (amizade.getStatusEnum() != StatusAmizadeEnum.INATIVA) {
+						Usuario usuario = cliDAO.consultaLoginById(amizade.getAmigo().getId());
+						if (usuario != null) {
+							amizade.getAmigo().setNome(usuario.getNome());
+							amizade.getAmigo().setEmail(usuario.getEmail());
+							amizade.getAmigo().setUsuario(usuario.getUsuario());
+							amizade.getAmigo().setTipoCadastro(usuario.getTipoCadastro());
+						}
+					} else {
+						//apenas enviar amizades com status ativo ou solicitada
+						listaAmigos.remove(amizade);
 					}
 				}
 			}

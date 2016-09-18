@@ -1,7 +1,7 @@
 <link href="https://fonts.googleapis.com/css?family=Amaranth"
 	rel="stylesheet">
 <body>
-	<div class="row" data-ng-init="init()">
+	<div class="row center-block" data-ng-init="init()">
 		<div ng-repeat="amizade in $root.data.listaAmigos">
 			<div class="panel panel-default">
 				<div class="panel-body">
@@ -10,11 +10,11 @@
 							<img
 								src="${pageContext.request.contextPath}/images/pessoa-feliz.png"
 								class="avatar img-circle img-thumbnail" alt="avatar"
-								style="height: 180px; width: 180px;">
+								style="height: 150px; width: 150px;">
 						</div>
 					</div>
 					<!--/col-->
-					<div class="col-xs-8 col-sm-4 vcenter">
+					<div class="col-md-3 col-sm-6 col-xs-12 vcenter">
 						<p>
 							<strong>Nome: </strong>
 						<p style="text-indent: 1em;">{{amizade.amigo.nome}}</p>
@@ -23,9 +23,29 @@
 							<strong>Data de Início da Amizade: </strong>
 						<p style="text-indent: 1em;">{{amizade.dataInicioAmizade}}</p>
 						</p>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12 vcenter"
+						style="text-align: center;">
 						<p>
 							<strong>Status da Amizade: </strong>
-						<p style="text-indent: 1em;">{{amizade.statusDescricao}}</p>
+						<p ng-if="amizade.status == 1">
+							<font color="green"> <span
+								class="glyphicon glyphicon-ok-sign"></span>
+								{{amizade.statusDescricao}}
+							</font>
+						</p>
+						<p ng-if="amizade.status == 2">
+							<font color="red"> <span
+								class="glyphicon glyphicon-remove-sign"></span>
+								{{amizade.statusDescricao}}
+							</font>
+						</p>
+						<p ng-if="amizade.status == 2">
+							<font color="blue"> <span
+								class="glyphicon glyphicon-question-sign"></span>
+								{{amizade.statusDescricao}}
+							</font>
+						</p>
 						</p>
 					</div>
 				</div>

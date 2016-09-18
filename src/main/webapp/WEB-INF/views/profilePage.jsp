@@ -3,10 +3,10 @@
 <body>
 	<form class="form-horizontal" name="inactivateForm" novalidate
 		role="form">
-		<div class="row" data-ng-init="init()">
+		<div class="row  center-block" data-ng-init="init()">
 			<div class="well panel panel-default">
 				<div class="panel-heading">
-					<h3>Perfil do Usuário</h3>
+					<h3>Perfil do Usuário - {{data.nome}}</h3>
 				</div>
 				<div class="panel-body">
 					<div class="row">
@@ -19,51 +19,49 @@
 							</div>
 						</div>
 						<!--/col-->
-						<div class="col-xs-8 col-sm-4 vcenter">
-							<form class="form-horizontal" name="inactivateForm" novalidate
-								role="form">
-								<h3>{{data.usuario}}</h3>
-								<p>
-									<strong>Nome: </strong>
-								<p style="text-indent: 1em;">{{data.nome}}</p>
-								</p>
-								<p>
-									<strong>Email: </strong>
-								<p style="text-indent: 1em;">{{data.email}}</p>
-								</p>
-								<p>
-									<strong>CPF/CNPJ: </strong>
-								<p style="text-indent: 1em;">{{data.cpf}}</p>
-								</p>
-								<p>
-									<strong>Nascimento: </strong>
-								<p style="text-indent: 1em;">{{data.nascimento}}</p>
-								</p>
-								<p>
-									<strong>Perfil: </strong>
-								<p style="text-indent: 1em;">{{data.perfil}}</p>
-								</p>
-								<p>
-									<strong>Telefone: </strong>
-								<div ng-repeat="telefone in $root.data.listaTelefone">
-									<p style="text-indent: 1em;">
-										{{telefone.categoriaDescricao}} - ({{telefone.ddd}})
-										{{telefone.numero}} - {{telefone.operadoraDescricao}}</p>
-								</div>
-								</p>
-								<p>
-									<strong>Endereco: </strong>
+						<div class="col-md-3 col-sm-6 col-xs-12 vcenter">
+							<p>
+								<strong>Usuário: </strong>
+							<p style="text-indent: 1em;">{{data.usuario}}</p>
+							</p>
+							<p>
+								<strong>Email: </strong>
+							<p style="text-indent: 1em;">{{data.email}}</p>
+							</p>
+							<p>
+								<strong>CPF/CNPJ: </strong>
+							<p style="text-indent: 1em;">{{data.cpf}}</p>
+							</p>
+							<p>
+								<strong>Nascimento: </strong>
+							<p style="text-indent: 1em;">{{data.nascimento}}</p>
+							</p>
+						</div>
+						<div class="col-md-4 col-sm-6 col-xs-12 vcenter">
+							<p>
+								<strong>Perfil: </strong>
+							<p style="text-indent: 1em;">{{data.perfil}}</p>
+							</p>
+							<p>
+								<strong>Telefone: </strong>
+							<div ng-repeat="telefone in $root.data.listaTelefone">
 								<p style="text-indent: 1em;">
-									{{data.endereco.logradouro}} , {{data.endereco.numero}} -
-									{{data.endereco.bairro}} <br>
-								</p>
-								<p style="text-indent: 1em;">{{data.endereco.cidade}} -
-									{{data.endereco.estado}} , {{data.endereco.cep}}</p>
-								</p>
+									{{telefone.categoriaDescricao}} - ({{telefone.ddd}})
+									{{telefone.numero}} - {{telefone.operadoraDescricao}}</p>
+							</div>
+							</p>
+							<p>
+								<strong>Endereco: </strong>
+							<p style="text-indent: 1em;">
+								{{data.endereco.logradouro}} , {{data.endereco.numero}} -
+								{{data.endereco.bairro}} <br>
+							</p>
+							<p style="text-indent: 1em;">{{data.endereco.cidade}} -
+								{{data.endereco.estado}} , {{data.endereco.cep}}</p>
+							</p>
 
 
 
-							</form>
 						</div>
 						<!-- 						<div class="col-xs-6 col-sm-3 vcenter""> -->
 						<!-- 							<div class="panel panel-default "> -->
@@ -93,8 +91,7 @@
 										heading="Serviços"> </uib-tab> <uib-tab index="1"
 										heading="Histórico">TAB2</uib-tab> <uib-tab index="2"
 										heading="Agenda">TAB3</uib-tab> <uib-tab index="3"
-										heading="Amigos">
-									<br>
+										heading="Amigos"> <br>
 									<div ng-repeat="amizade in $root.data.listaAmigos">
 										<div class="panel panel-default">
 											<div class="panel-body">
@@ -122,22 +119,26 @@
 									<div ng-repeat="compromisso in $root.data.agenda">
 										<div class="panel panel-default">
 											<div class="panel-body">
-												<p>
-													<strong>Data de Início: </strong>
-												<p style="text-indent: 1em;">{{compromisso.dataInicio}}</p>
-												</p>
-												<p>
-													<strong>Data de Fim: </strong>
-												<p style="text-indent: 1em;">{{compromisso.dataFim}}</p>
-												</p>
-												<p>
-													<strong>Prestador: </strong>
-												<p style="text-indent: 1em;">{{compromisso.contrato.prestador.nome}}</p>
-												</p>
-												<p>
-													<strong>Serviço: </strong>
-												<p style="text-indent: 1em;">{{compromisso.contrato.servico}}</p>
-												</p>
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<p>
+														<strong>Prestador: </strong>
+													<p style="text-indent: 1em;">{{compromisso.contrato.prestador.nome}}</p>
+													</p>
+													<p>
+														<strong>Serviço: </strong>
+													<p style="text-indent: 1em;">{{compromisso.contrato.servico}}</p>
+													</p>
+												</div>
+												<div class="col-md-4 col-sm-6 col-xs-12">
+													<p>
+														<strong>Data de Início: </strong>
+													<p style="text-indent: 1em;">{{compromisso.dataInicio}}</p>
+													</p>
+													<p>
+														<strong>Data de Fim: </strong>
+													<p style="text-indent: 1em;">{{compromisso.dataFim}}</p>
+													</p>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -156,7 +157,7 @@
 													</div>
 												</div>
 												<!--/col-->
-												<div class="col-xs-8 col-sm-4 vcenter">
+												<div class="col-md-3 col-sm-6 col-xs-12 vcenter">
 													<p>
 														<strong>Nome: </strong>
 													<p style="text-indent: 1em;">{{amizade.amigo.nome}}</p>
@@ -165,10 +166,31 @@
 														<strong>Data de Início da Amizade: </strong>
 													<p style="text-indent: 1em;">{{amizade.dataInicioAmizade}}</p>
 													</p>
+												</div>
+												<div class="col-md-3 col-sm-6 col-xs-12 vcenter"
+													style="text-align: center;">
 													<p>
 														<strong>Status da Amizade: </strong>
-													<p style="text-indent: 1em;">{{amizade.statusDescricao}}</p>
+													<p ng-if="amizade.status == 1">
+														<font color="green"> <span
+															class="glyphicon glyphicon-ok-sign"></span>
+															{{amizade.statusDescricao}}
+														</font>
 													</p>
+													<p ng-if="amizade.status == 2">
+														<font color="red"> <span
+															class="glyphicon glyphicon-remove-sign"></span>
+															{{amizade.statusDescricao}}
+														</font>
+													</p>
+													<p ng-if="amizade.status == 2">
+														<font color="blue"> <span
+															class="glyphicon glyphicon-question-sign"></span>
+															{{amizade.statusDescricao}}
+														</font>
+													</p>
+													</p>
+
 												</div>
 											</div>
 										</div>
