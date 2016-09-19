@@ -213,7 +213,7 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li class="link"><a ng-click="showSearchPage()"> <span
+						<li class="link"><a ng-click="showSearchPage()" ng-controller="searchPageCtrl"> <span
 								class="glyphicon glyphicon-search"></span> <span class="text">BUSCA</span>
 						</a></li>
 						<li class="link"><a ng-click="showProfilePage()"

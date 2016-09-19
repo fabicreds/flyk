@@ -91,9 +91,6 @@ flyk.controller("flykCtrl", function($rootScope, $scope, $location, $http,
 		$location.path('/adminPage');
 	};
 
-	$scope.showSearchPage = function() {
-		$location.path('/searchPage');
-	};
 
 	
 });

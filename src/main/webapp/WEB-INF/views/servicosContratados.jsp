@@ -3,9 +3,8 @@
 <body>
 	<div class="row center-block" data-ng-init="init()">
 		<div ng-repeat="compromisso in $root.data.listaServicosContratados">
-			<div class="panel panel-default">
-<!-- 				<div class="panel-body"> -->
-<!-- 				</div> -->
+			<div class="panel panel-primary">
+				<div class="panel-heading">Contrato </div>
 				<div class="panel-body">
 					<div class="col-md-6 col-sm-6 col-xs-12">
 						<p>

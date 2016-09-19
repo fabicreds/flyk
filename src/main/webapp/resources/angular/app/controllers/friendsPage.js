@@ -4,6 +4,7 @@ flyk.controller("friendsPageCtrl", function ($scope, $rootScope, $location, $htt
 		$rootScope.usuarioLogado = localStorage.getItem("usuarioLogado");
 		$rootScope.tipoUsuarioLogado = localStorage.getItem("tipoUsuarioLogado");
 		$rootScope.idUsuarioLogado = localStorage.getItem("idUsuarioLogado");
+		$rootScope.data = JSON.parse(localStorage.getItem("dadosCliente"));
     	$scope.showFriendsPage();
     }
 	

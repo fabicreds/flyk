@@ -142,6 +142,7 @@ flyk.controller("profilePageCtrl", function ($scope, $rootScope, $location, $htt
 					$rootScope.tipoUsuarioLogado = response.data.tipoCadastro;
 					$rootScope.idUsuarioLogado = response.data.cliente.id;
 					$rootScope.data = response.data.cliente;
+					localStorage.setItem("dadosCliente", JSON.stringify($rootScope.data));
 					$location.path('/profilePage');
 				} else {
 					$location.path('/profilePage');
