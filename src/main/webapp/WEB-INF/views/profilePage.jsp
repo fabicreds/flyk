@@ -89,7 +89,7 @@
 								<div ng-if="usuarioLogado !='' && tipoUsuarioLogado!=1">
 									<uib-tabset active="active"> 
 									<uib-tab index="0" 	heading="Serviços"> </uib-tab> 
-									<uib-tab index="1"  heading="Histórido de Contratos">
+									<uib-tab index="1"  heading="Histórico de Contratos">
 										<div ng-repeat="compromisso in $root.data.agenda">
 											<div class="panel panel-default">
 												<div class="panel-body">
@@ -175,7 +175,7 @@
 								<!-- ################################################## PAINEL DOS CLIENTES ##################################################							 -->
 								<div ng-if="usuarioLogado !='' && tipoUsuarioLogado==1">
 									<uib-tabset active="active"> 
-									<uib-tab index="0"	heading="Histórido de Contratos"> <br>
+									<uib-tab index="0"	heading="Histórico de Contratos"> <br>
 									<div ng-repeat="compromisso in $root.data.agenda">
 										<div class="panel panel-default">
 											<div class="panel-body">

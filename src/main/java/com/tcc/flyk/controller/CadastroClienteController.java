@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +17,6 @@ import com.tcc.flyk.service.ClienteService;
 import com.tcc.flyk.util.ClienteUtil;
 
 @Controller
-@RequestMapping(value = "/cadastroCliente")
 public class CadastroClienteController {
 
 	@Autowired
@@ -24,9 +24,19 @@ public class CadastroClienteController {
 
 	@Resource
 	private ClienteUtil clienteUtil;
+	
+	@RequestMapping(value = "/cadastroCliente",method = RequestMethod.GET)
+	public String iniciarTelaCadastro() {
+		return "cadastro";
+	}
+	
+	@RequestMapping(value = "/cadastro",method = RequestMethod.GET)
+	public String iniciarTelaCadastroCliente() {
+		return "cadastro";
+	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody String CadastrarNovoCliente(@RequestBody String JSONN) {
+	@RequestMapping(value = "/cadastroCliente", method = RequestMethod.POST)
+	public @ResponseBody String cadastrarNovoCliente(@RequestBody String JSONN) {
 		JSONObject objeto = new JSONObject(JSONN);
 
 		// Instancia um novo cliente
