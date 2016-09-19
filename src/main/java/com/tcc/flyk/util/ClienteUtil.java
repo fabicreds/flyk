@@ -75,7 +75,7 @@ public class ClienteUtil {
 			jObjt.put("endereco", endToJSON(cliente.getEndereco()));
 		}
 		if (cliente.getListaTelefone() != null) {
-			jObjt.put("listaTelefone", telefoneUtil.listaTelefoneJSON(cliente.getListaTelefone()));
+			//jObjt.put("listaTelefone", telefoneUtil.listaTelefoneJSON(cliente.getListaTelefone()));
 
 		}
 		if (cliente.getNascimento() != null) {
@@ -197,6 +197,8 @@ public class ClienteUtil {
 
 		if (!json.isNull("nome") && !json.getString("nome").isEmpty()) {
 			cli.setNome(json.getString("nome"));
+			
+			
 		}
 		if (!json.isNull("email") && !json.getString("email").isEmpty()) {
 			cli.setEmail(json.getString("email"));
@@ -220,15 +222,28 @@ public class ClienteUtil {
 				cli.setNascimento(null);
 			}
 		}
-		if (!json.isNull("telefone1") && !json.isNull("telefone2")) {
+		if (!json.isNull("telefone1") || !json.isNull("telefone2")) {
 			List<String> listaTelefones = new ArrayList<String>();
 			listaTelefones.add(json.get("telefone1").toString());
-			listaTelefones.add(json.get("telefone2").toString());
+			//listaTelefones.add(json.get("telefone2").toString());
 			cli.setListaTelefone(telefoneUtil.jsonToListaTelefone(listaTelefones));
 		}
+		
+		if (!json.isNull("id") && !json.getString("id").isEmpty()) {
+			cli.setCPF(json.getString("id"));
+		};
 
+		cli.setId(json.getString("id"));
+		//cli.setNome(json.getString("nome"));
+		cli.setEmail(json.getString("email"));
+		//cli.setApelido(json.getString("apelido"));
+		//cli.setSenha(json.getString("senha"));
+		cli.setCPF(json.getString("cpf"));
+		System.out.println("JSONNN do to Cliente" + json.toString() + cli.getId());
+
+		
 		// DADOS DO ENDEREÇO
-		cli.setEndereco(enderecoUtil.toEndero(json));
+		//cli.setEndereco(enderecoUtil.toEndero(json));
 
 		// 'imagem' :$scope.imageSrc
 		if (!json.isNull("imagem")) {

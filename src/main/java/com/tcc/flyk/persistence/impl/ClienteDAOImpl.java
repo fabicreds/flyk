@@ -1034,6 +1034,13 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 			}
 
+			updateQuery.append("$set", new BasicDBObject().append("CPF", c.getCPF()).append("email", c.getEmail())
+					//.append("telefones", telefones).append("logradouro", c.getEndereco().getLogradouro())
+					//.append("bairro", c.getEndereco().getBairro()).append("cep", c.getEndereco().getCep())
+					//.append("cidade", c.getEndereco().getCidade()).append("estado", c.getEndereco().getEstado())
+					//.append("complemento", c.getEndereco().getComplemento())
+					//.append("numero", c.getEndereco().getNumero())
+					);
 			BasicDBObject searchQuery = new BasicDBObject();
 			searchQuery.append("_id", new ObjectId(cli.getId()));
 

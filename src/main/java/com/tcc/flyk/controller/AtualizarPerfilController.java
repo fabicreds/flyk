@@ -34,6 +34,8 @@ public class AtualizarPerfilController {
 			
 			ClienteUtil util = new ClienteUtil();
 			
+			System.out.println("PERFIL" + perfil.toString());
+			
 			cli = atualizaPerfilService.atualizaPerfil(dadosPerfil.getJSONObject("cliente").getString("id"), dadosPerfil);		
 		
 			
@@ -41,13 +43,17 @@ public class AtualizarPerfilController {
 			
 			Cliente cliAtualizado = new Cliente();
 			
-			cliAtualizado = util.toCliente(dadosPerfil);
+			System.out.println("dadosPerfil" + dadosPerfil.toString());
+			
+			cliAtualizado = util.toCliente(dadosPerfil.getJSONObject("cliente"));
 			
 			JSONObject jsonCliente = new JSONObject();
 			
 			jsonCliente.put("cliente", util.toJSON(cliAtualizado));
 			
-			return jsonCliente.toString();
+			//return jsonCliente.toString();
+			
+			return perfil.toString();
 			
 
 		}
