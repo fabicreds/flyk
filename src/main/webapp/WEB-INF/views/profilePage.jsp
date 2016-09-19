@@ -84,38 +84,98 @@
 
 					<div class="row">
 						<div class="panel panel-default">
-							<!-- Se o usuário estiver logado e for um prestador -->
+							<!-- ################################################## PAINEL DOS PRESTADORES ##################################################							 -->
 							<div class="panel-heading">
 								<div ng-if="usuarioLogado !='' && tipoUsuarioLogado!=1">
-									<uib-tabset active="active"> <uib-tab index="0"
-										heading="Serviços"> </uib-tab> <uib-tab index="1"
-										heading="Histórico">TAB2</uib-tab> <uib-tab index="2"
-										heading="Agenda">TAB3</uib-tab> <uib-tab index="3"
-										heading="Amigos"> <br>
+									<uib-tabset active="active"> 
+									<uib-tab index="0" 	heading="Serviços"> </uib-tab> 
+									<uib-tab index="1"  heading="Histórido de Contratos">
+										<div ng-repeat="compromisso in $root.data.agenda">
+											<div class="panel panel-default">
+												<div class="panel-body">
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<p>
+															<strong>Prestador: </strong>
+														<p style="text-indent: 1em;">{{compromisso.contrato.prestador.nome}}</p>
+														</p>
+														<p>
+															<strong>Serviço: </strong>
+														<p style="text-indent: 1em;">{{compromisso.contrato.servico}}</p>
+														</p>
+													</div>
+													<div class="col-md-4 col-sm-6 col-xs-12">
+														<p>
+															<strong>Data de Início: </strong>
+														<p style="text-indent: 1em;">{{compromisso.dataInicio}}</p>
+														</p>
+														<p>
+															<strong>Data de Fim: </strong>
+														<p style="text-indent: 1em;">{{compromisso.dataFim}}</p>
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</uib-tab> 
+									<uib-tab index="2"  heading="Histórico de Serviços Contratados">TAB3</uib-tab>
+<!-- 									<uib-tab index="3"  heading="Agenda">TAB3</uib-tab>  -->
+									<uib-tab index="4" 	heading="Amigos" ng-if="data.listaAmigos!=null"> <br>
 									<div ng-repeat="amizade in $root.data.listaAmigos">
 										<div class="panel panel-default">
 											<div class="panel-body">
-												<p>
-													<strong>Nome: </strong>
-												<p style="text-indent: 1em;">{{amizade.amigo.nome}}</p>
-												</p>
-												<p>
-													<strong>Data de Início da Amizade: </strong>
-												<p style="text-indent: 1em;">{{amizade.dataInicioAmizade}}</p>
-												</p>
-												<p>
-													<strong>Status da Amizade: </strong>
-												<p style="text-indent: 1em;">{{amizade.statusDescricao}}</p>
-												</p>
+												<div class="col-md-4 col-sm-6 col-xs-12 vcenter">
+													<div class="text-center">
+														<img
+															src="${pageContext.request.contextPath}/images/pessoa-feliz.png"
+															class="avatar img-circle img-thumbnail" alt="avatar"
+															style="height: 150px; width: 150px;">
+													</div>
+												</div>
+												<!--/col-->
+												<div class="col-md-3 col-sm-6 col-xs-12 vcenter">
+													<p>
+														<strong>Nome: </strong>
+													<p style="text-indent: 1em;">{{amizade.amigo.nome}}</p>
+													</p>
+													<p>
+														<strong>Data de Início da Amizade: </strong>
+													<p style="text-indent: 1em;">{{amizade.dataInicioAmizade}}</p>
+													</p>
+												</div>
+												<div class="col-md-3 col-sm-6 col-xs-12 vcenter"
+													style="text-align: center;">
+													<p>
+														<strong>Status da Amizade: </strong>
+													<p ng-if="amizade.status == 1">
+														<font color="green"> <span
+															class="glyphicon glyphicon-ok-sign"></span>
+															{{amizade.statusDescricao}}
+														</font>
+													</p>
+													<p ng-if="amizade.status == 2">
+														<font color="red"> <span
+															class="glyphicon glyphicon-remove-sign"></span>
+															{{amizade.statusDescricao}}
+														</font>
+													</p>
+													<p ng-if="amizade.status == 2">
+														<font color="blue"> <span
+															class="glyphicon glyphicon-question-sign"></span>
+															{{amizade.statusDescricao}}
+														</font>
+													</p>
+													</p>
+
+												</div>
 											</div>
 										</div>
 									</div>
 									</uib-tab> </uib-tabset>
 								</div>
-								<!-- Se o usuário estiver logado e for um cliente -->
+								<!-- ################################################## PAINEL DOS CLIENTES ##################################################							 -->
 								<div ng-if="usuarioLogado !='' && tipoUsuarioLogado==1">
-									<uib-tabset active="active"> <uib-tab index="0"
-										heading="Serviços Contratados"> <br>
+									<uib-tabset active="active"> 
+									<uib-tab index="0"	heading="Histórido de Contratos"> <br>
 									<div ng-repeat="compromisso in $root.data.agenda">
 										<div class="panel panel-default">
 											<div class="panel-body">
@@ -143,8 +203,9 @@
 										</div>
 									</div>
 
-									</uib-tab> <uib-tab index="1" heading="Agenda"> </uib-tab> <uib-tab
-										index="2" heading="Amigos"> <br>
+									</uib-tab> <!-- 									<uib-tab index="1" heading="Agenda"> </uib-tab>  -->
+									<uib-tab index="2" heading="Amigos"
+										ng-if="data.listaAmigos!=null"> <br>
 									<div ng-repeat="amizade in $root.data.listaAmigos">
 										<div class="panel panel-default">
 											<div class="panel-body">

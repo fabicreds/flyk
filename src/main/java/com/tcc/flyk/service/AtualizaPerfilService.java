@@ -1,5 +1,7 @@
 package com.tcc.flyk.service;
 
+import javax.annotation.Resource;
+
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -13,19 +15,15 @@ public class AtualizaPerfilService {
 
 
 	private ClienteDAO cliDAO = new ClienteDAOImpl();
-	private ClienteUtil cUil = new ClienteUtil();
+	
+	@Resource
+	private ClienteUtil clienteUtil;
 	
 	public Cliente atualizaPerfil(String id, JSONObject jsonCli) {
 
-		ClienteDAO cliDAO = new ClienteDAOImpl();
-		Cliente cli = new Cliente();
-		Cliente JSONToCli = new Cliente();
-		JSONToCli = cUil.toCliente(jsonCli);
+		Cliente JSONToCli = clienteUtil.toCliente(jsonCli.getJSONObject("cliente"));
 		System.out.println("jsonCli" + jsonCli);
-		
-		cli = cliDAO.atualizaCliente(id, JSONToCli);
-
-		return cli;
+		return cliDAO.atualizaCliente(id, JSONToCli);
 
 	}
 }

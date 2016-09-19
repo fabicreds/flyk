@@ -32,7 +32,7 @@ public class EnderecoUtil {
 		return jObjt;
 	}
 	
-	public Endereco toEndero(JSONObject json){
+	public Endereco toEndereco(JSONObject json){
 		Endereco endereco = new Endereco();
 		if (!json.isNull("cep")) {
 			endereco.setCep(json.getString("cep"));

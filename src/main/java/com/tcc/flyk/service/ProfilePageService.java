@@ -11,11 +11,13 @@ import com.tcc.flyk.entity.Amizade;
 import com.tcc.flyk.entity.Categoria;
 import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Compromisso;
+import com.tcc.flyk.entity.Prestador;
 import com.tcc.flyk.entity.Usuario;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.persistence.impl.CategoriaDAOImpl;
 import com.tcc.flyk.persistence.impl.ClienteDAOImpl;
 import com.tcc.flyk.util.ClienteUtil;
+import com.tcc.flyk.util.PrestadorUtil;
 
 @Service
 public class ProfilePageService {
@@ -25,24 +27,39 @@ public class ProfilePageService {
 	private CategoriaDAOImpl categoriaDAO = new CategoriaDAOImpl();
 
 	@Resource
-	private ClienteUtil util;
+	private ClienteUtil clienteUtil;
+
+	@Resource
+	private PrestadorUtil prestadorUtil;
+	
+	private List<Categoria> listaCategoriasCadastradas;
 
 	public String montarDadosPerfil(String id, TipoCadastroEnum tipoCadastro) {
-		List<Categoria> listaCategoriasCadastradas = categoriaDAO.consultarTodasCategorias();
-		Cliente cliente = new Cliente();
+		listaCategoriasCadastradas = categoriaDAO.consultarTodasCategorias();
+
 		if (tipoCadastro == TipoCadastroEnum.CLIENTE) {
+			Cliente cliente = new Cliente();
 			cliente = cliDAO.consultaClientePorId(id);
+			// buscando os detalhes dos Amigos
+			buscarDadosAmigos(cliente);
+			// buscando os detalhes do servicos contratados
+			buscarDadosContratos(cliente);
+			
+			return mensagemSucesso(cliente);
 		} else {
 			// busca pelos Dados do Prestador
-			// Prestador prestador = new Prestador();
-			// prestador = prestadorDAO.consultaPrestadorPorId(id);
-			cliente = cliDAO.consultaClientePorId(id);
+			Prestador prestador = new Prestador();
+			prestador = cliDAO.consultaPrestadorPorId(id);
+			// buscando os detalhes dos servicos do prestador
+			buscarListaServicos(prestador);
+			// buscando os detalhes dos Amigos
+			buscarDadosAmigos(prestador);
+			// buscando os detalhes dos servicos contratados pelo prestador
+			buscarDadosContratos(prestador);
+			
+			return mensagemSucesso(prestador);
 		}
-		// buscando os detalhes dos Amigos
-		buscarDadosAmigos(cliente);
-		// buscando os detalhes do servicos contratados
-		buscarDadosServicosContratados(cliente, listaCategoriasCadastradas);
-		return mensagemSucesso(cliente);
+
 	}
 
 	private String mensagemSucesso(Cliente cliente) {
@@ -51,9 +68,17 @@ public class ProfilePageService {
 		jObjt.put("usuario", cliente.getEmail());
 		jObjt.put("tipoCadastro", cliente.getTipoCadastro().getCodigo());
 		jObjt.put("tipoCadastroDescricao", cliente.getTipoCadastro().getDescricao());
+		jObjt.put("cliente", clienteUtil.toJSON(cliente));
+		return jObjt.toString();
+	}
 
-		jObjt.put("cliente", util.toJSON(cliente));
-
+	private String mensagemSucesso(Prestador prestador) {
+		JSONObject jObjt = new JSONObject();
+		jObjt.put("retorno", "sucesso");
+		jObjt.put("usuario", prestador.getEmail());
+		jObjt.put("tipoCadastro", prestador.getTipoCadastro().getCodigo());
+		jObjt.put("tipoCadastroDescricao", prestador.getTipoCadastro().getDescricao());
+		jObjt.put("cliente", prestadorUtil.toJSON(prestador));
 		return jObjt.toString();
 	}
 
@@ -74,7 +99,7 @@ public class ProfilePageService {
 
 	}
 
-	private void buscarDadosServicosContratados(Cliente cliente, List<Categoria> listaCategoriasCadastradas) {
+	private void buscarDadosContratos(Cliente cliente) {
 
 		if (cliente.getAgenda() != null) {
 			for (Compromisso compromisso : cliente.getAgenda()) {
@@ -110,6 +135,32 @@ public class ProfilePageService {
 									compromisso.getContrato().getServico().setFim_vigencia(cat.getFim_vigencia());
 								}
 							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private void buscarListaServicos(Prestador prestador) {
+		if (prestador.getListaServicos() != null && listaCategoriasCadastradas != null) {
+			for (Categoria servico : prestador.getListaServicos()) {
+				for (Categoria cat : listaCategoriasCadastradas) {
+					if (cat.getId().equals(servico.getId())) {
+						if (cat.getNome_categoria() != null) {
+							servico.setNome_categoria(cat.getNome_categoria());
+						}
+						if (cat.getDescricao_categoria() != null) {
+							servico.setDescricao_categoria(cat.getDescricao_categoria());
+						}
+						if (cat.getStatus_categoria() != null) {
+							servico.setStatus_categoria(cat.getStatus_categoria());
+						}
+						if (cat.getInicio_vigencia() != null) {
+							servico.setInicio_vigencia(cat.getInicio_vigencia());
+						}
+						if (cat.getFim_vigencia() != null) {
+							servico.setFim_vigencia(cat.getFim_vigencia());
 						}
 					}
 				}
