@@ -70,7 +70,8 @@ flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal, f
 			 $scope.confirmPassword="";
 			 $scope.CPF="";
 			 $scope.dateBirth="";
-			 $scope.telephone="";
+			 $scope.telephone1="";
+			 $scope.telephone2="";
 			 $scope.prestador.type="";
 			 $scope.prestador.flag="";
 			 $scope.address.cep="";
@@ -81,9 +82,8 @@ flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal, f
 			 $scope.address.cidade="";
 			 $scope.address.estado="";
 			 $scope.address.pais="";
-			 $scope.imageProfile = "";
-			 $scope.messageErroCadastro = "";
-			 $scope.messageSucessoCadastro = "";
+			 $scope.imageSrc = "";
+			 
 			 
 		}
 
@@ -101,7 +101,8 @@ flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal, f
 					'datanascimento':  $scope.dateBirth,
 					'telefone1' : $scope.telephone1,
 					'telefone2' : $scope.telephone2,
-					'cep' : $scope.address.cep,
+					'prestador' : $scope.prestador,
+					'cep' : $scope.cep,
 					'logradouro' : $scope.address.logradouro,
 					'numero' : $scope.address.numero,
 					'comp' : $scope.address.comp,
@@ -109,8 +110,6 @@ flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal, f
 					'cidade' : $scope.address.cidade,
 					'estado' : $scope.address.estado,
 					'pais' : $scope.address.pais,
-					'indicadorPrestador' : $scope.prestador.flag,
-					'tipoPrestador' : $scope.prestador.type,
 					'imagem' :$scope.imageSrc
 				}
 			}).then(function(response) {
@@ -122,7 +121,7 @@ flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal, f
 					$scope.messageErroCadastro = "";
 					$scope.messageSucessoCadastro = response.data.mensagem;
 				}
-				$scope.fullName="";
+				 $scope.fullName="";
 				 $scope.email="";
 				 $scope.nickname="";
 				 $scope.password="";
@@ -131,15 +130,22 @@ flyk.controller("cadastroCtrl", function ($scope, $location, $http, $uibModal, f
 				 $scope.dateBirth="";
 				 $scope.telephone1="";
 				 $scope.telephone2="";
-				 $scope.prestador.type="";
-				 $scope.prestador.flag="";
-				 $scope.address = "";
-				 $scope.imageProfile = "";
+				 $scope.address.cep="";
+				 $scope.address.logradouro="";
+				 $scope.address.numero="";
+				 $scope.address.comp="";
+				 $scope.address.bairro="";
+				 $scope.address.cidade="";
+				 $scope.address.estado="";
+				 $scope.address.pais="";
+				 $scope.imageSrc="";
+				
 			}, function(response) {
 				// fail case
 				console.log(response);
 				$scope.message = response;
 			});
+
 			
 		};
 		
