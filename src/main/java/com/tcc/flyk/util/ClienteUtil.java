@@ -84,9 +84,9 @@ public class ClienteUtil {
 		if (cliente.getApelido() != null) {
 			jObjt.put("apelido", cliente.getApelido());
 		}
-		if (cliente.getAgenda() != null) {
+		if (cliente.getListaServicosContratados() != null) {
 			jObjt.put("numServicosContratados", cliente.getQtdeServicosContratados());
-			jObjt.put("agenda", agendaJSON(cliente.getAgenda()));
+			jObjt.put("listaServicosContratados", listaServicosContratadosJSON(cliente.getListaServicosContratados()));
 		}
 		if (cliente.getStatus() != null) {
 			jObjt.put("status", cliente.getStatus());
@@ -151,11 +151,11 @@ public class ClienteUtil {
 		return jObjt;
 	}
 
-	public JSONObject agendaJSON(List<Compromisso> agenda) {
+	public JSONObject listaServicosContratadosJSON(List<Compromisso> listaServicosContratados) {
 		JSONObject jObjt = new JSONObject();
-		if (agenda != null) {
+		if (listaServicosContratados != null) {
 			int i = 0;
-			for (Compromisso compromisso : agenda) {
+			for (Compromisso compromisso : listaServicosContratados) {
 				JSONObject jObjt1 = compromissoUtil.toJSON(compromisso);
 				jObjt.put("compromisso" + i, jObjt1);
 				i++;
@@ -220,18 +220,18 @@ public class ClienteUtil {
 				cli.setNascimento(null);
 			}
 		}
-		List<String> listaTelefones = new ArrayList<String>();
+		List<JSONObject> listaTelefones = new ArrayList<JSONObject>();
 		if (!json.isNull("telefone1")) {
-			listaTelefones.add(json.get("telefone1").toString());
+			listaTelefones.add((JSONObject) json.get("telefone1"));
 		}
 		if (!json.isNull("telefone2")) {
-			listaTelefones.add(json.get("telefone2").toString());
+			listaTelefones.add((JSONObject) json.get("telefone2"));
 		}
 		if (!listaTelefones.isEmpty()) {
 			cli.setListaTelefone(telefoneUtil.jsonToListaTelefone(listaTelefones));
 		}
 
-		// DADOS DO ENDEREÇO
+		// DADOS DO ENDEREï¿½O
 		if (!json.isNull("endereco")) {
 			JSONObject enderecoJSON = (JSONObject) json.get("endereco");
 			if (enderecoJSON != null) {

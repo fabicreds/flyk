@@ -1,18 +1,10 @@
 package com.tcc.flyk.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tcc.flyk.entity.Cliente;
-import com.tcc.flyk.entity.Endereco;
-import com.tcc.flyk.entity.Telefone;
 import com.tcc.flyk.entity.Usuario;
-import com.tcc.flyk.entity.enumerator.CategoriaTelefoneEnum;
-import com.tcc.flyk.entity.enumerator.OperadoraEnum;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.entity.form.EfetuarLoginForm;
 import com.tcc.flyk.persistence.AdministradorDAO;
@@ -25,36 +17,26 @@ public class EfetuarLoginService {
 	private AdministradorDAO admDAO = new AdministradorDAOImpl();
 	private ClienteDAOImpl cliDAO = new ClienteDAOImpl();
 
-	
-	
 	@Autowired
 	private ProfilePageService profilePageService;
 
 	public String efetuarLogin(EfetuarLoginForm form) {
 		try {
 
-			Usuario usuario = new Usuario();			
-			
-	
+			Usuario usuario = new Usuario();
+
 			usuario = admDAO.consultaUsuarioAdministrador(form.getEmail());
-			
-		
-			
-			
-			
-			
-			
 
 			if (usuario == null) {
 				usuario = cliDAO.consultaLogin(form.getEmail());
 
 				if (usuario == null)
-					return mensagemErro("Usuário ou senha incorreto!");
+					return mensagemErro("Usuï¿½rio ou senha incorreto!");
 			}
 
 			if (!usuario.isAtivo()) {
 				// usuario inativo
-				return mensagemErro("Usuário inativo!");
+				return mensagemErro("UsuÃ¡rio inativo!");
 			} else {
 				if (form.getSenha().equals(usuario.getSenha())) {
 					// usuario autenticado com sucesso
@@ -64,7 +46,7 @@ public class EfetuarLoginService {
 					return mensagemSucesso(usuario);
 				} else {
 					// senha incorreta
-					return mensagemErro("Usuário ou senha incorreto!");
+					return mensagemErro("UsÃ¡rio ou senha incorreto!");
 				}
 			}
 
@@ -89,9 +71,8 @@ public class EfetuarLoginService {
 		jObjt.put("usuario", usuario.getUsuario());
 		jObjt.put("tipoCadastro", usuario.getTipoCadastro().getCodigo());
 		jObjt.put("tipoCadastroDescricao", usuario.getTipoCadastro().getDescricao());
-		jObjt.put("id", usuario.getId());
+		jObjt.put("idUsuario", usuario.getId());
 		return jObjt.toString();
 	}
 
-	
 }

@@ -1,5 +1,7 @@
 package com.tcc.flyk.util;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -23,6 +25,14 @@ public class PrestadorUtil {
 	
 	@Resource
 	private CompromissoUtil compromissoUtil;
+	
+	@Resource
+	private TelefoneUtil telefoneUtil;
+
+	@Resource
+	private EnderecoUtil enderecoUtil;
+	
+	private SimpleDateFormat formatoSimples = new SimpleDateFormat("dd/MM/yyyy");
 	
 	public JSONObject toJSON(Prestador prestador) {
 		JSONObject jObjt = new JSONObject();
@@ -57,7 +67,7 @@ public class PrestadorUtil {
 			int i = 0;
 			for (Categoria servico : listaServicos) {
 				JSONObject jObjt1 = new JSONObject();
-				jObjt1.put("descricao", servico.getDescricao_categoria());
+				jObjt1.put("descricao", servico.getDescricaoCategoria());
 				jObjt.put("servico" + i, jObjt1);
 				i++;
 			}
@@ -102,5 +112,60 @@ public class PrestadorUtil {
 			}
 		}
 		return jObjt;
+	}
+	
+	public Prestador toPrestador(JSONObject json) {
+		Prestador prestador = new Prestador();
+
+		if (!json.isNull("nome") && !json.getString("nome").isEmpty()) {
+			prestador.setNome(json.getString("nome"));
+		}
+		if (!json.isNull("email") && !json.getString("email").isEmpty()) {
+			prestador.setEmail(json.getString("email"));
+		}
+		if (!json.isNull("apelido") && !json.getString("apelido").isEmpty()) {
+			prestador.setApelido(json.getString("apelido"));
+		}
+		if (!json.isNull("senha") && !json.getString("senha").isEmpty()) {
+			prestador.setSenha(json.getString("senha"));
+		}
+		if (!json.isNull("cpf") && !json.getString("cpf").isEmpty()) {
+			prestador.setCPF(json.getString("cpf"));
+		}
+		if (!json.isNull("tipoCadastro")) {
+			prestador.setTipoCadastro(json.getInt("tipoCadastro"));
+		}
+		if (!json.isNull("datanascimento") && !json.getString("datanascimento").isEmpty()) {
+			try {
+				prestador.setNascimento(formatoSimples.parse(json.getString("datanascimento")));
+			} catch (Exception e) {
+				prestador.setNascimento(null);
+			}
+		}
+		List<JSONObject> listaTelefones = new ArrayList<JSONObject>();
+		if (!json.isNull("telefone1")) {
+			listaTelefones.add((JSONObject) json.get("telefone1"));
+		}
+		if (!json.isNull("telefone2")) {
+			listaTelefones.add((JSONObject) json.get("telefone2"));
+		}
+		if (!listaTelefones.isEmpty()) {
+			prestador.setListaTelefone(telefoneUtil.jsonToListaTelefone(listaTelefones));
+		}
+
+		// DADOS DO ENDERE�O
+		if (!json.isNull("endereco")) {
+			JSONObject enderecoJSON = (JSONObject) json.get("endereco");
+			if (enderecoJSON != null) {
+				prestador.setEndereco(enderecoUtil.toEndereco(enderecoJSON));
+			}
+		}
+
+		// 'imagem' :$scope.imageSrc
+		if (!json.isNull("imagem")) {
+			prestador.setFotoPerfil(json.getString("imagem"));
+		}
+
+		return prestador;
 	}
 }

@@ -54,8 +54,10 @@
 	src="${pageContext.request.contextPath}/resources/angular/app/controllers/atualizaPerfil.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/controllers/searchPage.js"></script>
-	<script
+<script
 	src="${pageContext.request.contextPath}/resources/angular/app/controllers/friendsPage.js"></script>
+	<script
+	src="${pageContext.request.contextPath}/resources/angular/app/controllers/servicosContratados.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/uploadFactory.js"></script>
 <script
@@ -214,20 +216,23 @@
 						<li class="link"><a ng-click="showSearchPage()"> <span
 								class="glyphicon glyphicon-search"></span> <span class="text">BUSCA</span>
 						</a></li>
-						<li class="link"><a ng-click="showProfilePage()" ng-controller="profilePageCtrl"> <span
+						<li class="link"><a ng-click="showProfilePage()"
+							ng-controller="profilePageCtrl"> <span
 								class="glyphicon glyphicon-user"></span> <span class="text">PERFIL</span>
 						</a></li>
-						<li class="link"><a ng-click="showFriendsPage()" ng-controller="friendsPageCtrl"> <span
+						<li class="link"><a ng-click="showFriendsPage()"
+							ng-controller="friendsPageCtrl"> <span
 								class="glyphicon glyphicon-heart-empty"></span> <span
 								class="text">AMIGOS</span>
 						</a></li>
-						<li class="link"><a> <span
-								class="glyphicon glyphicon-list-alt"></span> 
-								<span class="text">SERVIÇOS CONTRATADOS</span>
+						<li class="link"><a ng-click="showServicosContratados()"
+							ng-controller="servicosContratadosCtrl"> <span
+								class="glyphicon glyphicon-list-alt"></span> <span class="text">SERVIÇOS
+									CONTRATADOS</span>
 						</a></li>
 						<li class="link" ng-if="tipoUsuarioLogado!=1"><a> <span
-								class="glyphicon glyphicon-wrench"></span> 
-								<span class="text">SERVIÇOS PRESTADOS</span>
+								class="glyphicon glyphicon-wrench"></span> <span class="text">SERVIÇOS
+									PRESTADOS</span>
 						</a></li>
 
 					</ul>

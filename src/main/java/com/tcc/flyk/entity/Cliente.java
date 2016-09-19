@@ -34,7 +34,7 @@ public class Cliente {
 
 	private String apelido;
 
-	private List<Compromisso> agenda;
+	private List<Compromisso> listaServicosContratados;
 
 	private String status;
 
@@ -146,12 +146,12 @@ public class Cliente {
 		this.apelido = apelido;
 	}
 
-	public List<Compromisso> getAgenda() {
-		return agenda;
+	public List<Compromisso> getListaServicosContratados() {
+		return listaServicosContratados;
 	}
 
-	public void setAgenda(List<Compromisso> agenda) {
-		this.agenda = agenda;
+	public void setListaServicosContratados(List<Compromisso> listaServicosContratados) {
+		this.listaServicosContratados = listaServicosContratados;
 	}
 
 	public String getStatus() {
@@ -223,8 +223,8 @@ public class Cliente {
 
 	public int getQtdeServicosContratados() {
 		int qtde = 0;
-		if (this.agenda != null) {
-			for (Compromisso compromisso : this.agenda) {
+		if (this.listaServicosContratados != null) {
+			for (Compromisso compromisso : this.listaServicosContratados) {
 				if (!compromisso.isIndicadorFerias()) {
 					qtde++;
 				}

@@ -49,7 +49,7 @@ public class Tests {
 		privacidade.setExibeTelefone(PrivacidadeEnum.PUBLICO);
 		pessoa.setPrivacidade(privacidade);
 
-		//endereço
+		//endereï¿½o
 		Endereco endereco = new Endereco();
 		endereco.setLogradouro("Rua das tulipas");
 		endereco.setNumero(123);
@@ -62,12 +62,12 @@ public class Tests {
 		//telefones
 		Telefone tel1 = new Telefone();
 		tel1.setCategoriaTelefone(CategoriaTelefoneEnum.MOVEL);
-		tel1.setNumero(1234567890);
+		tel1.setNumero("1234567890");
 		tel1.setOperadora(OperadoraEnum.CLARO);
 		tel1.setDdd(12);
 		Telefone tel2 = new Telefone();
 		tel2.setCategoriaTelefone(CategoriaTelefoneEnum.FIXO);
-		tel2.setNumero(987654382);
+		tel2.setNumero("987654382");
 
 		List<Telefone> listaTelefone = new ArrayList<Telefone>();
 		listaTelefone.add(tel1);
@@ -98,7 +98,7 @@ public class Tests {
 		//Servicos contratados
 		List<Compromisso> servicosContratados = new ArrayList<Compromisso>();
 		Compromisso servico1 = new Compromisso();
-		Contrato contrato1 = new Contrato(); //Contrato para adicionar no serviço
+		Contrato contrato1 = new Contrato(); //Contrato para adicionar no serviï¿½o
 		Prestador prestadorDoServico1 = new Prestador();
 		prestadorDoServico1.setId("57d8739746a22e245858a9ca");
 		contrato1.setPrestador(prestadorDoServico1);
@@ -125,7 +125,7 @@ public class Tests {
 		
 		
 		Compromisso servico2 = new Compromisso();
-		Contrato contrato2 = new Contrato(); //Contrato para adicionar no serviço
+		Contrato contrato2 = new Contrato(); //Contrato para adicionar no serviï¿½o
 		Prestador prestadorDoServico2 = new Prestador();
 		prestadorDoServico2.setId("57d873bb46a22e0d445b7ed5");
 		contrato2.setPrestador(prestadorDoServico1);
@@ -151,10 +151,10 @@ public class Tests {
 		servicosContratados.add(servico1);
 		servicosContratados.add(servico2);
 		
-		pessoa.setAgenda(servicosContratados);
+		pessoa.setListaServicosContratados(servicosContratados);
 	
 		
-		//Recomendações dadas a outro usuário
+		//Recomendaï¿½ï¿½es dadas a outro usuï¿½rio
 		List<Prestador> listaPrestadoresRecomendados = new ArrayList<Prestador>();
 		Prestador recomendado1 = new Prestador();
 		recomendado1.setId("idprestador12394e0e9309d");
@@ -171,13 +171,13 @@ public class Tests {
 		scrap1.setData(new Date());
 		scrap1.setidUsuario("f0943jf043jt09349j");
 		scrap1.setflagEnviadoRecebido("E");
-	    scrap1.setMsg("olá");
+	    scrap1.setMsg("olï¿½");
 	    
 		Conversa scrap2 = new Conversa();
 		scrap2.setData(new Date());
 		scrap2.setidUsuario("gh98hjf03093j0f9309f");
 		scrap1.setflagEnviadoRecebido("R");
-	    scrap2.setMsg("Olá " + pessoa.getEmail());
+	    scrap2.setMsg("Olï¿½ " + pessoa.getEmail());
 	    
 	    List<Conversa> listaConversa = new ArrayList<Conversa>();
 
@@ -218,7 +218,7 @@ public class Tests {
 		privacidade.setExibeTelefone(PrivacidadeEnum.PUBLICO);
 		pessoa.setPrivacidade(privacidade);
 
-		//endereço
+		//endereï¿½o
 		Endereco endereco = new Endereco();
 		endereco.setLogradouro("Rua das tulipas");
 		endereco.setNumero(123);
@@ -231,12 +231,12 @@ public class Tests {
 		//telefones
 		Telefone tel1 = new Telefone();
 		tel1.setCategoriaTelefone(CategoriaTelefoneEnum.MOVEL);
-		tel1.setNumero(1234567890);
+		tel1.setNumero("1234567890");
 		tel1.setOperadora(OperadoraEnum.CLARO);
 		tel1.setDdd(12);
 		Telefone tel2 = new Telefone();
 		tel2.setCategoriaTelefone(CategoriaTelefoneEnum.FIXO);
-		tel2.setNumero(987654382);
+		tel2.setNumero("987654382");
 
 		List<Telefone> listaTelefone = new ArrayList<Telefone>();
 		listaTelefone.add(tel1);
@@ -267,7 +267,7 @@ public class Tests {
 		//Servicos contratados
 		List<Compromisso> servicosContratados = new ArrayList<Compromisso>();
 		Compromisso servico1 = new Compromisso();
-		Contrato contrato1 = new Contrato(); //Contrato para adicionar no serviço
+		Contrato contrato1 = new Contrato(); //Contrato para adicionar no serviï¿½o
 		Prestador prestadorDoServico1 = new Prestador();
 		prestadorDoServico1.setId("57d8739746a22e245858a9ca");
 		contrato1.setPrestador(prestadorDoServico1);
@@ -294,7 +294,7 @@ public class Tests {
 		
 		
 		Compromisso servico2 = new Compromisso();
-		Contrato contrato2 = new Contrato(); //Contrato para adicionar no serviço
+		Contrato contrato2 = new Contrato(); //Contrato para adicionar no serviï¿½o
 		Prestador prestadorDoServico2 = new Prestador();
 		prestadorDoServico2.setId("57d873bb46a22e0d445b7ed5");
 		contrato2.setPrestador(prestadorDoServico1);
@@ -320,10 +320,10 @@ public class Tests {
 		servicosContratados.add(servico1);
 		servicosContratados.add(servico2);
 		
-		pessoa.setAgenda(servicosContratados);
+		pessoa.setListaServicosContratados(servicosContratados);
 	
 		
-		//Recomendações dadas a outro usuário
+		//Recomendaï¿½ï¿½es dadas a outro usuï¿½rio
 		List<Prestador> listaPrestadoresRecomendados = new ArrayList<Prestador>();
 		Prestador recomendado1 = new Prestador();
 		recomendado1.setId("idprestador12394e0e9309d");
@@ -340,13 +340,13 @@ public class Tests {
 		scrap1.setData(new Date());
 		scrap1.setidUsuario("f0943jf043jt09349j");
 		scrap1.setflagEnviadoRecebido("E");
-	    scrap1.setMsg("olá");
+	    scrap1.setMsg("olï¿½");
 	    
 		Conversa scrap2 = new Conversa();
 		scrap2.setData(new Date());
 		scrap2.setidUsuario("gh98hjf03093j0f9309f");
 		scrap1.setflagEnviadoRecebido("R");
-	    scrap2.setMsg("Olá " + pessoa.getEmail());
+	    scrap2.setMsg("Olï¿½ " + pessoa.getEmail());
 	    
 	    List<Conversa> listaConversa = new ArrayList<Conversa>();
 

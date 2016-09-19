@@ -21,6 +21,9 @@ public class ContratoUtil {
 	@Resource
 	private AvaliacaoPrestadorUtil avaliacaoPrestadorUtil;
 	
+	@Resource
+	private CategoriaUtil categoriaUtil;
+	
 	private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 	public JSONObject toJSON(Contrato contrato) {
@@ -32,7 +35,7 @@ public class ContratoUtil {
 			jObjt.put("prestador", prestadorUtil.toJSON(contrato.getPrestador()));
 		}
 		if (contrato.getServico() != null) {
-			jObjt.put("servico", contrato.getServico().getDescricao_categoria());
+			jObjt.put("servico", categoriaUtil.toJSON(contrato.getServico()));
 		}
 		if (contrato.getAvaliacaoPrestador() != null) {
 			jObjt.put("avaliacaoPrestador", avaliacaoPrestadorUtil.toJSON(contrato.getAvaliacaoPrestador()));

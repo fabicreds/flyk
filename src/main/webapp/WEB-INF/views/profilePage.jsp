@@ -90,7 +90,7 @@
 									<uib-tabset active="active"> 
 									<uib-tab index="0" 	heading="Serviços"> </uib-tab> 
 									<uib-tab index="1"  heading="Histórico de Contratos">
-										<div ng-repeat="compromisso in $root.data.agenda">
+										<div ng-repeat="compromisso in $root.data.listaServicosContratados">
 											<div class="panel panel-default">
 												<div class="panel-body">
 													<div class="col-md-6 col-sm-6 col-xs-12">
@@ -118,7 +118,6 @@
 										</div>
 									</uib-tab> 
 									<uib-tab index="2"  heading="Histórico de Serviços Contratados">TAB3</uib-tab>
-<!-- 									<uib-tab index="3"  heading="Agenda">TAB3</uib-tab>  -->
 									<uib-tab index="4" 	heading="Amigos" ng-if="data.listaAmigos!=null"> <br>
 									<div ng-repeat="amizade in $root.data.listaAmigos">
 										<div class="panel panel-default">
@@ -176,7 +175,7 @@
 								<div ng-if="usuarioLogado !='' && tipoUsuarioLogado==1">
 									<uib-tabset active="active"> 
 									<uib-tab index="0"	heading="Histórico de Contratos"> <br>
-									<div ng-repeat="compromisso in $root.data.agenda">
+									<div ng-repeat="compromisso in $root.data.listaServicosContratados">
 										<div class="panel panel-default">
 											<div class="panel-body">
 												<div class="col-md-6 col-sm-6 col-xs-12">
@@ -186,7 +185,7 @@
 													</p>
 													<p>
 														<strong>Serviço: </strong>
-													<p style="text-indent: 1em;">{{compromisso.contrato.servico}}</p>
+													<p style="text-indent: 1em;">{{compromisso.contrato.servico.nome}} - {{compromisso.contrato.servico.descricao}}</p>
 													</p>
 												</div>
 												<div class="col-md-4 col-sm-6 col-xs-12">
@@ -203,7 +202,7 @@
 										</div>
 									</div>
 
-									</uib-tab> <!-- 									<uib-tab index="1" heading="Agenda"> </uib-tab>  -->
+									</uib-tab> 
 									<uib-tab index="2" heading="Amigos"
 										ng-if="data.listaAmigos!=null"> <br>
 									<div ng-repeat="amizade in $root.data.listaAmigos">

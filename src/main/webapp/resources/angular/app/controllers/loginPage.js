@@ -33,7 +33,7 @@ flyk.controller("loginPageCtrl", function($rootScope, $scope, $location, $http, 
 				$scope.mensagemLogin = "";
 				$rootScope.usuarioLogado = response.data.usuario;
 				$rootScope.tipoUsuarioLogado = response.data.tipoCadastro;
-				$rootScope.idUsuarioLogado = response.data.cliente.id;
+				$rootScope.idUsuarioLogado = response.data.idUsuario;
 				localStorage.setItem("usuarioLogado", $rootScope.usuarioLogado);
 				localStorage.setItem("tipoUsuarioLogado", $rootScope.tipoUsuarioLogado);
 				localStorage.setItem("idUsuarioLogado", $rootScope.idUsuarioLogado);

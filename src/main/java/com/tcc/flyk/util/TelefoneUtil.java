@@ -12,22 +12,21 @@ import com.tcc.flyk.entity.enumerator.OperadoraEnum;
 @Component
 public class TelefoneUtil {
 
-	public List<Telefone> jsonToListaTelefone(List<String> telefones) {
+	public List<Telefone> jsonToListaTelefone(List<JSONObject> telefones) {
 		List<Telefone> listaTelefone = new ArrayList<Telefone>();
 		if (telefones != null) {
-			for (String telefone : telefones) {
-				JSONObject json = new JSONObject(telefone);
+			for (JSONObject telefone : telefones) {
 				Telefone tel = new Telefone();
-				if (!json.isNull("number") ) {
-					tel.setDdd(Integer.valueOf(json.getString("number").substring(1, 3)));
-					tel.setNumero(Integer.valueOf(json.getString("number").substring(4).replace("-", "")));
+				if (!telefone.isNull("number") ) {
+					tel.setDdd(Integer.valueOf(telefone.getString("number").substring(1, 3)));
+					tel.setNumero(telefone.getString("number").substring(4).replace("-", ""));
 				}
-				if (!json.isNull("categoria")) {
-					JSONObject categoriaJSON = (JSONObject) json.get("categoria");
+				if (!telefone.isNull("categoria")) {
+					JSONObject categoriaJSON = (JSONObject) telefone.get("categoria");
 					tel.setCategoriaTelefone(categoriaJSON.getInt("id"));
 				}
-				if (!json.isNull("operadora")) {
-					JSONObject operadoraJSON = (JSONObject) json.get("operadora");
+				if (!telefone.isNull("operadora")) {
+					JSONObject operadoraJSON = (JSONObject) telefone.get("operadora");
 					tel.setOperadora(operadoraJSON.getInt("id"));
 				}
 				listaTelefone.add(tel);
@@ -45,7 +44,7 @@ public class TelefoneUtil {
 				if (tel.getDdd() != 0) {
 					jObjt1.put("ddd", tel.getDdd());
 				}
-				if (tel.getNumero() != 0) {
+				if (tel.getNumero() != null) {
 					jObjt1.put("numero", tel.getNumero());
 				}
 				if (tel.getCategoriaTelefone() != null) {

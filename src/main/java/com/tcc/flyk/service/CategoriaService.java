@@ -15,7 +15,7 @@ public class CategoriaService {
 	public boolean cadastrarNovaCategoria(Categoria cat){
 		try {
 			if(validaCategoria(cat)){
-				cat.setInicio_vigencia(new Date());
+				cat.setInicioVigencia(new Date());
 				catDAO.cadastrarNovaCategoria(cat);
 			}else{
 				return false;
@@ -28,11 +28,11 @@ public class CategoriaService {
 		return true;
 	}
 	
-	//CONSULTA SE UMA CATEGORIA EXISTE OU NÃO
+	//CONSULTA SE UMA CATEGORIA EXISTE OU Nï¿½O
 	public boolean existeCategoria(String nome){
 		try {
 			Categoria cat = catDAO.consultarCategoriaPorNome(nome);
-			if(cat.getNome_categoria()==""){
+			if(cat.getNomeCategoria()==""){
 				return false;
 			}else{
 				return true;
@@ -47,18 +47,18 @@ public class CategoriaService {
 	private boolean validaCategoria(Categoria cat){
 		
 		//Valida campos nulos
-		if(cat.getNome_categoria()==null || cat.getNome_categoria().isEmpty()){
-			System.out.println("Nome da categoria não preenchido");
+		if(cat.getNomeCategoria()==null || cat.getNomeCategoria().isEmpty()){
+			System.out.println("Nome da categoria nï¿½o preenchido");
 			return false;
 		}
-		if(cat.getDescricao_categoria()==null || cat.getDescricao_categoria().isEmpty()){
-			System.out.println("Descrição da categoria não preenchida");
+		if(cat.getDescricaoCategoria()==null || cat.getDescricaoCategoria().isEmpty()){
+			System.out.println("Descriï¿½ï¿½o da categoria nï¿½o preenchida");
 			return false;
 		}
 		
 		//Valida nome duplicado
-		if(existeCategoria(cat.getNome_categoria())){
-			System.out.println("Categoria já existe");
+		if(existeCategoria(cat.getNomeCategoria())){
+			System.out.println("Categoria jï¿½ existe");
 			return false;
 		}
 		

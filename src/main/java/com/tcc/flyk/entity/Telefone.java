@@ -7,7 +7,7 @@ public class Telefone {
 
 	private int ddd;
 
-	private int numero;
+	private String numero;
 
 	private CategoriaTelefoneEnum categoriaTelefone;
 
@@ -21,13 +21,6 @@ public class Telefone {
 		this.ddd = ddd;
 	}
 
-	public int getNumero() {
-		return numero;
-	}
-
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
 
 	public CategoriaTelefoneEnum getCategoriaTelefone() {
 		return categoriaTelefone;
@@ -85,6 +78,14 @@ public class Telefone {
 			this.operadora = OperadoraEnum.OUTROS;
 			break;
 		}
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
 }

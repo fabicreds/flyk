@@ -1,46 +1,61 @@
 package com.tcc.flyk.service;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import com.tcc.flyk.entity.Categoria;
 import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.persistence.ClienteDAO;
+import com.tcc.flyk.persistence.impl.CategoriaDAOImpl;
 import com.tcc.flyk.persistence.impl.ClienteDAOImpl;
+import com.tcc.flyk.util.CategoriaUtil;
 
 @Service
 public class ClienteService {
 
-
 	private ClienteDAO cliDAO = new ClienteDAOImpl();
-	
-	//CADASTRO DE CLIENTE
-	//Recebe um objeto cliente de parâmetro, valida o cliente e cadastra o mesmo
-	//Retorna uma string vazia em caso de sucesso, ou a mensagem de erro em caso de falha
-	public String cadastrarNovoCliente(Cliente cli){
+
+	private CategoriaDAOImpl categoriaDAO = new CategoriaDAOImpl();
+
+	@Resource
+	private CategoriaUtil categoriaUtil;
+
+	// CADASTRO DE CLIENTE
+	// Recebe um objeto cliente de parï¿½metro, valida o cliente e cadastra o
+	// mesmo
+	// Retorna uma string vazia em caso de sucesso, ou a mensagem de erro em
+	// caso de falha
+	public String cadastrarNovoCliente(Cliente cli) {
 		String retorno = "";
 		try {
 			String erro = validaCliente(cli);
-			if(erro==""){
+			if (erro == "") {
 				cliDAO.inserirNovoCliente(cli);
 				retorno = null;
-			}else{
+			} else {
 				retorno = erro;
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			retorno = "Erro ao cadastrar cliente.";
 		}
 		return retorno;
 	}
-	
-	//CONSULTA SE UM USUARIO EXISTE OU NAO
-	//Verifica se um usuário com o email enviado de parâmetro já existe no banco
-	//Retorna verdadeiro caso já exista, e falso caso não
-	public boolean existeCliente(String email){
+
+	// CONSULTA SE UM USUARIO EXISTE OU NAO
+	// Verifica se um usuï¿½rio com o email enviado de parï¿½metro jï¿½ existe no
+	// banco
+	// Retorna verdadeiro caso jï¿½ exista, e falso caso nï¿½o
+	public boolean existeCliente(String email) {
 		try {
-			if(cliDAO.consultaLogin(email)!=null){
+			if (cliDAO.consultaLogin(email) != null) {
 				return true;
-			}else{
+			} else {
 				return false;
 			}
 		} catch (Exception e) {
@@ -49,60 +64,39 @@ public class ClienteService {
 			return false;
 		}
 	}
-	
-	//VALIDA CLIENTE PARA CADASTRO
-	//Verifica se as informações estão consistentes para inserção no banco
-	//Recebe um objeto cliente de parâmetro
-	//Retorna uma string com a mensagem de erro caso ocorra, ou uma string vazia caso OK
-	private String validaCliente(Cliente cli){
+
+	// VALIDA CLIENTE PARA CADASTRO
+	// Verifica se as informaï¿½ï¿½es estï¿½o consistentes para inserï¿½ï¿½o no banco
+	// Recebe um objeto cliente de parï¿½metro
+	// Retorna uma string com a mensagem de erro caso ocorra, ou uma string
+	// vazia caso OK
+	private String validaCliente(Cliente cli) {
 		String retorno = "";
-		
-		//Valida campos nulos
-		if(cli.getNome()==null || cli.getNome().isEmpty()){
-			retorno = "Nome do cliente é obrigatório.";
+
+		// Valida campos nulos
+		if (cli.getNome() == null || cli.getNome().isEmpty()) {
+			retorno = "Nome do cliente ï¿½ obrigatï¿½rio.";
 			System.out.println(retorno);
 			return retorno;
 		}
-		
-		//Valida email duplicado
-		if(existeCliente(cli.getEmail())){
-			retorno = "Já existe um cadastro para o email " + cli.getEmail() + ".";
+
+		// Valida email duplicado
+		if (existeCliente(cli.getEmail())) {
+			retorno = "JÃ¡ existe um cadastro para o email " + cli.getEmail() + ".";
 			System.out.println(retorno);
 			return retorno;
 		}
-		
 
 		return retorno;
-		
-	}
-	
-	/*
-	//****************************CONSULTA TODAS AS CATEGORIAS****************************
-	public List<Categoria> ConsultarTodasCategorias(){
-		try{
-			final List<Categoria> retorno = catDAO.ConsultarTodasCategorias();
 
-			if(retorno==null){
-				return null;
-			}else{
-				if(retorno.size()==0){
-					return null;
-				}else{
-					return retorno;
-				}
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+	}
+
+	public JSONObject consultaCategoriaCadastradasCadastro() {
+		JSONObject jsonRetorno = new JSONObject();
+		List<Categoria> listaCategoriasCadastradas = categoriaDAO.consultarTodasCategorias();
+		if (listaCategoriasCadastradas != null) {
+			jsonRetorno = categoriaUtil.listaCategoriaJSON(listaCategoriasCadastradas);
 		}
+		return jsonRetorno;
 	}
-	
-
-	//****************************CONSULTA CATEGORIAS POR PARTE DO NOME****************************
-	public List<Categoria> ConsultarCategoriaPorParteDoNome(String nome){
-		return catDAO.ConsultarCategoriaPorParteDoNome(nome);
-	}
-	
-	*/
 }

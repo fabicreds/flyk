@@ -68,6 +68,7 @@ public class ProfilePageService {
 		jObjt.put("usuario", cliente.getEmail());
 		jObjt.put("tipoCadastro", cliente.getTipoCadastro().getCodigo());
 		jObjt.put("tipoCadastroDescricao", cliente.getTipoCadastro().getDescricao());
+		jObjt.put("idUsuario", cliente.getId());
 		jObjt.put("cliente", clienteUtil.toJSON(cliente));
 		return jObjt.toString();
 	}
@@ -78,6 +79,7 @@ public class ProfilePageService {
 		jObjt.put("usuario", prestador.getEmail());
 		jObjt.put("tipoCadastro", prestador.getTipoCadastro().getCodigo());
 		jObjt.put("tipoCadastroDescricao", prestador.getTipoCadastro().getDescricao());
+		jObjt.put("idUsuario", prestador.getId());
 		jObjt.put("cliente", prestadorUtil.toJSON(prestador));
 		return jObjt.toString();
 	}
@@ -101,8 +103,8 @@ public class ProfilePageService {
 
 	private void buscarDadosContratos(Cliente cliente) {
 
-		if (cliente.getAgenda() != null) {
-			for (Compromisso compromisso : cliente.getAgenda()) {
+		if (cliente.getListaServicosContratados() != null) {
+			for (Compromisso compromisso : cliente.getListaServicosContratados()) {
 				if (compromisso.getContrato() != null) {
 					if (compromisso.getContrato().getPrestador() != null) {
 						Usuario usuario = cliDAO.consultaLoginById(compromisso.getContrato().getPrestador().getId());
@@ -117,22 +119,19 @@ public class ProfilePageService {
 					if (compromisso.getContrato().getServico() != null) {
 						for (Categoria cat : listaCategoriasCadastradas) {
 							if (cat.getId().equals(compromisso.getContrato().getServico().getId())) {
-								if (cat.getNome_categoria() != null) {
-									compromisso.getContrato().getServico().setNome_categoria(cat.getNome_categoria());
+								if (cat.getNomeCategoria() != null) {
+									compromisso.getContrato().getServico().setNomeCategoria(cat.getNomeCategoria());
 								}
-								if (cat.getDescricao_categoria() != null) {
+								if (cat.getDescricaoCategoria() != null) {
 									compromisso.getContrato().getServico()
-											.setDescricao_categoria(cat.getDescricao_categoria());
+											.setDescricaoCategoria(cat.getDescricaoCategoria());
 								}
-								if (cat.getStatus_categoria() != null) {
+								if (cat.getStatusCategoria() != null) {
 									compromisso.getContrato().getServico()
-											.setStatus_categoria(cat.getStatus_categoria());
+											.setStatusCategoria(cat.getStatusCategoria());
 								}
-								if (cat.getInicio_vigencia() != null) {
-									compromisso.getContrato().getServico().setInicio_vigencia(cat.getInicio_vigencia());
-								}
-								if (cat.getFim_vigencia() != null) {
-									compromisso.getContrato().getServico().setFim_vigencia(cat.getFim_vigencia());
+								if (cat.getInicioVigencia() != null) {
+									compromisso.getContrato().getServico().setInicioVigencia(cat.getInicioVigencia());
 								}
 							}
 						}
@@ -147,20 +146,17 @@ public class ProfilePageService {
 			for (Categoria servico : prestador.getListaServicos()) {
 				for (Categoria cat : listaCategoriasCadastradas) {
 					if (cat.getId().equals(servico.getId())) {
-						if (cat.getNome_categoria() != null) {
-							servico.setNome_categoria(cat.getNome_categoria());
+						if (cat.getNomeCategoria() != null) {
+							servico.setNomeCategoria(cat.getNomeCategoria());
 						}
-						if (cat.getDescricao_categoria() != null) {
-							servico.setDescricao_categoria(cat.getDescricao_categoria());
+						if (cat.getDescricaoCategoria() != null) {
+							servico.setDescricaoCategoria(cat.getDescricaoCategoria());
 						}
-						if (cat.getStatus_categoria() != null) {
-							servico.setStatus_categoria(cat.getStatus_categoria());
+						if (cat.getStatusCategoria() != null) {
+							servico.setStatusCategoria(cat.getStatusCategoria());
 						}
-						if (cat.getInicio_vigencia() != null) {
-							servico.setInicio_vigencia(cat.getInicio_vigencia());
-						}
-						if (cat.getFim_vigencia() != null) {
-							servico.setFim_vigencia(cat.getFim_vigencia());
+						if (cat.getInicioVigencia() != null) {
+							servico.setInicioVigencia(cat.getInicioVigencia());
 						}
 					}
 				}

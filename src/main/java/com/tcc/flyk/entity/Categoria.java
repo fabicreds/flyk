@@ -7,19 +7,16 @@ public class Categoria {
 	private String id;
 	
 	//Nome da categoria
-	private String nome_categoria;
+	private String nomeCategoria;
 	
 	//Descricao da categoria
-	private String descricao_categoria;
+	private String descricaoCategoria;
 	
-	//Inicio da vigência da categoria
-	private Date inicio_vigencia;
-	
-	//Fim da vigência da categoria
-	private Date fim_vigencia;
+	//Inicio da vigï¿½ncia da categoria
+	private Date inicioVigencia;
 	
 	//Status da categoria
-	private String status_categoria;
+	private String statusCategoria;
 
 	public String getId() {
 		return id;
@@ -29,46 +26,39 @@ public class Categoria {
 		this.id = id;
 	}
 
-	public String getNome_categoria() {
-		return nome_categoria;
+	public String getNomeCategoria() {
+		return nomeCategoria;
 	}
 
-	public void setNome_categoria(String nome_categoria) {
-		this.nome_categoria = nome_categoria;
+	public void setNomeCategoria(String nomeCategoria) {
+		this.nomeCategoria = nomeCategoria;
 	}
 
-	public String getDescricao_categoria() {
-		return descricao_categoria;
+	public String getDescricaoCategoria() {
+		return descricaoCategoria;
 	}
 
-	public void setDescricao_categoria(String descricao_categoria) {
-		this.descricao_categoria = descricao_categoria;
+	public void setDescricaoCategoria(String descricaoCategoria) {
+		this.descricaoCategoria = descricaoCategoria;
 	}
 
-	public Date getInicio_vigencia() {
-		return inicio_vigencia;
+	public Date getInicioVigencia() {
+		return inicioVigencia;
 	}
 
-	public void setInicio_vigencia(Date inicio_vigencia) {
-		this.inicio_vigencia = inicio_vigencia;
+	public void setInicioVigencia(Date inicioVigencia) {
+		this.inicioVigencia = inicioVigencia;
 	}
 
-	public Date getFim_vigencia() {
-		return fim_vigencia;
+	public String getStatusCategoria() {
+		return statusCategoria;
 	}
 
-	public void setFim_vigencia(Date fim_vigencia) {
-		this.fim_vigencia = fim_vigencia;
+	public void setStatusCategoria(String statusCategoria) {
+		this.statusCategoria = statusCategoria;
 	}
 
-	public String getStatus_categoria() {
-		return status_categoria;
-	}
-
-	public void setStatus_categoria(String status_categoria) {
-		this.status_categoria = status_categoria;
-	}
-
+	
 
 	
 }

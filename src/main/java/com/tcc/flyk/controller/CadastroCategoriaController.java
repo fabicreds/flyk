@@ -25,15 +25,15 @@ public class CadastroCategoriaController {
 		
 		//Instancia uma nova categoria
 		Categoria novaCategoria = new Categoria();
-		novaCategoria.setNome_categoria(objeto.getString("nome"));
-		novaCategoria.setDescricao_categoria(objeto.getString("descricao"));
+		novaCategoria.setNomeCategoria(objeto.getString("nome"));
+		novaCategoria.setDescricaoCategoria(objeto.getString("descricao"));
 
 		JSONObject ret = new JSONObject();
 		CategoriaService servico = new CategoriaService();
 		
 		/*List<Categoria> teste = servico.ConsultarTodasCategorias();
 		for(int i=0;i<teste.size();i++){
-			System.out.println(teste.get(i).getNome_categoria());
+			System.out.println(teste.get(i).getNomeCategoria());
 		}
 		
 		if(1==1){
@@ -42,7 +42,7 @@ public class CadastroCategoriaController {
 			ret.put("mensagem", "Categoria cadastrada com sucesso");
 		}else{
 			ret.put("retorno", "erro");
-			ret.put("mensagem", "Categoria não foi gravada");
+			ret.put("mensagem", "Categoria nï¿½o foi gravada");
 		}
 		
 		//Retorna para o .js

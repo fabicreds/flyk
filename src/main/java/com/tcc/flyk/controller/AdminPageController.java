@@ -34,7 +34,7 @@ public class AdminPageController {
 		for (int i = 0; i < listaCateg.size(); i++) {
 			JSONObject listaCatJson = new JSONObject();
 			listaCatJson.put("id", i);
-			listaCatJson.put("nome", listaCateg.get(i).getNome_categoria());
+			listaCatJson.put("nome", listaCateg.get(i).getNomeCategoria());
 			arrayCatJson.put(listaCatJson);
 		}
 
