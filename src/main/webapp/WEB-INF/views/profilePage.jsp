@@ -12,8 +12,8 @@
 					<div class="row">
 						<div class="col-md-4 col-sm-6 col-xs-12 vcenter">
 							<div class="text-center">
-								<img
-									src="${pageContext.request.contextPath}/images/pessoa-feliz.png"
+								<img 
+									ng-src={{data.fotoPerfil}}
 									class="avatar img-circle img-thumbnail" alt="avatar"
 									style="height: 200px; width: 200px;">
 							</div>
