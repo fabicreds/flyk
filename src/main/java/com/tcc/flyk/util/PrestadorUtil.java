@@ -40,14 +40,11 @@ public class PrestadorUtil {
 		if(prestador.getCnpj()!=null){
 		jObjt.put("cnpj", prestador.getCnpj());
 		}
-		if(prestador.getListaServicos()!=null){
-		jObjt.put("listaServicos", listaServicosJSON(prestador.getListaServicos()));
-		}
-		if(prestador.getListaRecomendacao()!=null){
-		jObjt.put("listaRecomendacao", listaRecomendacaoJSON(prestador.getListaRecomendacao()));
-		}
-		if(prestador.getListaServicosContratados()!=null){
-		jObjt.put("listaServicosContratados", listaServicosContratadosJSON(prestador.getListaServicosContratados()));
+		//if(prestador.getListaServicos()!=null){ //alex kita - 20160919 - comentei este trecho pois mudei o tipo da lista de serviços de categoriaservicosenum para Categoria
+		//jObjt.put("listaServicos", listaServicosJSON(prestador.getListaServicos()));
+		//}
+		if(prestador.getListaServicosPrestados()!=null){
+		jObjt.put("listaServicosPrestados", listaServicosContratadosJSON(prestador.getListaServicosPrestados()));
 		}
 		if(prestador.getListaRecomendacoesRecebidas()!=null){
 		jObjt.put("listaRecomendacoesRecebidas", listaRecomendacoesRecebidasJSON(prestador.getListaRecomendacoesRecebidas()));
@@ -69,19 +66,6 @@ public class PrestadorUtil {
 				JSONObject jObjt1 = new JSONObject();
 				jObjt1.put("descricao", servico.getDescricaoCategoria());
 				jObjt.put("servico" + i, jObjt1);
-				i++;
-			}
-		}
-		return jObjt;
-	}
-	
-	private JSONObject listaRecomendacaoJSON(List<Cliente> listaRecomendacao) {
-		JSONObject jObjt = new JSONObject();
-		if (listaRecomendacao != null) {
-			int i = 0;
-			for (Cliente cliente : listaRecomendacao) {
-				JSONObject jObjt1 = clienteUtil.toJSON(cliente);
-				jObjt.put("recomendacao" + i, jObjt1);
 				i++;
 			}
 		}

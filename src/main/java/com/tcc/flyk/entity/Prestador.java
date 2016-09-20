@@ -8,9 +8,7 @@ public class Prestador extends Cliente{
 	
 	private List<Categoria> listaServicos;
 	
-	private List<Cliente> listaRecomendacao;
-	
-	private List<Compromisso> listaServicosContratados;
+	private List<Compromisso> listaServicosPrestados;
 
 	private List<Cliente> listaRecomendacoesRecebidas;
 	
@@ -25,7 +23,7 @@ public class Prestador extends Cliente{
 	}
 
 	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
+		this.cnpj = cnpj; 
 	}
 
 	public List<Categoria> getListaServicos() {
@@ -36,20 +34,12 @@ public class Prestador extends Cliente{
 		this.listaServicos = listaServicos;
 	}
 
-	public List<Cliente> getListaRecomendacao() {
-		return listaRecomendacao;
+	public List<Compromisso> getListaServicosPrestados() {
+		return listaServicosPrestados;
 	}
 
-	public void setListaRecomendacao(List<Cliente> listaRecomendacao) {
-		this.listaRecomendacao = listaRecomendacao;
-	}
-
-	public List<Compromisso> getListaServicosContratados() {
-		return listaServicosContratados;
-	}
-
-	public void setListaServicosContratados(List<Compromisso> listaServicosContratados) {
-		this.listaServicosContratados = listaServicosContratados;
+	public void setListaServicosPrestados(List<Compromisso> listaServicosPrestados) {
+		this.listaServicosPrestados = listaServicosPrestados;
 	}
 
 	public Double getValorPremium() {
