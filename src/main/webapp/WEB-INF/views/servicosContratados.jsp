@@ -1,10 +1,10 @@
 <link href="https://fonts.googleapis.com/css?family=Amaranth"
 	rel="stylesheet">
 <body>
-	<div class="row center-block" data-ng-init="init()">
+	<div class="row center-block container" data-ng-init="init()">
 		<div ng-repeat="compromisso in $root.data.listaServicosContratados">
-			<div class="panel panel-primary">
-				<div class="panel-heading">Contrato </div>
+			<div class="panel" style="border-color: #266691">
+				<div class="panel-heading" style="background-color: #266691; color: white">Contrato </div>
 				<div class="panel-body">
 					<div class="col-md-6 col-sm-6 col-xs-12">
 						<p>

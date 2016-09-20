@@ -4,7 +4,6 @@ flyk.controller("cadastroCtrl", function($scope, $rootScope, $location, $http,
 	$scope.categoriasServico = [];
 	$scope.servicosSelecionados = [];
 	$scope.servicos = [];
-	$scope.item_servico = {};
 
 	$scope.categorias = [ {
 		id : 1,
@@ -78,7 +77,7 @@ flyk.controller("cadastroCtrl", function($scope, $rootScope, $location, $http,
 	}
 
 	$scope.sendPostCadastroCliente = function() {
-
+		
 		$http({
 			url : 'cadastroCliente',
 			method : "POST",
@@ -149,7 +148,7 @@ flyk.controller("cadastroCtrl", function($scope, $rootScope, $location, $http,
 									function(item, key) {
 										var itemCategoria = {
 											id : item.id,
-											label : item.nome
+											nome : item.nome
 										};
 										$scope.categoriasServico
 												.push(itemCategoria);
@@ -161,7 +160,8 @@ flyk.controller("cadastroCtrl", function($scope, $rootScope, $location, $http,
 					console.log(response);
 					$scope.message = response;
 				});
-		$scope.servicosSelecionados.push(1);
+		var servico = {id: 0, label: "Serviço 1"};
+		$scope.servicosSelecionados.push(servico);
 	};
 	// Upload imagem de perfil
 	console.log(fileReader)
@@ -178,9 +178,11 @@ flyk.controller("cadastroCtrl", function($scope, $rootScope, $location, $http,
 
 	$scope.selecionarNumServicos = function() {
 		$scope.servicosSelecionados = [];
-		var i = 1;
-		for (i = 1; i <= $scope.numServicos; i++) {
-			$scope.servicosSelecionados.push(i);
+		var i = 0;
+		
+		for (i = 0; i < $scope.numServicos; i++) {
+			var servico = {id: i, label: "Serviço " + i};
+			$scope.servicosSelecionados.push(servico);
 		}
 	}
 

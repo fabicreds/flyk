@@ -14,17 +14,23 @@ import com.tcc.flyk.entity.Compromisso;
 import com.tcc.flyk.entity.Prestador;
 import com.tcc.flyk.entity.Usuario;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
+import com.tcc.flyk.persistence.CategoriaDAO;
+import com.tcc.flyk.persistence.ClienteDAO;
+import com.tcc.flyk.persistence.PrestadorDAO;
 import com.tcc.flyk.persistence.impl.CategoriaDAOImpl;
 import com.tcc.flyk.persistence.impl.ClienteDAOImpl;
+import com.tcc.flyk.persistence.impl.PrestadorDAOImpl;
 import com.tcc.flyk.util.ClienteUtil;
 import com.tcc.flyk.util.PrestadorUtil;
 
 @Service
 public class ProfilePageService {
 
-	private ClienteDAOImpl cliDAO = new ClienteDAOImpl();
+	private ClienteDAO cliDAO = new ClienteDAOImpl();
+	
+	private PrestadorDAO prestadorDAO = new PrestadorDAOImpl();
 
-	private CategoriaDAOImpl categoriaDAO = new CategoriaDAOImpl();
+	private CategoriaDAO categoriaDAO = new CategoriaDAOImpl();
 
 	@Resource
 	private ClienteUtil clienteUtil;
@@ -49,7 +55,7 @@ public class ProfilePageService {
 		} else {
 			// busca pelos Dados do Prestador
 			Prestador prestador = new Prestador();
-			prestador = cliDAO.consultaPrestadorPorId(id);
+			prestador = prestadorDAO.consultaPrestadorPorId(id);
 			// buscando os detalhes dos servicos do prestador
 			buscarListaServicos(prestador);
 			// buscando os detalhes dos Amigos

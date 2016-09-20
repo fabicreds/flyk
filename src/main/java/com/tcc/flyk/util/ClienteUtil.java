@@ -53,6 +53,11 @@ public class ClienteUtil {
 		}
 		if (cliente.getUsuario() != null) {
 			jObjt.put("usuario", cliente.getUsuario());
+		}else{
+			if(cliente.getEmail()!=null){
+			String[] usuario = cliente.getEmail().split("@");
+			jObjt.put("usuario", usuario[0]);
+			}
 		}
 		if (cliente.getEmail() != null) {
 			jObjt.put("email", cliente.getEmail());
@@ -200,6 +205,14 @@ public class ClienteUtil {
 		}
 		if (!json.isNull("email") && !json.getString("email").isEmpty()) {
 			cli.setEmail(json.getString("email"));
+		}
+		if(!json.isNull("usuario") && !json.getString("usuario").isEmpty()){
+			cli.setUsuario(json.getString("usuario"));
+		}else{
+			if (!json.isNull("email") && !json.getString("email").isEmpty()) {
+				String[] usuario = cli.getEmail().split("@");
+				cli.setUsuario(usuario[0]);
+			}
 		}
 		if (!json.isNull("apelido") && !json.getString("apelido").isEmpty()) {
 			cli.setApelido(json.getString("apelido"));

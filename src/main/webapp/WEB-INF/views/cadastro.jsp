@@ -5,7 +5,7 @@
 </head>
 
 <form class="form-horizontal" name="userForm" novalidate role="form">
-
+<div class="container">
 	<fieldset>
 		<legend>Cadastro - Novo cliente</legend>
 		<div class="col-sm-3" data-ng-init="init()">
@@ -124,12 +124,12 @@
 				</div>
 				<div class="col-sm-2">
 					<select class="form-control"
-						ng-options="item as item.label for item in operadoras track by operadoras.id"
+						ng-options="item as item.label for item in operadoras"
 						ng-model="telephone1.operadora"></select>
 				</div>
 				<div class="col-sm-2">
 					<select class="form-control"
-						ng-options="item as item.label for item in categorias track by categorias.id"
+						ng-options="item as item.label for item in categorias"
 						ng-model="telephone1.categoria"></select>
 				</div>
 			</div>
@@ -144,12 +144,12 @@
 				</div>
 				<div class="col-sm-2">
 					<select class="form-control"
-						ng-options="item as item.label for item in operadoras track by operadoras.id"
+						ng-options="item as item.label for item in operadoras"
 						ng-model="telephone2.operadora"></select>
 				</div>
 				<div class="col-sm-2">
 					<select class="form-control"
-						ng-options="item as item.label for item in categorias track by categorias.id"
+						ng-options="item as item.label for item in categorias"
 						ng-model="telephone2.categoria"></select>
 				</div>
 			</div>
@@ -262,19 +262,20 @@
 					<br> <br> 
 					<label for="servicos" class="col-sm-3 control-label"> Serviços </label>
 					<div ng-repeat="i in servicosSelecionados track by $index">
-						<div ng-if="i!=1" >
+						<div ng-if="i.id!=0" >
 						<label for="servicos" class="col-sm-3 control-label">  </label>
 						</div>
 						<div class="panel panel-default col-sm-8">
-							<div class="panel-heading">Serviço {{i}}</div>
+							<div class="panel-heading">Serviço {{i.id}}</div>
 							<div class="panel-body">
 								<label for="nonCompeteNotes" class="col-sm-3 control-label">
 									Categoria do Serviço </label>
 								<div class=" col-sm-5">
-									<select class="form-control col-s"
-										ng-model="servicos[i].categoria"
-										ng-options="item as item.label for item in categoriasServico track by categoriasServico.id">
+									<select class="form-control"
+										ng-model="servicos[i.id]"
+										ng-options="item as item.nome for item in categoriasServico">
 									</select>
+									
 								</div>
 							</div>
 						</div>
@@ -321,7 +322,7 @@
 				{{messageSucessoCadastro}}</font>
 		</div>
 	</div>
-
+</div>
 
 </form>
 

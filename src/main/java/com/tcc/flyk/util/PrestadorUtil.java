@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
@@ -16,44 +17,45 @@ import com.tcc.flyk.entity.Prestador;
 
 @Component
 public class PrestadorUtil {
-	
+
 	@Resource
 	private ContratoUtil contratoUtil;
-	
+
 	@Resource
 	private ClienteUtil clienteUtil;
-	
+
 	@Resource
 	private CompromissoUtil compromissoUtil;
-	
+
 	@Resource
 	private TelefoneUtil telefoneUtil;
 
 	@Resource
 	private EnderecoUtil enderecoUtil;
-	
+
 	private SimpleDateFormat formatoSimples = new SimpleDateFormat("dd/MM/yyyy");
-	
+
 	public JSONObject toJSON(Prestador prestador) {
 		JSONObject jObjt = new JSONObject();
 		jObjt = clienteUtil.toJSON((Cliente) prestador);
-		if(prestador.getCnpj()!=null){
-		jObjt.put("cnpj", prestador.getCnpj());
+		if (prestador.getCnpj() != null) {
+			jObjt.put("cnpj", prestador.getCnpj());
 		}
-		//if(prestador.getListaServicos()!=null){ //alex kita - 20160919 - comentei este trecho pois mudei o tipo da lista de serviços de categoriaservicosenum para Categoria
-		//jObjt.put("listaServicos", listaServicosJSON(prestador.getListaServicos()));
-		//}
-		if(prestador.getListaServicosPrestados()!=null){
-		jObjt.put("listaServicosPrestados", listaServicosContratadosJSON(prestador.getListaServicosPrestados()));
+		if (prestador.getListaServicos() != null) {
+			jObjt.put("listaServicos", listaServicosJSON(prestador.getListaServicos()));
 		}
-		if(prestador.getListaRecomendacoesRecebidas()!=null){
-		jObjt.put("listaRecomendacoesRecebidas", listaRecomendacoesRecebidasJSON(prestador.getListaRecomendacoesRecebidas()));
+		if (prestador.getListaServicosPrestados() != null) {
+			jObjt.put("listaServicosPrestados", listaServicosContratadosJSON(prestador.getListaServicosPrestados()));
 		}
-		if(prestador.getValorPremium()!=null){
-		jObjt.put("valorPremium", prestador.getValorPremium());
+		if (prestador.getListaRecomendacoesRecebidas() != null) {
+			jObjt.put("listaRecomendacoesRecebidas",
+					listaRecomendacoesRecebidasJSON(prestador.getListaRecomendacoesRecebidas()));
 		}
-		if(prestador.getPesoBusca()!=0){
-		jObjt.put("pesoBusca", prestador.getPesoBusca());
+		if (prestador.getValorPremium() != null) {
+			jObjt.put("valorPremium", prestador.getValorPremium());
+		}
+		if (prestador.getPesoBusca() != 0) {
+			jObjt.put("pesoBusca", prestador.getPesoBusca());
 		}
 		return jObjt;
 	}
@@ -71,7 +73,7 @@ public class PrestadorUtil {
 		}
 		return jObjt;
 	}
-	
+
 	private JSONObject listaServicosContratadosJSON(List<Compromisso> listaServicosContratados) {
 		JSONObject jObjt = new JSONObject();
 		if (listaServicosContratados != null) {
@@ -84,7 +86,7 @@ public class PrestadorUtil {
 		}
 		return jObjt;
 	}
-	
+
 	private JSONObject listaRecomendacoesRecebidasJSON(List<Cliente> listaRecomendacoesRecebidas) {
 		JSONObject jObjt = new JSONObject();
 		if (listaRecomendacoesRecebidas != null) {
@@ -97,7 +99,7 @@ public class PrestadorUtil {
 		}
 		return jObjt;
 	}
-	
+
 	public Prestador toPrestador(JSONObject json) {
 		Prestador prestador = new Prestador();
 
@@ -148,6 +150,25 @@ public class PrestadorUtil {
 		// 'imagem' :$scope.imageSrc
 		if (!json.isNull("imagem")) {
 			prestador.setFotoPerfil(json.getString("imagem"));
+		}
+
+		if (!json.isNull("servicos")) {
+			List<Categoria> listaServicos = new ArrayList<Categoria>();
+			JSONArray jsonServicos = (JSONArray) json.getJSONArray("servicos");
+			for (int i = 0; i < jsonServicos.length(); i++) {
+				JSONObject jsonCategoria = (JSONObject) jsonServicos.get(i);
+				if (jsonCategoria != null) {
+					Categoria cat = new Categoria();
+					if(!jsonCategoria.isNull("id")){
+						cat.setId(jsonCategoria.getString("id"));
+					}
+					if(!jsonCategoria.isNull("nome")){
+						cat.setNomeCategoria(jsonCategoria.getString("nome"));
+					}
+					listaServicos.add(cat);
+				}
+			}
+			prestador.setListaServicos(listaServicos);
 		}
 
 		return prestador;

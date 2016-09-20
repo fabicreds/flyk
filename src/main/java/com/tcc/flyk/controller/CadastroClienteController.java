@@ -14,6 +14,7 @@ import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Prestador;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.service.ClienteService;
+import com.tcc.flyk.service.PrestadorService;
 import com.tcc.flyk.util.ClienteUtil;
 import com.tcc.flyk.util.PrestadorUtil;
 
@@ -21,7 +22,10 @@ import com.tcc.flyk.util.PrestadorUtil;
 public class CadastroClienteController {
 
 	@Autowired
-	private ClienteService servico;
+	private ClienteService clienteService;
+	
+	@Autowired
+	private PrestadorService prestadorService;
 
 	@Resource
 	private ClienteUtil clienteUtil;
@@ -62,13 +66,13 @@ public class CadastroClienteController {
 					} else {
 						novoPrestador.setTipoCadastro(TipoCadastroEnum.PREMIUM);
 					}
-					retorno = servico.cadastrarNovoCliente(novoPrestador);
+					retorno = prestadorService.cadastrarNovoPrestador(novoPrestador);
 				}
 			}else {// Instancia um novo cliente
 				Cliente novoCliente = clienteUtil.toCliente(objeto);
 				novoCliente.setStatus("A");
 				novoCliente.setTipoCadastro(TipoCadastroEnum.CLIENTE);
-				retorno = servico.cadastrarNovoCliente(novoCliente);
+				retorno = clienteService.cadastrarNovoCliente(novoCliente);
 			}
 
 			// caso n�o ocorra erro no processamento, o retorno � nulo
@@ -92,7 +96,7 @@ public class CadastroClienteController {
 	public @ResponseBody String consultaCategoriaCadastradasCadastro() {
 		JSONObject ret = new JSONObject();
 		try {
-			JSONObject listaCategorias = servico.consultaCategoriaCadastradasCadastro();
+			JSONObject listaCategorias = prestadorService.consultaCategoriaCadastradasCadastro();
 			ret.put("retorno", "sucesso");
 			ret.put("listaCategorias", listaCategorias);
 		} catch (Exception e) {

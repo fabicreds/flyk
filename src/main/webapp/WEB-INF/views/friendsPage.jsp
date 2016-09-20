@@ -1,7 +1,7 @@
 <link href="https://fonts.googleapis.com/css?family=Amaranth"
 	rel="stylesheet">
 <body>
-	<div class="row center-block" data-ng-init="init()">
+	<div class="row center-block container" data-ng-init="init()">
 		<div ng-repeat="amizade in $root.data.listaAmigos">
 			<div class="panel panel-default">
 				<div class="panel-body">

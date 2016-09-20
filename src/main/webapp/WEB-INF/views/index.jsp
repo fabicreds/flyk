@@ -79,13 +79,13 @@
 </head>
 
 
-<body class="container">
+<body class="">
 	<!-- Responsável por responsible pages-->
 	<!--  <employee-form/>  Directive created to this new form.-->
 
 	<nav class="navbar navbar-default menu" ng-controller="flykCtrl">
 		<div ng-if="usuarioLogado ==''">
-			<div class="container-fluid">
+			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed"
 						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
@@ -141,12 +141,12 @@
 				</div>
 				<!--/.nav-collapse -->
 			</div>
-			<!--/.container-fluid -->
+			<!--/.container -->
 		</div>
 		<!-- ng-if -->
 		<!-- Se já estiver logado e for administrador -->
 		<div ng-if="usuarioLogado !='' && tipoUsuarioLogado==4">
-			<div class="container-fluid">
+			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed"
 						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
@@ -192,13 +192,13 @@
 				</div>
 				<!--/.nav-collapse -->
 			</div>
-			<!--/.container-fluid -->
+			<!--/.container -->
 		</div>
 		<!-- ng-if -->
 
 		<!-- Se já estiver logado e  NÃO for administrador -->
 		<div ng-if="usuarioLogado !='' && tipoUsuarioLogado!=4">
-			<div class="container-fluid">
+			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed"
 						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
@@ -251,7 +251,7 @@
 				</div>
 				<!--/.nav-collapse -->
 			</div>
-			<!--/.container-fluid -->
+			<!--/.container -->
 		</div>
 		<!-- ng-if -->
 	</nav>

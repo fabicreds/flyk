@@ -1,14 +1,18 @@
 <link href="https://fonts.googleapis.com/css?family=Amaranth"
 	rel="stylesheet">
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
+
 <body>
- Página de Busca
+	<form class="form-horizontal" name="userForm" novalidate role="form">
+	<div class="row form-group container center-block">
+	
+		<div style="background-color: #266691; color: white">
+			<div class="col-sm-3">
+			<select class="form-control"
+						ng-options="item as item.label for item in tipoBusca track by tipoBusca.id"
+						ng-model="tipoBusca"></select>
+			</div>
+		</div>
+		
+	</div>
+	</form>
 </body>
-</html>

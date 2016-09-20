@@ -1,28 +1,15 @@
 package com.tcc.flyk.service;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import com.tcc.flyk.entity.Categoria;
 import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.persistence.ClienteDAO;
-import com.tcc.flyk.persistence.impl.CategoriaDAOImpl;
 import com.tcc.flyk.persistence.impl.ClienteDAOImpl;
-import com.tcc.flyk.util.CategoriaUtil;
 
 @Service
 public class ClienteService {
 
 	private ClienteDAO cliDAO = new ClienteDAOImpl();
-
-	private CategoriaDAOImpl categoriaDAO = new CategoriaDAOImpl();
-
-	@Resource
-	private CategoriaUtil categoriaUtil;
 
 	// CADASTRO DE CLIENTE
 	// Recebe um objeto cliente de parï¿½metro, valida o cliente e cadastra o
@@ -48,7 +35,8 @@ public class ClienteService {
 	}
 
 	// CONSULTA SE UM USUARIO EXISTE OU NAO
-	// Verifica se um usuï¿½rio com o email enviado de parï¿½metro jï¿½ existe no
+	// Verifica se um usuï¿½rio com o email enviado de parï¿½metro jï¿½ existe
+	// no
 	// banco
 	// Retorna verdadeiro caso jï¿½ exista, e falso caso nï¿½o
 	public boolean existeCliente(String email) {
@@ -66,7 +54,8 @@ public class ClienteService {
 	}
 
 	// VALIDA CLIENTE PARA CADASTRO
-	// Verifica se as informaï¿½ï¿½es estï¿½o consistentes para inserï¿½ï¿½o no banco
+	// Verifica se as informaï¿½ï¿½es estï¿½o consistentes para inserï¿½ï¿½o no
+	// banco
 	// Recebe um objeto cliente de parï¿½metro
 	// Retorna uma string com a mensagem de erro caso ocorra, ou uma string
 	// vazia caso OK
@@ -75,14 +64,24 @@ public class ClienteService {
 
 		// Valida campos nulos
 		if (cli.getNome() == null || cli.getNome().isEmpty()) {
-			retorno = "Nome do cliente ï¿½ obrigatï¿½rio.";
+			retorno = "Nome do cliente é obrigatório.";
 			System.out.println(retorno);
 			return retorno;
 		}
 
+		// Valida campos nulos
+		if (cli.getEmail() == null || cli.getEmail().isEmpty()) {
+			retorno = "Email do cliente é obrigatório.";
+			System.out.println(retorno);
+			return retorno;
+		} else {
+			String[] usuario = cli.getEmail().split("@");
+			cli.setUsuario(usuario[0]);
+		}
+
 		// Valida email duplicado
 		if (existeCliente(cli.getEmail())) {
-			retorno = "JÃ¡ existe um cadastro para o email " + cli.getEmail() + ".";
+			retorno = "Já existe um cadastro para o email " + cli.getEmail() + ".";
 			System.out.println(retorno);
 			return retorno;
 		}
@@ -91,12 +90,4 @@ public class ClienteService {
 
 	}
 
-	public JSONObject consultaCategoriaCadastradasCadastro() {
-		JSONObject jsonRetorno = new JSONObject();
-		List<Categoria> listaCategoriasCadastradas = categoriaDAO.consultarTodasCategorias();
-		if (listaCategoriasCadastradas != null) {
-			jsonRetorno = categoriaUtil.listaCategoriaJSON(listaCategoriasCadastradas);
-		}
-		return jsonRetorno;
-	}
 }
