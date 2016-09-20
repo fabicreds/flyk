@@ -102,6 +102,11 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		if (pessoa.getStatus() != null) {
 			doc.put("status_pessoa", pessoa.getStatus());
 		}
+		
+		//Imagem
+		if (pessoa.getFotoPerfil() != null){
+			doc.put("foto", pessoa.getFotoPerfil());
+		}
 
 		if (pessoa.getEndereco() != null) {
 			// Logradouro
