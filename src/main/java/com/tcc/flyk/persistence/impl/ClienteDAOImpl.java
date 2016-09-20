@@ -55,40 +55,40 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		doc.put("nome_completo", pessoa.getNome());
 
 		// Usuario
-		if (!(pessoa.getUsuario() == null)) {
+		if (pessoa.getUsuario() != null) {
 			doc.put("usuario", pessoa.getUsuario());
 		}
 
 		// Email
-		if (!(pessoa.getEmail() == null)) {
+		if (pessoa.getEmail() != null) {
 			doc.put("email", pessoa.getEmail());
 		}
 
 		// Data de Nascimento
-		if (!(pessoa.getNascimento() == null)) {
+		if (pessoa.getNascimento() != null) {
 			doc.put("data_nascimento", pessoa.getNascimento());
 		}
 
 		// Senha
-		if (!(pessoa.getSenha() == null)) {
+		if (pessoa.getSenha() != null) {
 			doc.put("senha", pessoa.getSenha());
 		}
 
 		System.out.println("1");
 		// facebookID
-		if (!(pessoa.getFacebookID() == null)) {
+		if (pessoa.getFacebookID() != null) {
 			doc.put("facebookID", pessoa.getFacebookID());
 		}
 
 		System.out.println("15");
 		// CPF
-		if (!(pessoa.getCPF() == null)) {
+		if (pessoa.getCPF() != null) {
 			doc.put("CPF", pessoa.getCPF());
 		}
 
 		System.out.println("16");
 		// Foto do perfil
-		if (!(pessoa.getFotoPerfil() == null)) {
+		if (pessoa.getFotoPerfil() != null) {
 			System.out.println("17");
 			doc.put("foto", pessoa.getFotoPerfil());
 		}
@@ -99,56 +99,56 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			doc.put("tipo_perfil", pessoa.getTipoCadastro().getCodigo());
 		}
 		// Status
-		if (!(pessoa.getStatus() == null)) {
+		if (pessoa.getStatus() != null) {
 			doc.put("status_pessoa", pessoa.getStatus());
 		}
 
 		if (pessoa.getEndereco() != null) {
 			// Logradouro
-			if (!(pessoa.getEndereco().getLogradouro() == null)) {
+			if (pessoa.getEndereco().getLogradouro() != null) {
 				doc.put("logradouro", pessoa.getEndereco().getLogradouro());
 			}
 
 			System.out.println("3");
 			// Numero
-			if (!(pessoa.getEndereco().getNumero() == 0)) {
+			if (pessoa.getEndereco().getNumero() == 0) {
 				doc.put("numero", pessoa.getEndereco().getNumero());
 			}
 
 			System.out.println("31");
 			// Complemento
-			if (!(pessoa.getEndereco().getComplemento() == null)) {
+			if (pessoa.getEndereco().getComplemento() != null) {
 				doc.put("complemento", pessoa.getEndereco().getComplemento());
 			}
 
 			System.out.println("32");
 			// Bairro
-			if (!(pessoa.getEndereco().getBairro() == null)) {
+			if (pessoa.getEndereco().getBairro() != null) {
 				doc.put("bairro", pessoa.getEndereco().getBairro());
 			}
 
 			System.out.println("33");
 			// Cidade
-			if (!(pessoa.getEndereco().getCidade() == null)) {
+			if (pessoa.getEndereco().getCidade() != null) {
 				doc.put("cidade", pessoa.getEndereco().getCidade());
 			}
 
 			System.out.println("34");
 			// Estado
-			if (!(pessoa.getEndereco().getEstado() == null)) {
+			if (pessoa.getEndereco().getEstado() != null) {
 				doc.put("estado", pessoa.getEndereco().getEstado());
 			}
 
 			System.out.println("4");
 			// CEP
-			if (!(pessoa.getEndereco().getCep() == null)) {
+			if (pessoa.getEndereco().getCep() != null) {
 				doc.put("CEP", pessoa.getEndereco().getCep());
 			}
 		}
 		/*
 		 * System.out.println("5"); //TIPO DE CADASTRO
 		 * if(pessoa.getTipoCadastro()==TipoCadastroEnum.PRESTADOR){ //CNPJ
-		 * if(!(pessoa.getPrestador().getCnpj()==null)){ doc.put("CNPJ",
+		 * if(pessoa.getPrestador().getCnpj()!=null)){ doc.put("CNPJ",
 		 * pessoa.getPrestador().getCnpj()); }
 		 * 
 		 * if(pessoa.getTipoCadastro()==TipoCadastroEnum.PREMIUM){ //Valor
@@ -159,7 +159,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		 * 
 		 * System.out.println("5"); //TIPO DE CADASTRO
 		 * if(pessoa.getTipoCadastro()==TipoCadastroEnum.PRESTADOR){ //CNPJ
-		 * if(!(pessoa.getPrestador().getCnpj()==null)){ doc.put("CNPJ",
+		 * if(pessoa.getPrestador().getCnpj()!=null)){ doc.put("CNPJ",
 		 * pessoa.getPrestador().getCnpj()); }
 		 * 
 		 * if(pessoa.getTipoCadastro()==TipoCadastroEnum.PREMIUM){ //Valor
@@ -236,7 +236,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		}
 
 		// ******************************Amigos******************************//
-		if (!(pessoa.getListaAmigos() == null)) {
+		if (pessoa.getListaAmigos() != null) {
 
 			int count = pessoa.getListaAmigos().size();
 			System.out.println("qtd amigos: " + String.valueOf(count));
@@ -254,12 +254,12 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				amigo.put("id_amigo", String.valueOf(pessoa.getListaAmigos().get(i).getAmigo().getId()));
 
 				// Data da amizade
-				if (!(pessoa.getListaAmigos().get(i).getDataInicioAmizade() == null)) {
+				if (pessoa.getListaAmigos().get(i).getDataInicioAmizade() != null) {
 					amigo.put("data_amizade", pessoa.getListaAmigos().get(i).getDataInicioAmizade());
 				}
 
 				// Status da amizade
-				if (!(pessoa.getListaAmigos().get(i).getStatusEnum() == null)) {
+				if (pessoa.getListaAmigos().get(i).getStatusEnum() != null) {
 					if (pessoa.getListaAmigos().get(i).getStatusEnum() == StatusAmizadeEnum.ATIVA) {
 						amigo.put("status_amizade", "1");
 					} else {
@@ -276,7 +276,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 		// ******************************Recomenda��es dadas a outro
 		// usu�rio******************************//
-		if (!(pessoa.getListaPrestadoresRecomendados() == null)) {
+		if (pessoa.getListaPrestadoresRecomendados() != null) {
 
 			int count = pessoa.getListaPrestadoresRecomendados().size();
 			System.out.println("qtd prestadores recomendados: " + String.valueOf(count));
@@ -303,7 +303,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 		// ******************************Mensagens de
 		// conversa******************************//
-		if (!(pessoa.getlistaMensagensConversa() == null)) {
+		if (pessoa.getlistaMensagensConversa() != null) {
 
 			int count = pessoa.getlistaMensagensConversa().size();
 			System.out.println("qtd msgs: " + String.valueOf(count));
@@ -322,12 +322,12 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 						pessoa.getlistaMensagensConversa().get(i).getflagEnviadoRecebido());
 
 				// data_hora_mensagem
-				if (!(pessoa.getlistaMensagensConversa().get(i).getData() == null)) {
+				if (pessoa.getlistaMensagensConversa().get(i).getData() != null) {
 					mensagem.put("data_hora_mensagem", pessoa.getlistaMensagensConversa().get(i).getData());
 				}
 
 				// mensagem
-				if (!(pessoa.getlistaMensagensConversa().get(i).getMsg() == null)) {
+				if (pessoa.getlistaMensagensConversa().get(i).getMsg() != null) {
 					mensagem.put("mensagem", pessoa.getlistaMensagensConversa().get(i).getMsg());
 				}
 
@@ -341,7 +341,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 		// ******************************Servicos
 		// contratados******************************//
-		if (!(pessoa.getListaServicosContratados() == null)) {
+		if (pessoa.getListaServicosContratados() != null) {
 
 			int count = pessoa.getListaServicosContratados().size();
 			System.out.println("qtd de servicos contratados: " + String.valueOf(count));
@@ -932,7 +932,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			Cliente cli = new Cliente();
 			BasicDBObject updateQuery = new BasicDBObject();
 
-			if (!(c.getListaTelefone() == null)) {
+			if (c.getListaTelefone() != null) {
 
 				int count = c.getListaTelefone().size();
 				System.out.println("qtd telefones: " + String.valueOf(count));
@@ -947,18 +947,18 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 					telefone.put("numero_telefone", String.valueOf(c.getListaTelefone().get(i).getNumero()));
 
 					// Categoria
-					if (!(c.getListaTelefone().get(i).getCategoriaTelefone() == null)) {
+					if (c.getListaTelefone().get(i).getCategoriaTelefone() != null) {
 						telefone.put("categoria_telefone",
 								String.valueOf(c.getListaTelefone().get(i).getCategoriaTelefone().getCodigo()));
 					}
 
 					// DDD
-					if (!(c.getListaTelefone().get(i).getDdd() == 0)) {
+					if (c.getListaTelefone().get(i).getDdd() == 0) {
 						telefone.put("ddd_telefone", String.valueOf(c.getListaTelefone().get(i).getDdd()));
 					}
 
 					// Operadora
-					if (!(c.getListaTelefone().get(i).getOperadora() == null)) {
+					if (c.getListaTelefone().get(i).getOperadora() != null) {
 						telefone.put("operadora_telefone",
 								String.valueOf(c.getListaTelefone().get(i).getOperadora().getCodigo()));
 					}
