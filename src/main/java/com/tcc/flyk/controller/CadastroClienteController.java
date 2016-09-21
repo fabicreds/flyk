@@ -56,7 +56,7 @@ public class CadastroClienteController {
 		try {
 			if (!perfilPrestador.isNull("flag")) {
 				if (perfilPrestador.getBoolean("flag")) {
-					// Instancia um novo cliente
+					// Instancia um novo prestador
 					Prestador novoPrestador = prestadorUtil.toPrestador(objeto);
 
 					novoPrestador.setStatus("A");

@@ -148,8 +148,8 @@ public class ProfilePageService {
 	}
 
 	private void buscarListaServicos(Prestador prestador) {
-		if (prestador.getListaServicos() != null && listaCategoriasCadastradas != null) {
-			for (Categoria servico : prestador.getListaServicos()) {
+		if (prestador.getListaCategoriaServicosPrestados() != null && listaCategoriasCadastradas != null) {
+			for (Categoria servico : prestador.getListaCategoriaServicosPrestados()) {
 				for (Categoria cat : listaCategoriasCadastradas) {
 					if (cat.getId().equals(servico.getId())) {
 						if (cat.getNomeCategoria() != null) {

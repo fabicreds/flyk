@@ -30,5 +30,10 @@
 				</div>
 			</div>
 		</div>
+		<div ng-if="$root.data.listaServicosContratados == null" style="text-align: center;">
+			<img
+				src="${pageContext.request.contextPath}/images/no-friends-minios.png" />
+			<h3>Você ainda não contratou nenhum serviço!</h3>
+		</div>
 	</div>
 </body>

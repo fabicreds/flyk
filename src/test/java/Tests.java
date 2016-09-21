@@ -320,7 +320,7 @@ public class Tests {
 		servicosContratados.add(servico1);
 		servicosContratados.add(servico2);
 		
-		pessoa.setListaServicosContratados(servicosContratados);
+		pessoa.setListaContratosServicosPrestados(servicosContratados);
 	
 		
 		//Recomenda��es dadas a outro usu�rio

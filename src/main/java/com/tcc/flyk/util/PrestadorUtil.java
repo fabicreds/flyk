@@ -41,11 +41,11 @@ public class PrestadorUtil {
 		if (prestador.getCnpj() != null) {
 			jObjt.put("cnpj", prestador.getCnpj());
 		}
-		if (prestador.getListaServicos() != null) {
-			jObjt.put("listaServicos", listaServicosJSON(prestador.getListaServicos()));
+		if (prestador.getListaCategoriaServicosPrestados() != null) {
+			jObjt.put("listaCategoriaServicosPrestados", listaServicosPrestadorJSON(prestador.getListaCategoriaServicosPrestados()));
 		}
-		if (prestador.getListaServicosPrestados() != null) {
-			jObjt.put("listaServicosPrestados", listaServicosContratadosJSON(prestador.getListaServicosPrestados()));
+		if (prestador.geListaContratosServicosPrestados()!= null) {
+			jObjt.put("listaContratosServicosPrestados", listaServicosContratadosJSON(prestador.geListaContratosServicosPrestados()));
 		}
 		if (prestador.getListaRecomendacoesRecebidas() != null) {
 			jObjt.put("listaRecomendacoesRecebidas",
@@ -60,13 +60,18 @@ public class PrestadorUtil {
 		return jObjt;
 	}
 
-	private JSONObject listaServicosJSON(List<Categoria> listaServicos) {
+	private JSONObject listaServicosPrestadorJSON(List<Categoria> listaServicos) {
 		JSONObject jObjt = new JSONObject();
 		if (listaServicos != null) {
 			int i = 0;
 			for (Categoria servico : listaServicos) {
 				JSONObject jObjt1 = new JSONObject();
+				jObjt1.put("id", servico.getId());
+				jObjt1.put("nome", servico.getNomeCategoria());
 				jObjt1.put("descricao", servico.getDescricaoCategoria());
+				jObjt1.put("inicio", servico.getInicioVigencia());
+				jObjt1.put("status", servico.getStatusCategoria());
+				jObjt1.put("num", i+1);
 				jObjt.put("servico" + i, jObjt1);
 				i++;
 			}
@@ -153,7 +158,7 @@ public class PrestadorUtil {
 		}
 
 		if (!json.isNull("servicos")) {
-			List<Categoria> listaServicos = new ArrayList<Categoria>();
+			List<Categoria> listaServicosPrestados = new ArrayList<Categoria>();
 			JSONArray jsonServicos = (JSONArray) json.getJSONArray("servicos");
 			for (int i = 0; i < jsonServicos.length(); i++) {
 				JSONObject jsonCategoria = (JSONObject) jsonServicos.get(i);
@@ -165,10 +170,10 @@ public class PrestadorUtil {
 					if(!jsonCategoria.isNull("nome")){
 						cat.setNomeCategoria(jsonCategoria.getString("nome"));
 					}
-					listaServicos.add(cat);
+					listaServicosPrestados.add(cat);
 				}
 			}
-			prestador.setListaServicos(listaServicos);
+			prestador.setListaCategoriaServicosPrestados(listaServicosPrestados);
 		}
 
 		return prestador;

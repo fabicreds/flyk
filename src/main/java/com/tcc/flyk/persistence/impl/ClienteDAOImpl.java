@@ -582,9 +582,9 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			BasicDBList servicosContratadosDB = (BasicDBList) resultado.get("servicos_contratados");
 
 			if (servicosContratadosDB != null) {
-				List<Compromisso> agenda = dbUtil.montarDadosServicosContratados(idCliente, servicosContratadosDB);
+				List<Compromisso> listaServicosContratados = dbUtil.montarDadosServicosContratados(idCliente, servicosContratadosDB);
 				// Adiciona o array compromissos na pessoa
-				pessoa.setListaServicosContratados(agenda);
+				pessoa.setListaServicosContratados(listaServicosContratados);
 			}
 
 			// ********************* LISTA DE RECOMENDA��ES DADAS

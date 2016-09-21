@@ -73,7 +73,7 @@ public class PrestadorService {
 		}
 		
 		//Valida se estÃ¡ sendo cadastrado algum serviÃ§o
-		if(prestador.getListaServicos()== null || prestador.getListaServicos().isEmpty()){
+		if(prestador.getListaCategoriaServicosPrestados()== null || prestador.getListaCategoriaServicosPrestados().isEmpty()){
 			retorno = "Para perfil de prestador, é obrigatório o cadastro de pelo menos um serviço.";
 			System.out.println(retorno);
 			return retorno;

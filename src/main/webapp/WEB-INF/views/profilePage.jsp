@@ -87,38 +87,65 @@
 							<!-- ################################################## PAINEL DOS PRESTADORES ##################################################							 -->
 							<div class="panel-heading">
 								<div ng-if="usuarioLogado !='' && tipoUsuarioLogado!=1">
-									<uib-tabset active="active"> 
-									<uib-tab index="0" 	heading="Serviços"> </uib-tab> 
-									<uib-tab index="1"  heading="Histórico de Contratos">
-										<div ng-repeat="compromisso in $root.data.listaServicosContratados">
-											<div class="panel panel-default">
-												<div class="panel-body">
-													<div class="col-md-6 col-sm-6 col-xs-12">
-														<p>
-															<strong>Prestador: </strong>
-														<p style="text-indent: 1em;">{{compromisso.contrato.prestador.nome}}</p>
-														</p>
-														<p>
-															<strong>Serviço: </strong>
-														<p style="text-indent: 1em;">{{compromisso.contrato.servico}}</p>
-														</p>
-													</div>
-													<div class="col-md-4 col-sm-6 col-xs-12">
-														<p>
-															<strong>Data de Início: </strong>
-														<p style="text-indent: 1em;">{{compromisso.dataInicio}}</p>
-														</p>
-														<p>
-															<strong>Data de Fim: </strong>
-														<p style="text-indent: 1em;">{{compromisso.dataFim}}</p>
-														</p>
+									<uib-tabset active="active"> <uib-tab index="0"
+										heading="Serviços"> <br>
+									<div class="panel panel-default">
+										<div class="panel-body">
+											<div
+												ng-repeat="servico in $root.data.listaCategoriaServicosPrestados">
+												<div class="col-md-4 col-sm-3 col-xs-6">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<strong>Serviço {{servico.num}}: </strong>
+														</div>
+														<div class="panel-body">
+															<p>
+																<strong>Nome: </strong>
+															<p style="text-indent: 1em;">{{servico.nome}}</p>
+															</p>
+															<p>
+																<strong>Descrição: </strong>
+															<p style="text-indent: 1em;">{{servico.descricao}}</p>
+															</p>
+														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-									</uib-tab> 
-									<uib-tab index="2"  heading="Histórico de Serviços Contratados">TAB3</uib-tab>
-									<uib-tab index="4" 	heading="Amigos" ng-if="data.listaAmigos!=null"> <br>
+									</div>
+									</uib-tab> <uib-tab index="1" heading="Histórico de Serviços Contratados"
+										ng-if="$root.data.listaServicosContratados!=null">
+									<div
+										ng-repeat="compromisso in $root.data.listaServicosContratados">
+										<div class="panel panel-default">
+											<div class="panel-body">
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<p>
+														<strong>Prestador: </strong>
+													<p style="text-indent: 1em;">{{compromisso.contrato.prestador.nome}}</p>
+													</p>
+													<p>
+														<strong>Serviço: </strong>
+													<p style="text-indent: 1em;">{{compromisso.contrato.servico}}</p>
+													</p>
+												</div>
+												<div class="col-md-4 col-sm-6 col-xs-12">
+													<p>
+														<strong>Data de Início: </strong>
+													<p style="text-indent: 1em;">{{compromisso.dataInicio}}</p>
+													</p>
+													<p>
+														<strong>Data de Fim: </strong>
+													<p style="text-indent: 1em;">{{compromisso.dataFim}}</p>
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									</uib-tab> <uib-tab index="2" heading="Histórico de Contratos Prestados"
+										ng-if="$root.data.listaContratosServicosPrestados!=null">TAB3</uib-tab>
+									<uib-tab index="3" heading="Amigos"
+										ng-if="data.listaAmigos!=null"> <br>
 									<div ng-repeat="amizade in $root.data.listaAmigos">
 										<div class="panel panel-default">
 											<div class="panel-body">
@@ -173,9 +200,10 @@
 								</div>
 								<!-- ################################################## PAINEL DOS CLIENTES ##################################################							 -->
 								<div ng-if="usuarioLogado !='' && tipoUsuarioLogado==1">
-									<uib-tabset active="active"> 
-									<uib-tab index="0"	heading="Histórico de Contratos"> <br>
-									<div ng-repeat="compromisso in $root.data.listaServicosContratados">
+									<uib-tabset active="active"> <uib-tab index="0"
+										heading="Histórico de Contratos"> <br>
+									<div
+										ng-repeat="compromisso in $root.data.listaServicosContratados">
 										<div class="panel panel-default">
 											<div class="panel-body">
 												<div class="col-md-6 col-sm-6 col-xs-12">
@@ -185,7 +213,8 @@
 													</p>
 													<p>
 														<strong>Serviço: </strong>
-													<p style="text-indent: 1em;">{{compromisso.contrato.servico.nome}} - {{compromisso.contrato.servico.descricao}}</p>
+													<p style="text-indent: 1em;">{{compromisso.contrato.servico.nome}}
+														- {{compromisso.contrato.servico.descricao}}</p>
 													</p>
 												</div>
 												<div class="col-md-4 col-sm-6 col-xs-12">
@@ -202,8 +231,7 @@
 										</div>
 									</div>
 
-									</uib-tab> 
-									<uib-tab index="2" heading="Amigos"
+									</uib-tab> <uib-tab index="2" heading="Amigos"
 										ng-if="data.listaAmigos!=null"> <br>
 									<div ng-repeat="amizade in $root.data.listaAmigos">
 										<div class="panel panel-default">
