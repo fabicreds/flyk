@@ -6,7 +6,15 @@
 		<div class="row  center-block container" data-ng-init="">
 			<div class="well panel panel-default">
 				<div class="panel-heading">
-					<h3>Perfil do Usuário - Amigo -  {{data.amigo.nome}}</h3>
+					<div class="col-md-8 col-sm-6 col-xs-12 vcenter">
+					<font size="6">Perfil do Usuário - Amigo -  {{data.amigo.nome}}</font>
+					</div>
+					<div   class="col-md-3 col-sm-4 col-xs-6 vcenter" style="text-align: right;">
+					<div ng-if="data.amigo.statusAmizade == 1" ><input type="submit" class="btn btn-primary" value="Contratar Serviço"></div>
+					<div ng-if="data.amigo.statusAmizade == 2" ><input type="submit" class="btn btn-primary" value="Solicitar Amizade"></div>
+					<div ng-if="data.amigo.statusAmizade == 3" ><input type="submit" class="btn btn-primary" value="Solicitação Enviada"></div>
+					<div ng-if="data.amigo.statusAmizade == 4" ><input type="submit" class="btn btn-primary" value="Aceitar Amizade"></div>
+				</div>
 				</div>
 				<div class="panel-body">
 					<div class="row">
