@@ -37,7 +37,10 @@ public class Amizade {
 			this.statusEnum = StatusAmizadeEnum.INATIVA;
 			break;
 		case 3:
-			this.statusEnum = StatusAmizadeEnum.SOLICITADA;
+			this.statusEnum = StatusAmizadeEnum.SOLICITACAO_ENVIADA;
+			break;
+		case 4:
+			this.statusEnum = StatusAmizadeEnum.SOLICITACAO_RECEBIDA;
 			break;
 		}
 	}

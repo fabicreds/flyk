@@ -20,7 +20,6 @@ import com.tcc.flyk.entity.Endereco;
 import com.tcc.flyk.entity.Prestador;
 import com.tcc.flyk.entity.Privacidade;
 import com.tcc.flyk.entity.Telefone;
-import com.tcc.flyk.entity.enumerator.StatusAmizadeEnum;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 
 @Component
@@ -194,11 +193,9 @@ public class DataBaseUtil {
 
 			// status_amizade
 			if (amigoDB.get("status_amizade") != null) {
-				if (amigoDB.getString("status_amizade").equals("1")) {
-					amizade.setStatusEnum(StatusAmizadeEnum.ATIVA);
-				} else {
-					amizade.setStatusEnum(StatusAmizadeEnum.INATIVA);
-				}
+				int codigoStatusAmizade = Integer.valueOf(amigoDB.getString("status_amizade"));
+				//faz o set do enum de acordo com o código
+				amizade.setStatusEnum(codigoStatusAmizade);
 			}
 
 			amigos.add(amizade);

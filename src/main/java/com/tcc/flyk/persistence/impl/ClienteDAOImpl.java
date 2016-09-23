@@ -1,7 +1,6 @@
 package com.tcc.flyk.persistence.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.bson.Document;
@@ -795,6 +794,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 	}
 
+	@Override
 	public List<Amizade> consultarAmigosById(String id) {
 		List<Amizade> amigos = new ArrayList<Amizade>();
 
@@ -811,39 +811,14 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			resultado = cursor.next();
 			BasicDBList amigosDB = (BasicDBList) resultado.get("amigos");
 			if (amigosDB != null) {
-				BasicDBObject[] lightArr = amigosDB.toArray(new BasicDBObject[0]);
-				for (BasicDBObject amigoDB : lightArr) {
-					// shows each item from the lights array
-					System.out.println("id_amigo: " + amigoDB.get("id_amigo"));
-
-					Amizade amizade = new Amizade();
-					Cliente amigo = new Cliente();
-
-					// numero
-					amigo.setId(String.valueOf(amigoDB.get("id_amigo")));
-					amizade.setAmigo(amigo);
-
-					// data_amizade
-					if (amigoDB.get("data_amizade") != null) {
-						amizade.setDataInicioAmizade((Date) amigoDB.get("data_amizade"));
-					}
-
-					// status_amizade
-					if (amigoDB.get("status_amizade") != null) {
-						if (amigoDB.getString("status_amizade").equals("1")) {
-							amizade.setStatusEnum(StatusAmizadeEnum.ATIVA);
-						} else {
-							amizade.setStatusEnum(StatusAmizadeEnum.INATIVA);
-						}
-					}
-
-					amigos.add(amizade);
-				}
+				amigos = dbUtil.montaDadosAmigos(amigosDB);
 				return amigos;
 			}
 		}
 		return null;
 
 	}
+
+
 
 }

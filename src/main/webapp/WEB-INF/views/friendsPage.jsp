@@ -47,6 +47,10 @@
 							</font>
 						</p>
 						</p>
+						<p>
+							<input type="submit" class="btn btn-primary"
+								value="Visualizar Perfil" ng-click="sendPostPerfilAmigo(amizade.amigo.id, amizade.amigo.tipoCadastro)"  ng-controller="friendsProfilePageCtrl" />
+						</p>
 					</div>
 				</div>
 			</div>

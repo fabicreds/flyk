@@ -1,5 +1,8 @@
 package com.tcc.flyk.persistence;
 
+import java.util.List;
+
+import com.tcc.flyk.entity.Amizade;
 import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Usuario;
 
@@ -21,5 +24,5 @@ public interface ClienteDAO {
 	
 	public Cliente atualizaCliente (String idCliente, Cliente c);
 
-	
+	public List<Amizade> consultarAmigosById(String id);
 }

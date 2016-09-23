@@ -2,7 +2,7 @@ package com.tcc.flyk.entity.enumerator;
 
 public enum StatusAmizadeEnum {
 	
-	ATIVA(1, "Ativa"), INATIVA(2, "Inativa"), SOLICITADA(3, "Solicitada");
+	ATIVA(1, "Ativa"), INATIVA(2, "Inativa"), SOLICITACAO_ENVIADA(3, "Solicitação Enviada"), SOLICITACAO_RECEBIDA(4,"Solicitação Recebida");
 	
 	private int codigo;
 	private String descricao;

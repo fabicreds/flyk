@@ -56,8 +56,10 @@
 	src="${pageContext.request.contextPath}/resources/angular/app/controllers/searchPage.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/controllers/friendsPage.js"></script>
-	<script
+<script
 	src="${pageContext.request.contextPath}/resources/angular/app/controllers/servicosContratados.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/angular/app/controllers/friendsProfilePage.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/uploadFactory.js"></script>
 <script

@@ -172,6 +172,7 @@
 													style="text-align: center;">
 													<p>
 														<strong>Status da Amizade: </strong>
+													</p>
 													<p ng-if="amizade.status == 1">
 														<font color="green"> <span
 															class="glyphicon glyphicon-ok-sign"></span>
@@ -190,7 +191,11 @@
 															{{amizade.statusDescricao}}
 														</font>
 													</p>
+													<p>
+														<input type="submit" class="btn btn-primary" value="Visualizar Perfil"
+														ng-click="sendPostPerfilAmigo(amizade.amigo.id, amizade.amigo.tipoCadastro)"  ng-controller="friendsProfilePageCtrl" />
 													</p>
+													
 
 												</div>
 											</div>
@@ -277,6 +282,10 @@
 															{{amizade.statusDescricao}}
 														</font>
 													</p>
+													</p>
+													<p>
+														<input type="submit" class="btn btn-primary" value="Visualizar Perfil"
+														ng-click="sendPostPerfilAmigo(amizade.amigo.id, amizade.amigo.tipoCadastro)"  ng-controller="friendsProfilePageCtrl" />
 													</p>
 
 												</div>
