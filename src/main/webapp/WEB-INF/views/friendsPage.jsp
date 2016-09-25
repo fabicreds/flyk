@@ -40,7 +40,7 @@
 								{{amizade.statusDescricao}}
 							</font>
 						</p>
-						<p ng-if="amizade.status == 2">
+						<p ng-if="amizade.status == 3 || amizade.status == 4 ">
 							<font color="blue"> <span
 								class="glyphicon glyphicon-question-sign"></span>
 								{{amizade.statusDescricao}}
@@ -49,7 +49,9 @@
 						</p>
 						<p>
 							<input type="submit" class="btn btn-primary"
-								value="Visualizar Perfil" ng-click="sendPostPerfilAmigo(amizade.amigo.id, amizade.amigo.tipoCadastro)"  ng-controller="friendsProfilePageCtrl" />
+								value="Visualizar Perfil"
+								ng-click="sendPostPerfilAmigo(amizade.amigo.id, amizade.amigo.tipoCadastro)"
+								ng-controller="friendsProfilePageCtrl" />
 						</p>
 					</div>
 				</div>

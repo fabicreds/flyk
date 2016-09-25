@@ -22,14 +22,13 @@ import com.tcc.flyk.entity.Prestador;
 import com.tcc.flyk.entity.Privacidade;
 import com.tcc.flyk.entity.Telefone;
 import com.tcc.flyk.entity.Usuario;
-import com.tcc.flyk.entity.enumerator.StatusAmizadeEnum;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.persistence.ClienteDAO;
 import com.tcc.flyk.persistence.MongoDB;
 import com.tcc.flyk.util.DataBaseUtil;
 
 public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
-	
+
 	private DataBaseUtil dbUtil = new DataBaseUtil();
 
 	public ClienteDAOImpl() {
@@ -101,9 +100,9 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		if (pessoa.getStatus() != null) {
 			doc.put("status_pessoa", pessoa.getStatus());
 		}
-		
-		//Imagem
-		if (pessoa.getFotoPerfil() != null){
+
+		// Imagem
+		if (pessoa.getFotoPerfil() != null) {
 			doc.put("foto", pessoa.getFotoPerfil());
 		}
 
@@ -265,11 +264,8 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 				// Status da amizade
 				if (pessoa.getListaAmigos().get(i).getStatusEnum() != null) {
-					if (pessoa.getListaAmigos().get(i).getStatusEnum() == StatusAmizadeEnum.ATIVA) {
-						amigo.put("status_amizade", "1");
-					} else {
-						amigo.put("status_amizade", "2");
-					}
+					amigo.put("status_amizade",
+							String.valueOf(pessoa.getListaAmigos().get(i).getStatusEnum().getCodigo()));
 				}
 
 				amigos.add(amigo);
@@ -581,7 +577,8 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			BasicDBList servicosContratadosDB = (BasicDBList) resultado.get("servicos_contratados");
 
 			if (servicosContratadosDB != null) {
-				List<Compromisso> listaServicosContratados = dbUtil.montarDadosServicosContratados(idCliente, servicosContratadosDB);
+				List<Compromisso> listaServicosContratados = dbUtil.montarDadosServicosContratados(idCliente,
+						servicosContratadosDB);
 				// Adiciona o array compromissos na pessoa
 				pessoa.setListaServicosContratados(listaServicosContratados);
 			}
@@ -628,7 +625,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			BasicDBObject searchQuery = new BasicDBObject();
 			searchQuery.append("usuario", usuario.getUsuario());
 
-			db.getCollection("cliente").update(searchQuery, updateQuery);
+			db.getCollection("FLYK").update(searchQuery, updateQuery);
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -819,6 +816,43 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 	}
 
+	@Override
+	public boolean atualizarListaAmigos(String idUsuario, List<Amizade> listaAmigos) {
+		try {
+			BasicDBObject updateQuery = new BasicDBObject();
+			BasicDBList amigos = new BasicDBList();
+			if (listaAmigos != null && !listaAmigos.isEmpty()) {
+				for (Amizade amizade : listaAmigos) {
+					BasicDBObject amigo = new BasicDBObject();
+					if (amizade.getAmigo() != null) {
+						amigo.put("id_amigo", String.valueOf(amizade.getAmigo().getId()));
+					}
 
+					// Data da amizade
+					if (amizade.getDataInicioAmizade() != null) {
+						amigo.put("data_amizade", amizade.getDataInicioAmizade());
+					}
+
+					// Status da amizade
+					if (amizade.getStatusEnum() != null) {
+						amigo.put("status_amizade", String.valueOf(amizade.getStatusEnum().getCodigo()));
+					}
+
+					amigos.add(amigo);
+				}
+				updateQuery.append("$set", new BasicDBObject().append("amigos", amigos));
+			}else{
+				updateQuery.append("$unset", new BasicDBObject().append("amigos", amigos));
+			}
+
+			BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(idUsuario));
+
+			db.getCollection("FLYK").update(filtro, updateQuery);
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 }

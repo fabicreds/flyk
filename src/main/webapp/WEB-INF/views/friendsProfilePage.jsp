@@ -6,14 +6,15 @@
 		<div class="row  center-block container" data-ng-init="">
 			<div class="well panel panel-default">
 				<div class="panel-heading">
-					<div class="col-md-8 col-sm-6 col-xs-12 vcenter">
-					<font size="6">Perfil do Usuário - Amigo -  {{data.amigo.nome}}</font>
+					<div class="col-md-6 col-sm-6 col-xs-12 vcenter">
+					<font size="6">Perfil do Usuário - Amigo -  {{data.amigo.usuario}}</font>
 					</div>
-					<div   class="col-md-3 col-sm-4 col-xs-6 vcenter" style="text-align: right;">
-					<div ng-if="data.amigo.statusAmizade == 1" ><input type="submit" class="btn btn-primary" value="Contratar Serviço"></div>
-					<div ng-if="data.amigo.statusAmizade == 2" ><input type="submit" class="btn btn-primary" value="Solicitar Amizade"></div>
+					<div   class="col-md-5 col-sm-4 col-xs-6 vcenter" style="text-align: right;">
+					<div ng-if="data.amigo.statusAmizade != 2" ><input type="submit" class="btn btn-primary" value="Desfazer Amizade" ng-click="sendPostDesfazerAmizade(data.amigo.id)"></div>
+					<div ng-if="data.amigo.statusAmizade == 1 && data.amigo.tipoCadastro!=1" ><input type="submit" class="btn btn-primary" value="Contratar Serviço"></div>
+					<div ng-if="data.amigo.statusAmizade == 2" ><input type="submit" class="btn btn-primary" value="Solicitar Amizade" ng-click="sendPostSolicitarAmizade(data.amigo.id)"></div>
 					<div ng-if="data.amigo.statusAmizade == 3" ><input type="submit" class="btn btn-primary" value="Solicitação Enviada"></div>
-					<div ng-if="data.amigo.statusAmizade == 4" ><input type="submit" class="btn btn-primary" value="Aceitar Amizade"></div>
+					<div ng-if="data.amigo.statusAmizade == 4" ><input type="submit" class="btn btn-primary" value="Aceitar Amizade" ng-click="sendPostAceitarAmizade(data.amigo.id)"></div>
 				</div>
 				</div>
 				<div class="panel-body">
@@ -29,8 +30,8 @@
 						<!--/col-->
 						<div class="col-md-3 col-sm-6 col-xs-12 vcenter">
 							<p>
-								<strong>Usuário: </strong>
-							<p style="text-indent: 1em;">{{data.amigo.usuario}}</p>
+								<strong>Nome: </strong>
+							<p style="text-indent: 1em;">{{data.amigo.nome}}</p>
 							</p>
 							<p>
 								<strong>Email: </strong>
@@ -54,7 +55,7 @@
 								<strong>Telefone: </strong>
 							<div ng-repeat="telefone in $root.data.amigo.listaTelefone">
 								<p style="text-indent: 1em;">
-									{{data.amigo.amigo.one.categoriaDescricao}} - ({{telefone.ddd}})
+									{{data.amigo.amigo.telefone.categoriaDescricao}} - ({{telefone.ddd}})
 									{{telefone.numero}} - {{telefone.operadoraDescricao}}</p>
 							</div>
 							</p>
@@ -94,7 +95,7 @@
 						<div class="panel panel-default">
 							<!-- ################################################## PAINEL DOS PRESTADORES ##################################################							 -->
 							<div class="panel-heading">
-								<div ng-if="usuarioLogado !='' && tipoUsuarioLogado!=1">
+								<div ng-if="data.amigo.tipoCadastro!=1">
 									<uib-tabset active="active"> <uib-tab index="0"
 										heading="Serviços"> <br>
 									<div class="panel panel-default">
@@ -193,7 +194,7 @@
 															{{amizade.statusDescricao}}
 														</font>
 													</p>
-													<p ng-if="amizade.status == 2">
+													<p ng-if="amizade.status == 3 || amizade.status == 4 ">
 														<font color="blue"> <span
 															class="glyphicon glyphicon-question-sign"></span>
 															{{amizade.statusDescricao}}
@@ -212,7 +213,7 @@
 									</uib-tab> </uib-tabset>
 								</div>
 								<!-- ################################################## PAINEL DOS CLIENTES ##################################################							 -->
-								<div ng-if="usuarioLogado !='' && tipoUsuarioLogado==1">
+								<div ng-if="data.amigo.tipoCadastro==1">
 									<uib-tabset active="active"> <uib-tab index="0"
 										heading="Histórico de Contratos"> <br>
 									<div
