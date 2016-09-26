@@ -1,7 +1,11 @@
 package com.tcc.flyk.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.tcc.flyk.entity.Amizade;
 import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.persistence.ClienteDAO;
 import com.tcc.flyk.persistence.impl.ClienteDAOImpl;
@@ -88,6 +92,14 @@ public class ClienteService {
 
 		return retorno;
 
+	}
+	
+	public List<Cliente> consultaClientePorParteDoNome(String nomeCliente){
+		List<Cliente> listaClientes = new ArrayList<Cliente>(); //Instancia o retorno
+		
+		listaClientes = cliDAO.consultaClientePorParteDoNome(nomeCliente);
+		
+		return listaClientes;
 	}
 
 }

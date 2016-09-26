@@ -27,4 +27,6 @@ public interface ClienteDAO {
 	public List<Amizade> consultarAmigosById(String id);
 	
 	public boolean atualizarListaAmigos(String  idUsuario, List<Amizade> listaAmigos);
+	
+	public List<Cliente> consultaClientePorParteDoNome(String nomeCliente);
 }

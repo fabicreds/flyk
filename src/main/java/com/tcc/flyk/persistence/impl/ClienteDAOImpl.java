@@ -14,6 +14,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.client.FindIterable;
 import com.tcc.flyk.entity.Amizade;
+import com.tcc.flyk.entity.Categoria;
 import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Compromisso;
 import com.tcc.flyk.entity.Conversa;
@@ -673,6 +674,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				user.setUsuario(String.valueOf(resultado.get("usuario")));
 				// TIPO CADASTRO
 				String tipoCadastro = String.valueOf(resultado.get("tipo_perfil"));
+				
 				if (tipoCadastro.equals("1")) {
 					user.setTipoCadastro(TipoCadastroEnum.CLIENTE);
 				}
@@ -855,4 +857,41 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		}
 	}
 
+	public List<Cliente> consultaClientePorParteDoNome(String nomeCliente){
+		consultaTudo();
+		try {
+			System.out.println("ClienteDAOImpl - consultando cliente por parte do nome:" + nomeCliente);
+			final List<Cliente> listaClientes = new ArrayList<Cliente>(); //Instancia o retorno
+
+			// Busca todos os clientes ativos com o nomeCliente em parte do nome
+			FindIterable<Document> iterable = super.mongoDatabase.getCollection("FLYK")
+					.find(new Document("status_pessoa", "A").append("nome_completo",
+							new Document("$regex", nomeCliente).append("$options", "'i'")));
+			// Varre a lista de resultados
+			iterable.forEach(new Block<Document>() {
+				@Override
+				public void apply(final Document document) {
+					System.out.println("-----CLIENTE ABAIXO-----");
+					System.out.println(document);
+
+					String idCliente = document.getObjectId("_id").toString();
+					listaClientes.add(consultaClientePorId(idCliente));
+				}
+			});
+
+			//Retorna a lista de clientes caso seja diferente de zero
+			if (listaClientes.size()==0) {
+				System.out.println("ClienteDAOImpl - consultando cliente por parte do nome - achou nada");
+				return null;
+			} else {
+				System.out.println("ClienteDAOImpl - consultando cliente por parte do nome - achou " + String.valueOf(listaClientes.size()));
+				return listaClientes;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
 }
