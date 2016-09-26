@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.tcc.flyk.entity.Amizade;
 import com.tcc.flyk.entity.Cliente;
+import com.tcc.flyk.entity.Usuario;
 import com.tcc.flyk.persistence.ClienteDAO;
 import com.tcc.flyk.persistence.impl.ClienteDAOImpl;
 
@@ -100,6 +101,14 @@ public class ClienteService {
 		listaClientes = cliDAO.consultaClientePorParteDoNome(nomeCliente);
 		
 		return listaClientes;
+	}
+	
+	public List<Usuario> consultaUsuarioPorParteDoNome(String nomeUsuario){
+		List<Usuario> listaUsuario = new ArrayList<Usuario>(); //Instancia o retorno
+		
+		listaUsuario = cliDAO.consultaUsuarioPorParteDoNome(nomeUsuario);
+		
+		return listaUsuario;
 	}
 
 }

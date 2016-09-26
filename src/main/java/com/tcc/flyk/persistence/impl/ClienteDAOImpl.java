@@ -515,6 +515,75 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		}
 	}
 
+	public Usuario consultaUsuarioPorId(String id){
+
+		try {
+			DBCollection collection = db.getCollection("FLYK");
+			BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(id));
+			DBCursor cursor = collection.find(filtro);
+			DBObject resultado;
+
+			Usuario user = new Usuario();
+			// Busca campos de resultado
+			if (cursor.hasNext()) {
+				resultado = cursor.next();
+				System.out.println(resultado);
+				System.out.println("************************");
+
+				// ID
+				user.setId(String.valueOf(resultado.get("_id")));
+				// NOME
+				user.setNome(String.valueOf(resultado.get("nome_completo")));
+				// EMAIL
+				user.setEmail(String.valueOf(resultado.get("email")));
+				// SENHA
+				user.setSenha(String.valueOf(resultado.get("senha")));
+				// USUARIO (EMAIL SEM O @)
+				user.setUsuario(String.valueOf(resultado.get("usuario")));
+				// TIPO CADASTRO
+				String tipoCadastro = String.valueOf(resultado.get("tipo_perfil"));
+				if (tipoCadastro.equals("1")) {
+					user.setTipoCadastro(TipoCadastroEnum.CLIENTE);
+				}
+				if (tipoCadastro.equals("2")) {
+					user.setTipoCadastro(TipoCadastroEnum.PRESTADOR);
+				}
+				if (tipoCadastro.equals("3")) {
+					user.setTipoCadastro(TipoCadastroEnum.PREMIUM);
+				}
+				if (tipoCadastro.equals("4")) {
+					user.setTipoCadastro(TipoCadastroEnum.ADMINISTRADOR);
+				}
+				// FLAG ATIVO
+				String flagAtivo = String.valueOf(resultado.get("status_pessoa"));
+				if (flagAtivo.equals("A")) {
+					user.setAtivo(true);
+				} else {
+					user.setAtivo(false);
+				}
+				/*************************
+				 * MENSAGENS DE TESTE, REMOVA CASO QUERIA, MAS Nï¿½O Dï¿½ COMMIT
+				 * PLEASE
+				 **********************/
+				System.out.println("**************");
+				System.out.println(user.getNome());
+				System.out.println(user.getId());
+				System.out.println(user.getSenha());
+				System.out.println(user.getTipoCadastro());
+				System.out.println("**************");
+
+			} else {
+				System.out.println("Consulta de cliente pelo email " + id + " nï¿½o encontrou valores.");
+				return null;
+			}
+
+			return user;
+
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 	@Override
 	public Cliente consultaClientePorId(String idCliente) {
 		consultaTudo();
@@ -648,7 +717,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		});
 	}
 
-	public Usuario consultaLoginById(String id) {
+	public Usuario consultaLoginById(String id) {//Este método funciona, mas não usaremos
 		try {
 			DBCollection collection = db.getCollection("FLYK");
 			BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(id));
@@ -717,6 +786,45 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		}
 	}
 
+	public List<Usuario> consultaUsuarioPorParteDoNome(String nomeUsuario){
+
+		consultaTudo();
+		try {
+			System.out.println("ClienteDAOImpl - consultando usuario por parte do nome:" + nomeUsuario);
+			final List<Usuario> listaUsuarios = new ArrayList<Usuario>(); //Instancia o retorno
+
+			// Busca todos os clientes ativos com o nomeUsuario em parte do nome
+			FindIterable<Document> iterable = super.mongoDatabase.getCollection("FLYK")
+					.find(new Document("status_pessoa", "A").append("nome_completo",
+							new Document("$regex", nomeUsuario).append("$options", "'i'")));
+			// Varre a lista de resultados
+			iterable.forEach(new Block<Document>() {
+				@Override
+				public void apply(final Document document) {
+					System.out.println("-----CLIENTE ABAIXO-----");
+					System.out.println(document);
+
+					String idCliente = document.getObjectId("_id").toString();
+					listaUsuarios.add(consultaUsuarioPorId(idCliente));
+				}
+			});
+
+			//Retorna a lista de clientes caso seja diferente de zero
+			if (listaUsuarios.size()==0) {
+				System.out.println("ClienteDAOImpl - consultando cliente por parte do nome - achou nada");
+				return null;
+			} else {
+				System.out.println("ClienteDAOImpl - consultando cliente por parte do nome - achou " + String.valueOf(listaUsuarios.size()));
+				return listaUsuarios;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
 	@Override
 	public Cliente atualizaCliente(String id, Cliente c) {
 		try {
