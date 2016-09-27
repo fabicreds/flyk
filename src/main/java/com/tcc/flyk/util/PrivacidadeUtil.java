@@ -34,4 +34,24 @@ public class PrivacidadeUtil {
 		default: return PrivacidadeEnum.PRIVADO;
 		}
 	}
+	public Privacidade toPrivacidade(JSONObject jsonPrivacidade) {
+		Privacidade privacidade = new Privacidade();
+
+		if (!jsonPrivacidade.isNull("cpf"))
+				{
+			privacidade.setExibeCPF(jsonPrivacidade.getJSONObject("cpf").getInt("id"));
+
+		}
+		if (!jsonPrivacidade.isNull("endereco")) {
+			privacidade.setExibeEndereco(jsonPrivacidade.getJSONObject("endereco").getInt("id"));
+
+		}
+		if (!jsonPrivacidade.isNull("telefone"))  {
+			privacidade.setExibeTelefone(jsonPrivacidade.getJSONObject("telefone").getInt("id"));
+
+		}
+
+		return privacidade;
+
+	}
 }

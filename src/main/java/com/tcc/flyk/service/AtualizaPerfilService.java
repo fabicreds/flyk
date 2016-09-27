@@ -13,17 +13,17 @@ import com.tcc.flyk.util.ClienteUtil;
 @Service
 public class AtualizaPerfilService {
 
-
 	private ClienteDAO cliDAO = new ClienteDAOImpl();
-	
+
 	@Resource
 	private ClienteUtil clienteUtil;
-	
+
 	public Cliente atualizaPerfil(String id, JSONObject jsonCli) {
 
-		Cliente JSONToCli = clienteUtil.toCliente(jsonCli.getJSONObject("cliente"));
-		System.out.println("jsonCli" + jsonCli);
-		return cliDAO.atualizaCliente(id, JSONToCli);
+		Cliente JSONToCli = clienteUtil.toCliente(jsonCli);
+		Cliente c = new Cliente();
+		c = cliDAO.atualizaCliente(id, JSONToCli);
 
+		return cliDAO.atualizaCliente(id, JSONToCli);
 	}
 }

@@ -1,10 +1,20 @@
 package com.tcc.flyk.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import com.tcc.flyk.entity.Cliente;
+import com.tcc.flyk.entity.Endereco;
+import com.tcc.flyk.entity.Privacidade;
+import com.tcc.flyk.entity.Telefone;
 import com.tcc.flyk.entity.Usuario;
+import com.tcc.flyk.entity.enumerator.CategoriaTelefoneEnum;
+import com.tcc.flyk.entity.enumerator.OperadoraEnum;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.entity.form.EfetuarLoginForm;
 import com.tcc.flyk.persistence.AdministradorDAO;
@@ -22,6 +32,7 @@ public class EfetuarLoginService {
 
 	public String efetuarLogin(EfetuarLoginForm form) {
 		try {
+			
 
 			Usuario usuario = new Usuario();
 
@@ -31,12 +42,12 @@ public class EfetuarLoginService {
 				usuario = cliDAO.consultaLogin(form.getEmail());
 
 				if (usuario == null)
-					return mensagemErro("Usuï¿½rio ou senha incorreto!");
+					return mensagemErro("Usuário ou senha incorreto!");
 			}
 
 			if (!usuario.isAtivo()) {
 				// usuario inativo
-				return mensagemErro("UsuÃ¡rio inativo!");
+				return mensagemErro("Usuário inativo!");
 			} else {
 				if (form.getSenha().equals(usuario.getSenha())) {
 					// usuario autenticado com sucesso
@@ -46,7 +57,7 @@ public class EfetuarLoginService {
 					return mensagemSucesso(usuario);
 				} else {
 					// senha incorreta
-					return mensagemErro("UsÃ¡rio ou senha incorreto!");
+					return mensagemErro("Usuário ou senha incorreto!");
 				}
 			}
 

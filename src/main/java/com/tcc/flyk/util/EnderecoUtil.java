@@ -55,6 +55,8 @@ public class EnderecoUtil {
 		if (!json.isNull("estado")){
 			endereco.setEstado(json.getString("estado"));
 		}
+		
+
 		return endereco;
 	}
 

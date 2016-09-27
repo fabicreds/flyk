@@ -15,6 +15,10 @@ import com.tcc.flyk.entity.Compromisso;
 import com.tcc.flyk.entity.Conversa;
 import com.tcc.flyk.entity.Endereco;
 import com.tcc.flyk.entity.Prestador;
+import com.tcc.flyk.entity.Privacidade;
+import com.tcc.flyk.entity.Telefone;
+import com.tcc.flyk.entity.enumerator.CategoriaTelefoneEnum;
+import com.tcc.flyk.entity.enumerator.OperadoraEnum;
 
 @Component
 public class ClienteUtil {
@@ -23,7 +27,7 @@ public class ClienteUtil {
 	private AmizadeUtil amizadeUtil;
 
 	@Resource
-	private PrivacidadeUtil privacidadeUtil;
+	private PrivacidadeUtil privacidadeUtil = new PrivacidadeUtil();
 
 	@Resource
 	private PrestadorUtil prestadorUtil;
@@ -32,13 +36,13 @@ public class ClienteUtil {
 	private ConversaUtil conversaUtil;
 
 	@Resource
-	private EnderecoUtil enderecoUtil;
+	private EnderecoUtil enderecoUtil = new EnderecoUtil();
 
 	@Resource
 	private CompromissoUtil compromissoUtil;
 
 	@Resource
-	private TelefoneUtil telefoneUtil;
+	private TelefoneUtil telefoneUtil = new TelefoneUtil() ;
 
 	private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	private SimpleDateFormat formatoSimples = new SimpleDateFormat("dd/MM/yyyy");
@@ -75,12 +79,14 @@ public class ClienteUtil {
 			jObjt.put("cpf", cliente.getCPF());
 		}
 		if (cliente.getEndereco() != null) {
-			// jObjt.put("endereco",
-			// enderecoUtil.toJSON(cliente.getEndereco()));
+			//jObjt.put("endereco", enderecoUtil.toJSON(cliente.getEndereco()));
 			jObjt.put("endereco", endToJSON(cliente.getEndereco()));
+
 		}
 		if (cliente.getListaTelefone() != null) {
 			jObjt.put("listaTelefone", telefoneUtil.listaTelefoneJSON(cliente.getListaTelefone()));
+			//jObjt.put("listaTelefone", listaTelefoneJSON(cliente.getListaTelefone()));
+
 
 		}
 		if (cliente.getNascimento() != null) {
@@ -100,8 +106,7 @@ public class ClienteUtil {
 			jObjt.put("listaAmigos", listaAmigosJSON(cliente.getListaAmigos()));
 		}
 		if (cliente.getPrivacidade() != null) {
-			// jObjt.put("privacidade",
-			// privacidadeUtil.toJSON(cliente.getPrivacidade()));
+			jObjt.put("privacidade", privacidadeUtil.toJSON(cliente.getPrivacidade()));
 		}
 		if (cliente.getTipoCadastro() != null) {
 			jObjt.put("tipoCadastro", cliente.getTipoCadastro().getCodigo());
@@ -200,6 +205,9 @@ public class ClienteUtil {
 	public Cliente toCliente(JSONObject json) {
 		Cliente cli = new Cliente();
 
+		if (!json.isNull("id") && !json.getString("id").isEmpty()) {
+			cli.setId(json.getString("id"));
+		}
 		if (!json.isNull("nome") && !json.getString("nome").isEmpty()) {
 			cli.setNome(json.getString("nome"));
 		}
@@ -233,25 +241,44 @@ public class ClienteUtil {
 				cli.setNascimento(null);
 			}
 		}
-		List<JSONObject> listaTelefones = new ArrayList<JSONObject>();
-		if (!json.isNull("telefone1")) {
-			listaTelefones.add((JSONObject) json.get("telefone1"));
-		}
-		if (!json.isNull("telefone2")) {
-			listaTelefones.add((JSONObject) json.get("telefone2"));
-		}
-		if (!listaTelefones.isEmpty()) {
-			cli.setListaTelefone(telefoneUtil.jsonToListaTelefone(listaTelefones));
+		List<String> listaTelefones = new ArrayList<String>();
+        
+		if (!json.isNull("listaTelefone") && json.getJSONObject("listaTelefone") != null) {
+			List<Telefone> telefones = new ArrayList<Telefone>();
+
+			telefones = telefoneUtil.JSONToListaTelefone(json.getJSONObject(("listaTelefone")), telefones);
+			cli.setListaTelefone(telefones);
+
 		}
 
-		// DADOS DO ENDERE�O
-		if (!json.isNull("endereco")) {
-			JSONObject enderecoJSON = (JSONObject) json.get("endereco");
-			if (enderecoJSON != null) {
-				cli.setEndereco(enderecoUtil.toEndereco(enderecoJSON));
+		else {		
+			
+			
+			List<JSONObject> listaTelefone = new ArrayList<JSONObject>();
+			if (!json.isNull("telefone1")) {
+				listaTelefone.add((JSONObject) json.get("telefone1"));
+			}
+			if (!json.isNull("telefone2")) {
+				listaTelefone.add((JSONObject) json.get("telefone2"));
+			}
+			if (!listaTelefone.isEmpty()) {
+				cli.setListaTelefone(telefoneUtil.jsonToListaTelefone(listaTelefone));
 			}
 		}
 
+	
+		if (!json.isNull("endereco")) {
+			JSONObject enderecoJSON = json.getJSONObject("endereco");
+			if (enderecoJSON != null) {		
+				cli.setEndereco(enderecoUtil.toEndereco(enderecoJSON));
+			}
+		}
+		if (!json.isNull("privacidade")) {
+			Privacidade privacidade = new Privacidade();
+			privacidade = privacidadeUtil.toPrivacidade(json.getJSONObject("privacidade"));
+			cli.setPrivacidade(privacidade);
+
+		}
 		// 'imagem' :$scope.imageSrc
 		if (!json.isNull("imagem")) {
 			cli.setFotoPerfil(json.getString("imagem"));
@@ -259,5 +286,6 @@ public class ClienteUtil {
 
 		return cli;
 	}
+
 
 }

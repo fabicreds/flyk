@@ -59,13 +59,15 @@ flyk.controller("atualizaPerfilCtrl", function ($scope, $rootScope, $location, $
 		              	
 		              	   }];
 		              	$scope.atualizaPerfil = function() {
+		              		$scope.cliente.listaTelefone = {};
+		              		$scope.cliente.listaTelefone=$rootScope.data.listaTelefone;
 		              		
 		            		$http({
 		            			url : 'atualizarPerfil',
 		            			method : "POST",
 		            			data : {
-		            				'cliente' : $scope.cliente,
-		            				'listaTelefone' : $scope.data.listaTelefone
+		            				'cliente' : $scope.cliente
+		            				
 		            			}
 
 		            		})
@@ -75,23 +77,23 @@ flyk.controller("atualizaPerfilCtrl", function ($scope, $rootScope, $location, $
 		            			if (response.data.tipoCadastro == "1"|| response.data.tipoCadastro == "2") {
 		            			$rootScope.data = response.data.cliente;
 		            			$scope.listaTelefone = response.data.cliente.listaTelefone;
-		            			console.log(response.data.cliente);
+		            			localStorage.setItem("dadosCliente", JSON.stringify($rootScope.data));
 		            			$location.path('/profilePage');
 		            		} else {
 		            			// $location.path('/adminPage');
-		            			$localStorage.LocalMessage = response.data.cliente;
+		            			
 		            			$rootScope.data = response.data.cliente;
+		            			localStorage.setItem("dadosCliente", JSON.stringify($rootScope.data));
 		            			console.log(response.data);
 		            		}
-		            		$localStorage.LocalMessage = response.data.cliente;
+		            			
 		            		},
 		            		function(response) {
 		            			$rootScope.data = response.data.cliente;
 		            			console.log(response.data.cliente);
 
-		            			// $scope.message = response;
-		            			$localStorage.LocalMessage = response.data.cliente;
-		            		});
+		            		
+		            			localStorage.setItem("dadosCliente", JSON.stringify($rootScope.data));		            		});
 		                
 		            	}
 

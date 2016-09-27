@@ -830,8 +830,11 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		try {
 			Cliente cli = new Cliente();
 			BasicDBObject updateQuery = new BasicDBObject();
-
-			if (c.getListaTelefone() != null) {
+			cli = this.consultaClientePorId(String.valueOf(id));		
+			
+            
+			
+			if (!(c.getListaTelefone() == null)) {
 
 				int count = c.getListaTelefone().size();
 				System.out.println("qtd telefones: " + String.valueOf(count));
@@ -846,18 +849,18 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 					telefone.put("numero_telefone", String.valueOf(c.getListaTelefone().get(i).getNumero()));
 
 					// Categoria
-					if (c.getListaTelefone().get(i).getCategoriaTelefone() != null) {
+					if (!(c.getListaTelefone().get(i).getCategoriaTelefone() == null)) {
 						telefone.put("categoria_telefone",
 								String.valueOf(c.getListaTelefone().get(i).getCategoriaTelefone().getCodigo()));
 					}
 
 					// DDD
-					if (c.getListaTelefone().get(i).getDdd() == 0) {
+					if (!(c.getListaTelefone().get(i).getDdd() == 0)) {
 						telefone.put("ddd_telefone", String.valueOf(c.getListaTelefone().get(i).getDdd()));
 					}
 
 					// Operadora
-					if (c.getListaTelefone().get(i).getOperadora() != null) {
+					if (!(c.getListaTelefone().get(i).getOperadora() == null)) {
 						telefone.put("operadora_telefone",
 								String.valueOf(c.getListaTelefone().get(i).getOperadora().getCodigo()));
 					}
@@ -866,26 +869,27 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 					telefones.add(telefone);
 					System.out.println("telefone adicionado uhul");
 				}
+			
 
-				updateQuery.append("$set", new BasicDBObject().append("CPF", c.getCPF()).append("email", c.getEmail())
-						.append("telefones", telefones).append("logradouro", c.getEndereco().getLogradouro())
+				updateQuery.append("$set", new BasicDBObject().append("CPF", c.getCPF()).append("email", c.getEmail()).append("telefones", telefones).append("logradouro", c.getEndereco().getLogradouro())
 						.append("bairro", c.getEndereco().getBairro()).append("cep", c.getEndereco().getCep())
 						.append("cidade", c.getEndereco().getCidade()).append("estado", c.getEndereco().getEstado())
 						.append("complemento", c.getEndereco().getComplemento())
 						.append("numero", c.getEndereco().getNumero())
+						.append("privacidade_bloco_cpf_cnpj",c.getPrivacidade().getExibeCPF().getCodigo())
+						.append("privacidade_bloco_telefone",c.getPrivacidade().getExibeTelefone().getCodigo())
+						.append("privacidade_bloco_endereco",c.getPrivacidade().getExibeEndereco().getCodigo())						
+						
+
+					
+								
+						
 
 				);
 
 			}
-
-			updateQuery.append("$set",
-					new BasicDBObject().append("CPF", c.getCPF()).append("email", c.getEmail())
-							// .append("telefones", telefones)
-							.append("logradouro", c.getEndereco().getLogradouro())
-							.append("bairro", c.getEndereco().getBairro()).append("cep", c.getEndereco().getCep())
-							.append("cidade", c.getEndereco().getCidade()).append("estado", c.getEndereco().getEstado())
-							.append("complemento", c.getEndereco().getComplemento())
-							.append("numero", c.getEndereco().getNumero()));
+			
+	
 			BasicDBObject searchQuery = new BasicDBObject();
 			searchQuery.append("_id", new ObjectId(id));
 

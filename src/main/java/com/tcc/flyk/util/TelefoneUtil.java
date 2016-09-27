@@ -17,7 +17,7 @@ public class TelefoneUtil {
 		if (telefones != null) {
 			for (JSONObject telefone : telefones) {
 				Telefone tel = new Telefone();
-				if (!telefone.isNull("number") ) {
+				if (!telefone.isNull("number")) {
 					tel.setDdd(Integer.valueOf(telefone.getString("number").substring(1, 3)));
 					tel.setNumero(telefone.getString("number").substring(4).replace("-", ""));
 				}
@@ -63,6 +63,47 @@ public class TelefoneUtil {
 			}
 		}
 		return jObjt;
+	}
+
+	public List<Telefone> JSONToListaTelefone(JSONObject lista, List<Telefone> telefones) {
+
+		System.out.println("******JSONToListaTelefone****" + lista.toString());
+
+		for (Object k : lista.keySet()) {
+			String chave = (String) k;
+			JSONObject jsonTel = new JSONObject();
+			jsonTel = lista.getJSONObject(chave);
+
+			Telefone t = new Telefone();
+			t.setDdd(jsonTel.getInt("ddd"));
+			t.setNumero(jsonTel.getString("numero"));
+
+			if (!jsonTel.isNull("operadora")) {
+				Object ope = jsonTel.get("operadora");
+				if (ope instanceof JSONObject) {
+					t.setOperadora((jsonTel.getJSONObject("operadora").getInt("id")));
+				}
+
+				else {
+					t.setOperadora((jsonTel.getInt("operadora")));
+				}
+			}
+
+			if (!jsonTel.isNull("categoria")) {
+				Object ope = jsonTel.get("categoria");
+				if (ope instanceof JSONObject) {
+					t.setOperadora((jsonTel.getJSONObject("categoria").getInt("id")));
+				}
+
+				else {
+					t.setOperadora((jsonTel.getInt("categoria")));
+				}
+			}
+			telefones.add(t);
+
+		}
+		System.out.println("JSON TELEFONES" + lista.toString());
+		return telefones;
 	}
 
 }

@@ -51,7 +51,7 @@ public class ProfilePageService {
 			// buscando os detalhes do servicos contratados
 			buscarDadosContratos(cliente);
 			
-			return mensagemSucesso(cliente);
+                            			return mensagemSucesso(cliente);
 		} else {
 			// busca pelos Dados do Prestador
 			Prestador prestador = new Prestador();
@@ -76,7 +76,7 @@ public class ProfilePageService {
 		jObjt.put("tipoCadastroDescricao", cliente.getTipoCadastro().getDescricao());
 		jObjt.put("idUsuario", cliente.getId());
 		jObjt.put("cliente", clienteUtil.toJSON(cliente));
-		return jObjt.toString();
+  		return jObjt.toString();
 	}
 
 	private String mensagemSucesso(Prestador prestador) {

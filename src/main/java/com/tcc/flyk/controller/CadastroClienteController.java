@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Prestador;
+import com.tcc.flyk.entity.Privacidade;
+import com.tcc.flyk.entity.enumerator.PrivacidadeEnum;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.service.ClienteService;
 import com.tcc.flyk.service.PrestadorService;
@@ -72,6 +74,13 @@ public class CadastroClienteController {
 				Cliente novoCliente = clienteUtil.toCliente(objeto);
 				novoCliente.setStatus("A");
 				novoCliente.setTipoCadastro(TipoCadastroEnum.CLIENTE);
+				Privacidade privacidade = new Privacidade ();
+				privacidade.setExibeCPF(2);
+				privacidade.setExibeAgenda(2);
+				privacidade.setExibeEndereco(2);
+				privacidade.setExibeTelefone(2);
+				novoCliente.setPrivacidade(privacidade);
+				
 				retorno = clienteService.cadastrarNovoCliente(novoCliente);
 			}
 
@@ -85,7 +94,7 @@ public class CadastroClienteController {
 			}
 		} catch (Exception e) {
 			ret.put("retorno", "erro");
-			ret.put("mensagem", "Cliente n�o cadastrado.");
+			ret.put("mensagem", "Cliente n�o cadastrado." + e.toString());
 			return ret.toString();
 		}
 		// Retorna para o .js
