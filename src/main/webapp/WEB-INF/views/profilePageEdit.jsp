@@ -1,6 +1,8 @@
 
 <body>
-
+<form class="form-horizontal" name="inactivateForm" novalidate
+							role="form" ng-controller="atualizaPerfilCtrl"
+							ng-submit="atualizaPerfil()">
 	<div class="row center-block" data-ng-init="">
 		<div class="well panel panel-default">
 			<div class="panel-heading">
@@ -31,9 +33,6 @@
 					<!--/col-->
 					<div class="col-sm-8">
 
-						<form class="form-horizontal" name="inactivateForm" novalidate
-							role="form" ng-controller="atualizaPerfilCtrl"
-							ng-submit="atualizaPerfil()">
 							<h3>{{data.nome}}</h3>
 							<div ng-show="$root.data.apelido != null">
 								<label for="nickname">Apelido</label>
@@ -125,11 +124,11 @@
 
 
 
-							<label for="telefone">Telefone:</label>
-							
-							 <select
+							<label for="telefone">Telefone:</label> 
+							<select 
 								ng-options="x as x.label for x in tipoprivacidade track by tipoprivacidade.id"
-								ng-model="cliente.privacidade.telefone"></select>
+								ng-model="cliente.privacidade.telefone">
+							</select>
 							<div ng-repeat="telefone in data.listaTelefone">
 								<div class="form-group">
 									<div class="col-sm-1">
@@ -154,7 +153,7 @@
 
 								</div>
 							</div>
-						
+
 
 							<label for="cpf">CPF/CNPJ:</label>
 							<div class="form-group">
@@ -163,10 +162,10 @@
 										ng-model="cliente.cpf" ng-init=" cliente.cpf = data.cpf" />
 								</div>
 								<div class="col-sm-2">
-								<select class="form-control"
-									ng-options="x as x.label for x in tipoprivacidade track by tipoprivacidade.id"
-									ng-model="cliente.privacidade.cpf"></select>
-									</div>
+									<select class="form-control"
+										ng-options="x as x.label for x in tipoprivacidade track by tipoprivacidade.id"
+										ng-model="cliente.privacidade.cpf"></select>
+								</div>
 							</div>
 
 							<label for="cpf">Nascimento:</label>
@@ -179,30 +178,17 @@
 							</div>
 
 
-
-							<div class="form-group">
-								<div class="col-sm-12" style="align: right">
-									<input type="submit" class="btn btn-success" value="Finalizar" />
-									<input type="reset" class="btn btn-default" value="Limpar"
-										ng-click="resetcadastroform()" />
-								</div>
-							</div>
-
-						</form>
 					</div>
 				</div>
+				
 
 				<div class="row">
+
 					<div class="panel panel-default">
 						<!-- Se o usuário estiver logado e for um prestador -->
 						<div class="panel-heading">
-							<div ng-if="usuarioLogado !='' && tipoUsuarioLogado==2">
-								<uib-tabset active="active"> <uib-tab index="0"
-									heading="Tipo de perfil"></uib-tab> <uib-tab index="1"
-									heading="Privacidade"></uib-tab> </uib-tabset>
-							</div>
 							<!-- Se o usuário estiver logado e for um cliente -->
-							<div ng-if="usuarioLogado !='' && tipoUsuarioLogado==1">
+							<div ng-if="usuarioLogado !=''">
 								<uib-tabset active="active"> <uib-tab index="0"
 									heading="Tipo de perfil">
 
@@ -211,8 +197,8 @@
 
 										<div class="row">
 											<div class="col-sm-6">
+											
 												<div class="form-group">
-
 													<div class="col-sm-3">
 
 														<div class="checkbox">
@@ -221,14 +207,12 @@
 																Prestador
 															</label><br />
 														</div>
-
-
 													</div>
 												</div>
+												
 												<div class="form-group" uib-collapse="!data.tipoCadastro">
-													<div class="col-sm-6">
-														<label for="cpf">Tipo de acesso:</label>
-
+												<div class="col-sm-6"> 
+												<label for="cpf">Tipo de acesso:</label>
 														<div class="radio">
 															<label
 																uib-tooltip="FREE: BLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLA">
@@ -243,10 +227,11 @@
 																ng-model="prestador.type" /> Premium
 															</label><br />
 														</div>
-													</div>
+												</div>
 												</div>
 
-												{{data}}
+                                               {{cliente}}
+                                               {{data}}
 
 											</div>
 										</div>
@@ -254,63 +239,98 @@
 								</div>
 
 								</uib-tab> <uib-tab ng-hide="!data.tipoCadastro" index="1"
-									heading="Serviços">
+									heading="Serviços" data-ng-init="carregaCategorias()">
 
 								<div class="panel panel-default">
 									<div class="panel-body">
-										<div class="row">
-											<div class="col-sm-6">
-												<div class="form-group col-md-8 form-inline">
-													<label for="categoria" class="control-label">Valor
-														por categoria do serviço</label>
-													<fieldset data-ng-repeat="categoria in listaCategorias">
-														<select ng-model="categoria.nome" class="form-control"
-															style="margin-top: 15px;">
-															<option ng-repeat="nomeCat in categorias track by $index"
-																value="{{nomeCat}}">{{nomeCat}}</option>
-														</select>
 
-
-														<div class="input-group" style="margin-top: 15px;">
-															<div class="input-group-addon">$</div>
-															<input type="text" class="form-control"
-																ng-model="categoria.valorpromocional" name=""
-																placeholder="Valor promocional">
-
-														</div>
-
-
-
-														<button class="btn" ng-show="$last"
-															style="margin-top: 15px" ng-click="removeCategoria()">-</button>
-													</fieldset>
-													<!-- <button class="btn" ng-click="addNewCategoria()">+</button> 
-									               <div id="choicesDisplay">
-									                  {{ choices }}
-									               </div>-->
+										<div class="col-sm-12">
+										
+										  <div class="form-group">
+												<label for="servicos" class="col-sm-1 control-label">
+													Número de Serviços </label>
+												<div class=" col-sm-1">
+													<select class="form-control col-s" ng-model="numServicos"
+														ng-change="selecionarNumServicos(numServicos)">
+														<option value="1" selected="selected" ng-selected="data.tipoCadastro">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+													</select>
 												</div>
 											</div>
+						
+												
+									
+
+											<div class="form-group">
+												<label for="servicos" class="col-sm-1 control-label">
+													Serviços </label>
+												<div class="col-sm-6">
+													<div ng-repeat="i in servicosSelecionados track by $index">
+														<div ng-if="i.id!=0">
+															<label for="servicos" class="col-sm-3 control-label">
+															</label>
+														</div>
+														<div class="panel panel-default">
+															<div class="panel-heading">Serviço {{i.id}}</div>
+															<div class="panel-body">
+																<label for="serviços" class="col-sm-4 control-label">
+																	Categoria do Serviço </label>
+																<div class=" col-sm-4">
+																	<select class="form-control" ng-model="servicos[i.id]"
+																		ng-options="item as item.nome for item in categoriasServico">
+																	</select>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<div class="form-group">
+												<div
+												ng-repeat="servico in $root.data.listaCategoriaServicosPrestados">
+												<div class="col-md-4 col-sm-3 col-xs-6">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<strong>Serviço {{servico.num}}: </strong>
+														</div>
+														<div class="panel-body">
+															<p>
+																<strong>Nome: </strong>
+															<p style="text-indent: 1em;">{{servico.nome}}</p>
+															</p>
+															<p>
+																<strong>Descrição: </strong>
+															<p style="text-indent: 1em;">{{servico.descricao}}</p>
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+											</div>
+											
 										</div>
 									</div>
 								</div>
-
-
 
 								</uib-tab> </uib-tabset>
 							</div>
 						</div>
 					</div>
 				</div>
+				<div class="form-group">
+					<div class="col-sm-1 control-label"></div>
+					<div class="col-sm-9" style="float:right;">
+						<input type="submit" class="btn btn-success"
+							value="Finalizar" ng-click="sendPostCadastroCliente()" />
+						<input type="reset" class="btn btn-default" value="Limpar"
+							ng-click="resetcadastroform()" />
+					</div>
+				</div>
 			</div>
 		</div>
-
 	</div>
 	</form>
-	<div class="form-group">
-		<label for="name" class="col-sm-3 control-label"></label>
-		<div class="col-sm-6">
-			<font color="red"> {{messageErroCadastro}}</font> <font color="green">
-				{{messageSucessoCadastro}}</font>
-		</div>
-	</div>
 </body>
