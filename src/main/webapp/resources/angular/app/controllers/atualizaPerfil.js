@@ -1,11 +1,11 @@
 flyk.controller("atualizaPerfilCtrl", function ($scope, $rootScope, $location, $http, fileReader, $localStorage,
 		$sessionStorage, $window) {
 	
-	 $scope.categoriasServico = [];
-	 $scope.servicosSelecionados = [];
-	 $scope.servicos = [];
-	 $scope.cliente = {};
-	 $scope.cliente.id = $rootScope.data.id;
+	     $scope.cliente = {};
+		 $scope.cliente.id = $rootScope.data.id;
+		 $scope.categoriasServico = [];
+		 $scope.servicosSelecionados = [];
+		 $scope.servicos = [];
 		
 		 $scope.categorias = [
 		                      {
@@ -64,7 +64,14 @@ flyk.controller("atualizaPerfilCtrl", function ($scope, $rootScope, $location, $
 		              	$scope.atualizaPerfil = function() {
 		              		$scope.cliente.listaTelefone = {};
 		              		$scope.cliente.listaTelefone=$rootScope.data.listaTelefone;
-		              		
+		              		$scope.cliente.nome=$rootScope.data.nome;
+		              		$scope.cliente.listaServicos=$rootScope.data.listaCategoriaServicosPrestados;
+                            if ($scope.data.tipoCadastro)
+                            {
+                            	$scope.data.tipoCadastro = 2;
+                            }
+		              		$scope.cliente.tipoCadastro=$rootScope.data.tipoCadastro;
+		              		console.log($rootScope.data)
 		            		$http({
 		            			url : 'atualizarPerfil',
 		            			method : "POST",
@@ -98,9 +105,24 @@ flyk.controller("atualizaPerfilCtrl", function ($scope, $rootScope, $location, $
 		            		
 		            			localStorage.setItem("dadosCliente", JSON.stringify($rootScope.data));		            		});
 		                
-		            	}
-		              	
-		              	$scope.carregaCategorias = function() {
+		            	
+		              	}
+		             // Upload imagem de perfil
+		            	console.log(fileReader)
+		            	$scope.getFile = function() {
+		            		$scope.progress = 0;
+		            		fileReader.readAsDataUrl($scope.file, $scope).then(function(result) {
+		            			$scope.imageSrc = result;
+		            			$scope.cliente.imagem=	result;
+		            			console.log($scope.cliente.imagem);
+		            		});
+		            	};
+
+		            	$scope.$on("fileProgress", function(e, progress) {
+		            		$scope.progress = progress.loaded / progress.total;
+		            	});
+		            	
+		            	$scope.carregaCategorias = function() {
 		              		$http({
 		            			url : 'consultaCategoriaCadastradasCadastro',
 		            			method : "POST",
@@ -108,7 +130,8 @@ flyk.controller("atualizaPerfilCtrl", function ($scope, $rootScope, $location, $
 		            		}).then(
 		            				function(response) {
 		            					if (response.data.retorno != "erro") {
-		            						$rootScope.data = response.data;
+		            						//$rootScope.data = response.data;
+		            						// COMENTEI PQ TO USANDO O $rootScope.data 
 		            						if (response.data.listaCategorias != null) {
 		            							angular.forEach(response.data.listaCategorias,
 		            									function(item, key) {
@@ -141,6 +164,5 @@ flyk.controller("atualizaPerfilCtrl", function ($scope, $rootScope, $location, $
 		            			$scope.servicosSelecionados.push(servico);
 		            		}
 		            	};
-
 
 });

@@ -129,7 +129,7 @@
 								ng-options="x as x.label for x in tipoprivacidade track by tipoprivacidade.id"
 								ng-model="cliente.privacidade.telefone">
 							</select>
-							<div ng-repeat="telefone in data.listaTelefone">
+								<div ng-repeat="telefone in data.listaTelefone">
 								<div class="form-group">
 									<div class="col-sm-1">
 										<input type="text" id="ddd" name="ddd" class="form-control"
