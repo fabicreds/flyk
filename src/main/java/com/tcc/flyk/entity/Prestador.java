@@ -34,7 +34,7 @@ public class Prestador extends Cliente{
 		this.listaCategoriaServicosPrestados = listaCategoriaServicosPrestados;
 	}
 
-	public List<Compromisso> geListaContratosServicosPrestados() {
+	public List<Compromisso> getListaContratosServicosPrestados() {
 		return listaContratosServicosPrestados;
 	}
 

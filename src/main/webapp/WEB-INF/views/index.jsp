@@ -59,7 +59,11 @@
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/controllers/servicosContratados.js"></script>
 <script
+	src="${pageContext.request.contextPath}/resources/angular/app/controllers/servicosPrestados.js"></script>
+<script
 	src="${pageContext.request.contextPath}/resources/angular/app/controllers/friendsProfilePage.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/angular/app/controllers/contratarServico.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/uploadFactory.js"></script>
 <script
@@ -232,7 +236,8 @@
 								class="glyphicon glyphicon-list-alt"></span> <span class="text">SERVIÇOS
 									CONTRATADOS</span>
 						</a></li>
-						<li class="link" ng-if="tipoUsuarioLogado!=1"><a> <span
+						<li class="link" ng-if="tipoUsuarioLogado!=1"><a ng-click="showServicosPrestados()"
+							ng-controller="servicosPrestadosCtrl"> <span
 								class="glyphicon glyphicon-wrench"></span> <span class="text">SERVIÇOS
 									PRESTADOS</span>
 						</a></li>

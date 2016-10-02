@@ -12,8 +12,7 @@
 					<div class="row">
 						<div class="col-md-4 col-sm-6 col-xs-12 vcenter">
 							<div class="text-center">
-								<img 
-									ng-src={{data.fotoPerfil}}
+								<img ng-src={{data.fotoPerfil}}
 									class="avatar img-circle img-thumbnail" alt="avatar"
 									style="height: 200px; width: 200px;">
 							</div>
@@ -119,17 +118,18 @@
 										ng-repeat="compromisso in $root.data.listaServicosContratados">
 										<div class="panel panel-default">
 											<div class="panel-body">
-												<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="col-md-4 vcenter">
 													<p>
 														<strong>Prestador: </strong>
 													<p style="text-indent: 1em;">{{compromisso.contrato.prestador.nome}}</p>
 													</p>
 													<p>
 														<strong>Serviço: </strong>
-													<p style="text-indent: 1em;">{{compromisso.contrato.servico}}</p>
+													<p style="text-indent: 1em;">{{compromisso.contrato.servico.nome}}
+														- {{compromisso.contrato.servico.descricao}}</p>
 													</p>
 												</div>
-												<div class="col-md-4 col-sm-6 col-xs-12">
+												<div class="col-md-4 vcenter">
 													<p>
 														<strong>Data de Início: </strong>
 													<p style="text-indent: 1em;">{{compromisso.dataInicio}}</p>
@@ -139,12 +139,98 @@
 													<p style="text-indent: 1em;">{{compromisso.dataFim}}</p>
 													</p>
 												</div>
+												<div class="col-md-3 vcenter" style="text-align: center;">
+													<p>
+														<strong>Status: </strong>
+													<p ng-if="compromisso.status == 1">
+														<font color="blue"> <span
+															class="glyphicon glyphicon-question-sign"></span>
+															{{compromisso.statusDescricao}}
+														</font>
+													</p>
+													<p ng-if="compromisso.status == 2">
+														<font color="green"> <span
+															class="glyphicon glyphicon-ok-sign"></span>
+															{{compromisso.statusDescricao}}
+														</font>
+													</p>
+													<p ng-if="compromisso.status == 3">
+														<font color="red"> <span
+															class="glyphicon glyphicon-remove-sign"></span>
+															{{compromisso.statusDescricao}}
+														</font>
+													</p>
+													<p ng-if="compromisso.status == 4">
+														<font color="green"> <span
+															class="glyphicon glyphicon-ok-sign"></span>
+															{{compromisso.statusDescricao}}
+														</font>
+													</p>
+												</div>
 											</div>
 										</div>
 									</div>
 									</uib-tab> <uib-tab index="2" heading="Histórico de Contratos Prestados"
-										ng-if="$root.data.listaContratosServicosPrestados!=null">TAB3</uib-tab>
-									<uib-tab index="3" heading="Amigos"
+										ng-if="$root.data.listaContratosServicosPrestados!=null">
+									<br>
+									<div
+										ng-repeat="compromisso in $root.data.listaContratosServicosPrestados">
+										<div class="panel panel-default">
+											<div class="panel-body">
+												<div class="col-md-4 vcenter">
+													<p>
+														<strong>Cliente: </strong>
+													<p style="text-indent: 1em;">{{compromisso.contrato.cliente.nome}}</p>
+													</p>
+													<p>
+														<strong>Serviço: </strong>
+													<p style="text-indent: 1em;">{{compromisso.contrato.servico.nome}}
+														- {{compromisso.contrato.servico.descricao}}</p>
+													</p>
+												</div>
+												<div class="col-md-4 vcenter">
+													<p>
+														<strong>Data de Início: </strong>
+													<p style="text-indent: 1em;">{{compromisso.dataInicio}}</p>
+													</p>
+													<p>
+														<strong>Data de Fim: </strong>
+													<p style="text-indent: 1em;">{{compromisso.dataFim}}</p>
+													</p>
+												</div>
+												<div class="col-md-3 vcenter" style="text-align: center;">
+													<p>
+														<strong>Status: </strong>
+													<p ng-if="compromisso.status == 1">
+														<font color="blue"> <span
+															class="glyphicon glyphicon-question-sign"></span>
+															{{compromisso.statusDescricao}}
+														</font>
+													</p>
+													<p ng-if="compromisso.status == 2">
+														<font color="green"> <span
+															class="glyphicon glyphicon-ok-sign"></span>
+															{{compromisso.statusDescricao}}
+														</font>
+													</p>
+													<p ng-if="compromisso.status == 3">
+														<font color="red"> <span
+															class="glyphicon glyphicon-remove-sign"></span>
+															{{compromisso.statusDescricao}}
+														</font>
+													</p>
+													<p ng-if="compromisso.status == 4">
+														<font color="green"> <span
+															class="glyphicon glyphicon-ok-sign"></span>
+															{{compromisso.statusDescricao}}
+														</font>
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									</uib-tab> <uib-tab index="3" heading="Amigos"
 										ng-if="data.listaAmigos!=null"> <br>
 									<div ng-repeat="amizade in $root.data.listaAmigos">
 										<div class="panel panel-default">
@@ -192,10 +278,12 @@
 														</font>
 													</p>
 													<p>
-														<input type="submit" class="btn btn-primary" value="Visualizar Perfil"
-														ng-click="sendPostPerfilAmigo(amizade.amigo.id, amizade.amigo.tipoCadastro)"  ng-controller="friendsProfilePageCtrl" />
+														<input type="submit" class="btn btn-primary"
+															value="Visualizar Perfil"
+															ng-click="sendPostPerfilAmigo(amizade.amigo.id, amizade.amigo.tipoCadastro)"
+															ng-controller="friendsProfilePageCtrl" />
 													</p>
-													
+
 
 												</div>
 											</div>
@@ -206,12 +294,14 @@
 								<!-- ################################################## PAINEL DOS CLIENTES ##################################################							 -->
 								<div ng-if="usuarioLogado !='' && tipoUsuarioLogado==1">
 									<uib-tabset active="active"> <uib-tab index="0"
-										heading="Histórico de Contratos"> <br>
+										heading="Histórico de Contratos"
+										ng-if="$root.data.listaServicosContratados !=null">
+									<br>
 									<div
 										ng-repeat="compromisso in $root.data.listaServicosContratados">
 										<div class="panel panel-default">
 											<div class="panel-body">
-												<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="col-md-4 vcenter">
 													<p>
 														<strong>Prestador: </strong>
 													<p style="text-indent: 1em;">{{compromisso.contrato.prestador.nome}}</p>
@@ -222,7 +312,7 @@
 														- {{compromisso.contrato.servico.descricao}}</p>
 													</p>
 												</div>
-												<div class="col-md-4 col-sm-6 col-xs-12">
+												<div class="col-md-4 vcenter">
 													<p>
 														<strong>Data de Início: </strong>
 													<p style="text-indent: 1em;">{{compromisso.dataInicio}}</p>
@@ -230,6 +320,34 @@
 													<p>
 														<strong>Data de Fim: </strong>
 													<p style="text-indent: 1em;">{{compromisso.dataFim}}</p>
+													</p>
+												</div>
+												<div class="col-md-3 vcenter" style="text-align: center;">
+													<p>
+														<strong>Status: </strong>
+													<p ng-if="compromisso.status == 1">
+														<font color="blue"> <span
+															class="glyphicon glyphicon-question-sign"></span>
+															{{compromisso.statusDescricao}}
+														</font>
+													</p>
+													<p ng-if="compromisso.status == 2">
+														<font color="green"> <span
+															class="glyphicon glyphicon-ok-sign"></span>
+															{{compromisso.statusDescricao}}
+														</font>
+													</p>
+													<p ng-if="compromisso.status == 3">
+														<font color="red"> <span
+															class="glyphicon glyphicon-remove-sign"></span>
+															{{compromisso.statusDescricao}}
+														</font>
+													</p>
+													<p ng-if="compromisso.status == 4">
+														<font color="green"> <span
+															class="glyphicon glyphicon-ok-sign"></span>
+															{{compromisso.statusDescricao}}
+														</font>
 													</p>
 												</div>
 											</div>
@@ -284,8 +402,10 @@
 													</p>
 													</p>
 													<p>
-														<input type="submit" class="btn btn-primary" value="Visualizar Perfil"
-														ng-click="sendPostPerfilAmigo(amizade.amigo.id, amizade.amigo.tipoCadastro)"  ng-controller="friendsProfilePageCtrl" />
+														<input type="submit" class="btn btn-primary"
+															value="Visualizar Perfil"
+															ng-click="sendPostPerfilAmigo(amizade.amigo.id, amizade.amigo.tipoCadastro)"
+															ng-controller="friendsProfilePageCtrl" />
 													</p>
 
 												</div>

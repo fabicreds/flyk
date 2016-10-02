@@ -7,7 +7,10 @@ import javax.annotation.Resource;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
+import com.tcc.flyk.entity.Categoria;
+import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Contrato;
+import com.tcc.flyk.entity.Prestador;
 
 @Component
 public class ContratoUtil {
@@ -20,10 +23,10 @@ public class ContratoUtil {
 
 	@Resource
 	private AvaliacaoPrestadorUtil avaliacaoPrestadorUtil;
-	
+
 	@Resource
 	private CategoriaUtil categoriaUtil;
-	
+
 	private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 	public JSONObject toJSON(Contrato contrato) {
@@ -46,9 +49,32 @@ public class ContratoUtil {
 		if (contrato.getAvaliacaoContratante() != 0) {
 			jObjt.put("avaliacaoContratante", contrato.getAvaliacaoContratante());
 		}
-		if (contrato.getCusto() != 0) {
+		if (contrato.getCusto() != null) {
 			jObjt.put("custo", contrato.getCusto());
 		}
 		return jObjt;
+	}
+
+	public Contrato toContrato(JSONObject json) {
+		Contrato contrato = new Contrato();
+		// 'idCliente' : $rootScope.data.id,
+		if (!json.isNull("idCliente")) {
+			Cliente c = new Cliente();
+			c.setId(json.getString("idCliente"));
+			contrato.setCliente(c);
+		}
+		// 'idPrestador' : $rootScope.data.amigo.id,
+		if (!json.isNull("idPrestador")) {
+			Prestador p = new Prestador();
+			p.setId(json.getString("idPrestador"));
+			contrato.setPrestador(p);
+		}
+		// 'idCategoriaServico' : $scope.servico.id,
+		if (!json.isNull("idCategoriaServico")) {
+			Categoria categoria = new Categoria();
+			categoria.setId(json.getString("idCategoriaServico"));
+			contrato.setServico(categoria);
+		}
+		return contrato;
 	}
 }

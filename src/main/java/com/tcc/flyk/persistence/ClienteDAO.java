@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.tcc.flyk.entity.Amizade;
 import com.tcc.flyk.entity.Cliente;
+import com.tcc.flyk.entity.Compromisso;
 import com.tcc.flyk.entity.Usuario;
 
 public interface ClienteDAO {
@@ -31,4 +32,8 @@ public interface ClienteDAO {
 	public List<Cliente> consultaClientePorParteDoNome(String nomeCliente);//Este método funciona, mas não usaremos
 	
 	public List<Usuario> consultaUsuarioPorParteDoNome(String nomeUsuario);
+
+	public List<Compromisso> consultarListaServicosContratadosById(String id);
+	
+	public boolean atualizarListaServicosContratadosById(String idCliente, List<Compromisso> lista);
 }

@@ -83,7 +83,7 @@ public class DataBaseUtil {
 			pessoa.setStatus(String.valueOf(resultado.get("status_pessoa")));
 		}
 	}
-	
+
 	public Endereco montarDadosEndereco(DBObject resultado) {
 		Endereco enderecoPessoa = new Endereco();
 		if (resultado.get("bairro") != null) {
@@ -109,7 +109,7 @@ public class DataBaseUtil {
 		}
 		return enderecoPessoa;
 	}
-	
+
 	public Privacidade montarDadosPrivacidade(DBObject resultado) {
 		Privacidade privacidade = new Privacidade();
 		// privacidade_bloco_cpf_cnpj
@@ -134,7 +134,7 @@ public class DataBaseUtil {
 		}
 		return privacidade;
 	}
-	
+
 	public List<Telefone> montaDadosTelefones(BasicDBList telefonesDB) {
 		List<Telefone> telefones = new ArrayList<Telefone>();
 		BasicDBObject[] lightArr = telefonesDB.toArray(new BasicDBObject[0]);
@@ -169,7 +169,7 @@ public class DataBaseUtil {
 
 		return telefones;
 	}
-	
+
 	public List<Amizade> montaDadosAmigos(BasicDBList amigosDB) {
 		List<Amizade> amigos = new ArrayList<Amizade>();
 		// Varre a lista de telefones, preenchendo o array telefones
@@ -194,7 +194,7 @@ public class DataBaseUtil {
 			// status_amizade
 			if (amigoDB.get("status_amizade") != null) {
 				int codigoStatusAmizade = Integer.valueOf(amigoDB.getString("status_amizade"));
-				//faz o set do enum de acordo com o código
+				// faz o set do enum de acordo com o código
 				amizade.setStatusEnum(codigoStatusAmizade);
 			}
 
@@ -202,8 +202,8 @@ public class DataBaseUtil {
 		}
 		return amigos;
 	}
-	
-	public List<Compromisso> montarDadosServicosContratados(String idCliente, BasicDBList servicosContratadosDB) {
+
+	public List<Compromisso> montarDadosServicosContratados(BasicDBList servicosContratadosDB) {
 		// Varre a lista de compromissos, preenchendo o array agenda
 		List<Compromisso> listaServicosContratados = new ArrayList<Compromisso>();
 		BasicDBObject[] lightArr = servicosContratadosDB.toArray(new BasicDBObject[0]);
@@ -229,6 +229,28 @@ public class DataBaseUtil {
 				prestador.setId(compromissoDB.getString("id_prestador"));
 			}
 
+			if (compromissoDB.getDate("data_inicio_servico_contratado") != null) {
+				compromisso.setDataInicio(compromissoDB.getDate("data_inicio_servico_contratado"));
+			}
+			if (compromissoDB.getDate("data_fim_servico_contratado") != null) {
+				compromisso.setDataFim(compromissoDB.getDate("data_fim_servico_contratado"));
+			}
+			compromisso.setIndicadorFerias(false);
+
+			// Compromisso - Custo
+			if (compromissoDB.get("custo_servico_contratado") != null) {
+				contrato.setCusto(Double.valueOf(compromissoDB.getString("custo_servico_contratado")));
+			}
+
+			// Compromisso - Status
+			if (compromissoDB.getString("status_servico_contratado") != null) {
+				compromisso.setStatus(Integer.valueOf(compromissoDB.getString("status_servico_contratado")));
+			}
+
+			if (compromissoDB.get("data_avaliacao_servico_contratado") != null) {
+				contrato.setDataAvaliacaoServico(compromissoDB.getDate("data_avaliacao_servico_contratado"));
+			}
+
 			// Setando os Dados da Avaliacao do Prestador
 			if (compromissoDB.get("nota_preco") != null) {
 				avaliacaoPrestador.setAvaliacaoPreco(Integer.valueOf(compromissoDB.getString("nota_preco")));
@@ -245,46 +267,26 @@ public class DataBaseUtil {
 						.setAvaliacaoPontualidade(Integer.valueOf(compromissoDB.getString("nota_profissionalismo")));
 			}
 
-			// Setando os Dados do Contrato
-			contrato.setAvaliacaoContratante(0);
-			contrato.setAvaliacaoPrestador(avaliacaoPrestador);
-			if (compromissoDB.get("custo_servico_contratado") != null) {
-				contrato.setCusto(Double.valueOf(compromissoDB.getString("custo_servico_contratado")));
+			if (compromissoDB.get("nota_contratante") != null) {
+				contrato.setAvaliacaoContratante(Integer.valueOf(compromissoDB.getString("nota_contratante")));
 			}
-			if (compromissoDB.get("data_avaliacao_servico_contratado") != null) {
-				contrato.setDataAvaliacaoServico(compromissoDB.getDate("data_avaliacao_servico_contratado"));
-			}
-			contrato.setPrestador(prestador);
 
 			// Setando os Dados da Categoria do Servico
-			if (compromissoDB.get("servico_contratado") != null) {
-				categoria.setId(compromissoDB.getString("servico_contratado"));
+			if (compromissoDB.get("id_categoria_servico_contratado") != null) {
+				categoria.setId(compromissoDB.getString("id_categoria_servico_contratado"));
 			}
-			contrato.setServico(categoria);
 
+			contrato.setPrestador(prestador);
+			contrato.setAvaliacaoPrestador(avaliacaoPrestador);
+			contrato.setServico(categoria);
 			// Setando os Dados do Compromisso
 			compromisso.setContrato(contrato);
-			if (compromissoDB.getDate("data_servico_contratado") != null) {
-				compromisso.setDataInicio(compromissoDB.getDate("data_servico_contratado"));
-			}
-			// TODO Alterar para data de fim do servico
-			if (compromissoDB.getDate("data_servico_contratado") != null) {
-				compromisso.setDataFim(compromissoDB.getDate("data_servico_contratado"));
-			}
-			// TODO Verificar necessidade do Indicador de Ferias
-			compromisso.setIndicadorFerias(false);
-
-			// Compromisso - Status
-			if (compromissoDB.getString("status_servico_contratado") != null) {
-				compromisso.setStatus(Integer.valueOf(compromissoDB.getString("status_servico_contratado")));
-			}
-
 			// Adiciona o compromisso na agenda
 			listaServicosContratados.add(compromisso);
 		}
 		return listaServicosContratados;
 	}
-	
+
 	public List<Prestador> montarDadosRecomendacoesDadas(BasicDBList recomendacoesDadasBD) {
 		List<Prestador> recomendacoesDadas = new ArrayList<Prestador>();
 		BasicDBObject[] lightArr = recomendacoesDadasBD.toArray(new BasicDBObject[0]);
@@ -299,7 +301,7 @@ public class DataBaseUtil {
 		}
 		return recomendacoesDadas;
 	}
-	
+
 	public List<Conversa> montarDadosConversas(BasicDBList conversaDB) {
 		List<Conversa> mensagens = new ArrayList<Conversa>();
 		BasicDBObject[] lightArr = conversaDB.toArray(new BasicDBObject[0]);
@@ -328,6 +330,101 @@ public class DataBaseUtil {
 			mensagens.add(mensagem);
 		}
 		return mensagens;
+	}
+
+	public List<Categoria> montarDadosListaServicos(BasicDBList servicosDB) {
+		List<Categoria> listaServicos = new ArrayList<Categoria>();
+		BasicDBObject[] lightArr = servicosDB.toArray(new BasicDBObject[0]);
+		for (BasicDBObject servicoDB : lightArr) {
+			Categoria categoriaServico = new Categoria();
+			if (servicoDB.get("id_categoria_servico_prestado") != null) {
+				categoriaServico.setId(servicoDB.getString("id_categoria_servico_prestado"));
+			}
+			listaServicos.add(categoriaServico);
+		}
+		return listaServicos;
+	}
+
+	public List<Compromisso> montarDadosListaContratosServicosPrestados(BasicDBList servicosContratadosDB) {
+		// Varre a lista de compromissos, preenchendo o array agenda
+		List<Compromisso> listaServicosContratados = new ArrayList<Compromisso>();
+		BasicDBObject[] lightArr = servicosContratadosDB.toArray(new BasicDBObject[0]);
+		for (BasicDBObject compromissoDB : lightArr) {
+
+			// Instancia do Compromisso
+			Compromisso compromisso = new Compromisso();
+
+			// Instancia do Contrato que farï¿½ parte do Compromisso
+			Contrato contrato = new Contrato();
+
+			// Instancia do Cliente que farï¿½ parte do Contrato
+			Cliente cliente = new Cliente();
+
+			// Instancia da Avaliacao do Prestador que farï¿½ parte do Contrato
+			AvaliacaoPrestador avaliacaoPrestador = new AvaliacaoPrestador();
+
+			// Instancia de Categoria de Sevico que farï¿½ parte do contrato
+			Categoria categoria = new Categoria();
+
+			// Setando os dados do Prestador
+			if (compromissoDB.get("id_cliente_contratante") != null) {
+				cliente.setId(compromissoDB.getString("id_cliente_contratante"));
+			}
+
+			if (compromissoDB.getDate("data_inicio_servico_prestado") != null) {
+				compromisso.setDataInicio(compromissoDB.getDate("data_inicio_servico_prestado"));
+			}
+			if (compromissoDB.getDate("data_fim_servico_prestado") != null) {
+				compromisso.setDataFim(compromissoDB.getDate("data_fim_servico_prestado"));
+			}
+
+			if (compromissoDB.get("custo_servico_prestado") != null) {
+				contrato.setCusto(Double.valueOf(compromissoDB.getString("custo_servico_prestado")));
+			}
+
+			// Compromisso - Status
+			if (compromissoDB.getString("status_servico_prestado") != null) {
+				compromisso.setStatus(Integer.valueOf(compromissoDB.getString("status_servico_prestado")));
+			}
+			if (compromissoDB.get("data_avaliacao_servico_prestado") != null) {
+				contrato.setDataAvaliacaoServico(compromissoDB.getDate("data_avaliacao_servico_prestado"));
+			}
+			// Setando os Dados da Avaliacao do Prestador
+			if (compromissoDB.get("nota_contratante") != null) {
+				contrato.setAvaliacaoContratante(Integer.valueOf(compromissoDB.getString("nota_contratante")));
+			}
+
+			// Setando os Dados da Avaliacao do Prestador
+			if (compromissoDB.get("nota_preco") != null) {
+				avaliacaoPrestador.setAvaliacaoPreco(Integer.valueOf(compromissoDB.getString("nota_preco")));
+			}
+			if (compromissoDB.get("nota_pontualidade") != null) {
+				avaliacaoPrestador
+						.setAvaliacaoProfissionalismo(Integer.valueOf(compromissoDB.getString("nota_pontualidade")));
+			}
+			if (compromissoDB.get("nota_qualidade") != null) {
+				avaliacaoPrestador.setAvaliacaoQualidade(Integer.valueOf(compromissoDB.getString("nota_qualidade")));
+			}
+			if (compromissoDB.get("nota_profissionalismo") != null) {
+				avaliacaoPrestador
+						.setAvaliacaoPontualidade(Integer.valueOf(compromissoDB.getString("nota_profissionalismo")));
+			}
+
+			// Setando os Dados da Categoria do Servico
+			if (compromissoDB.get("id_categoria_servico_prestado") != null) {
+				categoria.setId(compromissoDB.getString("id_categoria_servico_prestado"));
+			}
+
+			contrato.setCliente(cliente);
+			contrato.setAvaliacaoPrestador(avaliacaoPrestador);
+			contrato.setServico(categoria);
+			// Setando os Dados do Compromisso
+			compromisso.setContrato(contrato);
+
+			// Adiciona o compromisso na agenda
+			listaServicosContratados.add(compromisso);
+		}
+		return listaServicosContratados;
 	}
 
 }

@@ -14,7 +14,6 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.client.FindIterable;
 import com.tcc.flyk.entity.Amizade;
-import com.tcc.flyk.entity.Categoria;
 import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Compromisso;
 import com.tcc.flyk.entity.Conversa;
@@ -360,65 +359,77 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				if (compromisso.getContrato() != null && compromisso.getContrato().getPrestador() != null) {
 					servicoContratado.put("id_prestador", compromisso.getContrato().getPrestador().getId());
 				}
-				System.out.println("1");
-				// data_servico_contratado
-				if (compromisso.getDataInicio() != null) {
-					servicoContratado.put("data_servico_contratado", compromisso.getDataInicio());
-				}
 				System.out.println("2");
+				// data_inicio_servico_contratado
+				if (compromisso.getDataInicio() != null) {
+					servicoContratado.put("data_inicio_servico_contratado", compromisso.getDataInicio());
+				}
+				
+				System.out.println("3");
+				// data_fim_servico_contratado
+				if (compromisso.getDataFim() != null) {
+					servicoContratado.put("data_fim_servico_contratado", compromisso.getDataFim());
+				}
+				System.out.println("4");
 
 				// custo_servico_contratado
-				if (compromisso.getContrato() != null) {
+				if (compromisso.getContrato() != null && compromisso.getContrato().getCusto()!=null) {
 					servicoContratado.put("custo_servico_contratado",
 							String.valueOf(compromisso.getContrato().getCusto()));
 				}
 
-				// categoria do servico contratado
-				if (compromisso.getContrato() != null && compromisso.getContrato().getServico() != null) {
-					servicoContratado.put("servico_contratado", compromisso.getContrato().getServico().getId());
-				}
-
-				System.out.println("3");
+				System.out.println("5");
 				// status_servico_contratado
 				if (compromisso.getStatus() != null) {
 					servicoContratado.put("status_servico_contratado", compromisso.getStatus().getCodigo());
 				}
 
-				System.out.println("4");
+				System.out.println("5");
 				// data_avaliacao_servico_contratado
 				if (compromisso.getContrato() != null) {
 					servicoContratado.put("data_avaliacao_servico_contratado",
 							compromisso.getContrato().getDataAvaliacaoServico());
 				}
 
-				System.out.println("5");
+				System.out.println("6");
 				// nota_preco
 				if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
 					servicoContratado.put("nota_preco",
 							String.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoPreco()));
 				}
-				System.out.println("6");
+				System.out.println("7");
 
 				// nota_pontualidade
 				if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
 					servicoContratado.put("nota_pontualidade", String
 							.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoPontualidade()));
 				}
-				System.out.println("7");
+				System.out.println("8");
 
 				// nota_qualidade
 				if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
 					servicoContratado.put("nota_qualidade",
 							String.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoQualidade()));
 				}
-				System.out.println("8");
+				System.out.println("9");
 
 				// nota_profissionalismo
 				if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
 					servicoContratado.put("nota_profissionalismo", String
 							.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoProfissionalismo()));
 				}
+				
+				// nota_contratante
+				if (compromisso.getContrato() != null) {
+					servicoContratado.put("nota_contratante", String
+							.valueOf(compromisso.getContrato().getAvaliacaoContratante()));
+				}
 
+				// id_categoria_servico_contratado
+				if (compromisso.getContrato() != null && compromisso.getContrato().getServico() != null) {
+					servicoContratado.put("id_categoria_servico_contratado", compromisso.getContrato().getServico().getId());
+				}
+				
 				System.out.println("9");
 				servicosContratados.add(servicoContratado);
 				System.out.println("10");
@@ -647,8 +658,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			BasicDBList servicosContratadosDB = (BasicDBList) resultado.get("servicos_contratados");
 
 			if (servicosContratadosDB != null) {
-				List<Compromisso> listaServicosContratados = dbUtil.montarDadosServicosContratados(idCliente,
-						servicosContratadosDB);
+				List<Compromisso> listaServicosContratados = dbUtil.montarDadosServicosContratados(servicosContratadosDB);
 				// Adiciona o array compromissos na pessoa
 				pessoa.setListaServicosContratados(listaServicosContratados);
 			}
@@ -1005,5 +1015,139 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			return null;
 		}
 		
+	}
+	
+	@Override
+	public List<Compromisso> consultarListaServicosContratadosById(String id) {
+		List<Compromisso> listaServicosContratados = new ArrayList<Compromisso>();
+
+		DBCollection collection = db.getCollection("FLYK");
+		BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(id));
+		BasicDBObject fieldObject = new BasicDBObject();
+		fieldObject.put("servicos_contratados", 1);
+
+		DBCursor cursor = collection.find(filtro, fieldObject);
+		
+		cursor.sort(new BasicDBObject("data_fim_servico_contratado", 1));
+		
+		DBObject resultado;
+
+		// Busca campos de resultado
+		if (cursor.hasNext()) {
+			resultado = cursor.next();
+			
+			BasicDBList servicosContratadosDB = (BasicDBList) resultado.get("servicos_contratados");
+			if (servicosContratadosDB != null) {
+				listaServicosContratados = dbUtil.montarDadosServicosContratados(servicosContratadosDB);
+				return listaServicosContratados;
+			}
+		}
+		return null;
+
+	}
+
+	@Override
+	public boolean atualizarListaServicosContratadosById(String idCliente, List<Compromisso> listaServicosContratados) {
+		try {
+			BasicDBObject updateQuery = new BasicDBObject();
+			BasicDBList servicosContratados = new BasicDBList();
+			if (listaServicosContratados != null && !listaServicosContratados.isEmpty()) {
+				for (Compromisso compromisso: listaServicosContratados) {
+
+					BasicDBObject servicoContratado = new BasicDBObject();
+
+					System.out.println("0");
+					// Inicia o documento e grava o id do prestador
+					if (compromisso.getContrato() != null && compromisso.getContrato().getPrestador() != null) {
+						servicoContratado.put("id_prestador", compromisso.getContrato().getPrestador().getId());
+					}
+					System.out.println("2");
+					// data_inicio_servico_contratado
+					if (compromisso.getDataInicio() != null) {
+						servicoContratado.put("data_inicio_servico_contratado", compromisso.getDataInicio());
+					}
+					
+					System.out.println("3");
+					// data_fim_servico_contratado
+					if (compromisso.getDataFim() != null) {
+						servicoContratado.put("data_fim_servico_contratado", compromisso.getDataFim());
+					}
+					System.out.println("4");
+
+					// custo_servico_contratado
+					if (compromisso.getContrato() != null && compromisso.getContrato().getCusto()!=null) {
+						servicoContratado.put("custo_servico_contratado",
+								String.valueOf(compromisso.getContrato().getCusto()));
+					}
+
+					System.out.println("5");
+					// status_servico_contratado
+					if (compromisso.getStatus() != null) {
+						servicoContratado.put("status_servico_contratado", compromisso.getStatus().getCodigo());
+					}
+
+					System.out.println("5");
+					// data_avaliacao_servico_contratado
+					if (compromisso.getContrato() != null) {
+						servicoContratado.put("data_avaliacao_servico_contratado",
+								compromisso.getContrato().getDataAvaliacaoServico());
+					}
+
+					System.out.println("6");
+					// nota_preco
+					if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
+						servicoContratado.put("nota_preco",
+								String.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoPreco()));
+					}
+					System.out.println("7");
+
+					// nota_pontualidade
+					if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
+						servicoContratado.put("nota_pontualidade", String
+								.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoPontualidade()));
+					}
+					System.out.println("8");
+
+					// nota_qualidade
+					if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
+						servicoContratado.put("nota_qualidade",
+								String.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoQualidade()));
+					}
+					System.out.println("9");
+
+					// nota_profissionalismo
+					if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
+						servicoContratado.put("nota_profissionalismo", String
+								.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoProfissionalismo()));
+					}
+					
+					// nota_contratante
+					if (compromisso.getContrato() != null) {
+						servicoContratado.put("nota_contratante", String
+								.valueOf(compromisso.getContrato().getAvaliacaoContratante()));
+					}
+
+					// id_categoria_servico_contratado
+					if (compromisso.getContrato() != null && compromisso.getContrato().getServico() != null) {
+						servicoContratado.put("id_categoria_servico_contratado", compromisso.getContrato().getServico().getId());
+					}
+					
+					System.out.println("9");
+					servicosContratados.add(servicoContratado);
+					System.out.println("10");
+				}
+				updateQuery.append("$set", new BasicDBObject().append("servicos_contratados", servicosContratados));
+			}else{
+				updateQuery.append("$unset", new BasicDBObject().append("servicos_contratados", servicosContratados));
+			}
+
+			BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(idCliente));
+
+			db.getCollection("FLYK").update(filtro, updateQuery);
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 }

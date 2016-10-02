@@ -49,6 +49,14 @@ flyk.config(function($routeProvider) {
 		templateUrl : "friendsProfilePage.html",
 		controller : "friendsProfilePageCtrl"
 			
+	}).when("/contratarServico", {
+		templateUrl : "contratarServico.html",
+		controller : "contratarServicoCtrl"
+			
+	}).when("/servicosPrestados", {
+		templateUrl : "servicosPrestados.html",
+		controller : "servicosPrestadosCtrl"
+			
 	}).otherwise({
 		redirectTo : "/home"
 	});

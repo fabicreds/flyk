@@ -98,7 +98,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 			BasicDBList servicosContratadosDB = (BasicDBList) resultado.get("servicos_contratados");
 
 			if (servicosContratadosDB != null) {
-				List<Compromisso> agenda = dbUtil.montarDadosServicosContratados(idPrestador, servicosContratadosDB);
+				List<Compromisso> agenda = dbUtil.montarDadosServicosContratados(servicosContratadosDB);
 				// Adiciona o array compromissos na pessoa
 				pessoa.setListaContratosServicosPrestados(agenda);
 			}
@@ -126,17 +126,28 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				// Adiciona o array mensagens na pessoa
 				pessoa.setlistaMensagensConversa(mensagens);
 			}
-			
-			// ********************* LISTA DE SERVI«OS *********************
-						// Busca a lista de servicos prestador e coloca na servicosDB
-						BasicDBList servicosDB = (BasicDBList) resultado.get("categorias_de_servicos_prestados");
 
-						if (servicosDB != null) {
-							// Varre a lista de conversa, preenchendo o array mensagens
-							List<Categoria> listaServicosPrestados = montarDadosListaServicos(servicosDB);
-							// Adiciona o array mensagens na pessoa
-							pessoa.setListaCategoriaServicosPrestados(listaServicosPrestados);
-						}
+			// ********************* LISTA DE SERVI«OS *********************
+			// Busca a lista de servicos prestador e coloca na servicosDB
+			BasicDBList servicosDB = (BasicDBList) resultado.get("categorias_de_servicos_prestados");
+
+			if (servicosDB != null) {
+				// Varre a lista de conversa, preenchendo o array mensagens
+				List<Categoria> listaServicosPrestados = dbUtil.montarDadosListaServicos(servicosDB);
+				// Adiciona o array mensagens na pessoa
+				pessoa.setListaCategoriaServicosPrestados(listaServicosPrestados);
+			}
+
+			// ********************* LISTA DE SERVI«OS *********************
+			// Busca a lista de servicos prestador e coloca na servicosDB
+			BasicDBList servicosContratadosPrestadorDB = (BasicDBList) resultado.get("servicos_prestados");
+
+			if (servicosContratadosPrestadorDB != null) {
+				// Varre a lista de conversa, preenchendo o array mensagens
+				List<Compromisso> listaContratosServicosPrestados = dbUtil.montarDadosListaContratosServicosPrestados(servicosContratadosPrestadorDB);
+				// Adiciona o array mensagens na pessoa
+				pessoa.setListaContratosServicosPrestados(listaContratosServicosPrestados);
+			}
 
 		} else {
 			System.out.println("Consulta de clientes pelo id " + idPrestador + " n√£o encontrou valores.");
@@ -471,7 +482,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				System.out.println("2");
 
 				// custo_servico_contratado
-				if (compromisso.getContrato() != null) {
+				if (compromisso.getContrato() != null && compromisso.getContrato().getCusto() != null) {
 					servicoContratado.put("custo_servico_contratado",
 							String.valueOf(compromisso.getContrato().getCusto()));
 				}
@@ -590,12 +601,14 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 			BasicDBList categoriasPrestadas = new BasicDBList();
 			// Varre a lista de categorias, inserindo uma por uma
 			for (int i = 0; i < count; i++) {
-				System.out.println("Categoria: " + String.valueOf(prestador.getListaCategoriaServicosPrestados().get(i).getId()));
+				System.out.println(
+						"Categoria: " + String.valueOf(prestador.getListaCategoriaServicosPrestados().get(i).getId()));
 
 				BasicDBObject categoriaPrestada = new BasicDBObject();
 
 				// Grava o nÔøΩmero
-				categoriaPrestada.put("id_categoria_servico_prestado", prestador.getListaCategoriaServicosPrestados().get(i).getId());
+				categoriaPrestada.put("id_categoria_servico_prestado",
+						prestador.getListaCategoriaServicosPrestados().get(i).getId());
 
 				categoriasPrestadas.add(categoriaPrestada);
 			}
@@ -606,99 +619,83 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		}
 
 		// ******************************serviÔøΩos_prestados******************************//
-		if (prestador.geListaContratosServicosPrestados() != null) {
+		if (prestador.getListaContratosServicosPrestados() != null) {
 
-			int count = prestador.geListaContratosServicosPrestados().size();
+			int count = prestador.getListaContratosServicosPrestados().size();
 			System.out.println("qtd de servicos prestados: " + String.valueOf(count));
 
 			BasicDBList servicosPrestados = new BasicDBList();
 
 			// Varre a lista de compromissos, inserindo uma por uma
-			for (int i = 0; i < count; i++) {
+			for (Compromisso compromisso : prestador.getListaContratosServicosPrestados()) {
 
 				BasicDBObject servicoPrestado = new BasicDBObject();
 
 				System.out.println("0");
 				// Inicia o documento e grava o id do prestador
-				servicoPrestado.put("id_cliente_contratante",
-						prestador.geListaContratosServicosPrestados().get(i).getContrato().getCliente().getId());
+				if (compromisso.getContrato() != null && compromisso.getContrato().getCliente() != null) {
+					servicoPrestado.put("id_cliente_contratante", compromisso.getContrato().getCliente().getId());
+				}
 
 				System.out.println("1");
 				// data_inicio_servico_prestado
-				if (prestador.geListaContratosServicosPrestados().get(i).getDataInicio() != null) {
-					servicoPrestado.put("data_inicio_servico_prestado",
-							prestador.geListaContratosServicosPrestados().get(i).getDataInicio());
+				if (compromisso.getDataInicio() != null) {
+					servicoPrestado.put("data_inicio_servico_prestado", compromisso.getDataInicio());
 				}
 
 				// data_fim_servico_prestado
-				if (prestador.geListaContratosServicosPrestados().get(i).getDataFim() != null) {
-					servicoPrestado.put("data_fim_servico_prestado",
-							prestador.geListaContratosServicosPrestados().get(i).getDataFim());
+				if (compromisso.getDataFim() != null) {
+					servicoPrestado.put("data_fim_servico_prestado", compromisso.getDataFim());
 				}
 				System.out.println("2");
 
 				// custo_servico_prestado
-				if (prestador.geListaContratosServicosPrestados().get(i).getContrato().getCusto() != 0) {
-					servicoPrestado.put("custo_servico_prestado",
-							String.valueOf(prestador.geListaContratosServicosPrestados().get(i).getContrato().getCusto()));
+				if (compromisso.getContrato() != null && compromisso.getContrato().getCusto() != null) {
+					servicoPrestado.put("custo_servico_prestado", String.valueOf(compromisso.getContrato().getCusto()));
 				}
 
 				System.out.println("3");
 				// status_servico_prestado
-				if (prestador.geListaContratosServicosPrestados().get(i).getStatus() != null) {
-					servicoPrestado.put("status_servico_prestado",
-							prestador.geListaContratosServicosPrestados().get(i).getStatus().getCodigo());
+				if (compromisso.getStatus() != null) {
+					servicoPrestado.put("status_servico_prestado", compromisso.getStatus().getCodigo());
 				}
 
 				System.out.println("4");
 				// data_avaliacao_servico_contratado
-				if (prestador.geListaContratosServicosPrestados().get(i).getContrato().getDataAvaliacaoServico() != null) {
+				if (compromisso.getContrato() != null && compromisso.getContrato().getDataAvaliacaoServico() != null) {
 					servicoPrestado.put("data_avaliacao_servico_contratado",
-							prestador.geListaContratosServicosPrestados().get(i).getContrato().getDataAvaliacaoServico());
+							compromisso.getContrato().getDataAvaliacaoServico());
 				}
 
 				System.out.println("5");
-				// nota_preco
-				if (prestador.geListaContratosServicosPrestados().get(i).getContrato().getAvaliacaoPrestador()
-						.getAvaliacaoPreco() != 0) {
-					servicoPrestado.put("nota_preco", String.valueOf(prestador.geListaContratosServicosPrestados().get(i)
-							.getContrato().getAvaliacaoPrestador().getAvaliacaoPreco()));
+				// nota_cliente
+				if (compromisso.getContrato() != null) {
+					servicoPrestado.put("nota_contratante",
+							String.valueOf(compromisso.getContrato().getAvaliacaoContratante()));
 				}
+				if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
+
+					servicoPrestado.put("nota_preco",
+							String.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoPreco()));
+					servicoPrestado.put("nota_pontualidade", String
+							.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoPontualidade()));
+					servicoPrestado.put("nota_qualidade",
+							String.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoQualidade()));
+					servicoPrestado.put("nota_profissionalismo", String
+							.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoProfissionalismo()));
+				}
+
 				System.out.println("6");
 
-				// nota_pontualidade
-				if (prestador.geListaContratosServicosPrestados().get(i).getContrato().getAvaliacaoPrestador()
-						.getAvaliacaoPontualidade() != 0) {
-					servicoPrestado.put("nota_pontualidade", String.valueOf(prestador.geListaContratosServicosPrestados().get(i)
-							.getContrato().getAvaliacaoPrestador().getAvaliacaoPontualidade()));
+				if (compromisso.getContrato() != null && compromisso.getContrato().getServico() != null
+						&& compromisso.getContrato().getServico().getId() != null) {
+					servicoPrestado.put("id_categoria_servico_prestado",
+							compromisso.getContrato().getServico().getId());
 				}
-				System.out.println("7");
 
-				// nota_qualidade
-				if (prestador.geListaContratosServicosPrestados().get(i).getContrato().getAvaliacaoPrestador()
-						.getAvaliacaoQualidade() != 0) {
-					servicoPrestado.put("nota_qualidade", String.valueOf(prestador.geListaContratosServicosPrestados().get(i)
-							.getContrato().getAvaliacaoPrestador().getAvaliacaoQualidade()));
-				}
 				System.out.println("8");
-
-				// nota_profissionalismo
-				if (prestador.geListaContratosServicosPrestados().get(i).getContrato().getAvaliacaoPrestador()
-						.getAvaliacaoProfissionalismo() != 0) {
-					servicoPrestado.put("nota_profissionalismo", String.valueOf(prestador.geListaContratosServicosPrestados()
-							.get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoProfissionalismo()));
-				}
-
-				// nota_cliente
-				if (prestador.geListaContratosServicosPrestados().get(i).getContrato().getAvaliacaoPrestador()
-						.getAvaliacaoProfissionalismo() != 0) {
-					servicoPrestado.put("nota_cliente", String.valueOf(
-							prestador.geListaContratosServicosPrestados().get(i).getContrato().getAvaliacaoContratante()));
-				}
-
-				System.out.println("9");
 				servicosPrestados.add(servicoPrestado);
-				System.out.println("10");
+				System.out.println("9");
 			}
 			doc.put("servicos_prestados", servicosPrestados);
 		} else {
@@ -740,17 +737,125 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 
 	}
 
-	private List<Categoria> montarDadosListaServicos(BasicDBList servicosDB) {
-		List<Categoria> listaServicos = new ArrayList<Categoria>();
-		BasicDBObject[] lightArr = servicosDB.toArray(new BasicDBObject[0]);
-		for (BasicDBObject servicoDB : lightArr) {
-			Categoria categoriaServico = new Categoria();
-			if (servicoDB.get("id_categoria_servico_prestado") != null) {
-				categoriaServico.setId(servicoDB.getString("id_categoria_servico_prestado"));
+	@Override
+	public List<Compromisso> consultarListaContratosServicosPrestadosById(String id) {
+		List<Compromisso> listaContratosServicosPrestados = new ArrayList<Compromisso>();
+
+		DBCollection collection = db.getCollection("FLYK");
+		BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(id));
+		BasicDBObject fieldObject = new BasicDBObject();
+		fieldObject.put("servicos_contratados", 1);
+
+		DBCursor cursor = collection.find(filtro, fieldObject);
+		DBObject resultado;
+
+		// Busca campos de resultado
+		if (cursor.hasNext()) {
+			resultado = cursor.next();
+			BasicDBList servicosContratadosDB = (BasicDBList) resultado.get("servicos_contratados");
+			if (servicosContratadosDB != null) {
+				listaContratosServicosPrestados = dbUtil
+						.montarDadosListaContratosServicosPrestados(servicosContratadosDB);
+				return listaContratosServicosPrestados;
 			}
-			listaServicos.add(categoriaServico);
 		}
-		return listaServicos;
+		return null;
+
+	}
+
+	@Override
+	public boolean atualizarListaContratosServicosPrestadosById(String idPrestador,
+			List<Compromisso> listaContratosServicosPrestados) {
+		try {
+			BasicDBObject updateQuery = new BasicDBObject();
+			BasicDBList servicosPrestados = new BasicDBList();
+			if (listaContratosServicosPrestados != null && !listaContratosServicosPrestados.isEmpty()) {
+				for (Compromisso compromisso : listaContratosServicosPrestados) {
+
+					BasicDBObject servicoPrestado = new BasicDBObject();
+
+					System.out.println("0");
+					// Inicia o documento e grava o id do prestador
+					if (compromisso.getContrato() != null && compromisso.getContrato().getCliente() != null) {
+						servicoPrestado.put("id_cliente_contratante", compromisso.getContrato().getCliente().getId());
+					}
+
+					System.out.println("1");
+					// data_inicio_servico_prestado
+					if (compromisso.getDataInicio() != null) {
+						servicoPrestado.put("data_inicio_servico_prestado", compromisso.getDataInicio());
+					}
+
+					// data_fim_servico_prestado
+					if (compromisso.getDataFim() != null) {
+						servicoPrestado.put("data_fim_servico_prestado", compromisso.getDataFim());
+					}
+					System.out.println("2");
+
+					// custo_servico_prestado
+					if (compromisso.getContrato() != null && compromisso.getContrato().getCusto() != null) {
+						servicoPrestado.put("custo_servico_prestado",
+								String.valueOf(compromisso.getContrato().getCusto()));
+					}
+
+					System.out.println("3");
+					// status_servico_prestado
+					if (compromisso.getStatus() != null) {
+						servicoPrestado.put("status_servico_prestado", compromisso.getStatus().getCodigo());
+					}
+
+					System.out.println("4");
+					// data_avaliacao_servico_contratado
+					if (compromisso.getContrato() != null
+							&& compromisso.getContrato().getDataAvaliacaoServico() != null) {
+						servicoPrestado.put("data_avaliacao_servico_contratado",
+								compromisso.getContrato().getDataAvaliacaoServico());
+					}
+
+					System.out.println("5");
+					// nota_cliente
+					if (compromisso.getContrato() != null) {
+						servicoPrestado.put("nota_contratante",
+								String.valueOf(compromisso.getContrato().getAvaliacaoContratante()));
+					}
+					if (compromisso.getContrato() != null
+							&& compromisso.getContrato().getAvaliacaoPrestador() != null) {
+
+						servicoPrestado.put("nota_preco",
+								String.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoPreco()));
+						servicoPrestado.put("nota_pontualidade", String
+								.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoPontualidade()));
+						servicoPrestado.put("nota_qualidade", String
+								.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoQualidade()));
+						servicoPrestado.put("nota_profissionalismo", String.valueOf(
+								compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoProfissionalismo()));
+					}
+
+					System.out.println("6");
+
+					if (compromisso.getContrato() != null && compromisso.getContrato().getServico() != null
+							&& compromisso.getContrato().getServico().getId() != null) {
+						servicoPrestado.put("id_categoria_servico_prestado",
+								compromisso.getContrato().getServico().getId());
+					}
+
+					System.out.println("8");
+					servicosPrestados.add(servicoPrestado);
+					System.out.println("9");
+				}
+				updateQuery.append("$set", new BasicDBObject().append("servicos_prestados", servicosPrestados));
+			} else {
+				updateQuery.append("$unset", new BasicDBObject().append("servicos_prestados", servicosPrestados));
+			}
+
+			BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(idPrestador));
+
+			db.getCollection("FLYK").update(filtro, updateQuery);
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 }

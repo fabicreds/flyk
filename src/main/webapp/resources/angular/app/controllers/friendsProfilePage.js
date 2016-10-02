@@ -103,6 +103,8 @@ flyk.controller("friendsProfilePageCtrl", function ($scope, $rootScope, $locatio
 		});
 		
 	}
+	
+
     
     
 });

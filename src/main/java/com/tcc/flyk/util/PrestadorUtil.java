@@ -44,8 +44,8 @@ public class PrestadorUtil {
 		if (prestador.getListaCategoriaServicosPrestados() != null) {
 			jObjt.put("listaCategoriaServicosPrestados", listaServicosPrestadorJSON(prestador.getListaCategoriaServicosPrestados()));
 		}
-		if (prestador.geListaContratosServicosPrestados()!= null) {
-			jObjt.put("listaContratosServicosPrestados", listaServicosContratadosJSON(prestador.geListaContratosServicosPrestados()));
+		if (prestador.getListaContratosServicosPrestados()!= null) {
+			jObjt.put("listaContratosServicosPrestados", listaServicosContratadosJSON(prestador.getListaContratosServicosPrestados()));
 		}
 		if (prestador.getListaRecomendacoesRecebidas() != null) {
 			jObjt.put("listaRecomendacoesRecebidas",
