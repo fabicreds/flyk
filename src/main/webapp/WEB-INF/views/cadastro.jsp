@@ -266,7 +266,7 @@
 						<label for="servicos" class="col-sm-3 control-label">  </label>
 						</div>
 						<div class="panel panel-default col-sm-8">
-							<div class="panel-heading">Serviço {{i.id}}</div>
+							<div class="panel-heading">Serviço {{i.id + 1}}</div>
 							<div class="panel-body">
 								<label for="nonCompeteNotes" class="col-sm-3 control-label">
 									Categoria do Serviço </label>

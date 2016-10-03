@@ -48,6 +48,7 @@ public class PrestadorUtil {
 			jObjt.put("cnpj", prestador.getCnpj());
 		}
 		if (prestador.getListaCategoriaServicosPrestados() != null) {
+			jObjt.put("numCategoriaServicosPrestados",prestador.getListaCategoriaServicosPrestados().size());
 			jObjt.put("listaCategoriaServicosPrestados",
 					listaServicosPrestadorJSON(prestador.getListaCategoriaServicosPrestados()));
 		}
