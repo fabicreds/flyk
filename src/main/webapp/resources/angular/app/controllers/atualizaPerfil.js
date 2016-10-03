@@ -113,7 +113,7 @@ flyk
 						$scope.cliente.listaTelefone = {};
 						$scope.cliente.listaTelefone = $rootScope.data.listaTelefone;
 						$scope.cliente.nome = $rootScope.data.nome;
-						$scope.cliente.listaServicos = $rootScope.data.listaCategoriaServicosPrestados;
+						$scope.cliente.servicos = $scope.servicos;
 						if ($scope.data.tipoCadastro) {
 							$scope.data.tipoCadastro = 2;
 						}
