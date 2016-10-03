@@ -840,7 +840,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 						.append("complemento", prestador.getEndereco().getComplemento())
 						.append("numero", prestador.getEndereco().getNumero())
 						.append("categorias_de_servicos_prestados", categoriasPrestadas)
-						.append("tipo_perfil", 2)
+						.append("tipo_perfil", 2) 
 
 						//.append("privacidade_bloco_cpf_cnpj",pdor.getPrivacidade().getExibeCPF().getCodigo())
 						//.append("privacidade_bloco_telefone",pdor.getPrivacidade().getExibeTelefone().getCodigo())
