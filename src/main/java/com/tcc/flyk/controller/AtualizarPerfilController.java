@@ -45,6 +45,7 @@ public class AtualizarPerfilController {
 
 	public @ResponseBody String PreenchePerfil(@RequestBody String perfil) {
 
+		System.out.println("json recebido " + perfil);
 	try {
 			JSONObject dadosPerfil = new JSONObject(perfil);
 			JSONObject dadosCli = new JSONObject();
@@ -55,20 +56,21 @@ public class AtualizarPerfilController {
 
 			if (!dadosCli.isNull("tipoCadastro")) {
 				//if (!dadosPerfil.isNull("tipoCadastro") && dadosPerfil.getBoolean("tipoCadastro")) {
-				if ((!dadosCli.isNull("tipoCadastro") && dadosCli.getInt("tipoCadastro") == 2)  ) {
+				if ((!dadosCli.isNull("tipoCadastro") && (dadosCli.getInt("tipoCadastro") == 2)
+						|| dadosCli.getInt("tipoCadastro") == 3)) {
 					
 					Prestador prest = new Prestador();
 					
 				
 					
-					PrestadorUtil util = new PrestadorUtil();
+					
 
 					System.out.println("dadosCli enviado ao service eh " + dadosCli.toString());
 					prest = atualizaPerfilService.atualizaPerfilPrestador(dadosCli.getString("id"), dadosCli);
 					
 					
 					
-					dadosCli.put("cliente", util.toJSON(prest));
+					dadosCli.put("cliente", prestadorUtil.toJSON(prest));
 
 					//Prestador prestadorAtualizado = new Prestador();
 
@@ -81,7 +83,7 @@ public class AtualizarPerfilController {
 					JSONObject jsonPrestador = new JSONObject();
 
 					jsonPrestador.put("mensagem", "Cliente atualizado com sucesso");
-					jsonPrestador.put("cliente", util.toJSON(prestadorAtualizado));
+					jsonPrestador.put("cliente", prestadorUtil.toJSON(prestadorAtualizado));
 
 					System.out.println("EH UM PRESTADOR" + prestadorAtualizado.getNome());
 					return jsonPrestador.toString();

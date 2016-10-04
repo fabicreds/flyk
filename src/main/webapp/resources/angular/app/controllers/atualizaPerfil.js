@@ -110,15 +110,29 @@ flyk
 
 					} ];
 					$scope.atualizaPerfil = function() {
+						
 						$scope.cliente.listaTelefone = {};
 						$scope.cliente.listaTelefone = $rootScope.data.listaTelefone;
 						$scope.cliente.nome = $rootScope.data.nome;
 						$scope.cliente.servicos = $scope.servicos;
-						if ($scope.data.tipoCadastro) {
+						$scope.cliente.id=$rootScope.idUsuarioLogado;
+						
+						$scope.prestador = {};
+						
+						
+
+						if ($scope.prestador.flag = true)
+						{
 							$scope.data.tipoCadastro = 2;
-						}
-						$scope.cliente.tipoCadastro = $rootScope.data.tipoCadastro;
-						console.log($rootScope.data)
+								if ($scope.prestador.type = "premium")
+									$scope.data.tipoCadastro = 3;
+						
+						} else
+							$scope.data.tipoCadastro = 1;
+					
+						$scope.cliente.tipoCadastro = $scope.data.tipoCadastro;
+						console.log($scope.data.tipoCadastro);
+						//console.log($rootScope.data)
 						$http({
 							url : 'atualizarPerfil',
 							method : "POST",

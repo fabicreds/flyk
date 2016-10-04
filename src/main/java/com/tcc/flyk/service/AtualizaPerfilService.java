@@ -39,8 +39,7 @@ public class AtualizaPerfilService {
 	public Prestador atualizaPerfilPrestador(String id, JSONObject jsonCli) {
 
 		Prestador JSONToPrestador = prestadorUtil.toPrestador(jsonCli);
-		Cliente c = new Cliente();
-	
+		System.out.println("Prestador " + jsonCli.toString());
 
 		return prestadorDAO.atualizaPrestador(id, JSONToPrestador);
 	}

@@ -117,6 +117,10 @@ public class PrestadorUtil {
 	public Prestador toPrestador(JSONObject json) {
 		Prestador prestador = new Prestador();
 
+		if (!json.isNull("id") && !json.getString("id").isEmpty()) {
+			prestador.setId(json.getString("id"));
+		}
+		
 		if (!json.isNull("nome") && !json.getString("nome").isEmpty()) {
 			prestador.setNome(json.getString("nome"));
 		}
