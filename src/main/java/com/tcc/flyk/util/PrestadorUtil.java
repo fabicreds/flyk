@@ -127,8 +127,8 @@ public class PrestadorUtil {
 		if (!json.isNull("email") && !json.getString("email").isEmpty()) {
 			prestador.setEmail(json.getString("email"));
 		}
-		if (!json.isNull("apelido") && !json.getString("apelido").isEmpty()) {
-			prestador.setApelido(json.getString("apelido"));
+		if (!json.isNull("alias") && !json.getString("alias").isEmpty()) {
+			prestador.setAlias(json.getString("alias"));
 		}
 		if (!json.isNull("senha") && !json.getString("senha").isEmpty()) {
 			prestador.setSenha(json.getString("senha"));

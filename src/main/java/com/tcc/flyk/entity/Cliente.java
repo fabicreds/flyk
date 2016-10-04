@@ -32,7 +32,7 @@ public class Cliente {
 
 	private Date nascimento;
 
-	private String apelido;
+	private String alias;
 
 	private List<Compromisso> listaServicosContratados;
 
@@ -138,12 +138,12 @@ public class Cliente {
 		this.nascimento = nascimento;
 	}
 
-	public String getApelido() {
-		return apelido;
+	public String getAlias() {
+		return alias;
 	}
 
-	public void setApelido(String apelido) {
-		this.apelido = apelido;
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 
 	public List<Compromisso> getListaServicosContratados() {

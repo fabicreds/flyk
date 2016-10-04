@@ -92,8 +92,8 @@ public class ClienteUtil {
 		if (cliente.getNascimento() != null) {
 			jObjt.put("nascimento", format.format(cliente.getNascimento()));
 		}
-		if (cliente.getApelido() != null) {
-			jObjt.put("apelido", cliente.getApelido());
+		if (cliente.getAlias() != null) {
+			jObjt.put("apelido", cliente.getAlias());
 		}
 		if (cliente.getListaServicosContratados() != null) {
 			jObjt.put("numServicosContratados", cliente.getQtdeServicosContratados());
@@ -222,8 +222,8 @@ public class ClienteUtil {
 				cli.setUsuario(usuario[0]);
 			}
 		}
-		if (!json.isNull("apelido") && !json.getString("apelido").isEmpty()) {
-			cli.setApelido(json.getString("apelido"));
+		if (!json.isNull("alias") && !json.getString("alias").isEmpty()) {
+			cli.setAlias(json.getString("alias"));
 		}
 		if (!json.isNull("senha") && !json.getString("senha").isEmpty()) {
 			cli.setSenha(json.getString("senha"));

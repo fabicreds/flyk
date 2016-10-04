@@ -42,9 +42,9 @@ public class DataBaseUtil {
 		if (resultado.get("data_nascimento") != null) {
 			pessoa.setNascimento((Date) resultado.get("data_nascimento"));
 		}
-		// APELIDO
-		if (resultado.get("usuario") != null) {
-			pessoa.setApelido(String.valueOf(resultado.get("usuario")));
+		// ALIAS
+		if (resultado.get("alias") != null) {
+			pessoa.setAlias(String.valueOf(resultado.get("alias")));
 		}
 		// SENHA
 		if (resultado.get("senha") != null) {
