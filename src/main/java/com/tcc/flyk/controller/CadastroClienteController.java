@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Prestador;
 import com.tcc.flyk.entity.Privacidade;
-import com.tcc.flyk.entity.enumerator.PrivacidadeEnum;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.service.ClienteService;
 import com.tcc.flyk.service.PrestadorService;

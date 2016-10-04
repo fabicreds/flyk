@@ -1,7 +1,7 @@
 package com.tcc.flyk.entity.enumerator;
 
 public enum StatusCompromissoEnum {
-	PRETENDIDO(1, "Pretendido"), MARCADO(2, "Marcado"), CANCELADO(3, "Cancelado"), REALIZADO(4, "Realizado");
+	SOLICITADO(1, "Pretendido"), ORCADO(2, "Orçado"),  MARCADO(3, "Marcado"), CANCELADO(4, "Cancelado"), REALIZADO(5, "Realizado");
 
 	private int codigo;
 	

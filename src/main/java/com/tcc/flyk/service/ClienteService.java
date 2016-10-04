@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.tcc.flyk.entity.Amizade;
 import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Usuario;
 import com.tcc.flyk.persistence.ClienteDAO;

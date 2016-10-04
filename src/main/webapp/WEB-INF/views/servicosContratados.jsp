@@ -6,18 +6,18 @@
 			<div class="panel" style="border-color: #266691">
 				<div class="panel-heading" style="background-color: #266691; color: white">Contrato </div>
 				<div class="panel-body">
-					<div class="col-md-6 col-sm-6 col-xs-12">
+					<div class="col-md-3">
 						<p>
 							<strong>Prestador: </strong>
 						<p style="text-indent: 1em;">{{compromisso.contrato.prestador.nome}}</p>
 						</p>
 						<p>
-							<strong>Serviço: </strong>
-						<p style="text-indent: 1em;">{{compromisso.contrato.servico.nome}}
-							- {{compromisso.contrato.servico.descricao}}</p>
+							<strong>Categoria Serviço: </strong>
+						<p style="text-indent: 1em;">{{compromisso.contrato.servico.nome}}</p>
 						</p>
 					</div>
-					<div class="col-md-4 col-sm-6 col-xs-12">
+					
+					<div class="col-md-3">
 						<p>
 							<strong>Data de Início: </strong>
 						<p style="text-indent: 1em;">{{compromisso.dataInicio}}</p>
@@ -25,6 +25,47 @@
 						<p>
 							<strong>Data de Fim: </strong>
 						<p style="text-indent: 1em;">{{compromisso.dataFim}}</p>
+						</p>
+					</div>
+					<div class="col-md-3">
+						<p>
+							<strong>Descrição do Servico: </strong>
+						<p style="text-indent: 1em;">{{compromisso.contrato.descricaoServico}}</p>
+						</p>
+					</div>
+					<div class="col-md-2" style="text-align: center;">
+						<p>
+							<strong>Status: </strong>
+						<p ng-if="compromisso.status == 1">
+							<font color="blue"> <span
+								class="glyphicon glyphicon-question-sign"></span>
+								{{compromisso.statusDescricao}}
+							</font>
+						</p>
+						<p ng-if="compromisso.status == 2">
+							<font color="green"> <span
+								class="glyphicon glyphicon-ok-sign"></span>
+								{{compromisso.statusDescricao}}
+							</font>
+						</p>
+						<p ng-if="compromisso.status == 3">
+							<font color="red"> <span
+								class="glyphicon glyphicon-remove-sign"></span>
+								{{compromisso.statusDescricao}}
+							</font>
+						</p>
+						<p ng-if="compromisso.status == 4">
+							<font color="green"> <span
+								class="glyphicon glyphicon-ok-sign"></span>
+								{{compromisso.statusDescricao}}
+							</font>
+						</p>
+						
+						<p ng-if="compromisso.status == 4">
+							<font color="green"> <span
+								class="glyphicon glyphicon-ok-sign"></span>
+								{{compromisso.statusDescricao}}
+							</font>
 						</p>
 					</div>
 				</div>

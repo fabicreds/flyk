@@ -430,6 +430,10 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 					servicoContratado.put("id_categoria_servico_contratado", compromisso.getContrato().getServico().getId());
 				}
 				
+				if (compromisso.getContrato() != null && compromisso.getContrato().getDescricaoServico() != null) {
+					servicoContratado.put("descricao_servico_contratado", compromisso.getContrato().getDescricaoServico());
+				}
+				
 				System.out.println("9");
 				servicosContratados.add(servicoContratado);
 				System.out.println("10");
@@ -1130,6 +1134,10 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 					// id_categoria_servico_contratado
 					if (compromisso.getContrato() != null && compromisso.getContrato().getServico() != null) {
 						servicoContratado.put("id_categoria_servico_contratado", compromisso.getContrato().getServico().getId());
+					}
+					
+					if (compromisso.getContrato() != null && compromisso.getContrato().getDescricaoServico() != null) {
+						servicoContratado.put("descricao_servico_contratado", compromisso.getContrato().getDescricaoServico());
 					}
 					
 					System.out.println("9");

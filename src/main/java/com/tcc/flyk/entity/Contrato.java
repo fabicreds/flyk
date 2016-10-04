@@ -17,6 +17,8 @@ public class Contrato {
 	private int avaliacaoContratante;
 	
 	private Double custo;
+	
+	private String descricaoServico;
 
 	public Cliente getCliente() {
 		return cliente;
@@ -73,6 +75,14 @@ public class Contrato {
 
 	public void setDataAvaliacaoServico(Date dataAvaliacaoServico) {
 		this.dataAvaliacaoServico = dataAvaliacaoServico;
+	}
+
+	public String getDescricaoServico() {
+		return descricaoServico;
+	}
+
+	public void setDescricaoServico(String descricaoServico) {
+		this.descricaoServico = descricaoServico;
 	}
 	
 	

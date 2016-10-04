@@ -60,15 +60,17 @@ public class Compromisso {
 	public void setStatus(int codigo) {
 			switch (codigo) {
 			case 1:
-				this.status =  StatusCompromissoEnum.PRETENDIDO;break;
+				this.status =  StatusCompromissoEnum.SOLICITADO;break;
 			case 2:
-				this.status =  StatusCompromissoEnum.MARCADO;break;
+				this.status =  StatusCompromissoEnum.ORCADO;break;
 			case 3:
-				this.status =  StatusCompromissoEnum.CANCELADO;break;
+				this.status =  StatusCompromissoEnum.MARCADO;break;
 			case 4:
+				this.status =  StatusCompromissoEnum.CANCELADO;break;
+			case 5:
 				this.status =  StatusCompromissoEnum.REALIZADO;break;
 			default:
-				this.status =  StatusCompromissoEnum.PRETENDIDO;break;
+				this.status =  StatusCompromissoEnum.SOLICITADO;break;
 		}	 
 	}
 

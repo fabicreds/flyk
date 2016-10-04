@@ -17,8 +17,6 @@ import com.tcc.flyk.entity.Endereco;
 import com.tcc.flyk.entity.Prestador;
 import com.tcc.flyk.entity.Privacidade;
 import com.tcc.flyk.entity.Telefone;
-import com.tcc.flyk.entity.enumerator.CategoriaTelefoneEnum;
-import com.tcc.flyk.entity.enumerator.OperadoraEnum;
 
 @Component
 public class ClienteUtil {
@@ -241,7 +239,6 @@ public class ClienteUtil {
 				cli.setNascimento(null);
 			}
 		}
-		List<String> listaTelefones = new ArrayList<String>();
         
 		if (!json.isNull("listaTelefone") && json.getJSONObject("listaTelefone") != null) {
 			List<Telefone> telefones = new ArrayList<Telefone>();

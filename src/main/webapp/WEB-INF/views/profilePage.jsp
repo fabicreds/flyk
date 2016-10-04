@@ -6,7 +6,7 @@
 		<div class="row  center-block container" data-ng-init="init()">
 			<div class="well panel panel-default">
 				<div class="panel-heading">
-					<h3>Perfil do Usuário - {{data.nome}}</h3>
+					<font size="5">Perfil do Usuário - {{data.nome}}</font>
 				</div>
 				<div class="panel-body">
 					<div class="row">
@@ -118,18 +118,18 @@
 										ng-repeat="compromisso in $root.data.listaServicosContratados">
 										<div class="panel panel-default">
 											<div class="panel-body">
-												<div class="col-md-4 vcenter">
+												<div class="col-md-3">
 													<p>
 														<strong>Prestador: </strong>
 													<p style="text-indent: 1em;">{{compromisso.contrato.prestador.nome}}</p>
 													</p>
 													<p>
-														<strong>Serviço: </strong>
-													<p style="text-indent: 1em;">{{compromisso.contrato.servico.nome}}
-														- {{compromisso.contrato.servico.descricao}}</p>
+														<strong>Categoria Serviço: </strong>
+													<p style="text-indent: 1em;">{{compromisso.contrato.servico.nome}}</p>
 													</p>
 												</div>
-												<div class="col-md-4 vcenter">
+
+												<div class="col-md-3">
 													<p>
 														<strong>Data de Início: </strong>
 													<p style="text-indent: 1em;">{{compromisso.dataInicio}}</p>
@@ -139,7 +139,13 @@
 													<p style="text-indent: 1em;">{{compromisso.dataFim}}</p>
 													</p>
 												</div>
-												<div class="col-md-3 vcenter" style="text-align: center;">
+												<div class="col-md-3">
+													<p>
+														<strong>Descrição do Servico: </strong>
+													<p style="text-indent: 1em;">{{compromisso.contrato.descricaoServico}}</p>
+													</p>
+												</div>
+												<div class="col-md-2" style="text-align: center;">
 													<p>
 														<strong>Status: </strong>
 													<p ng-if="compromisso.status == 1">
@@ -166,6 +172,13 @@
 															{{compromisso.statusDescricao}}
 														</font>
 													</p>
+
+													<p ng-if="compromisso.status == 4">
+														<font color="green"> <span
+															class="glyphicon glyphicon-ok-sign"></span>
+															{{compromisso.statusDescricao}}
+														</font>
+													</p>
 												</div>
 											</div>
 										</div>
@@ -177,18 +190,18 @@
 										ng-repeat="compromisso in $root.data.listaContratosServicosPrestados">
 										<div class="panel panel-default">
 											<div class="panel-body">
-												<div class="col-md-4 vcenter">
+												<div class="col-md-3">
 													<p>
 														<strong>Cliente: </strong>
 													<p style="text-indent: 1em;">{{compromisso.contrato.cliente.nome}}</p>
 													</p>
 													<p>
-														<strong>Serviço: </strong>
-													<p style="text-indent: 1em;">{{compromisso.contrato.servico.nome}}
-														- {{compromisso.contrato.servico.descricao}}</p>
+														<strong>Categoria Serviço: </strong>
+													<p style="text-indent: 1em;">{{compromisso.contrato.servico.nome}}</p>
 													</p>
 												</div>
-												<div class="col-md-4 vcenter">
+
+												<div class="col-md-3">
 													<p>
 														<strong>Data de Início: </strong>
 													<p style="text-indent: 1em;">{{compromisso.dataInicio}}</p>
@@ -198,7 +211,13 @@
 													<p style="text-indent: 1em;">{{compromisso.dataFim}}</p>
 													</p>
 												</div>
-												<div class="col-md-3 vcenter" style="text-align: center;">
+												<div class="col-md-3">
+													<p>
+														<strong>Descrição do Servico: </strong>
+													<p style="text-indent: 1em;">{{compromisso.contrato.descricaoServico}}</p>
+													</p>
+												</div>
+												<div class="col-md-2" style="text-align: center;">
 													<p>
 														<strong>Status: </strong>
 													<p ng-if="compromisso.status == 1">
@@ -219,6 +238,13 @@
 															{{compromisso.statusDescricao}}
 														</font>
 													</p>
+													<p ng-if="compromisso.status == 4">
+														<font color="green"> <span
+															class="glyphicon glyphicon-ok-sign"></span>
+															{{compromisso.statusDescricao}}
+														</font>
+													</p>
+
 													<p ng-if="compromisso.status == 4">
 														<font color="green"> <span
 															class="glyphicon glyphicon-ok-sign"></span>
@@ -254,37 +280,41 @@
 													<p style="text-indent: 1em;">{{amizade.dataInicioAmizade}}</p>
 													</p>
 												</div>
-												<div class="col-md-3 col-sm-6 col-xs-12 vcenter"
-													style="text-align: center;">
+												<div class="col-md-3 vcenter">
+													<p>
+														<strong>Tipo de Cadastro: </strong>
+													<p style="text-indent: 2em;">{{amizade.amigo.perfil}}</p>
+													</p>
 													<p>
 														<strong>Status da Amizade: </strong>
-													</p>
-													<p ng-if="amizade.status == 1">
+													<p ng-if="amizade.status == 1" style="text-indent: 1em;">
 														<font color="green"> <span
 															class="glyphicon glyphicon-ok-sign"></span>
 															{{amizade.statusDescricao}}
 														</font>
 													</p>
-													<p ng-if="amizade.status == 2">
+													<p ng-if="amizade.status == 2" style="text-indent: 1em;">
 														<font color="red"> <span
 															class="glyphicon glyphicon-remove-sign"></span>
 															{{amizade.statusDescricao}}
 														</font>
 													</p>
-													<p ng-if="amizade.status == 3 || amizade.status == 4 ">
+													<p ng-if="amizade.status == 3 || amizade.status == 4 "
+														style="text-indent: 1em;">
 														<font color="blue"> <span
 															class="glyphicon glyphicon-question-sign"></span>
 															{{amizade.statusDescricao}}
 														</font>
 													</p>
+													</p>
+												</div>
+												<div class="col-md-1 vcenter" style="text-align: center;">
 													<p>
 														<input type="submit" class="btn btn-primary"
 															value="Visualizar Perfil"
 															ng-click="sendPostPerfilAmigo(amizade.amigo.id, amizade.amigo.tipoCadastro)"
 															ng-controller="friendsProfilePageCtrl" />
 													</p>
-
-
 												</div>
 											</div>
 										</div>
@@ -301,18 +331,18 @@
 										ng-repeat="compromisso in $root.data.listaServicosContratados">
 										<div class="panel panel-default">
 											<div class="panel-body">
-												<div class="col-md-4 vcenter">
+												<div class="col-md-3">
 													<p>
 														<strong>Prestador: </strong>
 													<p style="text-indent: 1em;">{{compromisso.contrato.prestador.nome}}</p>
 													</p>
 													<p>
-														<strong>Serviço: </strong>
-													<p style="text-indent: 1em;">{{compromisso.contrato.servico.nome}}
-														- {{compromisso.contrato.servico.descricao}}</p>
+														<strong>Categoria Serviço: </strong>
+													<p style="text-indent: 1em;">{{compromisso.contrato.servico.nome}}</p>
 													</p>
 												</div>
-												<div class="col-md-4 vcenter">
+
+												<div class="col-md-3">
 													<p>
 														<strong>Data de Início: </strong>
 													<p style="text-indent: 1em;">{{compromisso.dataInicio}}</p>
@@ -322,7 +352,13 @@
 													<p style="text-indent: 1em;">{{compromisso.dataFim}}</p>
 													</p>
 												</div>
-												<div class="col-md-3 vcenter" style="text-align: center;">
+												<div class="col-md-3">
+													<p>
+														<strong>Descrição do Servico: </strong>
+													<p style="text-indent: 1em;">{{compromisso.contrato.descricaoServico}}</p>
+													</p>
+												</div>
+												<div class="col-md-2" style="text-align: center;">
 													<p>
 														<strong>Status: </strong>
 													<p ng-if="compromisso.status == 1">
@@ -343,6 +379,13 @@
 															{{compromisso.statusDescricao}}
 														</font>
 													</p>
+													<p ng-if="compromisso.status == 4">
+														<font color="green"> <span
+															class="glyphicon glyphicon-ok-sign"></span>
+															{{compromisso.statusDescricao}}
+														</font>
+													</p>
+
 													<p ng-if="compromisso.status == 4">
 														<font color="green"> <span
 															class="glyphicon glyphicon-ok-sign"></span>
@@ -378,36 +421,43 @@
 													<p style="text-indent: 1em;">{{amizade.dataInicioAmizade}}</p>
 													</p>
 												</div>
-												<div class="col-md-3 col-sm-6 col-xs-12 vcenter"
-													style="text-align: center;">
+												<div class="col-md-3 vcenter">
+													<p>
+														<strong>Tipo de Cadastro: </strong>
+													<p style="text-indent: 2em;">{{amizade.amigo.perfil}}</p>
+													</p>
 													<p>
 														<strong>Status da Amizade: </strong>
-													<p ng-if="amizade.status == 1">
+													<p ng-if="amizade.status == 1" style="text-indent: 1em;">
 														<font color="green"> <span
 															class="glyphicon glyphicon-ok-sign"></span>
 															{{amizade.statusDescricao}}
 														</font>
 													</p>
-													<p ng-if="amizade.status == 2">
+													<p ng-if="amizade.status == 2" style="text-indent: 1em;">
 														<font color="red"> <span
 															class="glyphicon glyphicon-remove-sign"></span>
 															{{amizade.statusDescricao}}
 														</font>
 													</p>
-													<p ng-if="amizade.status == 2">
+													<p ng-if="amizade.status == 3 || amizade.status == 4 "
+														style="text-indent: 1em;">
 														<font color="blue"> <span
 															class="glyphicon glyphicon-question-sign"></span>
 															{{amizade.statusDescricao}}
 														</font>
 													</p>
 													</p>
+												</div>
+												<div class="col-md-1 vcenter" style="text-align: center;">
 													<p>
+
+
 														<input type="submit" class="btn btn-primary"
 															value="Visualizar Perfil"
 															ng-click="sendPostPerfilAmigo(amizade.amigo.id, amizade.amigo.tipoCadastro)"
 															ng-controller="friendsProfilePageCtrl" />
 													</p>
-
 												</div>
 											</div>
 										</div>

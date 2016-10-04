@@ -44,7 +44,7 @@ public class ContratarServicoService {
 			}
 		}
 		
-		compromisso.setStatus(StatusCompromissoEnum.PRETENDIDO);
+		compromisso.setStatus(StatusCompromissoEnum.SOLICITADO);
 		
 		if (clienteListaServicosContratados==null || clienteListaServicosContratados.isEmpty()) {
 			clienteListaServicosContratados = new ArrayList<Compromisso>();

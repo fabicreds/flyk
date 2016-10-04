@@ -692,6 +692,11 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 					servicoPrestado.put("id_categoria_servico_prestado",
 							compromisso.getContrato().getServico().getId());
 				}
+				
+				if (compromisso.getContrato() != null && compromisso.getContrato().getDescricaoServico() != null) {
+					servicoPrestado.put("descricao_servico_prestado",
+							compromisso.getContrato().getDescricaoServico());
+				}
 
 				System.out.println("8");
 				servicosPrestados.add(servicoPrestado);
@@ -839,6 +844,11 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 								compromisso.getContrato().getServico().getId());
 					}
 
+					if (compromisso.getContrato() != null && compromisso.getContrato().getDescricaoServico() != null) {
+						servicoPrestado.put("descricao_servico_prestado",
+								compromisso.getContrato().getDescricaoServico());
+					}
+					
 					System.out.println("8");
 					servicosPrestados.add(servicoPrestado);
 					System.out.println("9");

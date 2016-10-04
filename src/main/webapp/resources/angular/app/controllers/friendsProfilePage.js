@@ -47,10 +47,11 @@ flyk.controller("friendsProfilePageCtrl", function ($scope, $rootScope, $locatio
 		}).then(function(response) {
 			if (response.data.retorno != "erro") {
 				$rootScope.data.listaAmigos = response.data.listaAmigos;
-				$rootScope.data.listaAmigos = response.data.numAmigos;
-				$location.path('/friendsProfilePage');
+				$rootScope.data.numAmigos = response.data.numAmigos;
+				$rootScope.$emit("CallProfilePageMethod", {});
+				$location.path('/friendsPage');
 			} else {
-				$location.path('/friendsProfilePage');
+				$location.path('/friendsPage');
 			}
 		}, function(response) {
 
@@ -70,10 +71,11 @@ flyk.controller("friendsProfilePageCtrl", function ($scope, $rootScope, $locatio
 			}).then(function(response) {
 				if (response.data.retorno != "erro") {
 					$rootScope.data.listaAmigos = response.data.listaAmigos;
-					$rootScope.data.listaAmigos = response.data.numAmigos;
-					$location.path('/friendsProfilePage');
+					$rootScope.data.numAmigos = response.data.numAmigos;
+					$rootScope.$emit("CallProfilePageMethod", {});
+					$location.path('/friendsPage');
 				} else {
-					$location.path('/friendsProfilePage');
+					$location.path('/friendsPage');
 				}
 			}, function(response) {
 	
@@ -93,10 +95,11 @@ flyk.controller("friendsProfilePageCtrl", function ($scope, $rootScope, $locatio
 		}).then(function(response) {
 			if (response.data.retorno != "erro") {
 				$rootScope.data.listaAmigos = response.data.listaAmigos;
-				$rootScope.data.listaAmigos = response.data.numAmigos;
-				$location.path('/friendsProfilePage');
+				$rootScope.data.numAmigos = response.data.numAmigos;
+				$rootScope.$emit("CallProfilePageMethod", {});
+				$location.path('/friendsPage');
 			} else {
-				$location.path('/friendsProfilePage');
+				$location.path('/friendsPage');
 			}
 		}, function(response) {
 	

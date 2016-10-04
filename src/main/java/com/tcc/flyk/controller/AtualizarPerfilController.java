@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Prestador;
-import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.service.AtualizaPerfilService;
-import com.tcc.flyk.service.PrestadorService;
 import com.tcc.flyk.service.ProfilePageService;
 import com.tcc.flyk.util.ClienteUtil;
 import com.tcc.flyk.util.PrestadorUtil;

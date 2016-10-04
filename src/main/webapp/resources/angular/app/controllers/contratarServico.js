@@ -46,7 +46,8 @@ flyk.controller("contratarServicoCtrl", function($scope, $rootScope, $location,
 				'hora_inicio':$scope.hora_inicio,
 				'minuto_inicio':$scope.minuto_inicio,
 				'hora_fim':$scope.hora_fim,
-				'minuto_fim':$scope.minuto_fim
+				'minuto_fim':$scope.minuto_fim,
+				'descricao_servico': $scope.descricao_servico
 					
 			}
 		}).then(function(response) {

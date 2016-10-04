@@ -7,7 +7,7 @@
 <form class="form-horizontal" name="userForm" novalidate role="form">
 	<div class="container">
 		<fieldset>
-			<legend>Contratar Serviço</legend>
+			<legend>Solicitar Serviço</legend>
 			<div class="col-sm-12">
 				<div class="form-group" show-errors>
 					<label for="fullName" class="col-sm-3 control-label">Nome
@@ -59,7 +59,7 @@
 					<label for="fullName" class="col-sm-3 control-label">Data
 						Fim</label>
 					<div class="col-sm-2">
-						<input type="text" id="data_fim" name="data_fim" 
+						<input type="text" id="data_fim" name="data_fim" ui-date
 							class="form-control" ng-model="data_fim"
 							placeholder="Data de Fim" />
 					</div>
@@ -74,6 +74,13 @@
 						<select class="form-control" ng-model="minuto_fim"
 							ng-options="item.id as item.label for item in minutos">
 						</select>
+					</div>
+				</div>
+				<div class="form-group" show-errors>
+					<label for="descricao_servico" class="col-sm-3 control-label">Descrição Serviço</label>
+					<div class="col-sm-6">
+						<textarea rows="5" id="descricao_servico" name="descricao_servico"
+							class="form-control" ng-model="descricao_servico" placeholder="Descrição do Serviço que está sendo solicitado, informando detalhes para que seja possível a orçamentação do serviço."></textarea>
 					</div>
 				</div>
 			</div>

@@ -275,6 +275,10 @@ public class DataBaseUtil {
 			if (compromissoDB.get("id_categoria_servico_contratado") != null) {
 				categoria.setId(compromissoDB.getString("id_categoria_servico_contratado"));
 			}
+			
+			if (compromissoDB.get("descricao_servico_contratado") != null) {
+				contrato.setDescricaoServico(compromissoDB.getString("descricao_servico_contratado"));
+			}
 
 			contrato.setPrestador(prestador);
 			contrato.setAvaliacaoPrestador(avaliacaoPrestador);
@@ -413,6 +417,10 @@ public class DataBaseUtil {
 			// Setando os Dados da Categoria do Servico
 			if (compromissoDB.get("id_categoria_servico_prestado") != null) {
 				categoria.setId(compromissoDB.getString("id_categoria_servico_prestado"));
+			}
+			
+			if (compromissoDB.get("descricao_servico_prestado") != null) {
+				contrato.setDescricaoServico(compromissoDB.getString("descricao_servico_prestado"));
 			}
 
 			contrato.setCliente(cliente);

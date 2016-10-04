@@ -5,7 +5,7 @@
 		<div ng-repeat="amizade in $root.data.listaAmigos">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<div class="col-md-4 col-sm-6 col-xs-12 vcenter">
+					<div class="col-md-4 vcenter">
 						<div class="text-center">
 							<img
 								src="${pageContext.request.contextPath}/images/pessoa-feliz.png"
@@ -14,7 +14,7 @@
 						</div>
 					</div>
 					<!--/col-->
-					<div class="col-md-3 col-sm-6 col-xs-12 vcenter">
+					<div class="col-md-3 vcenter">
 						<p>
 							<strong>Nome: </strong>
 						<p style="text-indent: 1em;">{{amizade.amigo.nome}}</p>
@@ -24,30 +24,38 @@
 						<p style="text-indent: 1em;">{{amizade.dataInicioAmizade}}</p>
 						</p>
 					</div>
-					<div class="col-md-3 col-sm-6 col-xs-12 vcenter"
-						style="text-align: center;">
+					<div class="col-md-3 vcenter">
+						<p>
+							<strong>Tipo de Cadastro: </strong>
+						<p style="text-indent: 2em;">{{amizade.amigo.perfil}}</p>
+						</p>
 						<p>
 							<strong>Status da Amizade: </strong>
-						<p ng-if="amizade.status == 1">
+						<p ng-if="amizade.status == 1" style="text-indent: 1em;">
 							<font color="green"> <span
 								class="glyphicon glyphicon-ok-sign"></span>
 								{{amizade.statusDescricao}}
 							</font>
 						</p>
-						<p ng-if="amizade.status == 2">
+						<p ng-if="amizade.status == 2" style="text-indent: 1em;">
 							<font color="red"> <span
 								class="glyphicon glyphicon-remove-sign"></span>
 								{{amizade.statusDescricao}}
 							</font>
 						</p>
-						<p ng-if="amizade.status == 3 || amizade.status == 4 ">
+						<p ng-if="amizade.status == 3 || amizade.status == 4 "
+							style="text-indent: 1em;">
 							<font color="blue"> <span
 								class="glyphicon glyphicon-question-sign"></span>
 								{{amizade.statusDescricao}}
 							</font>
 						</p>
 						</p>
+					</div>
+					<div class="col-md-1 vcenter" style="text-align: center;">
 						<p>
+
+
 							<input type="submit" class="btn btn-primary"
 								value="Visualizar Perfil"
 								ng-click="sendPostPerfilAmigo(amizade.amigo.id, amizade.amigo.tipoCadastro)"

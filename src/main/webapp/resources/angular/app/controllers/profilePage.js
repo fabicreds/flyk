@@ -4,8 +4,6 @@ flyk.controller("profilePageCtrl", function ($scope, $rootScope, $location, $htt
     	$location.path('/profilePageEdit');
     }
     
-
-    
     $scope.init = function () {
     	$scope.showProfilePage();
     }
@@ -39,4 +37,28 @@ flyk.controller("profilePageCtrl", function ($scope, $rootScope, $location, $htt
 			$location.path('/profilePage');
 		}
 	};
+	
+	 $rootScope.$on("CallProfilePageMethod", function(){
+		 $http({
+				url : 'profilePage',
+				method : "POST",
+				data : {
+					'usuario' : localStorage.getItem("usuarioLogado"),
+					'idUsuario' : localStorage.getItem("idUsuarioLogado"),
+					'tipoUsuario' : localStorage.getItem("tipoUsuarioLogado")
+				}
+			}).then(function(response) {
+				if (response.data.retorno != "erro") {
+					$rootScope.usuarioLogado = response.data.usuario;
+					$rootScope.tipoUsuarioLogado = response.data.tipoCadastro;
+					$rootScope.idUsuarioLogado = response.data.cliente.id;
+					$rootScope.data = response.data.cliente;
+					localStorage.setItem("dadosCliente", JSON.stringify($rootScope.data));
+				} else {
+					$location.path('/profilePage');
+				}
+			}, function(response) {
+
+			});
+      });
 });

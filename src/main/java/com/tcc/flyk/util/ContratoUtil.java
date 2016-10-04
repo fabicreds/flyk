@@ -52,6 +52,9 @@ public class ContratoUtil {
 		if (contrato.getCusto() != null) {
 			jObjt.put("custo", contrato.getCusto());
 		}
+		if(contrato.getDescricaoServico()!=null){
+			jObjt.put("descricaoServico", contrato.getDescricaoServico());
+		}
 		return jObjt;
 	}
 
@@ -74,6 +77,10 @@ public class ContratoUtil {
 			Categoria categoria = new Categoria();
 			categoria.setId(json.getString("idCategoriaServico"));
 			contrato.setServico(categoria);
+		}
+		
+		if(!json.isNull("descricao_servico")){
+			contrato.setDescricaoServico(json.getString("descricao_servico"));
 		}
 		return contrato;
 	}

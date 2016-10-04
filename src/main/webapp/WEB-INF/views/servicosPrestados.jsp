@@ -6,18 +6,18 @@
 			<div class="panel" style="border-color: #266691">
 				<div class="panel-heading" style="background-color: #266691; color: white">Contrato </div>
 				<div class="panel-body">
-					<div class="col-md-4 vcenter">
+					<div class="col-md-3">
 						<p>
 							<strong>Cliente: </strong>
 						<p style="text-indent: 1em;">{{compromisso.contrato.cliente.nome}}</p>
 						</p>
 						<p>
-							<strong>Serviço: </strong>
-						<p style="text-indent: 1em;">{{compromisso.contrato.servico.nome}}
-							- {{compromisso.contrato.servico.descricao}}</p>
+							<strong>Categoria Serviço: </strong>
+						<p style="text-indent: 1em;">{{compromisso.contrato.servico.nome}}</p>
 						</p>
 					</div>
-					<div class="col-md-4 vcenter">
+					
+					<div class="col-md-3">
 						<p>
 							<strong>Data de Início: </strong>
 						<p style="text-indent: 1em;">{{compromisso.dataInicio}}</p>
@@ -27,7 +27,13 @@
 						<p style="text-indent: 1em;">{{compromisso.dataFim}}</p>
 						</p>
 					</div>
-					<div class="col-md-3 vcenter" style="text-align: center;">
+					<div class="col-md-3">
+						<p>
+							<strong>Descrição do Servico: </strong>
+						<p style="text-indent: 1em;">{{compromisso.contrato.descricaoServico}}</p>
+						</p>
+					</div>
+					<div class="col-md-2" style="text-align: center;">
 						<p>
 							<strong>Status: </strong>
 						<p ng-if="compromisso.status == 1">
