@@ -183,6 +183,10 @@ public class PrestadorUtil {
 			List<Categoria> listaServicosPrestados = new ArrayList<Categoria>();
 			JSONArray jsonServicos = (JSONArray) json.getJSONArray("servicos");
 			for (int i = 0; i < jsonServicos.length(); i++) {
+				
+				if (jsonServicos.get(i) instanceof JSONObject)
+				{	
+				
 				JSONObject jsonCategoria = (JSONObject) jsonServicos.get(i);
 				if (jsonCategoria != null) {
 					Categoria cat = new Categoria();
@@ -193,6 +197,16 @@ public class PrestadorUtil {
 						cat.setNomeCategoria(jsonCategoria.getString("nome"));
 					}
 					listaServicosPrestados.add(cat);
+				}
+				}
+				else 
+				{
+					String idCategoria = jsonServicos.getString(i);
+					Categoria cat = new Categoria();
+					cat.setId(idCategoria);
+					listaServicosPrestados.add(cat);
+					
+					
 				}
 			}
 			prestador.setListaCategoriaServicosPrestados(listaServicosPrestados);

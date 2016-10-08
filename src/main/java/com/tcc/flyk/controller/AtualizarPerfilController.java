@@ -43,7 +43,7 @@ public class AtualizarPerfilController {
 
 	public @ResponseBody String PreenchePerfil(@RequestBody String perfil) {
 
-		System.out.println("json recebido " + perfil);
+		
 	try {
 			JSONObject dadosPerfil = new JSONObject(perfil);
 			JSONObject dadosCli = new JSONObject();
@@ -161,7 +161,7 @@ public class AtualizarPerfilController {
 		}
 
 		
-		return perfil;
+			return perfil;
 	}
 
 	private String mensagemErro(String mensagem) {

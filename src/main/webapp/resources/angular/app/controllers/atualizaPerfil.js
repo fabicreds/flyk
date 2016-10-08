@@ -11,8 +11,9 @@ flyk
 								.getItem("tipoUsuarioLogado");
 						$rootScope.idUsuarioLogado = localStorage
 								.getItem("idUsuarioLogado");
-						$rootScope.data = JSON.parse(localStorage
-								.getItem("dadosCliente"));
+						//$rootScope.data = JSON.parse(localStorage
+							//	.getItem("dadosCliente"));
+						console.log(localStorage.getItem("dadosCliente"));
 
 						$scope.cliente = {};
 						$scope.cliente.id = $rootScope.data.id;
@@ -130,9 +131,10 @@ flyk
 						} else
 							$scope.data.tipoCadastro = 1;
 					
-						$scope.cliente.tipoCadastro = $scope.data.tipoCadastro;
-						console.log($scope.data.tipoCadastro);
+						
+						console.log("tipo cad" + $scope.data.tipoCadastro);
 						//console.log($rootScope.data)
+						$scope.cliente.tipoCadastro = $scope.data.tipoCadastro;
 						$http({
 							url : 'atualizarPerfil',
 							method : "POST",
@@ -206,7 +208,8 @@ flyk
 								.then(
 										function(response) {
 											if (response.data.retorno != "erro") {
-												$rootScope.data.listaCategorias = response.data.listaCategorias;
+												console.log(response.data);
+												$rootScope.data.listaCategorias = response.data.listaCategorias.listaCategorias;
 												if (response.data.listaCategorias != null) {
 													angular
 															.forEach(
