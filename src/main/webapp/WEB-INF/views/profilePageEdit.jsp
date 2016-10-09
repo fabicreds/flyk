@@ -188,14 +188,15 @@
 							<div class="panel-heading">
 								<!-- Se o usuário estiver logado e for um cliente -->
 								<div ng-if="usuarioLogado !=''">
-									<uib-tabset active="active"> <uib-tab index="0"
+									<uib-tabset active="active"> 
+									<uib-tab index="0"
 										heading="Tipo de perfil">
 
 									<div class="panel panel-default">
 										<div class="panel-body">
 
 											<div class="row">
-												<div class="col-sm-6">
+												<div class="col-sm-9">
 
 													<div class="form-group">
 														<div class="col-sm-3">
@@ -210,32 +211,85 @@
 													</div>
 
 													<div class="form-group" uib-collapse="!prestador.flag">
-														<div class="col-sm-6">
-															<label for="cpf">Tipo de acesso:</label>
-															<div class="radio">
-																<label
-																	uib-tooltip="FREE: BLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLA">
-																	<input type="radio" name="serviceType" value="free"
-																	ng-model="prestador.type" /> Free
-																</label><br />
+														<div class="col-sm-3">
+														    <div class="card card-block">
+														      <h3 style="text-align:center" class="card-title">FREE</h3>
+														      <p class="card-text">
+														      <span
+																class="glyphicon glyphicon-ok"></span> <span class="text">Recursos básicos</span>
+														      <br/>
+														      <span
+																class="glyphicon glyphicon-ok"></span> <span class="text">Suporte via e-mail</span>
+															   <br/>
+														      <span
+																class="glyphicon glyphicon-ok"></span> <span class="text">Agendamento de serviços</span>
+														      <br/>
+														       <span
+																class="glyphicon glyphicon-ok"></span> <span class="text">Feedback de serviço realizado</span>
+														      <br/>
+														      <span
+																class="glyphicon glyphicon-ok"></span> <span class="text">Divulgação de serviços</span>
+														      </p>
+														      <h4 style="text-align:center">Grátis</h4> 
+															      <div class="radio">
+																	<label>
+																		<input type="radio" name="serviceType" value="free"
+																		ng-model="prestador.type" /> Adquirir free
+																	</label><br />
+																</div>
 															</div>
-															<div class="radio">
-																<label
-																	uib-tooltip="PREMIUM: BLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLA">
-																	<input type="radio" name="serviceType" value="premium"
-																	ng-model="prestador.type" /> Premium
-																</label><br />
-															</div>
+														  </div>
+														  
+														  
+														  <div class="col-sm-3">
+														    <div class="card card-block">
+														      <h3 style="text-align:center" class="card-title">PREMIUM</h3>
+														      <p class="card-text">
+														       <span
+																class="glyphicon glyphicon-ok"></span> <span class="text">Recursos básicos</span>
+														      <br/>
+														      <span
+																class="glyphicon glyphicon-ok"></span> <span class="text">Suporte via e-mail</span>
+																<br/>
+															 <span
+																class="glyphicon glyphicon-ok"></span> <span class="text">Melhor posicionamento nas buscas de serviços</span>
+														      <br/>
+														     <span
+																class="glyphicon glyphicon-ok"></span> <span class="text">Agendamento de serviços</span>
+														      <br/>
+														       <span
+																class="glyphicon glyphicon-ok"></span> <span class="text">Feedback de serviço realizado</span>
+														      <br/>
+														      <span
+																class="glyphicon glyphicon-ok"></span> <span class="text">Divulgação de serviços</span>
+														      </p>
+														     
+														      <h4 style="text-align:center">R$59,90/mensal</h4> 
+														      <div class="radio">
+																	<label>
+																		<input type="radio" name="serviceType" value="premium"
+																		ng-model="prestador.type" /> Adquirir Premium
+																	</label><br />
+																</div>
+														    
+														
 														</div>
 													</div>
 
 												</div>
+												
+												
+												
 											</div>
+											
+											
 										</div>
 									</div>
-
-									</uib-tab> <uib-tab ng-hide="!data.tipoCadastro" index="1"
-										heading="Serviços" data-ng-init="carregaCategorias()">
+									</div>	
+									</uib-tab> 
+									
+									<uib-tab ng-hide="!prestador.flag" index="1"
+										heading="Serviços">
 
 									<div class="panel panel-default">
 										<div class="panel-body">
@@ -285,7 +339,8 @@
 										</div>
 									</div>
 
-									</uib-tab> </uib-tabset>
+									</uib-tab> 
+									</uib-tabset>
 								</div>
 							</div>
 						</div>
@@ -299,6 +354,8 @@
 								ng-click="resetcadastroform()" />
 						</div>
 					</div>
+					
+					
 				</div>
 			</div>
 		</div>
