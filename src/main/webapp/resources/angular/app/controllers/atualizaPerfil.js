@@ -3,7 +3,13 @@ flyk
 				"atualizaPerfilCtrl",
 				function($scope, $rootScope, $location, $http, fileReader,
 						$localStorage, $sessionStorage, $window) {
-
+					
+					$scope.cliente = {};
+					$scope.cliente.id = $rootScope.data.id;
+					$scope.categoriasServico = [];
+					$rootScope.servicosSelecionados = [];
+					$scope.servicos = [];
+					
 					$scope.init = function() {
 						$rootScope.usuarioLogado = localStorage
 								.getItem("usuarioLogado");
@@ -15,11 +21,7 @@ flyk
 							//	.getItem("dadosCliente"));
 						console.log(localStorage.getItem("dadosCliente"));
 
-						$scope.cliente = {};
-						$scope.cliente.id = $rootScope.data.id;
-						$scope.categoriasServico = [];
-						$rootScope.servicosSelecionados = [];
-						$scope.servicos = [];
+						
 						if ($rootScope.tipoUsuarioLogado != 1) {
 							$scope.prestador = {};
 							if ($rootScope.tipoUsuarioLogado == 2) {
