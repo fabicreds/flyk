@@ -26,7 +26,7 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 	public boolean cadastrarNovaCategoria(Categoria cat) {
 		try {
 
-			System.out.println("gravando categoria");
+			System.out.println("gravando categoria " + cat.getNomeCategoria());
 			// Data de hoje
 			Date dHoje = new Date();
 			super.mongoDatabase.getCollection("FLYK")
@@ -34,7 +34,6 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 							.append("descricao_categoria", cat.getDescricaoCategoria())
 							.append("inicio_vigencia_categoria", dHoje).append("status_categoria", "A"));
 
-			consultaTudo();// remover depois
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

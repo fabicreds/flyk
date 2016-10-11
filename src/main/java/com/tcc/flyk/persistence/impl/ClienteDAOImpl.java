@@ -31,9 +31,9 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 	private DataBaseUtil dbUtil = new DataBaseUtil();
 
-	public ClienteDAOImpl() {
+	/*public ClienteDAOImpl() {
 		super();
-	}
+	}*/
 
 	@Override
 	public void consulta() {
@@ -448,7 +448,9 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		// Insere o cliente
 		System.out.println(doc.toString());
 		try {
+			super.conecta();
 			super.db.getCollection("FLYK").insert(doc);
+			super.desconecta();
 			System.out.println("Usu�rio cadastrado com sucesso");
 		} catch (Exception e) {
 			System.out.println("ERRO:" + e.getStackTrace());
@@ -456,7 +458,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			e.printStackTrace();
 			return false;
 		}
-		consultaTudo();
+		//consultaTudo();
 
 		return true;
 	}
@@ -601,7 +603,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 	
 	@Override
 	public Cliente consultaClientePorId(String idCliente) {
-		consultaTudo();
+		//consultaTudo();
 		System.out.println("CONSULTA CLIENTE - IN�CIO");
 
 		Cliente pessoa = new Cliente(); // Cliente que ser� retornado
@@ -721,7 +723,9 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 	@Override
 	public void consultaTudo() {
 
+		super.conecta();
 		FindIterable<Document> iterable = super.mongoDatabase.getCollection("FLYK").find();
+		super.desconecta();
 
 		iterable.forEach(new Block<Document>() {
 			@Override
@@ -802,15 +806,17 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 	public List<Usuario> consultaUsuarioPorParteDoNome(String nomeUsuario){
 
-		consultaTudo();
+		//consultaTudo();
 		try {
 			System.out.println("ClienteDAOImpl - consultando usuario por parte do nome:" + nomeUsuario);
 			final List<Usuario> listaUsuarios = new ArrayList<Usuario>(); //Instancia o retorno
 
 			// Busca todos os clientes ativos com o nomeUsuario em parte do nome
+			super.conecta();
 			FindIterable<Document> iterable = super.mongoDatabase.getCollection("FLYK")
 					.find(new Document("status_pessoa", "A").append("nome_completo",
 							new Document("$regex", nomeUsuario).append("$options", "'i'")));
+			super.desconecta();
 			// Varre a lista de resultados
 			iterable.forEach(new Block<Document>() {
 				@Override
@@ -984,15 +990,17 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 	}
 
 	public List<Cliente> consultaClientePorParteDoNome(String nomeCliente){
-		consultaTudo();
+		//consultaTudo();
 		try {
 			System.out.println("ClienteDAOImpl - consultando cliente por parte do nome:" + nomeCliente);
 			final List<Cliente> listaClientes = new ArrayList<Cliente>(); //Instancia o retorno
 
 			// Busca todos os clientes ativos com o nomeCliente em parte do nome
+			super.conecta();
 			FindIterable<Document> iterable = super.mongoDatabase.getCollection("FLYK")
 					.find(new Document("status_pessoa", "A").append("nome_completo",
 							new Document("$regex", nomeCliente).append("$options", "'i'")));
+			super.desconecta();
 			// Varre a lista de resultados
 			iterable.forEach(new Block<Document>() {
 				@Override

@@ -20,15 +20,18 @@ public class MongoDB {
 	}
 
 	@SuppressWarnings("deprecation")
-	private void conecta() {
+	public void conecta() {
 		// Cria a classe mongoClient conectando na instância local do mongodb
 		mongoClient = new MongoClient(new ServerAddress("localhost"), new MongoClientOptions.Builder().build());
 
 		// Cria a classe db, conectada ao banco de dados test
-		db = mongoClient.getDB("test");
+		db = mongoClient.getDB("FLYK");
 		
 		//Cria a classe mongoDatabase, conectada ao banco de dados test
-		mongoDatabase = mongoClient.getDatabase("test");
+		mongoDatabase = mongoClient.getDatabase("FLYK");
 	}
 	
+	public void desconecta(){
+		mongoClient.close();
+	}
 }

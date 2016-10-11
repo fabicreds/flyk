@@ -36,6 +36,13 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		return null;
 	}
 
+
+	@Override
+	public List<Prestador> buscaServico(String idCategoria, int qtdMinimaEstrelas, String nomePrestador){
+		List<Prestador> retorno = new ArrayList<Prestador>();
+		return retorno;
+	}
+	
 	@Override
 	public Prestador consultaPrestadorPorId(String idPrestador) {
 		consultaTudo();
@@ -543,7 +550,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		}
 
 		System.out.println("11");
-		System.out.println(doc);
+		//System.out.println(doc);
 
 		// ************************************
 		// ***********************************

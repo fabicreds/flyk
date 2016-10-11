@@ -13,16 +13,16 @@ public interface PrestadorDAO {
 	public Prestador consultaPrestadorPorId(String idPrestador);
 
 	public boolean inserirNovoPrestador(Prestador prestador);
-	
-	public Prestador atualizaPrestador(String idPrestador, Prestador prestador);
-
-	public boolean atualizarListaContratosServicosPrestadosById(String idPrestador,
-			List<Compromisso> listaContratosServicosPrestados);
-	
-	public List<Compromisso> consultarListaContratosServicosPrestadosById(String id);
-	
-	
 
 	void consultaTudo();
+	
+	public List<Prestador> buscaServico(String idCategoria, int qtdMinimaEstrelas, String nomePrestador);
+
+	List<Compromisso> consultarListaContratosServicosPrestadosById(String id);
+
+	boolean atualizarListaContratosServicosPrestadosById(String idPrestador,
+			List<Compromisso> listaContratosServicosPrestados);
+
+	Prestador atualizaPrestador(String idPrestador, Prestador prestador);
 	
 }
