@@ -289,7 +289,7 @@
 									</uib-tab> 
 									
 									<uib-tab ng-hide="!prestador.flag" index="1"
-										heading="Serviços">
+										heading="Serviços" data-ng-init="carregaCategorias()">
 
 									<div class="panel panel-default">
 										<div class="panel-body">
