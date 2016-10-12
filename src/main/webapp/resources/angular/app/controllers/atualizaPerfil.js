@@ -2,7 +2,7 @@ flyk
 		.controller(
 				"atualizaPerfilCtrl",
 				function($scope, $rootScope, $location, $http, fileReader,
-						$localStorage, $sessionStorage, $window) {
+						$localStorage, $sessionStorage, $window, $uibModal, $http) {
 					
 					$scope.cliente = {};
 					$scope.cliente.id = $rootScope.data.id;
@@ -46,7 +46,16 @@ flyk
 					}
 
 					
+					$scope.showPagModal = function () {
 
+
+				        $scope.modal = $uibModal.open({
+				            templateUrl: "pagamento.html"
+				        });
+				    } 
+					
+					
+					  
 					$scope.numeroServicos = [ {
 						id : 0,
 						label : '0'
@@ -246,3 +255,20 @@ flyk
 					}
 
 				});
+
+
+flyk.controller('ModalInstanceCtrl', function ($uibModalInstance, items) {
+	  var $ctrl = this;
+	  $ctrl.items = items;
+	  $ctrl.selected = {
+	    item: $ctrl.items[0]
+	  };
+
+	  $ctrl.ok = function () {
+	    $uibModalInstance.close($ctrl.selected.item);
+	  };
+
+	  $ctrl.cancel = function () {
+	    $uibModalInstance.dismiss('cancel');
+	  };
+	});

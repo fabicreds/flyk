@@ -221,6 +221,9 @@
 														      <span
 																class="glyphicon glyphicon-ok"></span> <span class="text">Suporte via e-mail</span>
 															   <br/>
+															   <span
+																class="glyphicon glyphicon-remove"></span> <span class="text">Melhor posicionamento nas buscas de serviços</span>
+														      <br/>
 														      <span
 																class="glyphicon glyphicon-ok"></span> <span class="text">Agendamento de serviços</span>
 														      <br/>
@@ -268,12 +271,16 @@
 														      <div class="radio">
 																	<label>
 																		<input type="radio" name="serviceType" value="premium"
-																		ng-model="prestador.type" /> Adquirir Premium
+																		ng-model="prestador.type" ng-click="showPagModal()" /> Adquirir Premium
 																	</label><br />
 																</div>
+																
+																
 														    
 														
 														</div>
+														
+														
 													</div>
 
 												</div>

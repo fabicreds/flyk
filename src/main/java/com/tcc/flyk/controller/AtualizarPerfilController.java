@@ -38,6 +38,12 @@ public class AtualizarPerfilController {
 		return "profilePageEdit";
 	}
 
+	@RequestMapping(value = "/pagamento", method = RequestMethod.GET)
+	public String iniciarTelaPagamento() {
+
+		return "pagamento";
+	}
+ 
 	@RequestMapping(value = "/atualizarPerfil", method = RequestMethod.POST, consumes = {
 			"application/json;charset=UTF-8" }, produces = "application/json")
 
