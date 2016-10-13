@@ -58,7 +58,7 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 			iterable.forEach(new Block<Document>() {
 				@Override
 				public void apply(final Document document) {
-					System.out.println(document);
+					//System.out.println(document);
 
 					String nome = document.getString("nome_categoria");
 					retorno.setId(document.getObjectId("_id").toString());
@@ -101,7 +101,7 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 			iterable.forEach(new Block<Document>() {
 				@Override
 				public void apply(final Document document) {
-					System.out.println(document);
+					//System.out.println(document);
 
 					String nome = document.getString("nome_categoria");
 

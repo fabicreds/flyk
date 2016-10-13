@@ -41,6 +41,7 @@ public class DataBaseUtil {
 		// EMAIL
 		if (resultado.get("data_nascimento") != null) {
 			pessoa.setNascimento((Date) resultado.get("data_nascimento"));
+			System.out.print("Data nascimento do cliente: " + pessoa.getNascimento());
 		}
 		// ALIAS
 		if (resultado.get("alias") != null) {

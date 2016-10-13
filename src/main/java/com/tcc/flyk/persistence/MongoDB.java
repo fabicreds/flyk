@@ -6,6 +6,20 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
 
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
+import com.mongodb.Block;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+import com.mongodb.client.FindIterable;
+import com.tcc.flyk.entity.Usuario;
+import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
+import com.tcc.flyk.util.DataBaseUtil;
+
 public class MongoDB {
 	public static String NOME_BANCO = "FLYK";
 	public static String NOME_COLLECTION = "FLYK";
@@ -29,6 +43,55 @@ public class MongoDB {
 		
 		//Cria a classe mongoDatabase, conectada ao banco de dados test
 		mongoDatabase = mongoClient.getDatabase("FLYK");
+	}
+	
+
+	//****************************CONSULTA DOCUMENTO COM ID ESPECÍFICO****************************
+	public void printDocPorId(String id){
+
+		System.out.println("CONSULTANDO DOCUMENTO PELO ID " + id);
+		try {
+			DBCollection collection = db.getCollection("FLYK");
+			BasicDBObject filtro = new BasicDBObject(new Document("_id", new ObjectId(id)));
+			DBCursor cursor = collection.find(filtro);
+			DBObject resultado;
+
+			// Busca campos de resultado
+			if (cursor.hasNext()) {
+				resultado = cursor.next();
+				resultado.put("foto", "fota");
+				System.out.println(resultado);
+			} else {
+				System.out.println("Consulta de cliente pelo id " + id + " nï¿½o encontrou valores.");
+			}
+
+		} catch (Exception e) {
+			System.out.println("Erro no print documento por id");
+			System.out.println(e);
+		}
+		
+	}
+	public void consultaDocs(){
+
+		try {
+			DBCollection collection = db.getCollection("FLYK");
+			DBCursor cursor = collection.find();
+			DBObject resultado;
+
+			// Busca campos de resultado
+			while (cursor.hasNext()) {
+				resultado = cursor.next();
+				if(resultado.containsField("foto")){
+					resultado.put("foto", "String_da_foto_Favor_ignorar");
+				}
+				System.out.println(resultado);
+			}
+
+		} catch (Exception e) {
+			System.out.println("Erro no consultaDocs");
+			System.out.println(e);
+		}
+		
 	}
 	
 	public void desconecta(){

@@ -72,25 +72,25 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			doc.put("senha", pessoa.getSenha());
 		}
 
-		System.out.println("1");
+		//System.out.println("1");
 		// facebookID
 		if (pessoa.getFacebookID() != null) {
 			doc.put("facebookID", pessoa.getFacebookID());
 		}
 
-		System.out.println("15");
+		//System.out.println("15");
 		// CPF
 		if (pessoa.getCPF() != null) {
 			doc.put("CPF", pessoa.getCPF());
 		}
 
-		System.out.println("16");
+		//System.out.println("16");
 		// Foto do perfil
 		if (pessoa.getFotoPerfil() != null) {
-			System.out.println("17");
+			//System.out.println("17");
 			doc.put("foto", pessoa.getFotoPerfil());
 		}
-		System.out.println("2");
+		//System.out.println("2");
 
 		// Tipo de perfil
 		if (pessoa.getTipoCadastro() != null) {
@@ -112,37 +112,37 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				doc.put("logradouro", pessoa.getEndereco().getLogradouro());
 			}
 
-			System.out.println("3");
+			//System.out.println("3");
 			// Numero
 			if (pessoa.getEndereco().getNumero() == 0) {
 				doc.put("numero", pessoa.getEndereco().getNumero());
 			}
 
-			System.out.println("31");
+			//System.out.println("31");
 			// Complemento
 			if (pessoa.getEndereco().getComplemento() != null) {
 				doc.put("complemento", pessoa.getEndereco().getComplemento());
 			}
 
-			System.out.println("32");
+			//System.out.println("32");
 			// Bairro
 			if (pessoa.getEndereco().getBairro() != null) {
 				doc.put("bairro", pessoa.getEndereco().getBairro());
 			}
 
-			System.out.println("33");
+			//System.out.println("33");
 			// Cidade
 			if (pessoa.getEndereco().getCidade() != null) {
 				doc.put("cidade", pessoa.getEndereco().getCidade());
 			}
 
-			System.out.println("34");
+			//System.out.println("34");
 			// Estado
 			if (pessoa.getEndereco().getEstado() != null) {
 				doc.put("estado", pessoa.getEndereco().getEstado());
 			}
 
-			System.out.println("4");
+			//System.out.println("4");
 			// CEP
 			if (pessoa.getEndereco().getCep() != null) {
 				doc.put("CEP", pessoa.getEndereco().getCep());
@@ -203,7 +203,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		if (pessoa.getListaTelefone() != null) {
 
 			int count = pessoa.getListaTelefone().size();
-			System.out.println("qtd telefones: " + String.valueOf(count));
+			//System.out.println("qtd telefones: " + String.valueOf(count));
 
 			// Varre a lista de telefones, inserindo um por um
 			BasicDBList telefones = new BasicDBList();
@@ -231,7 +231,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				System.out.println(String.valueOf(tel.getNumero()));
 
 				telefones.add(telefone);
-				System.out.println("telefone adicionado");
+				//System.out.println("telefone adicionado");
 			}
 			doc.put("telefones", telefones);
 		} else {
@@ -242,13 +242,13 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		if (pessoa.getListaAmigos() != null) {
 
 			int count = pessoa.getListaAmigos().size();
-			System.out.println("qtd amigos: " + String.valueOf(count));
+			//System.out.println("qtd amigos: " + String.valueOf(count));
 
 			BasicDBList amigos = new BasicDBList();
 
 			// Varre a lista de amigos, inserindo um por um
 			for (int i = 0; i < count; i++) {
-				System.out.println("ID do amigo: " + String.valueOf(pessoa.getListaAmigos().get(i).getAmigo().getId()));
+				//System.out.println("ID do amigo: " + String.valueOf(pessoa.getListaAmigos().get(i).getAmigo().getId()));
 
 				BasicDBObject amigo = new BasicDBObject();
 
@@ -280,7 +280,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		if (pessoa.getListaPrestadoresRecomendados() != null) {
 
 			int count = pessoa.getListaPrestadoresRecomendados().size();
-			System.out.println("qtd prestadores recomendados: " + String.valueOf(count));
+			//System.out.println("qtd prestadores recomendados: " + String.valueOf(count));
 
 			BasicDBList prestadoresRecomendados = new BasicDBList();
 			// Varre a lista de prestadores recomendados, inserindo um por um
@@ -307,7 +307,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		if (pessoa.getlistaMensagensConversa() != null) {
 
 			int count = pessoa.getlistaMensagensConversa().size();
-			System.out.println("qtd msgs: " + String.valueOf(count));
+			//System.out.println("qtd msgs: " + String.valueOf(count));
 
 			BasicDBList mensagens = new BasicDBList();
 			// Varre a lista de mensagens, inserindo uma por uma
@@ -345,7 +345,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		if (pessoa.getListaServicosContratados() != null) {
 
 			int count = pessoa.getListaServicosContratados().size();
-			System.out.println("qtd de servicos contratados: " + String.valueOf(count));
+			//System.out.println("qtd de servicos contratados: " + String.valueOf(count));
 
 			BasicDBList servicosContratados = new BasicDBList();
 
@@ -354,23 +354,23 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 				BasicDBObject servicoContratado = new BasicDBObject();
 
-				System.out.println("0");
+				//System.out.println("0");
 				// Inicia o documento e grava o id do prestador
 				if (compromisso.getContrato() != null && compromisso.getContrato().getPrestador() != null) {
 					servicoContratado.put("id_prestador", compromisso.getContrato().getPrestador().getId());
 				}
-				System.out.println("2");
+				//System.out.println("2");
 				// data_inicio_servico_contratado
 				if (compromisso.getDataInicio() != null) {
 					servicoContratado.put("data_inicio_servico_contratado", compromisso.getDataInicio());
 				}
 				
-				System.out.println("3");
+				//System.out.println("3");
 				// data_fim_servico_contratado
 				if (compromisso.getDataFim() != null) {
 					servicoContratado.put("data_fim_servico_contratado", compromisso.getDataFim());
 				}
-				System.out.println("4");
+				//System.out.println("4");
 
 				// custo_servico_contratado
 				if (compromisso.getContrato() != null && compromisso.getContrato().getCusto()!=null) {
@@ -378,40 +378,40 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 							String.valueOf(compromisso.getContrato().getCusto()));
 				}
 
-				System.out.println("5");
+				//System.out.println("5");
 				// status_servico_contratado
 				if (compromisso.getStatus() != null) {
 					servicoContratado.put("status_servico_contratado", compromisso.getStatus().getCodigo());
 				}
 
-				System.out.println("5");
+				//System.out.println("5");
 				// data_avaliacao_servico_contratado
 				if (compromisso.getContrato() != null) {
 					servicoContratado.put("data_avaliacao_servico_contratado",
 							compromisso.getContrato().getDataAvaliacaoServico());
 				}
 
-				System.out.println("6");
+				//System.out.println("6");
 				// nota_preco
 				if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
 					servicoContratado.put("nota_preco",
 							String.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoPreco()));
 				}
-				System.out.println("7");
+				//System.out.println("7");
 
 				// nota_pontualidade
 				if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
 					servicoContratado.put("nota_pontualidade", String
 							.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoPontualidade()));
 				}
-				System.out.println("8");
+				//System.out.println("8");
 
 				// nota_qualidade
 				if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
 					servicoContratado.put("nota_qualidade",
 							String.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoQualidade()));
 				}
-				System.out.println("9");
+				//System.out.println("9");
 
 				// nota_profissionalismo
 				if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
@@ -434,19 +434,19 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 					servicoContratado.put("descricao_servico_contratado", compromisso.getContrato().getDescricaoServico());
 				}
 				
-				System.out.println("9");
+				//System.out.println("9");
 				servicosContratados.add(servicoContratado);
-				System.out.println("10");
+				//System.out.println("10");
 			}
 			doc.put("servicos_contratados", servicosContratados);
 		} else {
 			System.out.println("sem servicos contratados");
 		}
 
-		System.out.println("11");
-		System.out.println(doc);
+		//System.out.println("11");
+		//System.out.println(doc);
 		// Insere o cliente
-		System.out.println(doc.toString());
+		//System.out.println(doc.toString());
 		try {
 			super.conecta();
 			super.db.getCollection("FLYK").insert(doc);
@@ -475,9 +475,6 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			// Busca campos de resultado
 			if (cursor.hasNext()) {
 				resultado = cursor.next();
-				System.out.println(resultado);
-				System.out.println("************************");
-
 				// ID
 				user.setId(String.valueOf(resultado.get("_id")));
 				// NOME
@@ -513,12 +510,12 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				 * MENSAGENS DE TESTE, REMOVA CASO QUERIA, MAS Nï¿½O Dï¿½ COMMIT
 				 * PLEASE
 				 **********************/
-				System.out.println("**************");
-				System.out.println(user.getNome());
-				System.out.println(user.getId());
-				System.out.println(user.getSenha());
-				System.out.println(user.getTipoCadastro());
-				System.out.println("**************");
+				//System.out.println("**************");
+				//System.out.println(user.getNome());
+				//System.out.println(user.getId());
+				//System.out.println(user.getSenha());
+				//System.out.println(user.getTipoCadastro());
+				//System.out.println("**************");
 
 			} else {
 				System.out.println("Consulta de cliente pelo email " + email + " nï¿½o encontrou valores.");
@@ -544,8 +541,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			// Busca campos de resultado
 			if (cursor.hasNext()) {
 				resultado = cursor.next();
-				System.out.println(resultado);
-				System.out.println("************************");
+				//System.out.println(resultado);
 
 				// ID
 				user.setId(String.valueOf(resultado.get("_id")));
@@ -581,13 +577,13 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				/*************************
 				 * MENSAGENS DE TESTE, REMOVA CASO QUERIA, MAS Nï¿½O Dï¿½ COMMIT
 				 * PLEASE
-				 **********************/
+				 *********************
 				System.out.println("**************");
 				System.out.println(user.getNome());
 				System.out.println(user.getId());
 				System.out.println(user.getSenha());
 				System.out.println(user.getTipoCadastro());
-				System.out.println("**************");
+				System.out.println("**************");*/
 
 			} else {
 				System.out.println("Consulta de cliente pelo email " + id + " nï¿½o encontrou valores.");
@@ -604,7 +600,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 	@Override
 	public Cliente consultaClientePorId(String idCliente) {
 		//consultaTudo();
-		System.out.println("CONSULTA CLIENTE - INï¿½CIO");
+		//System.out.println("CONSULTA CLIENTE - INï¿½CIO");
 
 		Cliente pessoa = new Cliente(); // Cliente que serï¿½ retornado
 
@@ -620,8 +616,8 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		// Busca campos de resultado
 		if (cursor.hasNext()) {
 			resultado = cursor.next();
-			System.out.println(resultado);
-			System.out.println("************************");
+			//System.out.println(resultado);
+			//System.out.println("************************");
 
 			// ID
 			pessoa.setId(idCliente);
@@ -645,7 +641,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				// Adiciona o array telefones na pessoa
 				pessoa.setListaTelefone(telefones);
 			}
-			System.out.println(" telefones fim");
+			//System.out.println(" telefones fim");
 
 			// ********************* LISTA DE AMIGOS *********************
 			// Busca a lista de telefones e coloca na telefonesBD
@@ -722,7 +718,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 	// BANCO****************************//
 	@Override
 	public void consultaTudo() {
-
+/*comentado por kira 20161011
 		super.conecta();
 		FindIterable<Document> iterable = super.mongoDatabase.getCollection("FLYK").find();
 		super.desconecta();
@@ -733,6 +729,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				System.out.println(document);
 			}
 		});
+		*/
 	}
 
 	public Usuario consultaLoginById(String id) {//Este método funciona, mas não usaremos
@@ -747,7 +744,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			if (cursor.hasNext()) {
 				resultado = cursor.next();
 				System.out.println(resultado);
-				System.out.println("************************");
+				//System.out.println("************************");
 
 				// ID
 				user.setId(String.valueOf(resultado.get("_id")));
@@ -784,13 +781,13 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				/*************************
 				 * MENSAGENS DE TESTE, REMOVA CASO QUERIA, MAS Nï¿½O Dï¿½ COMMIT
 				 * PLEASE
-				 **********************/
+				 *********************
 				System.out.println("**************");
 				System.out.println(user.getNome());
 				System.out.println(user.getId());
 				System.out.println(user.getSenha());
 				System.out.println(user.getTipoCadastro());
-				System.out.println("**************");
+				System.out.println("**************");*/
 
 			} else {
 				System.out.println("Consulta de cliente pelo id " + id + " nï¿½o encontrou valores.");
@@ -808,7 +805,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 		//consultaTudo();
 		try {
-			System.out.println("ClienteDAOImpl - consultando usuario por parte do nome:" + nomeUsuario);
+			//System.out.println("ClienteDAOImpl - consultando usuario por parte do nome:" + nomeUsuario);
 			final List<Usuario> listaUsuarios = new ArrayList<Usuario>(); //Instancia o retorno
 
 			// Busca todos os clientes ativos com o nomeUsuario em parte do nome
@@ -821,8 +818,8 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			iterable.forEach(new Block<Document>() {
 				@Override
 				public void apply(final Document document) {
-					System.out.println("-----CLIENTE ABAIXO-----");
-					System.out.println(document);
+					//System.out.println("-----CLIENTE ABAIXO-----");
+					//System.out.println(document);
 
 					String idCliente = document.getObjectId("_id").toString();
 					listaUsuarios.add(consultaUsuarioPorId(idCliente));
@@ -857,7 +854,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			if (!(c.getListaTelefone() == null)) {
 
 				int count = c.getListaTelefone().size();
-				System.out.println("qtd telefones: " + String.valueOf(count));
+				//System.out.println("qtd telefones: " + String.valueOf(count));
 
 				// Varre a lista de telefones, inserindo um por um
 				BasicDBList telefones = new BasicDBList();
@@ -887,7 +884,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 					System.out.println(String.valueOf(c.getListaTelefone().get(i).getNumero()));
 
 					telefones.add(telefone);
-					System.out.println("telefone adicionado uhul");
+					//System.out.println("telefone adicionado uhul");
 				}
 			
 
@@ -992,7 +989,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 	public List<Cliente> consultaClientePorParteDoNome(String nomeCliente){
 		//consultaTudo();
 		try {
-			System.out.println("ClienteDAOImpl - consultando cliente por parte do nome:" + nomeCliente);
+			//System.out.println("ClienteDAOImpl - consultando cliente por parte do nome:" + nomeCliente);
 			final List<Cliente> listaClientes = new ArrayList<Cliente>(); //Instancia o retorno
 
 			// Busca todos os clientes ativos com o nomeCliente em parte do nome
@@ -1005,8 +1002,8 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			iterable.forEach(new Block<Document>() {
 				@Override
 				public void apply(final Document document) {
-					System.out.println("-----CLIENTE ABAIXO-----");
-					System.out.println(document);
+					//System.out.println("-----CLIENTE ABAIXO-----");
+					//System.out.println(document);
 
 					String idCliente = document.getObjectId("_id").toString();
 					listaClientes.add(consultaClientePorId(idCliente));
@@ -1068,23 +1065,23 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 					BasicDBObject servicoContratado = new BasicDBObject();
 
-					System.out.println("0");
+					//System.out.println("0");
 					// Inicia o documento e grava o id do prestador
 					if (compromisso.getContrato() != null && compromisso.getContrato().getPrestador() != null) {
 						servicoContratado.put("id_prestador", compromisso.getContrato().getPrestador().getId());
 					}
-					System.out.println("2");
+					//System.out.println("2");
 					// data_inicio_servico_contratado
 					if (compromisso.getDataInicio() != null) {
 						servicoContratado.put("data_inicio_servico_contratado", compromisso.getDataInicio());
 					}
 					
-					System.out.println("3");
+					//System.out.println("3");
 					// data_fim_servico_contratado
 					if (compromisso.getDataFim() != null) {
 						servicoContratado.put("data_fim_servico_contratado", compromisso.getDataFim());
 					}
-					System.out.println("4");
+					//System.out.println("4");
 
 					// custo_servico_contratado
 					if (compromisso.getContrato() != null && compromisso.getContrato().getCusto()!=null) {
@@ -1092,40 +1089,40 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 								String.valueOf(compromisso.getContrato().getCusto()));
 					}
 
-					System.out.println("5");
+					//System.out.println("5");
 					// status_servico_contratado
 					if (compromisso.getStatus() != null) {
 						servicoContratado.put("status_servico_contratado", compromisso.getStatus().getCodigo());
 					}
 
-					System.out.println("5");
+					//System.out.println("5");
 					// data_avaliacao_servico_contratado
 					if (compromisso.getContrato() != null) {
 						servicoContratado.put("data_avaliacao_servico_contratado",
 								compromisso.getContrato().getDataAvaliacaoServico());
 					}
 
-					System.out.println("6");
+					//System.out.println("6");
 					// nota_preco
 					if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
 						servicoContratado.put("nota_preco",
 								String.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoPreco()));
 					}
-					System.out.println("7");
+					//System.out.println("7");
 
 					// nota_pontualidade
 					if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
 						servicoContratado.put("nota_pontualidade", String
 								.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoPontualidade()));
 					}
-					System.out.println("8");
+					//System.out.println("8");
 
 					// nota_qualidade
 					if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
 						servicoContratado.put("nota_qualidade",
 								String.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoQualidade()));
 					}
-					System.out.println("9");
+					//System.out.println("9");
 
 					// nota_profissionalismo
 					if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
@@ -1148,9 +1145,9 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 						servicoContratado.put("descricao_servico_contratado", compromisso.getContrato().getDescricaoServico());
 					}
 					
-					System.out.println("9");
+					//System.out.println("9");
 					servicosContratados.add(servicoContratado);
-					System.out.println("10");
+					//System.out.println("10");
 				}
 				updateQuery.append("$set", new BasicDBObject().append("servicos_contratados", servicosContratados));
 			}else{

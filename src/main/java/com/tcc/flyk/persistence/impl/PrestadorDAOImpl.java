@@ -46,7 +46,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 	@Override
 	public Prestador consultaPrestadorPorId(String idPrestador) {
 		consultaTudo();
-		System.out.println("CONSULTA CLIENTE - INï¿½CIO");
+		//System.out.println("CONSULTA CLIENTE - INï¿½CIO");
 
 		Prestador pessoa = new Prestador(); // Cliente que serï¿½ retornado
 
@@ -62,8 +62,8 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		// Busca campos de resultado
 		if (cursor.hasNext()) {
 			resultado = cursor.next();
-			System.out.println(resultado);
-			System.out.println("************************");
+			//System.out.println(resultado);
+			//System.out.println("************************");
 
 			// ID
 			pessoa.setId(idPrestador);
@@ -86,7 +86,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				// Adiciona o array telefones na pessoa
 				pessoa.setListaTelefone(telefones);
 			}
-			System.out.println(" telefones fim");
+			//System.out.println(" telefones fim");
 
 			// ********************* LISTA DE AMIGOS *********************
 			// Busca a lista de telefones e coloca na telefonesBD
@@ -169,7 +169,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 	@Override
 	public boolean inserirNovoPrestador(Prestador prestador) {
 
-		System.out.println("inicio addPrestador");
+		//System.out.println("inicio addPrestador");
 
 		// Nome completo
 		BasicDBObject doc = new BasicDBObject();
@@ -195,25 +195,25 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 			doc.put("senha", prestador.getSenha());
 		}
 
-		System.out.println("1");
+		//System.out.println("1");
 		// facebookID
 		if (prestador.getFacebookID() != null) {
 			doc.put("facebookID", prestador.getFacebookID());
 		}
 
-		System.out.println("15");
+		//System.out.println("15");
 		// CPF
 		if (prestador.getCPF() != null) {
 			doc.put("CPF", prestador.getCPF());
 		}
 
-		System.out.println("16");
+		//System.out.println("16");
 		// Foto do perfil
 		if (prestador.getFotoPerfil() != null) {
-			System.out.println("17");
+			//System.out.println("17");
 			doc.put("foto", prestador.getFotoPerfil());
 		}
-		System.out.println("2");
+		//System.out.println("2");
 
 		// Tipo de perfil
 		if (prestador.getTipoCadastro() != null) {
@@ -230,37 +230,37 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				doc.put("logradouro", prestador.getEndereco().getLogradouro());
 			}
 
-			System.out.println("3");
+			//System.out.println("3");
 			// Numero
 			if (prestador.getEndereco().getNumero() == 0) {
 				doc.put("numero", prestador.getEndereco().getNumero());
 			}
 
-			System.out.println("31");
+			//System.out.println("31");
 			// Complemento
 			if (prestador.getEndereco().getComplemento() != null) {
 				doc.put("complemento", prestador.getEndereco().getComplemento());
 			}
 
-			System.out.println("32");
+			//System.out.println("32");
 			// Bairro
 			if (prestador.getEndereco().getBairro() != null) {
 				doc.put("bairro", prestador.getEndereco().getBairro());
 			}
 
-			System.out.println("33");
+			//System.out.println("33");
 			// Cidade
 			if (prestador.getEndereco().getCidade() != null) {
 				doc.put("cidade", prestador.getEndereco().getCidade());
 			}
 
-			System.out.println("34");
+			//System.out.println("34");
 			// Estado
 			if (prestador.getEndereco().getEstado() != null) {
 				doc.put("estado", prestador.getEndereco().getEstado());
 			}
 
-			System.out.println("4");
+			//System.out.println("4");
 			// CEP
 			if (prestador.getEndereco().getCep() != null) {
 				doc.put("CEP", prestador.getEndereco().getCep());
@@ -321,7 +321,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		if (prestador.getListaTelefone() != null) {
 
 			int count = prestador.getListaTelefone().size();
-			System.out.println("qtd telefones: " + String.valueOf(count));
+			//System.out.println("qtd telefones: " + String.valueOf(count));
 
 			// Varre a lista de telefones, inserindo um por um
 			BasicDBList telefones = new BasicDBList();
@@ -349,7 +349,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				System.out.println(String.valueOf(tel.getNumero()));
 
 				telefones.add(telefone);
-				System.out.println("telefone adicionado");
+				//System.out.println("telefone adicionado");
 			}
 			doc.put("telefones", telefones);
 		} else {
@@ -360,7 +360,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		if (prestador.getListaAmigos() != null) {
 
 			int count = prestador.getListaAmigos().size();
-			System.out.println("qtd amigos: " + String.valueOf(count));
+			//System.out.println("qtd amigos: " + String.valueOf(count));
 
 			BasicDBList amigos = new BasicDBList();
 
@@ -402,13 +402,12 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		if (prestador.getListaPrestadoresRecomendados() != null) {
 
 			int count = prestador.getListaPrestadoresRecomendados().size();
-			System.out.println("qtd prestadores recomendados: " + String.valueOf(count));
+			//System.out.println("qtd prestadores recomendados: " + String.valueOf(count));
 
 			BasicDBList prestadoresRecomendados = new BasicDBList();
 			// Varre a lista de prestadores recomendados, inserindo um por um
 			for (int i = 0; i < count; i++) {
-				System.out.println("ID do prestador: "
-						+ String.valueOf(prestador.getListaPrestadoresRecomendados().get(i).getId()));
+				//System.out.println("ID do prestador: " + String.valueOf(prestador.getListaPrestadoresRecomendados().get(i).getId()));
 
 				BasicDBObject prestadorRecomendado = new BasicDBObject();
 
@@ -429,7 +428,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		if (prestador.getlistaMensagensConversa() != null) {
 
 			int count = prestador.getlistaMensagensConversa().size();
-			System.out.println("qtd msgs: " + String.valueOf(count));
+			//System.out.println("qtd msgs: " + String.valueOf(count));
 
 			BasicDBList mensagens = new BasicDBList();
 			// Varre a lista de mensagens, inserindo uma por uma
@@ -467,7 +466,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		if (prestador.getListaServicosContratados() != null) {
 
 			int count = prestador.getListaServicosContratados().size();
-			System.out.println("qtd de servicos contratados: " + String.valueOf(count));
+			//System.out.println("qtd de servicos contratados: " + String.valueOf(count));
 
 			BasicDBList servicosContratados = new BasicDBList();
 
@@ -476,17 +475,17 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 
 				BasicDBObject servicoContratado = new BasicDBObject();
 
-				System.out.println("0");
+				//System.out.println("0");
 				// Inicia o documento e grava o id do prestador
 				if (compromisso.getContrato() != null && compromisso.getContrato().getPrestador() != null) {
 					servicoContratado.put("id_prestador", compromisso.getContrato().getPrestador().getId());
 				}
-				System.out.println("1");
+				//System.out.println("1");
 				// data_servico_contratado
 				if (compromisso.getDataInicio() != null) {
 					servicoContratado.put("data_servico_contratado", compromisso.getDataInicio());
 				}
-				System.out.println("2");
+				//System.out.println("2");
 
 				// custo_servico_contratado
 				if (compromisso.getContrato() != null && compromisso.getContrato().getCusto() != null) {
@@ -499,40 +498,40 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 					servicoContratado.put("servico_contratado", compromisso.getContrato().getServico().getId());
 				}
 
-				System.out.println("3");
+				//System.out.println("3");
 				// status_servico_contratado
 				if (compromisso.getStatus() != null) {
 					servicoContratado.put("status_servico_contratado", compromisso.getStatus().getCodigo());
 				}
 
-				System.out.println("4");
+				//System.out.println("4");
 				// data_avaliacao_servico_contratado
 				if (compromisso.getContrato() != null) {
 					servicoContratado.put("data_avaliacao_servico_contratado",
 							compromisso.getContrato().getDataAvaliacaoServico());
 				}
 
-				System.out.println("5");
+				//System.out.println("5");
 				// nota_preco
 				if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
 					servicoContratado.put("nota_preco",
 							String.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoPreco()));
 				}
-				System.out.println("6");
+				//System.out.println("6");
 
 				// nota_pontualidade
 				if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
 					servicoContratado.put("nota_pontualidade", String
 							.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoPontualidade()));
 				}
-				System.out.println("7");
+				//System.out.println("7");
 
 				// nota_qualidade
 				if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
 					servicoContratado.put("nota_qualidade",
 							String.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoQualidade()));
 				}
-				System.out.println("8");
+				//System.out.println("8");
 
 				// nota_profissionalismo
 				if (compromisso.getContrato() != null && compromisso.getContrato().getAvaliacaoPrestador() != null) {
@@ -540,16 +539,16 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 							.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoProfissionalismo()));
 				}
 
-				System.out.println("9");
+				//System.out.println("9");
 				servicosContratados.add(servicoContratado);
-				System.out.println("10");
+				//System.out.println("10");
 			}
 			doc.put("servicos_contratados", servicosContratados);
 		} else {
 			System.out.println("sem servicos contratados");
 		}
 
-		System.out.println("11");
+		//System.out.println("11");
 		//System.out.println(doc);
 
 		// ************************************
@@ -577,7 +576,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		if (prestador.getListaRecomendacoesRecebidas() != null) {
 
 			int count = prestador.getListaRecomendacoesRecebidas().size();
-			System.out.println("qtd recomencaï¿½ï¿½es recebidas: " + String.valueOf(count));
+			//System.out.println("qtd recomencaï¿½ï¿½es recebidas: " + String.valueOf(count));
 
 			BasicDBList recomendacoesRecebidas = new BasicDBList();
 			// Varre a lista de recomandacoes recebidas, inserindo uma por uma
@@ -603,7 +602,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		if (prestador.getListaCategoriaServicosPrestados() != null) {
 
 			int count = prestador.getListaCategoriaServicosPrestados().size();
-			System.out.println("qtd categorias que o prestador oferece: " + String.valueOf(count));
+			//System.out.println("qtd categorias que o prestador oferece: " + String.valueOf(count));
 
 			BasicDBList categoriasPrestadas = new BasicDBList();
 			// Varre a lista de categorias, inserindo uma por uma
@@ -629,7 +628,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		if (prestador.getListaContratosServicosPrestados() != null) {
 
 			int count = prestador.getListaContratosServicosPrestados().size();
-			System.out.println("qtd de servicos prestados: " + String.valueOf(count));
+			//System.out.println("qtd de servicos prestados: " + String.valueOf(count));
 
 			BasicDBList servicosPrestados = new BasicDBList();
 
@@ -638,13 +637,13 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 
 				BasicDBObject servicoPrestado = new BasicDBObject();
 
-				System.out.println("0");
+				//System.out.println("0");
 				// Inicia o documento e grava o id do prestador
 				if (compromisso.getContrato() != null && compromisso.getContrato().getCliente() != null) {
 					servicoPrestado.put("id_cliente_contratante", compromisso.getContrato().getCliente().getId());
 				}
 
-				System.out.println("1");
+				//System.out.println("1");
 				// data_inicio_servico_prestado
 				if (compromisso.getDataInicio() != null) {
 					servicoPrestado.put("data_inicio_servico_prestado", compromisso.getDataInicio());
@@ -654,27 +653,27 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				if (compromisso.getDataFim() != null) {
 					servicoPrestado.put("data_fim_servico_prestado", compromisso.getDataFim());
 				}
-				System.out.println("2");
+				//System.out.println("2");
 
 				// custo_servico_prestado
 				if (compromisso.getContrato() != null && compromisso.getContrato().getCusto() != null) {
 					servicoPrestado.put("custo_servico_prestado", String.valueOf(compromisso.getContrato().getCusto()));
 				}
 
-				System.out.println("3");
+				//System.out.println("3");
 				// status_servico_prestado
 				if (compromisso.getStatus() != null) {
 					servicoPrestado.put("status_servico_prestado", compromisso.getStatus().getCodigo());
 				}
 
-				System.out.println("4");
+				//System.out.println("4");
 				// data_avaliacao_servico_contratado
 				if (compromisso.getContrato() != null && compromisso.getContrato().getDataAvaliacaoServico() != null) {
 					servicoPrestado.put("data_avaliacao_servico_contratado",
 							compromisso.getContrato().getDataAvaliacaoServico());
 				}
 
-				System.out.println("5");
+				//System.out.println("5");
 				// nota_cliente
 				if (compromisso.getContrato() != null) {
 					servicoPrestado.put("nota_contratante",
@@ -692,7 +691,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 							.valueOf(compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoProfissionalismo()));
 				}
 
-				System.out.println("6");
+				//System.out.println("6");
 
 				if (compromisso.getContrato() != null && compromisso.getContrato().getServico() != null
 						&& compromisso.getContrato().getServico().getId() != null) {
@@ -705,9 +704,9 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 							compromisso.getContrato().getDescricaoServico());
 				}
 
-				System.out.println("8");
+				//System.out.println("8");
 				servicosPrestados.add(servicoPrestado);
-				System.out.println("9");
+				//System.out.println("9");
 			}
 			doc.put("servicos_prestados", servicosPrestados);
 		} else {
@@ -786,13 +785,13 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 
 					BasicDBObject servicoPrestado = new BasicDBObject();
 
-					System.out.println("0");
+					//System.out.println("0");
 					// Inicia o documento e grava o id do prestador
 					if (compromisso.getContrato() != null && compromisso.getContrato().getCliente() != null) {
 						servicoPrestado.put("id_cliente_contratante", compromisso.getContrato().getCliente().getId());
 					}
 
-					System.out.println("1");
+					//System.out.println("1");
 					// data_inicio_servico_prestado
 					if (compromisso.getDataInicio() != null) {
 						servicoPrestado.put("data_inicio_servico_prestado", compromisso.getDataInicio());
@@ -802,7 +801,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 					if (compromisso.getDataFim() != null) {
 						servicoPrestado.put("data_fim_servico_prestado", compromisso.getDataFim());
 					}
-					System.out.println("2");
+					//System.out.println("2");
 
 					// custo_servico_prestado
 					if (compromisso.getContrato() != null && compromisso.getContrato().getCusto() != null) {
@@ -810,13 +809,13 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 								String.valueOf(compromisso.getContrato().getCusto()));
 					}
 
-					System.out.println("3");
+					//System.out.println("3");
 					// status_servico_prestado
 					if (compromisso.getStatus() != null) {
 						servicoPrestado.put("status_servico_prestado", compromisso.getStatus().getCodigo());
 					}
 
-					System.out.println("4");
+					//System.out.println("4");
 					// data_avaliacao_servico_contratado
 					if (compromisso.getContrato() != null
 							&& compromisso.getContrato().getDataAvaliacaoServico() != null) {
@@ -824,7 +823,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 								compromisso.getContrato().getDataAvaliacaoServico());
 					}
 
-					System.out.println("5");
+					//System.out.println("5");
 					// nota_cliente
 					if (compromisso.getContrato() != null) {
 						servicoPrestado.put("nota_contratante",
@@ -843,7 +842,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 								compromisso.getContrato().getAvaliacaoPrestador().getAvaliacaoProfissionalismo()));
 					}
 
-					System.out.println("6");
+					//System.out.println("6");
 
 					if (compromisso.getContrato() != null && compromisso.getContrato().getServico() != null
 							&& compromisso.getContrato().getServico().getId() != null) {
@@ -856,9 +855,9 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 								compromisso.getContrato().getDescricaoServico());
 					}
 					
-					System.out.println("8");
+					//System.out.println("8");
 					servicosPrestados.add(servicoPrestado);
-					System.out.println("9");
+					//System.out.println("9");
 				}
 				updateQuery.append("$set", new BasicDBObject().append("servicos_prestados", servicosPrestados));
 			} else {
@@ -884,12 +883,12 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				BasicDBObject updateQuery = new BasicDBObject();
 				pdor = this.consultaPrestadorPorId(String.valueOf(idPrestador));		
 				
-	            System.out.println("pdor eh " + pdor.getEmail());
+	            //System.out.println("pdor eh " + pdor.getEmail());
 				
 				if (!(prestador.getListaTelefone() == null)) {
 
 					int count = prestador.getListaTelefone().size();
-					System.out.println("qtd telefones: " + String.valueOf(count));
+					//System.out.println("qtd telefones: " + String.valueOf(count));
 
 					// Varre a lista de telefones, inserindo um por um
 					BasicDBList telefones = new BasicDBList();
@@ -919,7 +918,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 						System.out.println(String.valueOf(prestador.getListaTelefone().get(i).getNumero()));
 
 						telefones.add(telefone);
-						System.out.println("telefone adicionado uhul");
+						//System.out.println("telefone adicionado uhul");
 					}
 					
 					
@@ -929,11 +928,11 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 					if (prestador.getListaCategoriaServicosPrestados() != null) {
 
 						 count = prestador.getListaCategoriaServicosPrestados().size();
-						System.out.println("qtd categorias que o prestador oferece: " + String.valueOf(count));
+						//System.out.println("qtd categorias que o prestador oferece: " + String.valueOf(count));
 
 						// Varre a lista de categorias, inserindo uma por uma
 						for (int i = 0; i < count; i++) {
-							System.out.println("Categoria: " + String.valueOf(prestador.getListaCategoriaServicosPrestados().get(i).getId()));
+							//System.out.println("Categoria: " + String.valueOf(prestador.getListaCategoriaServicosPrestados().get(i).getId()));
 
 							BasicDBObject categoriaPrestada = new BasicDBObject();
 
