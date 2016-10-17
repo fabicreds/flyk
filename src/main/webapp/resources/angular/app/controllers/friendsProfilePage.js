@@ -1,29 +1,31 @@
 flyk.controller("friendsProfilePageCtrl", function ($scope, $rootScope, $location, $http, fileReader) {
 
     $scope.sendPostPerfilAmigo = function(id, tipoCadastro) {
-//    	id = "57e19276dbd536224cf0ea0e";
-//    	tipoCadastro = 2;
-    	$http({
-			url : 'friendsProfilePage',
-			method : "POST",
-			data : {
-				'idUsuarioLogado': $rootScope.idUsuarioLogado,
-				'idAmigo' : id,
-				'tipoUsuarioAmigo' : tipoCadastro
-			}
-		}).then(function(response) {
-			if (response.data.retorno != "erro") {
-				$rootScope.data.amigo = response.data.amigo;
-				$rootScope.data.amigo.statusAmizade = response.data.statusAmizade;
-				$rootScope.data.amigo.statusAmizadeDescricao = response.data.statusAmizadeDescricao;
-				localStorage.setItem("dadosCliente", JSON.stringify($rootScope.data));
-				$location.path('/friendsProfilePage');
-			} else {
-				$location.path('/friendsProfilePage');
-			}
-		}, function(response) {
-
-		});
+    	if(id!=$rootScope.idUsuarioLogado){
+	    	$http({
+				url : 'friendsProfilePage',
+				method : "POST",
+				data : {
+					'idUsuarioLogado': $rootScope.idUsuarioLogado,
+					'idAmigo' : id,
+					'tipoUsuarioAmigo' : tipoCadastro
+				}
+			}).then(function(response) {
+				if (response.data.retorno != "erro") {
+					$rootScope.data.amigo = response.data.amigo;
+					$rootScope.data.amigo.statusAmizade = response.data.statusAmizade;
+					$rootScope.data.amigo.statusAmizadeDescricao = response.data.statusAmizadeDescricao;
+					localStorage.setItem("dadosCliente", JSON.stringify($rootScope.data));
+					$location.path('/friendsProfilePage');
+				} else {
+					$location.path('/friendsProfilePage');
+				}
+			}, function(response) {
+	
+			});
+	    }else{
+	    	$location.path('/profilePage');
+	    }
     }
     
 
