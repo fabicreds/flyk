@@ -12,12 +12,14 @@ public class StatusCompromissoEnumUtil {
 		case 1:
 			return StatusCompromissoEnum.SOLICITADO;
 		case 2:
-			return StatusCompromissoEnum.ORCADO;
+			return StatusCompromissoEnum.RECURUSADA;
 		case 3:
-			return StatusCompromissoEnum.MARCADO;
+			return StatusCompromissoEnum.ORCADO;
 		case 4:
-			return StatusCompromissoEnum.CANCELADO;
+			return StatusCompromissoEnum.MARCADO;
 		case 5:
+			return StatusCompromissoEnum.CANCELADO;
+		case 6:
 			return StatusCompromissoEnum.REALIZADO;
 		default:
 			return StatusCompromissoEnum.SOLICITADO;

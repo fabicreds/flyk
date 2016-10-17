@@ -34,8 +34,25 @@ public class ContratarServicoController {
 
 		try {
 			if (!jsonRequest.isNull("idCliente") && !jsonRequest.isNull("idPrestador") && !jsonRequest.isNull("idCategoriaServico")) {
-				Compromisso compromisso = compromissoUtil.toCompromisso(jsonRequest);
+				Compromisso compromisso = compromissoUtil.cadastroToCompromisso(jsonRequest);
 				return service.contratarServico(jsonRequest.getString("idCliente"),jsonRequest.getString("idPrestador"), compromisso);
+			} else {
+				return mensagemErro("Dados Necessários indisponíveis!");
+			}
+		} catch (Exception e) {
+			return mensagemErro("Erro ao acessar página de perfil do amigo");
+		}
+	}
+	
+	@RequestMapping(value = "/atualizarCompromisso", method = RequestMethod.POST)
+	public @ResponseBody String atualizarCompromisso(@RequestBody String request) {
+		JSONObject jsonRequest = new JSONObject(request);
+
+		try {
+			if (!jsonRequest.isNull("idPrestador")&& !jsonRequest.isNull("idCliente") && !jsonRequest.isNull("compromisso") && !jsonRequest.isNull("status") && !jsonRequest.isNull("cliente") ) {
+				JSONObject jsonCompromisso = (JSONObject) jsonRequest.get("compromisso");
+				Compromisso compromisso = compromissoUtil.toCompromisso(jsonCompromisso); 
+				return service.atualizarCompromisso(jsonRequest.getString("idCliente"), jsonRequest.getString("idPrestador"), compromisso, jsonRequest.getInt("status"), jsonRequest.getBoolean("cliente"));
 			} else {
 				return mensagemErro("Dados Necessários indisponíveis!");
 			}
@@ -49,6 +66,16 @@ public class ContratarServicoController {
 		jObjt.put("retorno", "erro");
 		jObjt.put("mensagem", mensagem);
 		return jObjt.toString();
+	}
+	
+	@RequestMapping(value = "/orcarServico", method = RequestMethod.GET)
+	public String orcarServico() {
+		return "orcarServico";
+	}
+	
+	@RequestMapping(value = "/realizarServico", method = RequestMethod.GET)
+	public String realizarServico() {
+		return "realizarServico";
 	}
 
 }

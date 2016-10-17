@@ -155,14 +155,14 @@
 														</font>
 													</p>
 													<p ng-if="compromisso.status == 2">
-														<font color="green"> <span
-															class="glyphicon glyphicon-ok-sign"></span>
+														<font color="red"> <span
+															class="glyphicon glyphicon-remove-sign"></span>
 															{{compromisso.statusDescricao}}
 														</font>
 													</p>
 													<p ng-if="compromisso.status == 3">
-														<font color="red"> <span
-															class="glyphicon glyphicon-remove-sign"></span>
+														<font color="green"> <span
+															class="glyphicon glyphicon-ok-sign"></span>
 															{{compromisso.statusDescricao}}
 														</font>
 													</p>
@@ -173,7 +173,13 @@
 														</font>
 													</p>
 
-													<p ng-if="compromisso.status == 4">
+													<p ng-if="compromisso.status == 5">
+														<font color="red"> <span
+															class="glyphicon glyphicon-remove-sign"></span>
+															{{compromisso.statusDescricao}}
+														</font>
+													</p>
+													<p ng-if="compromisso.status == 6 ">
 														<font color="green"> <span
 															class="glyphicon glyphicon-ok-sign"></span>
 															{{compromisso.statusDescricao}}
@@ -227,14 +233,14 @@
 														</font>
 													</p>
 													<p ng-if="compromisso.status == 2">
-														<font color="green"> <span
-															class="glyphicon glyphicon-ok-sign"></span>
+														<font color="red"> <span
+															class="glyphicon glyphicon-remove-sign"></span>
 															{{compromisso.statusDescricao}}
 														</font>
 													</p>
 													<p ng-if="compromisso.status == 3">
-														<font color="red"> <span
-															class="glyphicon glyphicon-remove-sign"></span>
+														<font color="green"> <span
+															class="glyphicon glyphicon-ok-sign"></span>
 															{{compromisso.statusDescricao}}
 														</font>
 													</p>
@@ -245,7 +251,13 @@
 														</font>
 													</p>
 
-													<p ng-if="compromisso.status == 4">
+													<p ng-if="compromisso.status == 5">
+														<font color="red"> <span
+															class="glyphicon glyphicon-remove-sign"></span>
+															{{compromisso.statusDescricao}}
+														</font>
+													</p>
+													<p ng-if="compromisso.status == 6 ">
 														<font color="green"> <span
 															class="glyphicon glyphicon-ok-sign"></span>
 															{{compromisso.statusDescricao}}
@@ -368,14 +380,14 @@
 														</font>
 													</p>
 													<p ng-if="compromisso.status == 2">
-														<font color="green"> <span
-															class="glyphicon glyphicon-ok-sign"></span>
+														<font color="red"> <span
+															class="glyphicon glyphicon-remove-sign"></span>
 															{{compromisso.statusDescricao}}
 														</font>
 													</p>
 													<p ng-if="compromisso.status == 3">
-														<font color="red"> <span
-															class="glyphicon glyphicon-remove-sign"></span>
+														<font color="green"> <span
+															class="glyphicon glyphicon-ok-sign"></span>
 															{{compromisso.statusDescricao}}
 														</font>
 													</p>
@@ -386,7 +398,13 @@
 														</font>
 													</p>
 
-													<p ng-if="compromisso.status == 4">
+													<p ng-if="compromisso.status == 5">
+														<font color="red"> <span
+															class="glyphicon glyphicon-remove-sign"></span>
+															{{compromisso.statusDescricao}}
+														</font>
+													</p>
+													<p ng-if="compromisso.status == 6 ">
 														<font color="green"> <span
 															class="glyphicon glyphicon-ok-sign"></span>
 															{{compromisso.statusDescricao}}

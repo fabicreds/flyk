@@ -39,14 +39,14 @@ public class CompromissoUtil {
 	}
 
 	@SuppressWarnings("deprecation")
-	public Compromisso toCompromisso(JSONObject json) {
+	public Compromisso cadastroToCompromisso(JSONObject json) {
 		Compromisso compromisso = new Compromisso();
-		
-		//DADOS DO CONTRATO DO COMPROMISSO
-		if(!json.isNull("idCliente") && !json.isNull("idPrestador") && !json.isNull("idCategoriaServico")){
-			compromisso.setContrato(contratoUtil.toContrato(json));
+
+		// DADOS DO CONTRATO DO COMPROMISSO
+		if (!(json.isNull("idCliente") && json.isNull("idPrestador") && json.isNull("idCategoriaServico"))) {
+			compromisso.setContrato(contratoUtil.cadastroToContrato(json));
 		}
-		
+
 		try {
 			if (!json.isNull("dataInicio") && !json.isNull("hora_inicio") && !json.isNull("minuto_inicio")) {
 				Date dataInicio = new Date();
@@ -69,6 +69,34 @@ public class CompromissoUtil {
 			}
 		} catch (Exception e) {
 			compromisso.setDataFim(null);
+		}
+		return compromisso;
+	}
+
+	public Compromisso toCompromisso(JSONObject json) {
+		Compromisso compromisso = new Compromisso();
+		if (!json.isNull("contrato")) {
+			compromisso.setContrato(contratoUtil.toContrato((JSONObject) json.get("contrato")));
+		}
+		if (!json.isNull("dataInicio")) {
+			try {
+				compromisso.setDataInicio(format.parse(json.getString("dataInicio")));
+			} catch (Exception e) {
+				compromisso.setDataInicio(null);
+			}
+		}
+		if (!json.isNull("dataFim")) {
+			try {
+				compromisso.setDataFim(format.parse(json.getString("dataFim")));
+			} catch (Exception e) {
+				compromisso.setDataFim(null);
+			}
+		}
+		if (!json.isNull("indicadorFerias")) {
+			compromisso.setIndicadorFerias(json.getBoolean("indicadorFerias"));
+		}
+		if (!json.isNull("status")) {
+			compromisso.setStatus(json.getInt("status"));
 		}
 		return compromisso;
 	}

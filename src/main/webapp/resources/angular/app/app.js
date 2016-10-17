@@ -53,9 +53,25 @@ flyk.config(function($routeProvider) {
 		templateUrl : "contratarServico.html",
 		controller : "contratarServicoCtrl"
 			
+	}).when("/orcarServico", {
+		templateUrl : "orcarServico.html",
+		controller : "contratarServicoCtrl"
+			
+	}).when("/realizarServico", {
+		templateUrl : "realizarServico.html",
+		controller : "contratarServicoCtrl"
+			
 	}).when("/servicosPrestados", {
 		templateUrl : "servicosPrestados.html",
 		controller : "servicosPrestadosCtrl"
+			
+	}).when("/avaliarPrestador", {
+		templateUrl : "avaliarPrestador.html",
+		controller : "avaliarServicoCtrl"
+			
+	}).when("/avaliarCliente", {
+		templateUrl : "avaliarCliente.html",
+		controller : "avaliarServicoCtrl"
 			
 	}).otherwise({
 		redirectTo : "/home"

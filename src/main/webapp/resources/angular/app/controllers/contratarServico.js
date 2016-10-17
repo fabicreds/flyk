@@ -55,7 +55,8 @@ flyk.controller("contratarServicoCtrl", function($scope, $rootScope, $location,
 				$scope.mensagemErro = "";
 				$scope.mensagemSucesso = response.data.mensagem;
 				$rootScope.data.listaServicosContratados = response.data.listaServicosContratados;
-				$location.path('/contratarServico');
+				$rootScope.$emit("CallProfilePageMethod", {});
+				$location.path('/servicosContratados');
 			} else {
 				$scope.mensagemErro = response.data.mensagem;
 				$scope.mensagemSucesso = "";

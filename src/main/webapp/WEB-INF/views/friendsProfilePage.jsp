@@ -13,7 +13,8 @@
 						<input type="submit" class="btn btn-danger"
 							value="Desfazer Amizade"
 							ng-click="sendPostDesfazerAmizade(data.amigo.id)"
-							ng-if="data.amigo.statusAmizade == 1"> <input
+							ng-if="data.amigo.statusAmizade == 1"> 
+						<input
 							type="submit" class="btn btn-primary" value="Contratar Serviço"
 							ng-click="carregarTelaContratarServico()"
 							ng-controller="contratarServicoCtrl"
@@ -21,13 +22,16 @@
 						<input type="submit" class="btn btn-primary"
 							value="Solicitar Amizade"
 							ng-click="sendPostSolicitarAmizade(data.amigo.id)"
-							ng-if="data.amigo.statusAmizade == 2"> <input
+							ng-if="data.amigo.statusAmizade == 2"> 
+						<input
 							type="submit" class="btn btn-success disabled"
 							value="Solicitação Enviada" ng-if="data.amigo.statusAmizade == 3"
-							readonly="readonly"> <input type="submit"
+							readonly="readonly"> 
+						<input type="submit"
 							class="btn btn-success" value="Aceitar Amizade"
 							ng-click="sendPostAceitarAmizade(data.amigo.id)"
-							ng-if="data.amigo.statusAmizade == 4"> <input
+							ng-if="data.amigo.statusAmizade == 4"> 
+						<input
 							type="submit" class="btn btn-danger" value="Recusar Amizade"
 							ng-click="sendPostDesfazerAmizade(data.amigo.id)"
 							ng-if="data.amigo.statusAmizade == 4">

@@ -62,17 +62,59 @@ public class Compromisso {
 			case 1:
 				this.status =  StatusCompromissoEnum.SOLICITADO;break;
 			case 2:
-				this.status =  StatusCompromissoEnum.ORCADO;break;
+				this.status =  StatusCompromissoEnum.RECURUSADA;break;
 			case 3:
-				this.status =  StatusCompromissoEnum.MARCADO;break;
+				this.status =  StatusCompromissoEnum.ORCADO;break;
 			case 4:
-				this.status =  StatusCompromissoEnum.CANCELADO;break;
+				this.status =  StatusCompromissoEnum.MARCADO;break;
 			case 5:
+				this.status =  StatusCompromissoEnum.CANCELADO;break;
+			case 6:
 				this.status =  StatusCompromissoEnum.REALIZADO;break;
 			default:
 				this.status =  StatusCompromissoEnum.SOLICITADO;break;
 		}	 
 	}
 
-	
+	public int compararCompromissos(Compromisso comp){
+		int retorno = 0;
+		if(this.contrato!=null && comp.getContrato()!=null){
+			//ID DO CLIENTE É DIFERENTE
+			if(this.contrato.getCliente()!=null && comp.getContrato().getCliente()!=null ){
+				if(!this.contrato.getCliente().getId().equals(comp.getContrato().getCliente().getId())){
+					retorno++;
+				}
+			}
+			//ID DO PRESTADOR É DIFERENTE
+			if(this.contrato.getPrestador()!=null && comp.getContrato().getPrestador()!=null ){
+				if(!this.contrato.getPrestador().getId().equals(comp.getContrato().getPrestador().getId())){
+					retorno++;
+				}
+			}
+			
+			//ID DO SERVIÇO DIFERENTE
+			if(this.contrato.getServico()!=null && comp.getContrato().getServico()!=null ){
+				if(!this.contrato.getServico().getId().equals(comp.getContrato().getServico().getId())){
+					retorno++;
+				}
+			}
+			
+		}
+		
+		//DATA DO INICIO DIFERENTE
+		if(this.dataInicio!=null && comp.getDataInicio()!=null){
+			if(!this.dataInicio.equals(comp.getDataInicio())){
+				retorno++;
+			}
+		}
+		
+		//DATA DO FIM DIFERENTE
+		if(this.dataFim!=null && comp.getDataFim()!=null){
+			if(!this.dataFim.equals(comp.getDataFim())){
+				retorno++;
+			}
+		}
+		
+		return retorno;
+	}
 }

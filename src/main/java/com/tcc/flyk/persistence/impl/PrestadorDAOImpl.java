@@ -755,7 +755,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		DBCollection collection = db.getCollection("FLYK");
 		BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(id));
 		BasicDBObject fieldObject = new BasicDBObject();
-		fieldObject.put("servicos_contratados", 1);
+		fieldObject.put("servicos_prestados", 1);
 
 		DBCursor cursor = collection.find(filtro, fieldObject);
 		DBObject resultado;
@@ -763,7 +763,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		// Busca campos de resultado
 		if (cursor.hasNext()) {
 			resultado = cursor.next();
-			BasicDBList servicosContratadosDB = (BasicDBList) resultado.get("servicos_contratados");
+			BasicDBList servicosContratadosDB = (BasicDBList) resultado.get("servicos_prestados");
 			if (servicosContratadosDB != null) {
 				listaContratosServicosPrestados = dbUtil
 						.montarDadosListaContratosServicosPrestados(servicosContratadosDB);

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
+import com.tcc.flyk.entity.AvaliacaoPrestador;
 import com.tcc.flyk.entity.Categoria;
 import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Contrato;
@@ -50,15 +51,15 @@ public class ContratoUtil {
 			jObjt.put("avaliacaoContratante", contrato.getAvaliacaoContratante());
 		}
 		if (contrato.getCusto() != null) {
-			jObjt.put("custo", contrato.getCusto());
+			jObjt.put("custo", contrato.getCusto().toString().replace(".", ","));
 		}
-		if(contrato.getDescricaoServico()!=null){
+		if (contrato.getDescricaoServico() != null) {
 			jObjt.put("descricaoServico", contrato.getDescricaoServico());
 		}
 		return jObjt;
 	}
 
-	public Contrato toContrato(JSONObject json) {
+	public Contrato cadastroToContrato(JSONObject json) {
 		Contrato contrato = new Contrato();
 		// 'idCliente' : $rootScope.data.id,
 		if (!json.isNull("idCliente")) {
@@ -78,9 +79,62 @@ public class ContratoUtil {
 			categoria.setId(json.getString("idCategoriaServico"));
 			contrato.setServico(categoria);
 		}
-		
-		if(!json.isNull("descricao_servico")){
+
+		if (!json.isNull("descricao_servico")) {
 			contrato.setDescricaoServico(json.getString("descricao_servico"));
+		}
+		return contrato;
+	}
+
+	public Contrato toContrato(JSONObject json) {
+		Contrato contrato = new Contrato();
+		if (!json.isNull("cliente")) {
+			Cliente cliente = new Cliente();
+			JSONObject jsonCliente = (JSONObject) json.get("cliente");
+			if (!jsonCliente.isNull("id")) {
+				cliente.setId(jsonCliente.getString("id"));
+			}
+			contrato.setCliente(cliente);
+		}
+		if (!json.isNull("prestador")) {
+			Prestador prestador = new Prestador();
+			JSONObject jsonPrestador = (JSONObject) json.get("prestador");
+			if (!jsonPrestador.isNull("id")) {
+				prestador.setId(jsonPrestador.getString("id"));
+			}
+			contrato.setPrestador(prestador);
+		}
+		if (!json.isNull("servico")) {
+			Categoria categoria = new Categoria();
+			JSONObject jsonCategoria = (JSONObject) json.get("servico");
+			if (!jsonCategoria.isNull("id")) {
+				categoria.setId(jsonCategoria.getString("id"));
+			}
+			contrato.setServico(categoria);
+		}
+		if (!json.isNull("avaliacaoPrestador")) {
+			AvaliacaoPrestador avaliacaoPrestador = new AvaliacaoPrestador();
+			JSONObject jsonAvaliacaoPrestador = (JSONObject) json.get("avaliacaoPrestador");
+			if (!jsonAvaliacaoPrestador.isNull("avaliacaoTempo")) {
+				avaliacaoPrestador.setAvaliacaoPontualidade(jsonAvaliacaoPrestador.getInt("avaliacaoTempo"));
+			}
+			if (!jsonAvaliacaoPrestador.isNull("avaliacaoQualidade")) {
+				avaliacaoPrestador.setAvaliacaoQualidade(jsonAvaliacaoPrestador.getInt("avaliacaoQualidade"));
+			}
+			if (!jsonAvaliacaoPrestador.isNull("avaliacaoPreco")) {
+				avaliacaoPrestador.setAvaliacaoPreco(jsonAvaliacaoPrestador.getInt("avaliacaoPreco"));
+			}
+			if (!jsonAvaliacaoPrestador.isNull("avaliacaoProfissionalismo")) {
+				avaliacaoPrestador.setAvaliacaoProfissionalismo(jsonAvaliacaoPrestador.getInt("avaliacaoProfissionalismo"));
+			}
+			contrato.setAvaliacaoPrestador(avaliacaoPrestador);
+		}
+		if (!json.isNull("descricaoServico")) {
+			contrato.setDescricaoServico(json.getString("descricaoServico"));
+		}
+		if (!json.isNull("custo")) {
+			Double custo = new Double(json.getString("custo").replace(",", "."));
+			contrato.setCusto(custo);
 		}
 		return contrato;
 	}
