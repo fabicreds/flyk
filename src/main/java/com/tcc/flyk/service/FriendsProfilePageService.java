@@ -61,6 +61,7 @@ public class FriendsProfilePageService {
 
 			// buscarStatusAmizade
 			StatusAmizadeEnum statusAmizade = profileService.buscasStatusAmizade(idUsuarioLogado, idAmigo);
+			
 
 			return mensagemSucesso(prestador, statusAmizade);
 		}
