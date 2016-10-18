@@ -726,7 +726,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		iterable.forEach(new Block<Document>() {
 			@Override
 			public void apply(final Document document) {
-				System.out.println(document);
+				//System.out.println(document);
 			}
 		});
 		*/
