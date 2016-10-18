@@ -50,7 +50,8 @@ flyk
 
 
 				        $scope.modal = $uibModal.open({
-				            templateUrl: "pagamento.html"
+				            templateUrl: "pagamento.html",
+				            controller: 'ModalInstanceCtrl'
 				        });
 				    } 
 					
@@ -257,18 +258,12 @@ flyk
 				});
 
 
-flyk.controller('ModalInstanceCtrl', function ($uibModalInstance, items) {
-	  var $ctrl = this;
-	  $ctrl.items = items;
-	  $ctrl.selected = {
-	    item: $ctrl.items[0]
-	  };
+flyk.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance) {
+	
 
-	  $ctrl.ok = function () {
-	    $uibModalInstance.close($ctrl.selected.item);
-	  };
-
-	  $ctrl.cancel = function () {
+	  $scope.cancel = function () {
 	    $uibModalInstance.dismiss('cancel');
+	    
 	  };
+	  
 	});
