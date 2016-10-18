@@ -148,12 +148,16 @@ public class ProfileService {
 	
 	public StatusAmizadeEnum buscasStatusAmizade(String idUsuarioLogado, String idAmigo) {
 		List<Amizade> listaAmigosUsuarioLogado = cliDAO.consultarAmigosById(idUsuarioLogado);
+		if (listaAmigosUsuarioLogado!= null)
+		{
 		for (Amizade amizade : listaAmigosUsuarioLogado) {
 			if (amizade.getAmigo() != null) {
 				if (amizade.getAmigo().getId().equals(idAmigo)) {
 					return amizade.getStatusEnum();
 				}
 			}
+		}
+		
 		}
 		return StatusAmizadeEnum.INATIVA;
 	}
