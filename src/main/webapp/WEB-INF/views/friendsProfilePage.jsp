@@ -3,7 +3,7 @@
 <body>
 	<form class="form-horizontal" name="inactivateForm" novalidate
 		role="form">
-		<div class="row  center-block container" data-ng-init="">
+		<div class="row  center-block container" data-ng-init="init()">
 			<div class="well panel panel-default">
 				<div class="panel-heading">
 					<div class="col-md-4 vcenter">
@@ -359,6 +359,204 @@
 																ng-controller="friendsProfilePageCtrl" />
 														</p>
 													</div>
+												</div>
+											</div>
+										</div>
+									</uib-tab>
+									<uib-tab index="4" heading="Avaliação Serviços Contratados" ng-if="$root.data.amigo.listaServicosContratados!=null"> 
+									<br>
+									<div class="panel panel-default">
+										<div class="panel-body">
+											<div
+												ng-repeat="compromisso in $root.data.amigo.listaServicosContratados">
+												<div class="col-md-12 col-sm-3 col-xs-6" ng-if="compromisso.status == 6">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<strong> {{compromisso.contrato.servico.nome}} - {{compromisso.contrato.servico.descricao}} </strong>
+														</div>
+														<div class="panel-body">
+															<div class="col-md-3">
+																<div class="panel panel-default">
+																	<div class="panel-heading">
+																		<strong> Cliente: {{$root.data.nome}}   </strong>
+																	</div>
+																	<div class="panel-body">
+																		<div style="text-align: center;">
+																			<strong>Avaliação <br> Contratante:   </strong>
+																			<div>
+																				<font color="yellow" size="5">
+																				<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoContratante>=1"></span>
+																				<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoContratante>=2"></span>
+																				<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoContratante>=3"></span>
+																				<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoContratante>=4"></span>
+																				<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoContratante>=5"></span>
+																				</font>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="col-md-9">
+																<div class="panel panel-default">
+																	<div class="panel-heading">
+																		<strong> Prestador: {{compromisso.contrato.prestador.nome}} </strong>
+																	</div>
+																	<div class="panel-body">
+																		<div class="col-md-3" style="text-align: center;">
+																			
+																				<strong>Avaliação <br> Qualidade:</strong>
+																				<div>
+																					<font color="yellow" size="5">
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoQualidade>=1"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoQualidade>=2"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoQualidade>=3"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoQualidade>=4"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoQualidade>=5"></span>
+																					</font>
+																				</div>
+																		</div>
+																		<div class="col-md-3" style="text-align: center;">
+																				<strong>Avaliação <br> Preço:</strong>
+																				<div>
+																					<font color="yellow" size="5">
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoPreco>=1"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoPreco>=2"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoPreco>=3"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoPreco>=4"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoPreco>=5"></span>
+																					</font>
+																				</div>
+																		</div>
+																		<div class="col-md-3" style="text-align: center;">
+																				<strong>Avaliação <br> Pontualidade: </strong>
+																				<div>
+																					<font color="yellow" size="5">
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoTempo>=1"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoTempo>=2"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoTempo>=3"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoTempo>=4"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoTempo>=5"></span>
+																					</font>
+																				</div>
+																		</div>
+																		<div class="col-md-3" style="text-align: center;">
+																				<strong>Avaliação <br> Profissionalismo: </strong>
+																				<div>
+																					<font color="yellow" size="5">
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoProfissionalismo>=1"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoProfissionalismo>=2"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoProfissionalismo>=3"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoProfissionalismo>=4"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoProfissionalismo>=5"></span>
+																					</font>
+																				</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+								</uib-tab>
+								<uib-tab index="4" heading="Avaliação Serviços Prestados" ng-if="$root.data.amigo.listaContratosServicosPrestados!=null  && $root.data.amigo.tipoCadastro!=1"> 
+										<br>
+										<div class="panel panel-default">
+											<div class="panel-body">
+												<div
+													ng-repeat="compromisso in $root.data.amigo.listaContratosServicosPrestados">
+													<div class="col-md-12 col-sm-3 col-xs-6" ng-if="compromisso.status == 6">
+														<div class="panel panel-default">
+															<div class="panel-heading">
+																<strong> {{compromisso.contrato.servico.nome}} - {{compromisso.contrato.servico.descricao}} </strong>
+															</div>
+															<div class="panel-body">
+																<div class="col-md-3">
+																	<div class="panel panel-default">
+																		<div class="panel-heading">
+																			<strong> Cliente: {{compromisso.contrato.cliente.nome}}   </strong>
+																		</div>
+																		<div class="panel-body">
+																			<div style="text-align: center;">
+																				<strong>Avaliação <br> Contratante:   </strong>
+																				<div>
+																					<font color="yellow" size="5">
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoContratante>=1"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoContratante>=2"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoContratante>=3"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoContratante>=4"></span>
+																					<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoContratante>=5"></span>
+																					</font>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="col-md-9">
+																	<div class="panel panel-default">
+																		<div class="panel-heading">
+																			<strong> Prestador: {{$root.data.nome}} </strong>
+																		</div>
+																		<div class="panel-body">
+																			<div class="col-md-3" style="text-align: center;">
+																				
+																					<strong>Avaliação <br> Qualidade:</strong>
+																					<div>
+																						<font color="yellow" size="5">
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoQualidade>=1"></span>
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoQualidade>=2"></span>
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoQualidade>=3"></span>
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoQualidade>=4"></span>
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoQualidade>=5"></span>
+																						</font>
+																					</div>
+																			</div>
+																			<div class="col-md-3" style="text-align: center;">
+																					<strong>Avaliação <br> Preço:</strong>
+																					<div>
+																						<font color="yellow" size="5">
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoPreco>=1"></span>
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoPreco>=2"></span>
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoPreco>=3"></span>
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoPreco>=4"></span>
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoPreco>=5"></span>
+																						</font>
+																					</div>
+																			</div>
+																			<div class="col-md-3" style="text-align: center;">
+																					<strong>Avaliação <br> Pontualidade: </strong>
+																					<div>
+																						<font color="yellow" size="5">
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoTempo>=1"></span>
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoTempo>=2"></span>
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoTempo>=3"></span>
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoTempo>=4"></span>
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoTempo>=5"></span>
+																						</font>
+																					</div>
+																			</div>
+																			<div class="col-md-3" style="text-align: center;">
+																					<strong>Avaliação <br> Profissionalismo: </strong>
+																					<div>
+																						<font color="yellow" size="5">
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoProfissionalismo>=1"></span>
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoProfissionalismo>=2"></span>
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoProfissionalismo>=3"></span>
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoProfissionalismo>=4"></span>
+																						<span class="glyphicon glyphicon-star" ng-if="compromisso.contrato.avaliacaoPrestador.avaliacaoProfissionalismo>=5"></span>
+																						</font>
+																					</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													
 												</div>
 											</div>
 										</div>
