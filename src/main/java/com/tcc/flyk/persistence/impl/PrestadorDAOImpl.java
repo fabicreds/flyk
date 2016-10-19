@@ -1,15 +1,21 @@
 package com.tcc.flyk.persistence.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.bson.Document;
 import org.bson.types.ObjectId;
+import org.json.JSONObject;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
+import com.mongodb.Block;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import com.mongodb.client.FindIterable;
+import com.mongodb.util.JSON;
 import com.tcc.flyk.entity.Amizade;
 import com.tcc.flyk.entity.Categoria;
 import com.tcc.flyk.entity.Compromisso;
@@ -25,6 +31,7 @@ import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.persistence.MongoDB;
 import com.tcc.flyk.persistence.PrestadorDAO;
 import com.tcc.flyk.util.DataBaseUtil;
+import com.tcc.flyk.util.PrestadorUtil;
 
 public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 
@@ -38,8 +45,152 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 
 
 	@Override
-	public List<Prestador> buscaServico(String idCategoria, int qtdMinimaEstrelas, String nomePrestador){
-		List<Prestador> retorno = new ArrayList<Prestador>();
+	public List<Prestador> buscaServico(List<String> idCategorias, int qtdMinimaEstrelas, String nomePrestador){
+		List<Prestador> retorno = new ArrayList<Prestador>();		
+		
+		// Busca todos os prestadores ativos com o critério de seleção enviado de parâmetro
+		BasicDBObject filtro = new BasicDBObject("status_pessoa", "A");
+		filtro.put("tipo_perfil", 2);
+
+		if(nomePrestador != ""){
+			filtro.put("nome_completo",	new Document("$regex", nomePrestador).append("$options", "'i'"));
+		}
+		if(idCategorias!=null){
+			if(idCategorias.size()>0){
+				filtro.put("categorias_de_servicos_prestados.id_categoria_servico_prestado", new BasicDBObject("$in", idCategorias));
+			}
+		}
+
+		super.conecta();
+		DBCollection collection = db.getCollection("FLYK");
+		DBCursor cursor = collection.find(filtro);
+		DBObject resultado;
+
+		// Busca campos de resultado
+		if (cursor.hasNext()) {
+			while(cursor.hasNext()){
+				resultado = cursor.next();
+	
+				Prestador pessoa = new Prestador();
+				// ID
+				//pessoa.setId(idPrestador);  alex remover depois pois programei isso dentro do metodo abaixo
+				dbUtil.montarDadosBasicosCliente(pessoa, resultado);
+	
+				//Monta os dados basicos do prestador (não fiz dentro de um método pra deixar simples)
+				// CNPJ
+				if (resultado.get("CNPJ") != null) {
+					pessoa.setCnpj(String.valueOf(resultado.get("CNPJ")));
+					System.out.print("CNPJ nascimento do prestador: " + pessoa.getCnpj());
+				}
+				// VALOR PREMIUM
+				if (resultado.get("valor_premium") != null) {
+					pessoa.setValorPremium(Double.valueOf(String.valueOf(resultado.get("valor_premium"))));
+				}
+				
+				// ENDERECO
+				Endereco enderecoPessoa = dbUtil.montarDadosEndereco(resultado);
+				pessoa.setEndereco(enderecoPessoa);
+	
+				// PRIVACIDADE
+				Privacidade privacidade = dbUtil.montarDadosPrivacidade(resultado);
+				pessoa.setPrivacidade(privacidade);
+	
+				// ********************* LISTA DE TELEFONES *********************
+				// Busca a lista de telefones e coloca na telefonesBD
+				BasicDBList telefonesDB = (BasicDBList) resultado.get("telefones");
+				if (telefonesDB != null) {
+					// Varre a lista de telefones, preenchendo o array telefones
+					List<Telefone> telefones = dbUtil.montaDadosTelefones(telefonesDB);
+					// Adiciona o array telefones na pessoa
+					pessoa.setListaTelefone(telefones);
+				}
+				//System.out.println(" telefones fim");
+	
+				// ********************* LISTA DE AMIGOS *********************
+				// Busca a lista de telefones e coloca na telefonesBD
+				BasicDBList amigosDB = (BasicDBList) resultado.get("amigos");
+	
+				if (amigosDB != null) {
+					// Varre a lista de telefones, preenchendo o array telefones
+					List<Amizade> amigos = dbUtil.montaDadosAmigos(amigosDB);
+					// Adiciona o array telefones na pessoa
+					pessoa.setListaAmigos(amigos);
+				}
+	
+				// ********************* LISTA DE SERVICOS CONTRATADOS
+				// *********************
+				// Busca a lista de compromissos e coloca na servicosContratadosDB
+				BasicDBList servicosContratadosDB = (BasicDBList) resultado.get("servicos_contratados");
+	
+				if (servicosContratadosDB != null) {
+					List<Compromisso> agenda = dbUtil.montarDadosServicosContratados(servicosContratadosDB);
+					// Adiciona o array compromissos na pessoa
+					pessoa.setListaContratosServicosPrestados(agenda);
+				}
+	
+				// ********************* LISTA DE RECOMENDAÃ¯Â¿Â½Ã¯Â¿Â½ES DADAS
+				// *********************
+				// Busca a lista de prestadores recomendados e coloca na telefonesBD
+				BasicDBList recomendacoesDadasBD = (BasicDBList) resultado.get("recomendacoes_dadas");
+	
+				if (recomendacoesDadasBD != null) {
+					// Varre a lista de prestadores recomendados, preenchendo o
+					// array recomendacoesDadas
+					List<Prestador> recomendacoesDadas = dbUtil.montarDadosRecomendacoesDadas(recomendacoesDadasBD);
+					// Adiciona o array prestadores recomendados na pessoa
+					pessoa.setListaPrestadoresRecomendados(recomendacoesDadas);
+				}
+	
+				// ********************* LISTA DE CONVERSAS *********************
+				// Busca a lista de conversa e coloca na conversaDB
+				BasicDBList conversaDB = (BasicDBList) resultado.get("mensagens_de_conversa");
+	
+				if (conversaDB != null) {
+					// Varre a lista de conversa, preenchendo o array mensagens
+					List<Conversa> mensagens = dbUtil.montarDadosConversas(conversaDB);
+					// Adiciona o array mensagens na pessoa
+					pessoa.setlistaMensagensConversa(mensagens);
+				}
+	
+				// ********************* LISTA DE CATEGORIA DE SERVICOS PRESTADOS *********************
+				// Busca a lista de servicos prestador e coloca na servicosDB
+				BasicDBList servicosDB = (BasicDBList) resultado.get("categorias_de_servicos_prestados");
+	
+				if (servicosDB != null) {
+					// Varre a lista de conversa, preenchendo o array mensagens
+					List<Categoria> listaServicosPrestados = dbUtil.montarDadosListaServicos(servicosDB);
+					// Adiciona o array mensagens na pessoa
+					pessoa.setListaCategoriaServicosPrestados(listaServicosPrestados);
+				}
+	
+				// ********************* LISTA DE SERVICOS PRESTADOS *********************
+				// Busca a lista de servicos prestador e coloca na servicosDB
+				BasicDBList servicosContratadosPrestadorDB = (BasicDBList) resultado.get("servicos_prestados");
+	
+				if (servicosContratadosPrestadorDB != null) {
+					// Varre a lista de conversa, preenchendo o array mensagens
+					List<Compromisso> listaContratosServicosPrestados = dbUtil.montarDadosListaContratosServicosPrestados(servicosContratadosPrestadorDB);
+					// Adiciona o array mensagens na pessoa
+					pessoa.setListaContratosServicosPrestados(listaContratosServicosPrestados);
+				}
+	
+				retorno.add(pessoa);
+				
+				//PRINTANDO NA TELA, REMOVER ISSO DEPOIS
+				if(resultado.containsField("foto")){
+					resultado.put("foto", "string da foto");
+				}
+				System.out.println(resultado);
+				
+			}
+		} else {
+			System.out.println("Consulta de prestadores não encontrou resultados.");
+			super.desconecta();
+			return null;
+		}
+		super.desconecta();
+
+		// Retorna a pessoa para o chamador
 		return retorno;
 	}
 	
@@ -178,6 +329,11 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		// Usuario
 		if (prestador.getUsuario() != null) {
 			doc.put("usuario", prestador.getUsuario());
+		}
+
+		// Alias
+		if (prestador.getUsuario() != null) {
+			doc.put("alias", prestador.getAlias());
 		}
 
 		// Email
@@ -563,7 +719,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		// ***********************************
 		// CNPJ
 		if (prestador.getCnpj() != null) {
-			doc.put("alias", prestador.getCnpj());
+			doc.put("CNPJ", prestador.getCnpj());
 		}
 
 		// valor_premium
@@ -638,9 +794,14 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				BasicDBObject servicoPrestado = new BasicDBObject();
 
 				//System.out.println("0");
-				// Inicia o documento e grava o id do prestador
+				// Inicia o documento e grava o id do cliente
 				if (compromisso.getContrato() != null && compromisso.getContrato().getCliente() != null) {
 					servicoPrestado.put("id_cliente_contratante", compromisso.getContrato().getCliente().getId());
+				}
+				
+				// grava o id do prestador
+				if (compromisso.getContrato() != null && compromisso.getContrato().getPrestador() != null) {
+					servicoPrestado.put("id_prestador_contratado", compromisso.getContrato().getPrestador().getId());
 				}
 
 				//System.out.println("1");

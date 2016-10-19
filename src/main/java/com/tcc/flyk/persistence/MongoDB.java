@@ -30,7 +30,7 @@ public class MongoDB {
 
 	public MongoDB() {
 		super();
-		this.conecta();
+		//this.conecta();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -50,6 +50,7 @@ public class MongoDB {
 	public void printDocPorId(String id){
 
 		System.out.println("CONSULTANDO DOCUMENTO PELO ID " + id);
+		this.conecta();
 		try {
 			DBCollection collection = db.getCollection("FLYK");
 			BasicDBObject filtro = new BasicDBObject(new Document("_id", new ObjectId(id)));
@@ -69,9 +70,11 @@ public class MongoDB {
 			System.out.println("Erro no print documento por id");
 			System.out.println(e);
 		}
+		this.desconecta();
 		
 	}
 	public void consultaDocs(){
+		this.conecta();
 
 		try {
 			DBCollection collection = db.getCollection("FLYK");
@@ -91,7 +94,7 @@ public class MongoDB {
 			System.out.println("Erro no consultaDocs");
 			System.out.println(e);
 		}
-		
+		this.desconecta();
 	}
 	
 	public void desconecta(){

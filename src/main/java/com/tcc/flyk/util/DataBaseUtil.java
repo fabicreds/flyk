@@ -26,6 +26,10 @@ import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 public class DataBaseUtil {
 
 	public void montarDadosBasicosCliente(Cliente pessoa, DBObject resultado) {
+		// ID
+		if (resultado.get("_id") != null) {
+			pessoa.setId(String.valueOf(resultado.get("_id")));
+		}
 		// NOME
 		if (resultado.get("nome_completo") != null) {
 			pessoa.setNome(String.valueOf(resultado.get("nome_completo")));

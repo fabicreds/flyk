@@ -16,7 +16,7 @@ public interface PrestadorDAO {
 
 	void consultaTudo();
 	
-	public List<Prestador> buscaServico(String idCategoria, int qtdMinimaEstrelas, String nomePrestador);
+	public List<Prestador> buscaServico(List<String> idCategorias, int qtdMinimaEstrelas, String nomePrestador);
 
 	List<Compromisso> consultarListaContratosServicosPrestadosById(String id);
 
