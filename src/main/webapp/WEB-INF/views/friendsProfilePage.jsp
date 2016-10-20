@@ -10,31 +10,31 @@
 						<font size="5">Perfil Amigo - {{$root.data.amigo.usuario}}</font>
 					</div>
 					<div class="col-md-7 vcenter" style="text-align: right;">
-						<input type="submit" class="btn btn-danger"
+						<button type="submit" class="btn btn-danger"
 							value="Desfazer Amizade"
 							ng-click="sendPostDesfazerAmizade(data.amigo.id)"
-							ng-if="data.amigo.statusAmizade == 1"> 
-						<input
+							ng-if="data.amigo.statusAmizade == 1"><span class="glyphicon glyphicon-minus"></span> Desfazer Amizade</button>
+						<button
 							type="submit" class="btn btn-primary" value="Contratar Serviço"
 							ng-click="carregarTelaContratarServico()"
 							ng-controller="contratarServicoCtrl"
-							ng-if="data.amigo.statusAmizade == 1 && data.amigo.tipoCadastro!=1">
-						<input type="submit" class="btn btn-primary"
+							ng-if="data.amigo.statusAmizade == 1 && data.amigo.tipoCadastro!=1"><span class="glyphicon glyphicon-pencil"></span> Contratar Serviço</button>
+						<button type="submit" class="btn btn-primary"
 							value="Solicitar Amizade"
 							ng-click="sendPostSolicitarAmizade(data.amigo.id)"
-							ng-if="data.amigo.statusAmizade == 2"> 
-						<input
+							ng-if="data.amigo.statusAmizade == 2"> <span class="glyphicon glyphicon-plus"></span> Solicitar Amizade</button>
+						<button
 							type="submit" class="btn btn-success disabled"
 							value="Solicitação Enviada" ng-if="data.amigo.statusAmizade == 3"
-							readonly="readonly"> 
-						<input type="submit"
+							readonly="readonly"><span class="glyphicon glyphicon-ok"></span> Solicitação Enviada</button>
+						<button type="submit"
 							class="btn btn-success" value="Aceitar Amizade"
 							ng-click="sendPostAceitarAmizade(data.amigo.id)"
-							ng-if="data.amigo.statusAmizade == 4"> 
-						<input
+							ng-if="data.amigo.statusAmizade == 4"> <span class="glyphicon glyphicon-ok"></span> Aceitar Amizade</button>
+						<button
 							type="submit" class="btn btn-danger" value="Recusar Amizade"
 							ng-click="sendPostDesfazerAmizade(data.amigo.id)"
-							ng-if="data.amigo.statusAmizade == 4">
+							ng-if="data.amigo.statusAmizade == 4"><span class="glyphicon glyphicon-remove-sign"></span> Recusar Amizade </button>
 					</div>
 				</div>
 				<div class="panel-body">
