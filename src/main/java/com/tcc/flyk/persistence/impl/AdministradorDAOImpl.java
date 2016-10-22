@@ -18,6 +18,7 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 
 	@Override
 	public void inserirNovoAdmisnistrador(Administrador adm) {
+		super.conecta();
 		try {
 			super.db.getCollection("FLYK")
 					.insert(new BasicDBObject().append("nome", adm.getNome()).append("usuario", adm.getUsuario())
@@ -26,6 +27,7 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		super.desconecta();
 
 	}
 
@@ -36,8 +38,9 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 			BasicDBObject query = new BasicDBObject();
 			query.put("usuario", usuario);
 					
-
+			super.conecta();
 			DBObject object = db.getCollection("FLYK").findOne(query);
+			super.desconecta();
 			if (object != null) {
 				if(object.get("ativo").toString().equals("true")){
 					adm.setAtivo(true);
@@ -65,7 +68,9 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 			BasicDBObject query = new BasicDBObject();
 			query.put("usuario", busca);
 
+			super.conecta();
 			DBObject objeto = db.getCollection("FLYK").findOne(query);
+			super.desconecta();
 			if(objeto!=null){
 				usuario.setNome((String) objeto.get("nome").toString());
 				usuario.setUsuario((String) objeto.get("usuario").toString());
@@ -98,7 +103,9 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 			BasicDBObject searchQuery = new BasicDBObject();
 			searchQuery.append("usuario", usuario.getUsuario());
 
+			super.conecta();
 			db.getCollection("FLYK").update(searchQuery, updateQuery);
+			super.desconecta();
 			return true;
 		} catch (Exception e) {
 			return false;

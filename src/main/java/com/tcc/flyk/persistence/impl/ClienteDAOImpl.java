@@ -31,17 +31,19 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 	private DataBaseUtil dbUtil = new DataBaseUtil();
 
-	/*public ClienteDAOImpl() {
-		super();
-	}*/
+	public ClienteDAOImpl() {
+		//super();
+	}
 
 	@Override
 	public void consulta() {
+		super.conecta();
 		DBCursor cursor = db.getCollection("FLYK").find();
 
 		while (cursor.hasNext()) {
-			System.out.println(cursor.next());
+			//System.out.println(cursor.next());
 		}
+		super.desconecta();
 	}
 
 	@Override
@@ -466,6 +468,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 	@Override
 	public Usuario consultaLogin(String email) {
 		try {
+			super.conecta();
 			DBCollection collection = db.getCollection("FLYK");
 			BasicDBObject filtro = new BasicDBObject(new Document("email", email));
 			DBCursor cursor = collection.find(filtro);
@@ -519,9 +522,10 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 			} else {
 				System.out.println("Consulta de cliente pelo email " + email + " nï¿½o encontrou valores.");
+				super.desconecta();
 				return null;
 			}
-
+			super.desconecta();
 			return user;
 
 		} catch (Exception e) {
@@ -532,6 +536,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 	public Usuario consultaUsuarioPorId(String id){
 
 		try {
+			super.conecta();
 			DBCollection collection = db.getCollection("FLYK");
 			BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(id));
 			DBCursor cursor = collection.find(filtro);
@@ -587,9 +592,11 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 			} else {
 				System.out.println("Consulta de cliente pelo email " + id + " nï¿½o encontrou valores.");
+				super.desconecta();
 				return null;
 			}
 
+			super.desconecta();
 			return user;
 
 		} catch (Exception e) {
@@ -604,6 +611,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 		Cliente pessoa = new Cliente(); // Cliente que serï¿½ retornado
 
+		super.conecta();
 		DBCollection collection = db.getCollection("FLYK");
 		// BasicDBObject filtro = new BasicDBObject(new Document("_id",new
 		// ObjectId(idCliente)));
@@ -691,9 +699,11 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 		} else {
 			System.out.println("Consulta de clientes pelo id " + idCliente + " nÃ£o encontrou valores.");
+			super.desconecta();
 			return null;
 		}
 
+		super.desconecta();
 		// Retorna a pessoa para o chamador
 		return pessoa;
 	}
@@ -707,7 +717,9 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			BasicDBObject searchQuery = new BasicDBObject();
 			searchQuery.append("usuario", usuario.getUsuario());
 
+			super.conecta();
 			db.getCollection("FLYK").update(searchQuery, updateQuery);
+			super.desconecta();
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -734,6 +746,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 	public Usuario consultaLoginById(String id) {//Este método funciona, mas não usaremos
 		try {
+			super.conecta();
 			DBCollection collection = db.getCollection("FLYK");
 			BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(id));
 			DBCursor cursor = collection.find(filtro);
@@ -791,9 +804,11 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 			} else {
 				System.out.println("Consulta de cliente pelo id " + id + " nï¿½o encontrou valores.");
+				super.desconecta();
 				return null;
 			}
 
+			super.desconecta();
 			return user;
 
 		} catch (Exception e) {
@@ -813,7 +828,6 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			FindIterable<Document> iterable = super.mongoDatabase.getCollection("FLYK")
 					.find(new Document("status_pessoa", "A").append("nome_completo",
 							new Document("$regex", nomeUsuario).append("$options", "'i'")));
-			super.desconecta();
 			// Varre a lista de resultados
 			iterable.forEach(new Block<Document>() {
 				@Override
@@ -825,6 +839,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 					listaUsuarios.add(consultaUsuarioPorId(idCliente));
 				}
 			});
+			super.desconecta();
 
 			//Retorna a lista de clientes caso seja diferente de zero
 			if (listaUsuarios.size()==0) {
@@ -910,9 +925,11 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			BasicDBObject searchQuery = new BasicDBObject();
 			searchQuery.append("_id", new ObjectId(id));
 
+			super.conecta();
 			DBCollection collection = db.getCollection("FLYK");
 
 			collection.update(searchQuery, updateQuery);
+			super.desconecta();
 			cli = this.consultaClientePorId(String.valueOf(id));
 
 			return cli;
@@ -926,6 +943,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 	public List<Amizade> consultarAmigosById(String id) {
 		List<Amizade> amigos = new ArrayList<Amizade>();
 
+		super.conecta();
 		DBCollection collection = db.getCollection("FLYK");
 		BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(id));
 		BasicDBObject fieldObject = new BasicDBObject();
@@ -943,6 +961,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				return amigos;
 			}
 		}
+		super.desconecta();
 		return null;
 
 	}
@@ -976,9 +995,10 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				updateQuery.append("$unset", new BasicDBObject().append("amigos", amigos));
 			}
 
+			super.conecta();
 			BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(idUsuario));
-
 			db.getCollection("FLYK").update(filtro, updateQuery);
+			super.desconecta();
 
 			return true;
 		} catch (Exception e) {
@@ -997,7 +1017,6 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			FindIterable<Document> iterable = super.mongoDatabase.getCollection("FLYK")
 					.find(new Document("status_pessoa", "A").append("nome_completo",
 							new Document("$regex", nomeCliente).append("$options", "'i'")));
-			super.desconecta();
 			// Varre a lista de resultados
 			iterable.forEach(new Block<Document>() {
 				@Override
@@ -1009,6 +1028,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 					listaClientes.add(consultaClientePorId(idCliente));
 				}
 			});
+			super.desconecta();
 
 			//Retorna a lista de clientes caso seja diferente de zero
 			if (listaClientes.size()==0) {
@@ -1030,6 +1050,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 	public List<Compromisso> consultarListaServicosContratadosById(String id) {
 		List<Compromisso> listaServicosContratados = new ArrayList<Compromisso>();
 
+		super.conecta();
 		DBCollection collection = db.getCollection("FLYK");
 		BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(id));
 		BasicDBObject fieldObject = new BasicDBObject();
@@ -1051,6 +1072,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				return listaServicosContratados;
 			}
 		}
+		super.desconecta();
 		return null;
 
 	}
@@ -1154,9 +1176,10 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				updateQuery.append("$unset", new BasicDBObject().append("servicos_contratados", servicosContratados));
 			}
 
+			super.conecta();
 			BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(idCliente));
-
 			db.getCollection("FLYK").update(filtro, updateQuery);
+			super.desconecta();
 
 			return true;
 		} catch (Exception e) {

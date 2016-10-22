@@ -29,11 +29,15 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 			System.out.println("gravando categoria " + cat.getNomeCategoria());
 			// Data de hoje
 			Date dHoje = new Date();
+			String nome = cat.getNomeCategoria();
+			String desc = cat.getDescricaoCategoria();
+			super.conecta();
 			super.mongoDatabase.getCollection("FLYK")
-					.insertOne(new Document("nome_categoria", cat.getNomeCategoria())
-							.append("descricao_categoria", cat.getDescricaoCategoria())
+					.insertOne(new Document("nome_categoria", nome)
+							.append("descricao_categoria", desc)
 							.append("inicio_vigencia_categoria", dHoje).append("status_categoria", "A"));
-
+			super.desconecta();
+			
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,6 +56,7 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 			retorno.setNomeCategoria("");
 
 			// Busca a categoria ativa com este nome
+			super.conecta();
 			FindIterable<Document> iterable = super.mongoDatabase.getCollection("FLYK")
 					.find(new Document("nome_categoria", nome).append("status_categoria", "A"));
 			// Varre a lista de resultados
@@ -68,6 +73,7 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 					retorno.setStatusCategoria(document.getString("status_categoria"));
 				}
 			});
+			super.desconecta();
 
 			// Como todas as categorias devem ter nome obrigatoriamente, ent�o
 			// caso o nome esteja vazio � porque o registro n�o foi encontrado
@@ -92,6 +98,7 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 
 			final List<Categoria> retorno = new ArrayList<Categoria>();
 
+			super.conecta();
 			// Busca as categorias ativa com este nome
 			FindIterable<Document> iterable = super.mongoDatabase.getCollection("FLYK")
 					.find(new Document("status_categoria", "A").append("nome_categoria",
@@ -117,6 +124,7 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 					retorno.add(cat);
 				}
 			});
+			super.desconecta();
 
 			System.out.println("consultando categoria por parte do nome fim");
 
@@ -140,6 +148,7 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 
 			final List<Categoria> retorno = new ArrayList<Categoria>();
 
+			super.conecta();
 			// Busca a categoria ativa com este nome
 			FindIterable<Document> iterable = super.mongoDatabase.getCollection("FLYK")
 					.find(new Document("status_categoria", "A"));
@@ -171,7 +180,8 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 					retorno.add(cat);
 				}
 			});
-
+			super.desconecta();
+			
 			return retorno;
 
 		} catch (Exception e) {
@@ -193,6 +203,7 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 			final Categoria retorno = new Categoria();
 			retorno.setNomeCategoria("");
 
+			super.conecta();
 			// Busca a categoria ativa com este nome
 			FindIterable<Document> iterable = super.mongoDatabase.getCollection("FLYK")
 					.find(new Document("_id", new ObjectId(id)));
@@ -220,6 +231,7 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 					}
 				}
 			});
+			super.desconecta();
 
 			// Como todas as categorias devem ter nome obrigatoriamente, ent�o
 			// caso o nome esteja vazio � porque o registro n�o foi encontrado
@@ -240,6 +252,7 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 	@Override
 	public void consultaTudo() {
 
+		super.conecta();
 		FindIterable<Document> iterable = super.mongoDatabase.getCollection("FLYK").find();
 
 		iterable.forEach(new Block<Document>() {
@@ -248,5 +261,6 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 				//System.out.println(document);
 			}
 		});
+		super.desconecta();
 	}
 }

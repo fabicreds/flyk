@@ -27,6 +27,7 @@ import com.tcc.flyk.entity.Telefone;
 import com.tcc.flyk.entity.Usuario;
 import com.tcc.flyk.entity.enumerator.PrivacidadeEnum;
 import com.tcc.flyk.entity.enumerator.StatusAmizadeEnum;
+import com.tcc.flyk.entity.enumerator.StatusCompromissoEnum;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.persistence.MongoDB;
 import com.tcc.flyk.persistence.PrestadorDAO;
@@ -50,7 +51,12 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		
 		// Busca todos os prestadores ativos com o critério de seleção enviado de parâmetro
 		BasicDBObject filtro = new BasicDBObject("status_pessoa", "A");
-		filtro.put("tipo_perfil", 2);
+		
+		//Prestadores e premium
+		List<Integer> tiposPerfil = new ArrayList<Integer>();
+		tiposPerfil.add(2); //prestador
+		tiposPerfil.add(3); //premium
+		filtro.put("tipo_perfil", new BasicDBObject("$in", tiposPerfil));
 
 		if(nomePrestador != ""){
 			filtro.put("nome_completo",	new Document("$regex", nomePrestador).append("$options", "'i'"));
@@ -167,6 +173,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				// Busca a lista de servicos prestador e coloca na servicosDB
 				BasicDBList servicosContratadosPrestadorDB = (BasicDBList) resultado.get("servicos_prestados");
 	
+				System.out.print(servicosContratadosPrestadorDB);
 				if (servicosContratadosPrestadorDB != null) {
 					// Varre a lista de conversa, preenchendo o array mensagens
 					List<Compromisso> listaContratosServicosPrestados = dbUtil.montarDadosListaContratosServicosPrestados(servicosContratadosPrestadorDB);
@@ -174,7 +181,13 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 					pessoa.setListaContratosServicosPrestados(listaContratosServicosPrestados);
 				}
 	
-				retorno.add(pessoa);
+				//Verifica se a média de estrelas atende o critério vindo de parâmetro
+				//Calcula a média de estrelas do prestador
+				double media = calculaMediaDeEstrelas(pessoa.getListaContratosServicosPrestados());
+				System.out.print("Media do prestador: " + String.valueOf(media));
+				if(media>=qtdMinimaEstrelas){
+					retorno.add(pessoa);
+				}
 				
 				//PRINTANDO NA TELA, REMOVER ISSO DEPOIS
 				if(resultado.containsField("foto")){
@@ -194,6 +207,37 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		return retorno;
 	}
 	
+	//Calcula a media de avaliações de todos os serviços que de fato receberam avaliação
+	private double calculaMediaDeEstrelas(List<Compromisso> lista){
+		if (lista.size()>0){
+			int qtd = lista.size();
+			int qtdAvaliados = 0; //quantidade de serviços que foram avaliados pelo cliente
+			double media = 0, soma = 0;
+			//Varre a lista de serviços do prestador
+			for(int i=0;i<qtd;i++){
+				//Considera apenas os serviços que já foram realizados e cuja data de avaliação do serviço não seja nula
+				if(lista.get(i).getContrato().getDataAvaliacaoServico()!=null && lista.get(i).getStatus()==StatusCompromissoEnum.REALIZADO){
+					//Soma a avaliação de todas as categorias de avaliação e tira a média da avalação aritimética do serviço prestador
+					double mediaDoServico = 0;
+					mediaDoServico += lista.get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoPontualidade();
+					mediaDoServico += lista.get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoPreco();
+					mediaDoServico += lista.get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoProfissionalismo();
+					mediaDoServico += lista.get(i).getContrato().getAvaliacaoPrestador().getAvaliacaoQualidade();
+					media += mediaDoServico/4;
+					qtdAvaliados++;
+				}
+			}
+			
+			if(media>0){
+				media = media/qtdAvaliados;
+			}
+			
+			return media;
+		}else{
+			return 0;
+		}
+	}
+	
 	@Override
 	public Prestador consultaPrestadorPorId(String idPrestador) {
 		consultaTudo();
@@ -201,6 +245,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 
 		Prestador pessoa = new Prestador(); // Cliente que serÃ¯Â¿Â½ retornado
 
+		super.conecta();
 		DBCollection collection = db.getCollection("FLYK");
 		// BasicDBObject filtro = new BasicDBObject(new Document("_id",new
 		// ObjectId(idCliente)));
@@ -309,9 +354,11 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 
 		} else {
 			System.out.println("Consulta de clientes pelo id " + idPrestador + " nÃƒÂ£o encontrou valores.");
+			super.desconecta();
 			return null;
 		}
 
+		super.desconecta();
 		// Retorna a pessoa para o chamador
 		return pessoa;
 
@@ -876,7 +923,9 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 
 		// Insere o prestador
 		try {
+			super.conecta();
 			super.db.getCollection("FLYK").insert(doc);
+			super.desconecta();
 			System.out.println("UsuÃ¯Â¿Â½rio cadastrado com sucesso");
 		} catch (Exception e) {
 			System.out.println("ERRO:" + e.getStackTrace());
@@ -913,6 +962,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 	public List<Compromisso> consultarListaContratosServicosPrestadosById(String id) {
 		List<Compromisso> listaContratosServicosPrestados = new ArrayList<Compromisso>();
 
+		super.conecta();
 		DBCollection collection = db.getCollection("FLYK");
 		BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(id));
 		BasicDBObject fieldObject = new BasicDBObject();
@@ -931,6 +981,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				return listaContratosServicosPrestados;
 			}
 		}
+		super.desconecta();
 		return null;
 
 	}
@@ -1025,9 +1076,10 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				updateQuery.append("$unset", new BasicDBObject().append("servicos_prestados", servicosPrestados));
 			}
 
+			super.conecta();
 			BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(idPrestador));
-
 			db.getCollection("FLYK").update(filtro, updateQuery);
+			super.desconecta();
 
 			return true;
 		} catch (Exception e) {
@@ -1140,9 +1192,10 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				BasicDBObject searchQuery = new BasicDBObject();
 				searchQuery.append("_id", new ObjectId(idPrestador));
 
+				super.conecta();
 				DBCollection collection = db.getCollection("FLYK");
-
 				collection.update(searchQuery, updateQuery);
+				super.desconecta();
 				
 				pdor = this.consultaPrestadorPorId(String.valueOf(idPrestador));
 
