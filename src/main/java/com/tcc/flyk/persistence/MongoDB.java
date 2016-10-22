@@ -34,7 +34,7 @@ public class MongoDB {
 	}
 
 	@SuppressWarnings("deprecation")
-	public void conecta() {
+	protected void conecta() {
 		// Cria a classe mongoClient conectando na inst√¢ncia local do mongodb
 		mongoClient = new MongoClient(new ServerAddress("localhost"), new MongoClientOptions.Builder().build());
 
@@ -45,7 +45,10 @@ public class MongoDB {
 		mongoDatabase = mongoClient.getDatabase("FLYK");
 	}
 	
-
+	protected void desconecta(){
+		mongoClient.close();
+	}
+	
 	//****************************CONSULTA DOCUMENTO COM ID ESPECÕFICO****************************
 	public void printDocPorId(String id){
 
@@ -95,9 +98,5 @@ public class MongoDB {
 			System.out.println(e);
 		}
 		this.desconecta();
-	}
-	
-	public void desconecta(){
-		mongoClient.close();
 	}
 }

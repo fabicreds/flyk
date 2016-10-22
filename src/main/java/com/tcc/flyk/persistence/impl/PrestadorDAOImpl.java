@@ -184,8 +184,8 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				//Verifica se a média de estrelas atende o critério vindo de parâmetro
 				//Calcula a média de estrelas do prestador
 				double media = calculaMediaDeEstrelas(pessoa.getListaContratosServicosPrestados());
-				System.out.print("Media do prestador: " + String.valueOf(media));
-				if(media>=qtdMinimaEstrelas){
+				System.out.println("Media do prestador: " + String.valueOf(media));
+				if(media>=qtdMinimaEstrelas||media==0){
 					retorno.add(pessoa);
 				}
 				
@@ -1031,7 +1031,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 					// data_avaliacao_servico_contratado
 					if (compromisso.getContrato() != null
 							&& compromisso.getContrato().getDataAvaliacaoServico() != null) {
-						servicoPrestado.put("data_avaliacao_servico_contratado",
+						servicoPrestado.put("data_avaliacao_servico_prestado",
 								compromisso.getContrato().getDataAvaliacaoServico());
 					}
 
