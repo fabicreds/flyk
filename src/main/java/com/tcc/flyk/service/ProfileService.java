@@ -161,5 +161,29 @@ public class ProfileService {
 		}
 		return StatusAmizadeEnum.INATIVA;
 	}
+	
+	public void buscarRecomendacoesDadas(Cliente cliente){
+		if(cliente.getListaPrestadoresRecomendados()!=null && cliente.getListaAmigos()!=null){
+			for(String id: cliente.getListaPrestadoresRecomendados()){
+				for(Amizade amizade: cliente.getListaAmigos()){
+					if(amizade.getAmigo()!=null && id!=null && id.equals(amizade.getAmigo().getId())){
+						amizade.setRecomendacaoDada(true);
+					}
+				}
+			}
+		}
+	}
+	
+	public void buscarRecomendacoesRecebidas(Prestador prestador){
+		if(prestador.getListaRecomendacoesRecebidas()!=null && prestador.getListaAmigos()!=null){
+			for(String id: prestador.getListaRecomendacoesRecebidas()){
+				for(Amizade amizade: prestador.getListaAmigos()){
+					if(amizade.getAmigo()!=null && id!=null && id.equals(amizade.getAmigo().getId())){
+						amizade.setRecomendacaoRecebida(true);
+					}
+				}
+			}
+		}
+	}
 
 }

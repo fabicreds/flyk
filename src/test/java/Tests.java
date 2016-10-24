@@ -155,14 +155,10 @@ public class Tests {
 	
 		
 		//Recomenda��es dadas a outro usu�rio
-		List<Prestador> listaPrestadoresRecomendados = new ArrayList<Prestador>();
-		Prestador recomendado1 = new Prestador();
-		recomendado1.setId("idprestador12394e0e9309d");
-		Prestador recomendado2 = new Prestador();
-		recomendado2.setId("idprestador22394e0e9309d");
+		List<String> listaPrestadoresRecomendados = new ArrayList<String>();
 		
-		listaPrestadoresRecomendados.add(recomendado1);
-		listaPrestadoresRecomendados.add(recomendado2);
+		listaPrestadoresRecomendados.add("idprestador12394e0e9309d");
+		listaPrestadoresRecomendados.add("idprestador22394e0e9309d");
 		
 		pessoa.setListaPrestadoresRecomendados(listaPrestadoresRecomendados);
 		
@@ -324,14 +320,10 @@ public class Tests {
 	
 		
 		//Recomenda��es dadas a outro usu�rio
-		List<Prestador> listaPrestadoresRecomendados = new ArrayList<Prestador>();
-		Prestador recomendado1 = new Prestador();
-		recomendado1.setId("idprestador12394e0e9309d");
-		Prestador recomendado2 = new Prestador();
-		recomendado2.setId("idprestador22394e0e9309d");
+		List<String> listaPrestadoresRecomendados = new ArrayList<String>();
 		
-		listaPrestadoresRecomendados.add(recomendado1);
-		listaPrestadoresRecomendados.add(recomendado2);
+		listaPrestadoresRecomendados.add("idprestador12394e0e9309d");
+		listaPrestadoresRecomendados.add("idprestador22394e0e9309d");
 		
 		pessoa.setListaPrestadoresRecomendados(listaPrestadoresRecomendados);
 		

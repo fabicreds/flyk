@@ -44,9 +44,8 @@ public class Cliente {
 
 	private TipoCadastroEnum tipoCadastro;
 
-	// private Prestador prestador;
-
-	private List<Prestador> listaPrestadoresRecomendados;
+	//lista de ids de prestadores recomendados pelo cliente
+	private List<String> listaPrestadoresRecomendados;
 
 	private List<Conversa> listaMensagensConversa;
 
@@ -205,11 +204,11 @@ public class Cliente {
 		}
 	}
 
-	public List<Prestador> getListaPrestadoresRecomendados() {
+	public List<String> getListaPrestadoresRecomendados() {
 		return listaPrestadoresRecomendados;
 	}
 
-	public void setListaPrestadoresRecomendados(List<Prestador> listaPrestadoresRecomendados) {
+	public void setListaPrestadoresRecomendados(List<String> listaPrestadoresRecomendados) {
 		this.listaPrestadoresRecomendados = listaPrestadoresRecomendados;
 	}
 

@@ -41,6 +41,8 @@ public class FriendsProfilePageService {
 			profileService.buscarDadosAmigos(cliente);
 			// buscando os detalhes do servicos contratados
 			profileService.buscarDadosContratos(cliente);
+			
+			profileService.buscarRecomendacoesDadas(cliente);
 
 			// buscarStatusAmizade
 			StatusAmizadeEnum statusAmizade = profileService.buscasStatusAmizade(idUsuarioLogado, idAmigo);
@@ -58,6 +60,10 @@ public class FriendsProfilePageService {
 			profileService.buscarDadosContratos(prestador);
 			
 			profileService.buscarDadosContratosPrestados(prestador);
+			
+			profileService.buscarRecomendacoesDadas(prestador);
+			
+			profileService.buscarRecomendacoesRecebidas(prestador);
 
 			// buscarStatusAmizade
 			StatusAmizadeEnum statusAmizade = profileService.buscasStatusAmizade(idUsuarioLogado, idAmigo);

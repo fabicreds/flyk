@@ -101,13 +101,12 @@ public class PrestadorUtil {
 		return jObjt;
 	}
 
-	private JSONObject listaRecomendacoesRecebidasJSON(List<Cliente> listaRecomendacoesRecebidas) {
+	private JSONObject listaRecomendacoesRecebidasJSON(List<String> listaRecomendacoesRecebidas) {
 		JSONObject jObjt = new JSONObject();
 		if (listaRecomendacoesRecebidas != null) {
 			int i = 0;
-			for (Cliente cliente : listaRecomendacoesRecebidas) {
-				JSONObject jObjt1 = clienteUtil.toJSON(cliente);
-				jObjt.put("recomendacao" + i, jObjt1);
+			for (String cliente : listaRecomendacoesRecebidas) {
+				jObjt.put("recomendacao" + i, cliente);
 				i++;
 			}
 		}

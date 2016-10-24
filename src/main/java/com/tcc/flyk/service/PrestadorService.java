@@ -9,7 +9,6 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import com.tcc.flyk.entity.Categoria;
-import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Prestador;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.persistence.ClienteDAO;
@@ -175,53 +174,4 @@ public class PrestadorService {
 		return prestadores;
 	}
 	
-
-	//Adiciona um prestador na lista de recomendacoes dadas do prestador
-	//Retorna uma string vazia em caso de sucesso, e uma msg de erro em caso de falha
-	public String recomendaPrestador(String idPrestadorRecomendador, String idPrestadorRecomendado){
-		//Busca a lista de prestadores que o cliente já recomendou
-		List<String> listaPrestadoresRecomendadosPeloPrestador = new ArrayList<String>();
-		Prestador prestadorRecomendador = new Prestador();
-		prestadorRecomendador = prestadorDAO.consultaPrestadorPorId(idPrestadorRecomendador);
-		if(prestadorRecomendador.getListaPrestadoresRecomendados()!=null){
-			for(int i=0;i<prestadorRecomendador.getListaPrestadoresRecomendados().size();i++){
-				//Verifica se este prestador já recomendou este prestador
-				if(prestadorRecomendador.getListaPrestadoresRecomendados().get(i).getId()==idPrestadorRecomendado){
-					return "Prestador ja foi recomendado!";
-				}
-				listaPrestadoresRecomendadosPeloPrestador.add(prestadorRecomendador.getListaPrestadoresRecomendados().get(i).getId());
-			}
-		}
-		
-		//Adiciona o novo prestador na lista
-		listaPrestadoresRecomendadosPeloPrestador.add(idPrestadorRecomendado);
-		
-		//Atualiza a lista do prestador recomendador
-		if(prestadorDAO.atualizarPrestadoresReocomendadosById(idPrestadorRecomendador, listaPrestadoresRecomendadosPeloPrestador)){
-			//Busca a lista de usuarios que já recomendaram o prestador
-			List<String> listaRecomendacoesRecebidasPeloPrestador = new ArrayList<String>();
-			Prestador prestadorRecomendado = new Prestador();
-			prestadorRecomendado = prestadorDAO.consultaPrestadorPorId(idPrestadorRecomendado);
-			if(prestadorRecomendado.getListaRecomendacoesRecebidas()!=null){
-				for(int i=0;i<prestadorRecomendado.getListaRecomendacoesRecebidas().size();i++){
-					//Verifica se este prestador já recebeu recomendacao deste prestador
-					//obs: se entrar neste if, o banco está quebrado!!
-					if(prestadorRecomendado.getListaRecomendacoesRecebidas().get(i).getId()==idPrestadorRecomendador){
-						return "Prestador ja foi recomendado! Entre em contato com o administrador do sistema!";
-					}
-					listaRecomendacoesRecebidasPeloPrestador.add(prestadorRecomendado.getListaRecomendacoesRecebidas().get(i).getId());
-				}
-			}
-			
-			//Adiciona o cliente na lista
-			listaRecomendacoesRecebidasPeloPrestador.add(idPrestadorRecomendador);
-			
-			//Atualiza a lista do prestador
-			prestadorDAO.atualizarRecomendacoesRecebidasById(idPrestadorRecomendado, listaRecomendacoesRecebidasPeloPrestador);
-			
-			return "";
-		}else{
-			return "Erro na operacao.";
-		}
-	}
 }

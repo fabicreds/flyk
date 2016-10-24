@@ -29,6 +29,8 @@ public class AmizadeUtil {
 			jObjt.put("status", amizade.getStatusEnum().getCodigo());
 			jObjt.put("statusDescricao", amizade.getStatusEnum().getDescricao());
 		}
+		jObjt.put("isRecomendacaoDada", amizade.isRecomendacaoDada());
+		jObjt.put("isRecomendacaoRecebida", amizade.isRecomendacaoRecebida());
 		return jObjt;
 	}
 }

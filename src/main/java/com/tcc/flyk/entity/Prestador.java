@@ -10,7 +10,8 @@ public class Prestador extends Cliente{
 	
 	private List<Compromisso> listaContratosServicosPrestados;
 
-	private List<Cliente> listaRecomendacoesRecebidas;
+	//lista de id de clientes que recomendaram o prestador
+	private List<String> listaRecomendacoesRecebidas;
 	
 	//valor pago pelo perfil premium
 	private Double valorPremium;
@@ -59,11 +60,11 @@ public class Prestador extends Cliente{
 	}
 
 
-	public List<Cliente> getListaRecomendacoesRecebidas() {
+	public List<String> getListaRecomendacoesRecebidas() {
 		return listaRecomendacoesRecebidas;
 	}
 
-	public void setListaRecomendacoesRecebidas(List<Cliente> listaRecomendacoesRecebidas) {
+	public void setListaRecomendacoesRecebidas(List<String> listaRecomendacoesRecebidas) {
 		this.listaRecomendacoesRecebidas = listaRecomendacoesRecebidas;
 	}
 }

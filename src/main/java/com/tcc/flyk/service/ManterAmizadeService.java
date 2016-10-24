@@ -13,6 +13,7 @@ import com.tcc.flyk.entity.Amizade;
 import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Usuario;
 import com.tcc.flyk.entity.enumerator.StatusAmizadeEnum;
+import com.tcc.flyk.persistence.ClienteDAO;
 import com.tcc.flyk.persistence.impl.ClienteDAOImpl;
 import com.tcc.flyk.util.ClienteUtil;
 
@@ -22,7 +23,7 @@ public class ManterAmizadeService {
 	@Resource
 	private ClienteUtil util;
 
-	private ClienteDAOImpl cliDAO = new ClienteDAOImpl();
+	private ClienteDAO cliDAO = new ClienteDAOImpl();
 
 	public String desfazerAmizade(String idUsuarioLogado, String idAmigo) {
 		List<Amizade> listaAmigosUsuarioLogado = cliDAO.consultarAmigosById(idUsuarioLogado);

@@ -296,35 +296,24 @@ public class DataBaseUtil {
 		return listaServicosContratados;
 	}
 
-	public List<Prestador> montarDadosRecomendacoesDadas(BasicDBList recomendacoesDadasBD) {
-		List<Prestador> recomendacoesDadas = new ArrayList<Prestador>();
+	public List<String> montarDadosRecomendacoesDadas(BasicDBList recomendacoesDadasBD) {
+		List<String> recomendacoesDadas = new ArrayList<String>();
 		BasicDBObject[] lightArr = recomendacoesDadasBD.toArray(new BasicDBObject[0]);
 		for (BasicDBObject recomendacaoDadaDB : lightArr) {
-			// shows each item from the lights array
-			System.out.println("id_usuario_recomendado: " + recomendacaoDadaDB.get("id_usuario_recomendado"));
-
-			Prestador prestador = new Prestador();
-			prestador.setId(recomendacaoDadaDB.getString("id_usuario_recomendado"));
-
-			recomendacoesDadas.add(prestador);
+			recomendacoesDadas.add(recomendacaoDadaDB.getString("id_usuario_recomendado"));
+		}
+		return recomendacoesDadas;
+	}
+	
+	public List<String> montarDadosRecomendacoesRecebidas(BasicDBList recomendacoesRecebidasBD) {
+		List<String> recomendacoesDadas = new ArrayList<String>();
+		BasicDBObject[] lightArr = recomendacoesRecebidasBD.toArray(new BasicDBObject[0]);
+		for (BasicDBObject recomendacaoDadaDB : lightArr) {
+			recomendacoesDadas.add(recomendacaoDadaDB.getString("id_usuario_recomendador"));
 		}
 		return recomendacoesDadas;
 	}
 
-	public List<Cliente> montarDadosRecomendacoesRecebidas(BasicDBList recomendacoesRecebidasBD) {
-		List<Cliente> recomendacoesRecebidas = new ArrayList<Cliente>();
-		BasicDBObject[] lightArr = recomendacoesRecebidasBD.toArray(new BasicDBObject[0]);
-		for (BasicDBObject recomendacaoRecebidaDB : lightArr) {
-			// shows each item from the lights array
-			System.out.println("id_usuario_recomendador: " + recomendacaoRecebidaDB.get("id_usuario_recomendador"));
-
-			Cliente cliente = new Cliente();
-			cliente.setId(recomendacaoRecebidaDB.getString("id_usuario_recomendador"));
-
-			recomendacoesRecebidas.add(cliente);
-		}
-		return recomendacoesRecebidas;
-	}
 
 	public List<Conversa> montarDadosConversas(BasicDBList conversaDB) {
 		List<Conversa> mensagens = new ArrayList<Conversa>();

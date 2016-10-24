@@ -18,7 +18,6 @@ import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Compromisso;
 import com.tcc.flyk.entity.Conversa;
 import com.tcc.flyk.entity.Endereco;
-import com.tcc.flyk.entity.Prestador;
 import com.tcc.flyk.entity.Privacidade;
 import com.tcc.flyk.entity.Telefone;
 import com.tcc.flyk.entity.Usuario;
@@ -204,8 +203,6 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		// ******************************Telefones******************************//
 		if (pessoa.getListaTelefone() != null) {
 
-			int count = pessoa.getListaTelefone().size();
-			//System.out.println("qtd telefones: " + String.valueOf(count));
 
 			// Varre a lista de telefones, inserindo um por um
 			BasicDBList telefones = new BasicDBList();
@@ -288,13 +285,13 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			// Varre a lista de prestadores recomendados, inserindo um por um
 			for (int i = 0; i < count; i++) {
 				System.out.println(
-						"ID do prestador: " + String.valueOf(pessoa.getListaPrestadoresRecomendados().get(i).getId()));
+						"ID do prestador: " + String.valueOf(pessoa.getListaPrestadoresRecomendados().get(i)));
 
 				BasicDBObject prestadorRecomendado = new BasicDBObject();
 
 				// Grava o nï¿½mero
 				prestadorRecomendado.put("id_usuario_recomendado",
-						String.valueOf(pessoa.getListaPrestadoresRecomendados().get(i).getId()));
+						String.valueOf(pessoa.getListaPrestadoresRecomendados().get(i)));
 
 				prestadoresRecomendados.add(prestadorRecomendado);
 			}
@@ -346,8 +343,6 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		// contratados******************************//
 		if (pessoa.getListaServicosContratados() != null) {
 
-			int count = pessoa.getListaServicosContratados().size();
-			//System.out.println("qtd de servicos contratados: " + String.valueOf(count));
 
 			BasicDBList servicosContratados = new BasicDBList();
 
@@ -681,7 +676,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			if (recomendacoesDadasBD != null) {
 				// Varre a lista de prestadores recomendados, preenchendo o
 				// array recomendacoesDadas
-				List<Prestador> recomendacoesDadas = dbUtil.montarDadosRecomendacoesDadas(recomendacoesDadasBD);
+				List<String> recomendacoesDadas = dbUtil.montarDadosRecomendacoesDadas(recomendacoesDadasBD);
 				// Adiciona o array prestadores recomendados na pessoa
 				pessoa.setListaPrestadoresRecomendados(recomendacoesDadas);
 			}
@@ -1187,36 +1182,59 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 	}
 
 	@Override
-	public boolean atualizarPrestadoresReocomendadosById(String idCliente, List<String> idPrestadores){
-		try{
-			BasicDBList listaPrestadoresRecomendados = new BasicDBList();
+	public boolean atualizarRecomendacaoDadas(String idUsuario, List<String> listarecomendacoesDadas) {
+		try {
 			BasicDBObject updateQuery = new BasicDBObject();
+			BasicDBList listaRecomendacao = new BasicDBList();
+			if (listarecomendacoesDadas != null && !listarecomendacoesDadas.isEmpty()) {
+				for (String idRecomendado : listarecomendacoesDadas) {
+					BasicDBObject recomendacao = new BasicDBObject();
+					if (idRecomendado != null) {
+						recomendacao.put("id_usuario_recomendado", idRecomendado);
+					}
 
-			//Varre a lista de IDs de prestadores recomendados, inserindo um por um na lista
-			for (int i = 0; i < idPrestadores.size(); i++) {
-				BasicDBObject idPrestadorRecomendado = new BasicDBObject();
-				idPrestadorRecomendado.put("id_usuario_recomendado", idPrestadores.get(i));
-				
-				listaPrestadoresRecomendados.add(idPrestadorRecomendado);
+					listaRecomendacao.add(recomendacao);
+				}
+				updateQuery.append("$set", new BasicDBObject().append("recomendacoes_dadas", listaRecomendacao));
+			}else{
+				updateQuery.append("$unset", new BasicDBObject().append("recomendacoes_dadas", listaRecomendacao));
 			}
-			
-			//Dados para alteração
-			updateQuery.append("$set", new BasicDBObject().append("recomendacoes_dadas", listaPrestadoresRecomendados));						
-					
-			//id do cliente que terá a lista atualizada
-			BasicDBObject searchQuery = new BasicDBObject();
-			searchQuery.append("_id", new ObjectId(idCliente));
-			
-			//realiza a alteração
+
 			super.conecta();
-			DBCollection collection = db.getCollection("FLYK");
-			collection.update(searchQuery, updateQuery);
+			BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(idUsuario));
+
+			db.getCollection("FLYK").update(filtro, updateQuery);
 			super.desconecta();
-			
 			return true;
-		}catch(Exception e){
-			System.out.println(e.getStackTrace());
+		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	@Override
+	public List<String> consultarRecomendacoesDadasById(String id) {
+		List<String> recomendacoes = new ArrayList<String>();
+
+		super.conecta();
+		DBCollection collection = db.getCollection("FLYK");
+		BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(id));
+		BasicDBObject fieldObject = new BasicDBObject();
+		fieldObject.put("recomendacoes_dadas", 1);
+
+		DBCursor cursor = collection.find(filtro, fieldObject);
+		DBObject resultado;
+
+		// Busca campos de resultado
+		if (cursor.hasNext()) {
+			resultado = cursor.next();
+			BasicDBList recomendacoesDadasBD = (BasicDBList) resultado.get("recomendacoes_dadas");
+			if (recomendacoesDadasBD != null) {
+				recomendacoes = dbUtil.montarDadosRecomendacoesDadas(recomendacoesDadasBD);
+				return recomendacoes;
+			}
+		}
+		super.desconecta();
+		return null;
+
 	}
 }

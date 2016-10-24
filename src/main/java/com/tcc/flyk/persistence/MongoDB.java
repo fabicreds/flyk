@@ -1,24 +1,17 @@
 package com.tcc.flyk.persistence;
 
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
+import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
-
-import org.bson.Document;
-import org.bson.types.ObjectId;
-
-import com.mongodb.BasicDBList;
-import com.mongodb.BasicDBObject;
-import com.mongodb.Block;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.client.FindIterable;
-import com.tcc.flyk.entity.Usuario;
-import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
-import com.tcc.flyk.util.DataBaseUtil;
 
 public class MongoDB {
 	public static String NOME_BANCO = "FLYK";
@@ -39,10 +32,10 @@ public class MongoDB {
 		mongoClient = new MongoClient(new ServerAddress("localhost"), new MongoClientOptions.Builder().build());
 
 		// Cria a classe db, conectada ao banco de dados test
-		db = mongoClient.getDB("FLYK");
+		db = mongoClient.getDB("test");
 		
 		//Cria a classe mongoDatabase, conectada ao banco de dados test
-		mongoDatabase = mongoClient.getDatabase("FLYK");
+		mongoDatabase = mongoClient.getDatabase("test");
 	}
 	
 	protected void desconecta(){

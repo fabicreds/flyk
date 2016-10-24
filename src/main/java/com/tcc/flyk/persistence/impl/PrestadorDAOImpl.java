@@ -1,24 +1,18 @@
 package com.tcc.flyk.persistence.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import org.json.JSONObject;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
-import com.mongodb.Block;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
-import com.mongodb.client.FindIterable;
-import com.mongodb.util.JSON;
 import com.tcc.flyk.entity.Amizade;
 import com.tcc.flyk.entity.Categoria;
-import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Compromisso;
 import com.tcc.flyk.entity.Conversa;
 import com.tcc.flyk.entity.Endereco;
@@ -33,7 +27,6 @@ import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
 import com.tcc.flyk.persistence.MongoDB;
 import com.tcc.flyk.persistence.PrestadorDAO;
 import com.tcc.flyk.util.DataBaseUtil;
-import com.tcc.flyk.util.PrestadorUtil;
 
 public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 
@@ -143,9 +136,19 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				if (recomendacoesDadasBD != null) {
 					// Varre a lista de prestadores recomendados, preenchendo o
 					// array recomendacoesDadas
-					List<Prestador> recomendacoesDadas = dbUtil.montarDadosRecomendacoesDadas(recomendacoesDadasBD);
+					List<String> recomendacoesDadas = dbUtil.montarDadosRecomendacoesDadas(recomendacoesDadasBD);
 					// Adiciona o array prestadores recomendados na pessoa
 					pessoa.setListaPrestadoresRecomendados(recomendacoesDadas);
+				}
+				
+				BasicDBList recomendacoesRecebidasBD = (BasicDBList) resultado.get("recomendacoes_recebidas");
+				
+				if (recomendacoesRecebidasBD != null) {
+					// Varre a lista de prestadores recomendados, preenchendo o
+					// array recomendacoesDadas
+					List<String> recomendacoesRecebidas = dbUtil.montarDadosRecomendacoesRecebidas(recomendacoesRecebidasBD);
+					// Adiciona o array prestadores recomendados na pessoa
+					pessoa.setListaRecomendacoesRecebidas(recomendacoesRecebidas);
 				}
 	
 				// ********************* LISTA DE CONVERSAS *********************
@@ -213,7 +216,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		if (lista.size()>0){
 			int qtd = lista.size();
 			int qtdAvaliados = 0; //quantidade de serviços que foram avaliados pelo cliente
-			double media = 0, soma = 0;
+			double media = 0;
 			//Varre a lista de serviços do prestador
 			for(int i=0;i<qtd;i++){
 				//Considera apenas os serviços que já foram realizados e cuja data de avaliação do serviço não seja nula
@@ -315,7 +318,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 			if (recomendacoesDadasBD != null) {
 				// Varre a lista de prestadores recomendados, preenchendo o
 				// array recomendacoesDadas
-				List<Prestador> recomendacoesDadas = dbUtil.montarDadosRecomendacoesDadas(recomendacoesDadasBD);
+				List<String> recomendacoesDadas = dbUtil.montarDadosRecomendacoesDadas(recomendacoesDadasBD);
 				// Adiciona o array prestadores recomendados na pessoa
 				pessoa.setListaPrestadoresRecomendados(recomendacoesDadas);
 			}
@@ -360,7 +363,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 
 			if (recomendacoesRecebidasBD != null) {
 				// Varre a lista de recomendacoes recebidas
-				List<Cliente> recomendacoesRecebidas = dbUtil.montarDadosRecomendacoesRecebidas(recomendacoesRecebidasBD);
+				List<String> recomendacoesRecebidas = dbUtil.montarDadosRecomendacoesRecebidas(recomendacoesRecebidasBD);
 				// Adiciona o array prestadores recomendados na pessoa
 				pessoa.setListaRecomendacoesRecebidas(recomendacoesRecebidas);
 			}
@@ -535,8 +538,6 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		// ******************************Telefones******************************//
 		if (prestador.getListaTelefone() != null) {
 
-			int count = prestador.getListaTelefone().size();
-			//System.out.println("qtd telefones: " + String.valueOf(count));
 
 			// Varre a lista de telefones, inserindo um por um
 			BasicDBList telefones = new BasicDBList();
@@ -628,7 +629,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 
 				// Grava o nÃ¯Â¿Â½mero
 				prestadorRecomendado.put("id_usuario_recomendado",
-						String.valueOf(prestador.getListaPrestadoresRecomendados().get(i).getId()));
+						String.valueOf(prestador.getListaPrestadoresRecomendados().get(i)));
 
 				prestadoresRecomendados.add(prestadorRecomendado);
 			}
@@ -680,8 +681,6 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		// contratados******************************//
 		if (prestador.getListaServicosContratados() != null) {
 
-			int count = prestador.getListaServicosContratados().size();
-			//System.out.println("qtd de servicos contratados: " + String.valueOf(count));
 
 			BasicDBList servicosContratados = new BasicDBList();
 
@@ -797,13 +796,13 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 			// Varre a lista de recomandacoes recebidas, inserindo uma por uma
 			for (int i = 0; i < count; i++) {
 				System.out.println(
-						"ID do cliente: " + String.valueOf(prestador.getListaRecomendacoesRecebidas().get(i).getId()));
+						"ID do cliente: " + String.valueOf(prestador.getListaRecomendacoesRecebidas().get(i)));
 
 				BasicDBObject prestadorRecomendado = new BasicDBObject();
 
 				// Grava o nÃ¯Â¿Â½mero
 				prestadorRecomendado.put("id_usuario_recomendador",
-						String.valueOf(prestador.getListaRecomendacoesRecebidas().get(i).getId()));
+						String.valueOf(prestador.getListaRecomendacoesRecebidas().get(i)));
 
 				recomendacoesRecebidas.add(prestadorRecomendado);
 			}
@@ -842,8 +841,6 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		// ******************************serviÃ¯Â¿Â½os_prestados******************************//
 		if (prestador.getListaContratosServicosPrestados() != null) {
 
-			int count = prestador.getListaContratosServicosPrestados().size();
-			//System.out.println("qtd de servicos prestados: " + String.valueOf(count));
 
 			BasicDBList servicosPrestados = new BasicDBList();
 
@@ -1255,36 +1252,59 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 	
 
 	@Override
-	public boolean atualizarRecomendacoesRecebidasById(String idPrestador, List<String> idClientes){
-		try{
-			BasicDBList listaClientesRecomendadores = new BasicDBList();
+	public boolean atualizarRecomendacaoRecebidas(String idUsuario, List<String> listarecomendacoesRecebidas) {
+		try {
 			BasicDBObject updateQuery = new BasicDBObject();
+			BasicDBList listaRecomendacao = new BasicDBList();
+			if (listarecomendacoesRecebidas != null && !listarecomendacoesRecebidas.isEmpty()) {
+				for (String idRecomendado : listarecomendacoesRecebidas) {
+					BasicDBObject recomendacao = new BasicDBObject();
+					if (idRecomendado != null) {
+						recomendacao.put("id_usuario_recomendador", idRecomendado);
+					}
 
-			//Varre a lista de IDs de prestadores recomendados, inserindo um por um na lista
-			for (int i = 0; i < idClientes.size(); i++) {
-				BasicDBObject idClienteRecomendador = new BasicDBObject();
-				idClienteRecomendador.put("id_usuario_recomendador", idClientes.get(i));
-				
-				listaClientesRecomendadores.add(idClienteRecomendador);
+					listaRecomendacao.add(recomendacao);
+				}
+				updateQuery.append("$set", new BasicDBObject().append("recomendacoes_recebidas", listaRecomendacao));
+			}else{
+				updateQuery.append("$unset", new BasicDBObject().append("recomendacoes_recebidas", listaRecomendacao));
 			}
-			
-			//Dados para alteração
-			updateQuery.append("$set", new BasicDBObject().append("recomendacoes_recebidas", listaClientesRecomendadores));						
-					
-			//id do cliente que terá a lista atualizada
-			BasicDBObject searchQuery = new BasicDBObject();
-			searchQuery.append("_id", new ObjectId(idPrestador));
-			
-			//realiza a alteração
+
 			super.conecta();
-			DBCollection collection = db.getCollection("FLYK");
-			collection.update(searchQuery, updateQuery);
+			BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(idUsuario));
+
+			db.getCollection("FLYK").update(filtro, updateQuery);
 			super.desconecta();
-			
 			return true;
-		}catch(Exception e){
-			System.out.println(e.getStackTrace());
+		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	@Override
+	public List<String> consultarRecomendacoesRecebidasById(String id) {
+		List<String> recomendacoes = new ArrayList<String>();
+
+		super.conecta();
+		DBCollection collection = db.getCollection("FLYK");
+		BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(id));
+		BasicDBObject fieldObject = new BasicDBObject();
+		fieldObject.put("recomendacoes_recebidas", 1);
+
+		DBCursor cursor = collection.find(filtro, fieldObject);
+		DBObject resultado;
+
+		// Busca campos de resultado
+		if (cursor.hasNext()) {
+			resultado = cursor.next();
+			BasicDBList recomendacoesRecebidasBD = (BasicDBList) resultado.get("recomendacoes_recebidas");
+			if (recomendacoesRecebidasBD != null) {
+				recomendacoes = dbUtil.montarDadosRecomendacoesRecebidas(recomendacoesRecebidasBD);
+				return recomendacoes;
+			}
+		}
+		super.desconecta();
+		return null;
+
 	}
 }

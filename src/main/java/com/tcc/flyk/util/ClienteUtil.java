@@ -14,7 +14,6 @@ import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Compromisso;
 import com.tcc.flyk.entity.Conversa;
 import com.tcc.flyk.entity.Endereco;
-import com.tcc.flyk.entity.Prestador;
 import com.tcc.flyk.entity.Privacidade;
 import com.tcc.flyk.entity.Telefone;
 
@@ -133,13 +132,12 @@ public class ClienteUtil {
 		return jObjt;
 	}
 
-	public JSONObject listaPrestadoresRecomendadosJSON(List<Prestador> listaPrestadoresRecomendados) {
+	public JSONObject listaPrestadoresRecomendadosJSON(List<String> listaPrestadoresRecomendados) {
 		JSONObject jObjt = new JSONObject();
 		if (listaPrestadoresRecomendados != null) {
 			int i = 0;
-			for (Prestador prestador : listaPrestadoresRecomendados) {
-				JSONObject jObjt1 = prestadorUtil.toJSON(prestador);
-				jObjt.put("prestador" + i, jObjt1);
+			for (String prestador : listaPrestadoresRecomendados) {
+				jObjt.put("prestador" + i, prestador);
 				i++;
 			}
 		}

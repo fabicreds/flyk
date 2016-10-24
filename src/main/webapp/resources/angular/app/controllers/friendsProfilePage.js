@@ -109,6 +109,30 @@ flyk.controller("friendsProfilePageCtrl", function ($scope, $rootScope, $locatio
 		
 	}
 	
+	$scope.sendPostRecomendarPrestador = function(idAmigo) {
+			
+			$http({
+				url : 'recomendarPrestador',
+				method : "POST",
+				data : {
+					'idUsuarioLogado': $rootScope.idUsuarioLogado,
+					'idAmigo' : idAmigo,
+				}
+			}).then(function(response) {
+				if (response.data.retorno != "erro") {
+					$rootScope.data.listaAmigos = response.data.listaAmigos;
+					$rootScope.data.numAmigos = response.data.numAmigos;
+					$rootScope.$emit("CallProfilePageMethod", {});
+					$location.path('/friendsPage');
+				} else {
+					$location.path('/friendsPage');
+				}
+			}, function(response) {
+		
+			});
+			
+		}
+	
 
     
     

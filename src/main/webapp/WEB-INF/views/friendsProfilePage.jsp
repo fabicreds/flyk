@@ -35,6 +35,10 @@
 							type="submit" class="btn btn-danger" value="Recusar Amizade"
 							ng-click="sendPostDesfazerAmizade(data.amigo.id)"
 							ng-if="data.amigo.statusAmizade == 4"><span class="glyphicon glyphicon-remove-sign"></span> Recusar Amizade </button>
+						<button
+							type="submit" class="btn btn-danger" value="Recomendar Prestador"
+							ng-click="sendPostRecomendarPrestador(data.amigo.id)"
+							ng-if="data.amigo.statusAmizade == 1 && data.amigo.tipoCadastro!=1"><span class="glyphicon glyphicon-heart"></span> Recomendar Prestador </button>
 					</div>
 				</div>
 				<div class="panel-body">
@@ -304,7 +308,7 @@
 										<div ng-repeat="amizade in $root.data.amigo.listaAmigos">
 											<div class="panel panel-default">
 												<div class="panel-body">
-													<div class="col-md-4 col-sm-6 col-xs-12 vcenter">
+													<div class="col-md-3 vcenter">
 														<div class="text-center">
 															<img
 																src="${pageContext.request.contextPath}/images/pessoa-feliz.png"
@@ -313,7 +317,7 @@
 														</div>
 													</div>
 													<!--/col-->
-													<div class="col-md-3 col-sm-6 col-xs-12 vcenter">
+													<div class="col-md-3 vcenter">
 														<p>
 															<strong>Nome: </strong>
 														<p style="text-indent: 1em;">{{amizade.amigo.nome}}</p>
@@ -323,7 +327,7 @@
 														<p style="text-indent: 1em;">{{amizade.dataInicioAmizade}}</p>
 														</p>
 													</div>
-													<div class="col-md-3 vcenter">
+													<div class="col-md-2 vcenter">
 														<p>
 															<strong>Tipo de Cadastro: </strong>
 														<p style="text-indent: 2em;">{{amizade.amigo.perfil}}</p>
@@ -351,13 +355,33 @@
 														</p>
 														</p>
 													</div>
-													<div class="col-md-1 vcenter" style="text-align: center;">
+													<div class="col-md-3 vcenter" style="text-align: center;">
 														<p>
 															<input type="submit" class="btn btn-primary"
 																value="Visualizar Perfil"
 																ng-click="sendPostPerfilAmigo(amizade.amigo.id, amizade.amigo.tipoCadastro)"
 																ng-controller="friendsProfilePageCtrl" />
 														</p>
+														<div ng-if="amizade.isRecomendacaoDada" style="color: red"> 
+															<button class="btn disabled" >
+															<table style="color: red;">
+															<tr>
+															<td style="padding-right: 10px"><font size="6"><span class="glyphicon glyphicon-heart"></span></font>  </td> 
+															<td><font size="3">Recomendado</font></td>
+															</tr>
+															</table>
+															</button >
+														</div>
+														<div ng-if="amizade.isRecomendacaoRecebida" > 
+															<button class="btn disabled" >
+															<table style="color: green;">
+															<tr>
+															<td style="padding-right: 10px"><font size="6"><span class="glyphicon glyphicon-heart"></span></font>  </td> 
+															<td><font size="3">Recomendação <br>Recebida </font></td>
+															</tr>
+															</table>
+															</button >
+														</div>
 													</div>
 												</div>
 											</div>

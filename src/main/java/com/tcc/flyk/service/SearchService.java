@@ -5,9 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tcc.flyk.entity.Cliente;
