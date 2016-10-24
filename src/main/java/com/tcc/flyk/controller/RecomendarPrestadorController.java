@@ -23,7 +23,21 @@ public class RecomendarPrestadorController {
 		try {
 			if (!jsonRequest.isNull("idUsuarioLogado") && !jsonRequest.isNull("idAmigo")) {
 				return service.recomendarPrestador(jsonRequest.getString("idUsuarioLogado"),jsonRequest.getString("idAmigo"));
-//				return mensagemErro("Recomendar Prestador");
+			} else {
+				return mensagemErro("Dados Necessários indisponíveis!");
+			}
+		} catch (Exception e) {
+			return mensagemErro("Erro ao atualizar a lista de amigos!");
+		}
+	}
+	
+	@RequestMapping(value = "/desfazerRecomendacaoPrestador", method = RequestMethod.POST)
+	public @ResponseBody String desfazerRecomendacaoPrestador(@RequestBody String request) {
+		JSONObject jsonRequest = new JSONObject(request);
+
+		try {
+			if (!jsonRequest.isNull("idUsuarioLogado") && !jsonRequest.isNull("idAmigo")) {
+				return service.desfazerRecomendacaoPrestador(jsonRequest.getString("idUsuarioLogado"),jsonRequest.getString("idAmigo"));
 			} else {
 				return mensagemErro("Dados Necessários indisponíveis!");
 			}

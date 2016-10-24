@@ -1,6 +1,6 @@
 flyk.controller("friendsProfilePageCtrl", function ($scope, $rootScope, $location, $http, fileReader) {
 
-    $scope.sendPostPerfilAmigo = function(id, tipoCadastro) {
+    $scope.sendPostPerfilAmigo = function(id, tipoCadastro, isRecomendacaoDada) {
     	if(id!=$rootScope.idUsuarioLogado){
 	    	$http({
 				url : 'friendsProfilePage',
@@ -15,6 +15,7 @@ flyk.controller("friendsProfilePageCtrl", function ($scope, $rootScope, $locatio
 					$rootScope.data.amigo = response.data.amigo;
 					$rootScope.data.amigo.statusAmizade = response.data.statusAmizade;
 					$rootScope.data.amigo.statusAmizadeDescricao = response.data.statusAmizadeDescricao;
+					$rootScope.data.amigo.isRecomendacaoDada = isRecomendacaoDada;
 					localStorage.setItem("dadosCliente", JSON.stringify($rootScope.data));
 					$location.path('/friendsProfilePage');
 				} else {
@@ -132,6 +133,30 @@ flyk.controller("friendsProfilePageCtrl", function ($scope, $rootScope, $locatio
 			});
 			
 		}
+	
+	$scope.sendPostDesfazerRecomendacaoPrestador = function(idAmigo) {
+		
+		$http({
+			url : 'desfazerRecomendacaoPrestador',
+			method : "POST",
+			data : {
+				'idUsuarioLogado': $rootScope.idUsuarioLogado,
+				'idAmigo' : idAmigo,
+			}
+		}).then(function(response) {
+			if (response.data.retorno != "erro") {
+				$rootScope.data.listaAmigos = response.data.listaAmigos;
+				$rootScope.data.numAmigos = response.data.numAmigos;
+				$rootScope.$emit("CallProfilePageMethod", {});
+				$location.path('/friendsPage');
+			} else {
+				$location.path('/friendsPage');
+			}
+		}, function(response) {
+	
+		});
+		
+	}
 	
 
     

@@ -56,7 +56,7 @@
 						<p>
 							<input type="submit" class="btn btn-primary"
 								value="Visualizar Perfil"
-								ng-click="sendPostPerfilAmigo(amizade.amigo.id, amizade.amigo.tipoCadastro)"
+								ng-click="sendPostPerfilAmigo(amizade.amigo.id, amizade.amigo.tipoCadastro, amizade.isRecomendacaoDada)"
 								ng-controller="friendsProfilePageCtrl" />
 						</p>
 						<div ng-if="amizade.isRecomendacaoDada" style="color: red"> 
@@ -90,3 +90,4 @@
 		</div>
 	</div>
 </body>
+

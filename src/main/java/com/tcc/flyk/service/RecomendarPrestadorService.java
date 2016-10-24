@@ -54,6 +54,41 @@ public class RecomendarPrestadorService {
 		return mensagemSucesso(listaRecomendacoesDadas);
 	}
 	
+	public String desfazerRecomendacaoPrestador(String idUsuarioLogado, String idPrestador) {
+		List<String> listaRecomendacoesDadas  =  cliDAO.consultarRecomendacoesDadasById(idUsuarioLogado);
+		List<String> listaRecomendacoesRecebidas = prestadorDAO.consultarRecomendacoesRecebidasById(idPrestador);
+		
+		if (listaRecomendacoesDadas != null) {
+			//se o prestador já não estiver na lista, é adicionado
+			if(listaRecomendacoesDadas.contains(idPrestador)){
+				if(listaRecomendacoesDadas.size()>1){
+					listaRecomendacoesDadas.remove(idPrestador);
+				}else{
+					listaRecomendacoesDadas = new ArrayList<String>();
+				}
+			}
+		}else{
+			listaRecomendacoesDadas = new ArrayList<String>();
+		}
+		cliDAO.atualizarRecomendacaoDadas(idUsuarioLogado, listaRecomendacoesDadas);
+		
+		if (listaRecomendacoesRecebidas != null) {
+			//se o prestador já não estiver na lista, é adicionado
+			if(listaRecomendacoesRecebidas.contains(idUsuarioLogado)){
+				if(listaRecomendacoesRecebidas.size()>1){
+					listaRecomendacoesRecebidas.remove(idUsuarioLogado);
+				}else{
+					listaRecomendacoesRecebidas = new ArrayList<String>();
+				}
+			}
+		}else{
+			listaRecomendacoesRecebidas = new ArrayList<String>();
+		}
+		prestadorDAO.atualizarRecomendacaoRecebidas(idPrestador, listaRecomendacoesRecebidas);
+		
+		return mensagemSucesso(listaRecomendacoesDadas);
+	}
+	
 	private String mensagemSucesso(List<String> listaRecomendacoes) {
 		JSONObject jObjt = new JSONObject();
 		jObjt.put("retorno", "sucesso");

@@ -38,7 +38,11 @@
 						<button
 							type="submit" class="btn btn-danger" value="Recomendar Prestador"
 							ng-click="sendPostRecomendarPrestador(data.amigo.id)"
-							ng-if="data.amigo.statusAmizade == 1 && data.amigo.tipoCadastro!=1"><span class="glyphicon glyphicon-heart"></span> Recomendar Prestador </button>
+							ng-if="data.amigo.statusAmizade == 1 && data.amigo.tipoCadastro!=1 && data.amigo.isRecomendacaoDada==false"><span class="glyphicon glyphicon-heart"></span> Recomendar Prestador </button>
+						<button
+							type="submit" class="btn btn-default" value="Desfazer Recomendação" style="background-color: black;color: white"
+							ng-click="sendPostDesfazerRecomendacaoPrestador(data.amigo.id)"
+							ng-if="data.amigo.statusAmizade == 1 && data.amigo.tipoCadastro!=1 && data.amigo.isRecomendacaoDada==true"><i class="glyphicon glyphicon glyphicon-thumbs-down"></i> Desfazer Recomendação </button>
 					</div>
 				</div>
 				<div class="panel-body">
