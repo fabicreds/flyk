@@ -726,8 +726,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		}
 	}
 
-	// ****************************CONSULTA TODOS OS DOCUMENTOS DO
-	// BANCO****************************//
+	// CONSULTA TODOS OS DOCUMENTOS DO BANCO
 	@Override
 	public void consultaTudo() {
 /*comentado por kira 20161011
@@ -1183,6 +1182,40 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 			return true;
 		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean atualizarPrestadoresReocomendadosById(String idCliente, List<String> idPrestadores){
+		try{
+			BasicDBList listaPrestadoresRecomendados = new BasicDBList();
+			BasicDBObject updateQuery = new BasicDBObject();
+
+			//Varre a lista de IDs de prestadores recomendados, inserindo um por um na lista
+			for (int i = 0; i < idPrestadores.size(); i++) {
+				BasicDBObject idPrestadorRecomendado = new BasicDBObject();
+				idPrestadorRecomendado.put("id_usuario_recomendado", idPrestadores.get(i));
+				
+				listaPrestadoresRecomendados.add(idPrestadorRecomendado);
+			}
+			
+			//Dados para alteração
+			updateQuery.append("$set", new BasicDBObject().append("recomendacoes_dadas", listaPrestadoresRecomendados));						
+					
+			//id do cliente que terá a lista atualizada
+			BasicDBObject searchQuery = new BasicDBObject();
+			searchQuery.append("_id", new ObjectId(idCliente));
+			
+			//realiza a alteração
+			super.conecta();
+			DBCollection collection = db.getCollection("FLYK");
+			collection.update(searchQuery, updateQuery);
+			super.desconecta();
+			
+			return true;
+		}catch(Exception e){
+			System.out.println(e.getStackTrace());
 			return false;
 		}
 	}

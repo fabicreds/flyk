@@ -18,6 +18,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.util.JSON;
 import com.tcc.flyk.entity.Amizade;
 import com.tcc.flyk.entity.Categoria;
+import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Compromisso;
 import com.tcc.flyk.entity.Conversa;
 import com.tcc.flyk.entity.Endereco;
@@ -352,6 +353,17 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				pessoa.setListaContratosServicosPrestados(listaContratosServicosPrestados);
 			}
 
+
+			// LISTA DE RECOMENDACOES RECEBIDAS
+			// Busca a lista de prestadores recomendados e coloca na telefonesBD
+			BasicDBList recomendacoesRecebidasBD = (BasicDBList) resultado.get("recomendacoes_recebidas");
+
+			if (recomendacoesRecebidasBD != null) {
+				// Varre a lista de recomendacoes recebidas
+				List<Cliente> recomendacoesRecebidas = dbUtil.montarDadosRecomendacoesRecebidas(recomendacoesRecebidasBD);
+				// Adiciona o array prestadores recomendados na pessoa
+				pessoa.setListaRecomendacoesRecebidas(recomendacoesRecebidas);
+			}
 		} else {
 			System.out.println("Consulta de clientes pelo id " + idPrestador + " nÃƒÂ£o encontrou valores.");
 			super.desconecta();
@@ -1207,4 +1219,72 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 
 		}
 
+	@Override
+	public boolean atualizarPrestadoresReocomendadosById(String idPrestadorRecomendador, List<String> idPrestadores){
+		try{
+			BasicDBList listaPrestadoresRecomendados = new BasicDBList();
+			BasicDBObject updateQuery = new BasicDBObject();
+
+			//Varre a lista de IDs de prestadores recomendados, inserindo um por um na lista
+			for (int i = 0; i < idPrestadores.size(); i++) {
+				BasicDBObject idPrestadorRecomendado = new BasicDBObject();
+				idPrestadorRecomendado.put("id_usuario_recomendado", idPrestadores.get(i));
+				
+				listaPrestadoresRecomendados.add(idPrestadorRecomendado);
+			}
+			
+			//Dados para alteração
+			updateQuery.append("$set", new BasicDBObject().append("recomendacoes_dadas", listaPrestadoresRecomendados));						
+					
+			//id do cliente que terá a lista atualizada
+			BasicDBObject searchQuery = new BasicDBObject();
+			searchQuery.append("_id", new ObjectId(idPrestadorRecomendador));
+			
+			//realiza a alteração
+			super.conecta();
+			DBCollection collection = db.getCollection("FLYK");
+			collection.update(searchQuery, updateQuery);
+			super.desconecta();
+			
+			return true;
+		}catch(Exception e){
+			System.out.println(e.getStackTrace());
+			return false;
+		}
+	}
+	
+
+	@Override
+	public boolean atualizarRecomendacoesRecebidasById(String idPrestador, List<String> idClientes){
+		try{
+			BasicDBList listaClientesRecomendadores = new BasicDBList();
+			BasicDBObject updateQuery = new BasicDBObject();
+
+			//Varre a lista de IDs de prestadores recomendados, inserindo um por um na lista
+			for (int i = 0; i < idClientes.size(); i++) {
+				BasicDBObject idClienteRecomendador = new BasicDBObject();
+				idClienteRecomendador.put("id_usuario_recomendador", idClientes.get(i));
+				
+				listaClientesRecomendadores.add(idClienteRecomendador);
+			}
+			
+			//Dados para alteração
+			updateQuery.append("$set", new BasicDBObject().append("recomendacoes_recebidas", listaClientesRecomendadores));						
+					
+			//id do cliente que terá a lista atualizada
+			BasicDBObject searchQuery = new BasicDBObject();
+			searchQuery.append("_id", new ObjectId(idPrestador));
+			
+			//realiza a alteração
+			super.conecta();
+			DBCollection collection = db.getCollection("FLYK");
+			collection.update(searchQuery, updateQuery);
+			super.desconecta();
+			
+			return true;
+		}catch(Exception e){
+			System.out.println(e.getStackTrace());
+			return false;
+		}
+	}
 }

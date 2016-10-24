@@ -36,4 +36,6 @@ public interface ClienteDAO {
 	public List<Compromisso> consultarListaServicosContratadosById(String id);
 	
 	public boolean atualizarListaServicosContratadosById(String idCliente, List<Compromisso> lista);
+	
+	public boolean atualizarPrestadoresReocomendadosById(String idCliente, List<String> idPrestadores);
 }

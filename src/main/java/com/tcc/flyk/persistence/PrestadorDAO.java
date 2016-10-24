@@ -25,4 +25,7 @@ public interface PrestadorDAO {
 
 	Prestador atualizaPrestador(String idPrestador, Prestador prestador);
 	
+	public boolean atualizarPrestadoresReocomendadosById(String idPrestadorRecomendador, List<String> idPrestadores);
+	
+	public boolean atualizarRecomendacoesRecebidasById(String idPrestador, List<String> idClientes);
 }

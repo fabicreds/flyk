@@ -311,6 +311,21 @@ public class DataBaseUtil {
 		return recomendacoesDadas;
 	}
 
+	public List<Cliente> montarDadosRecomendacoesRecebidas(BasicDBList recomendacoesRecebidasBD) {
+		List<Cliente> recomendacoesRecebidas = new ArrayList<Cliente>();
+		BasicDBObject[] lightArr = recomendacoesRecebidasBD.toArray(new BasicDBObject[0]);
+		for (BasicDBObject recomendacaoRecebidaDB : lightArr) {
+			// shows each item from the lights array
+			System.out.println("id_usuario_recomendador: " + recomendacaoRecebidaDB.get("id_usuario_recomendador"));
+
+			Cliente cliente = new Cliente();
+			cliente.setId(recomendacaoRecebidaDB.getString("id_usuario_recomendador"));
+
+			recomendacoesRecebidas.add(cliente);
+		}
+		return recomendacoesRecebidas;
+	}
+
 	public List<Conversa> montarDadosConversas(BasicDBList conversaDB) {
 		List<Conversa> mensagens = new ArrayList<Conversa>();
 		BasicDBObject[] lightArr = conversaDB.toArray(new BasicDBObject[0]);
