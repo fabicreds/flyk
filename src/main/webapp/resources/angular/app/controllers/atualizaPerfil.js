@@ -30,6 +30,8 @@ flyk
 							}
 							if ($rootScope.tipoUsuarioLogado == 3) {
 								$scope.prestador.type = "premium";
+								$scope.prestador.flag = true;
+
 							}
 						}
 						$scope.numServicos = $rootScope.data.numCategoriaServicosPrestados;
