@@ -143,12 +143,12 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 		try {
 
 			System.out.println("consultando todas as categorias");
+
 			super.conecta();
 			db.getCollection("FLYK");
 
 			final List<Categoria> retorno = new ArrayList<Categoria>();
 
-			
 			// Busca a categoria ativa com este nome
 			FindIterable<Document> iterable = super.mongoDatabase.getCollection("FLYK")
 					.find(new Document("status_categoria", "A"));

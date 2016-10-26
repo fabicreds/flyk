@@ -271,7 +271,7 @@
 														      <div class="radio">
 																	<label>
 																		<input type="radio" name="serviceType" value="premium"
-																		ng-model="prestador.type" ng-click="showPagModal()" /> Adquirir Premium
+																		ng-model="$root.prestador.type" ng-click="showPagModal()" /> Adquirir Premium
 																	</label><br />
 																</div>
 																

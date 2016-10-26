@@ -185,5 +185,14 @@ flyk.controller("cadastroCtrl", function($scope, $rootScope, $location, $http,
 			$scope.servicosSelecionados.push(servico);
 		}
 	}
+	
+	$scope.showPagModal = function () {
+
+
+          $scope.modal = $uibModal.open({
+            templateUrl: "pagamento.html",
+            controller: 'ModalInstanceCtrl'
+        });
+    } 
 
 });

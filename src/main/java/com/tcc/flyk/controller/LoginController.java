@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tcc.flyk.entity.form.EfetuarLoginForm;
+import com.tcc.flyk.persistence.banco;
 import com.tcc.flyk.service.EfetuarLoginService;
 import com.tcc.flyk.util.EfetuarLoginUtil;
 
@@ -26,6 +27,8 @@ public class LoginController {
 	@RequestMapping(value = "/efetuarLogin", method = RequestMethod.POST)
 	public @ResponseBody String efetuarLogin(@RequestBody String request) {
 		try {
+			//banco banco = new banco();
+			//banco.formataBanco();
 			EfetuarLoginForm form = util.convertJSONToForm(request);
 			String mensagem = "";
 			if (form != null) {

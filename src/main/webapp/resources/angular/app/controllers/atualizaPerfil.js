@@ -11,6 +11,8 @@ flyk
 					$scope.servicos = [];
 					
 					$scope.init = function() {
+						
+						
 						$rootScope.usuarioLogado = localStorage
 								.getItem("usuarioLogado");
 						$rootScope.tipoUsuarioLogado = localStorage
@@ -260,11 +262,12 @@ flyk
 				});
 
 
-flyk.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance) {
+flyk.controller('ModalInstanceCtrl', function ($rootScope, $uibModalInstance, $scope) {
 	
 
 	  $scope.cancel = function () {
 	    $uibModalInstance.dismiss('cancel');
+	    $rootScope.prestador.type = false;
 	    
 	  };
 	  

@@ -750,7 +750,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			// Busca campos de resultado
 			if (cursor.hasNext()) {
 				resultado = cursor.next();
-				System.out.println(resultado);
+				//System.out.println(resultado);
 				//System.out.println("************************");
 
 				// ID

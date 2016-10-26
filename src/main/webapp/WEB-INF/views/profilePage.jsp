@@ -1,3 +1,16 @@
+<style>
+  .full button {
+    background-color: red;
+    color: black;
+    border-radius: 100px;
+  }
+  .partially button span {
+    background-color: orange;
+    border-radius: 32px;
+    color: black;
+  }
+</style>
+
 <link href="https://fonts.googleapis.com/css?family=Amaranth"
 	rel="stylesheet">
 <body>
@@ -546,6 +559,26 @@
 												</div>
 												
 											</div>
+										</div>
+									</div>
+								</uib-tab>
+								
+								<uib-tab index="5" heading="Calendário" data-ng-init="datasCalendario()" ng-if="$root.data.listaContratosServicosPrestados!=null  && tipoUsuarioLogado!=1"> 
+									<br>
+									<div class="panel panel-default">
+										<div class="panel-body">
+											
+											    <div style="display:inline-block; min-height:290px;">
+											      <div uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></div>
+											    </div>
+											    
+											    <div ng-repeat="compromisso in $root.data.listaContratosServicosPrestados">
+											    
+											    {{compromisso.dataInicio}}
+											    {{eventsTest}}
+											    </div>
+											
+	
 										</div>
 									</div>
 								</uib-tab>

@@ -43,6 +43,7 @@ public class CadastroClienteController {
 	public String iniciarTelaCadastroCliente() {
 		return "cadastro";
 	}
+	
 
 	@RequestMapping(value = "/cadastroCliente", method = RequestMethod.POST)
 	public @ResponseBody String cadastrarNovoCliente(@RequestBody String JSONN) {

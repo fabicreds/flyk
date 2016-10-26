@@ -48,7 +48,7 @@ public class MongoDB {
 		System.out.println("CONSULTANDO DOCUMENTO PELO ID " + id);
 		this.conecta();
 		try {
-			DBCollection collection = db.getCollection("FLYK");
+			DBCollection collection = db.getCollection("FLKY");
 			BasicDBObject filtro = new BasicDBObject(new Document("_id", new ObjectId(id)));
 			DBCursor cursor = collection.find(filtro);
 			DBObject resultado;
