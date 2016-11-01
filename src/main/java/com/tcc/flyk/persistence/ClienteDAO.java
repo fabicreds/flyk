@@ -5,6 +5,7 @@ import java.util.List;
 import com.tcc.flyk.entity.Amizade;
 import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Compromisso;
+import com.tcc.flyk.entity.Conversa;
 import com.tcc.flyk.entity.Usuario;
 
 public interface ClienteDAO {
@@ -40,5 +41,9 @@ public interface ClienteDAO {
 	public List<String> consultarRecomendacoesDadasById(String id) ;
 	
 	public boolean atualizarRecomendacaoDadas(String idUsuario, List<String> listarecomendacoesDadas);
+	
+	public boolean atualizarListaConversa(String idUsuario, List<Conversa> listaConversa);
+	
+	public List<Conversa> consultarListaConversa(String idUsuario);
 }
 

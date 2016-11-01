@@ -1307,4 +1307,67 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 		return null;
 
 	}
+	
+
+	
+	@Override
+	public boolean atualizarListaConversa(String idUsuario, List<Conversa> listaConversa) {
+		try {
+			BasicDBObject updateQuery = new BasicDBObject();
+			BasicDBList listaConversaDB = new BasicDBList();
+			if (listaConversa != null && !listaConversa.isEmpty()) {
+				for (Conversa mensagem : listaConversa) {
+					BasicDBObject mensagemDB = new BasicDBObject();
+					if (mensagem != null) {
+						mensagemDB.put("id_usuario_conversa", mensagem.getIdUsuario());
+						mensagemDB.put("flagEnviadoOuRecebido", mensagem.getflagEnviadoRecebido());
+						mensagemDB.put("data_hora_mensagem", mensagem.getData());
+						mensagemDB.put("mensagem", mensagem.getMsg());
+					}
+
+					listaConversaDB.add(mensagemDB);
+				}
+				updateQuery.append("$set", new BasicDBObject().append("mensagens_de_conversa", listaConversaDB));
+			}else{
+				updateQuery.append("$unset", new BasicDBObject().append("mensagens_de_conversa", listaConversaDB));
+			}
+
+			super.conecta();
+			BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(idUsuario));
+
+			db.getCollection("FLYK").update(filtro, updateQuery);
+			super.desconecta();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+
+	@Override
+	public List<Conversa> consultarListaConversa(String idUsuario){
+		List<Conversa> listaConversa = new ArrayList<Conversa>();
+		
+		//Busca as conversas do usuário
+		super.conecta();
+		DBCollection collection = db.getCollection("FLYK");
+		BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(idUsuario));
+		BasicDBObject fieldObject = new BasicDBObject();
+		fieldObject.put("mensagens_de_conversa", 1);
+
+		DBCursor cursor = collection.find(filtro, fieldObject);
+		DBObject resultado;
+
+		// Busca campos de resultado
+		if (cursor.hasNext()) {
+			resultado = cursor.next();
+			BasicDBList mensagensDB = (BasicDBList) resultado.get("mensagens_de_conversa");
+			if (mensagensDB != null) {
+				listaConversa = dbUtil.montarDadosConversas(mensagensDB);
+			}
+		}
+		super.desconecta();
+
+		return listaConversa;
+	}
 }

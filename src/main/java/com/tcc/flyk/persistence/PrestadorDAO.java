@@ -3,6 +3,7 @@ package com.tcc.flyk.persistence;
 import java.util.List;
 
 import com.tcc.flyk.entity.Compromisso;
+import com.tcc.flyk.entity.Conversa;
 import com.tcc.flyk.entity.Prestador;
 import com.tcc.flyk.entity.Usuario;
 
@@ -30,4 +31,8 @@ public interface PrestadorDAO {
 	public boolean atualizarRecomendacaoRecebidas(String idUsuario, List<String> listarecomendacoesRecebidas);
 	
 	public List<String> consultarRecomendacoesRecebidasById(String id);
+
+	public boolean atualizarListaConversa(String idUsuario, List<Conversa> listaConversa);
+
+	public List<Conversa> consultarListaConversa(String idUsuario);
 }
