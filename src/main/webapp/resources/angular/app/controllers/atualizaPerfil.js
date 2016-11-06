@@ -7,11 +7,16 @@ flyk
 					$scope.cliente = {};
 					$scope.cliente.id = $rootScope.data.id;
 					$scope.categoriasServico = [];
-					$rootScope.servicosSelecionados = [];
+					$rootScope.servicos	 = $rootScope.data.listaCategoriaServicosPrestados;
+					
+					
+					
 					$scope.servicos = [];
+
+					$scope.cliente.imagem = $rootScope.data.fotoPerfil;
+
 					
 					$scope.init = function() {
-						
 						
 						$rootScope.usuarioLogado = localStorage
 								.getItem("usuarioLogado");
@@ -22,7 +27,7 @@ flyk
 						//$rootScope.data = JSON.parse(localStorage
 							//	.getItem("dadosCliente"));
 						console.log(localStorage.getItem("dadosCliente"));
-
+console.log($rootScope.tipoUsuarioLogado);
 						
 						if ($rootScope.tipoUsuarioLogado != 1) {
 							$scope.prestador = {};
@@ -43,6 +48,9 @@ flyk
 							$scope.servicos[i] = item.id;
 							i++
 						})
+						
+						console.log($rootScope.servicosSelecionados);
+						
 //						for(i=0;i<$rootScope.data.numCategoriaServicosPrestados;i++){
 //							$scope.servicos[i] = $rootScope.data.listaCategoriaServicosPrestados[i].id;
 //						}
@@ -138,10 +146,10 @@ flyk
 						
 						
 
-						if ($scope.prestador.flag = true)
+						if ($scope.prestador.flag)
 						{
 							$scope.data.tipoCadastro = 2;
-								if ($scope.prestador.type = "premium")
+								if ($scope.prestador.type == "premium")
 									$scope.data.tipoCadastro = 3;
 						
 						} else

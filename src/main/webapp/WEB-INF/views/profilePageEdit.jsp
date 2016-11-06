@@ -21,11 +21,10 @@
 
 
 								</form>
-								<b>Preview:</b><br /> <img ng-src="{{imageSrc}}"
+								<b>Preview:</b><br /> <img ng-src="{{cliente.imagem}}"
 									style="height: 200px; width: 200px; border-radius: 50%; border: none;" /><br />
 
-								<b>Progress:</b>
-								<progress value="{{progress}}"></progress>
+								
 
 							</div>
 
@@ -271,7 +270,7 @@
 														      <div class="radio">
 																	<label>
 																		<input type="radio" name="serviceType" value="premium"
-																		ng-model="$root.prestador.type" ng-click="showPagModal()" /> Adquirir Premium
+																		ng-model="prestador.type" ng-click="showPagModal()" /> Adquirir Premium
 																	</label><br />
 																</div>
 																
@@ -356,7 +355,7 @@
 						<div class="col-sm-1 control-label"></div>
 						<div class="col-sm-9" style="float: right;">
 							<input type="submit" class="btn btn-success" value="Finalizar"
-								ng-click="sendPostCadastroCliente()" /> <input type="reset"
+								 /> <input type="reset"
 								class="btn btn-default" value="Limpar"
 								ng-click="resetcadastroform()" />
 						</div>
