@@ -36,7 +36,7 @@ $provide.value("$locale", {
       "Augustus",
       "September",
       "Oktober",
-      "November",
+      "Novembro",
       "Desember"
     ],
     "SHORTDAY": [
@@ -73,7 +73,7 @@ $provide.value("$locale", {
       "Augustus",
       "September",
       "Oktober",
-      "November",
+      "Novembro",
       "Desember"
     ],
     "WEEKENDRANGE": [

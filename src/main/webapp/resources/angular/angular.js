@@ -20216,7 +20216,7 @@ function timeZoneGetter(date, formats, offset) {
 }
 
 function getFirstThursdayOfYear(year) {
-    // 0 = index of January
+    // 0 = index of Janeiro
     var dayOfWeekOnFirst = (new Date(year, 0, 1)).getDay();
     // 4 = index of Thursday (+1 to account for 1st = 5)
     // 11 = index of *next* Thursday (+1 account for 1st = 12)
@@ -20303,11 +20303,11 @@ var DATE_FORMATS_SPLIT = /((?:[^yMLdHhmsaZEwG']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+
  *   * `'yyyy'`: 4 digit representation of year (e.g. AD 1 => 0001, AD 2010 => 2010)
  *   * `'yy'`: 2 digit representation of year, padded (00-99). (e.g. AD 2001 => 01, AD 2010 => 10)
  *   * `'y'`: 1 digit representation of year, e.g. (AD 1 => 1, AD 199 => 199)
- *   * `'MMMM'`: Month in year (January-December)
+ *   * `'MMMM'`: Month in year (Janeiro-Dezembro)
  *   * `'MMM'`: Month in year (Jan-Dec)
  *   * `'MM'`: Month in year, padded (01-12)
  *   * `'M'`: Month in year (1-12)
- *   * `'LLLL'`: Stand-alone month in year (January-December)
+ *   * `'LLLL'`: Stand-alone month in year (Janeiro-Dezembro)
  *   * `'dd'`: Day in month, padded (01-31)
  *   * `'d'`: Day in month (1-31)
  *   * `'EEEE'`: Day in Week,(Sunday-Saturday)
@@ -20335,8 +20335,8 @@ var DATE_FORMATS_SPLIT = /((?:[^yMLdHhmsaZEwG']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+
  *     (e.g. Sep 3, 2010 12:05:08 PM)
  *   * `'short'`: equivalent to `'M/d/yy h:mm a'` for en_US  locale (e.g. 9/3/10 12:05 PM)
  *   * `'fullDate'`: equivalent to `'EEEE, MMMM d, y'` for en_US  locale
- *     (e.g. Friday, September 3, 2010)
- *   * `'longDate'`: equivalent to `'MMMM d, y'` for en_US  locale (e.g. September 3, 2010)
+ *     (e.g. Friday, Setembro 3, 2010)
+ *   * `'longDate'`: equivalent to `'MMMM d, y'` for en_US  locale (e.g. Setembro 3, 2010)
  *   * `'mediumDate'`: equivalent to `'MMM d, y'` for en_US  locale (e.g. Sep 3, 2010)
  *   * `'shortDate'`: equivalent to `'M/d/yy'` for en_US locale (e.g. 9/3/10)
  *   * `'mediumTime'`: equivalent to `'h:mm:ss a'` for en_US locale (e.g. 12:05:08 PM)
@@ -22332,7 +22332,7 @@ var inputType = {
    * Input with time validation and transformation. In browsers that do not yet support
    * the HTML5 time input, a text element will be used. In that case, the text must be entered in a valid ISO-8601
    * local time format (HH:mm:ss), for example: `14:57:00`. Model must be a Date object. This binding will always output a
-   * Date object to the model of January 1, 1970, or local date `new Date(1970, 0, 1, HH, mm, ss)`.
+   * Date object to the model of Janeiro 1, 1970, or local date `new Date(1970, 0, 1, HH, mm, ss)`.
    *
    * The model must always be a Date object, otherwise Angular will throw an error.
    * Invalid `Date` objects (dates whose `getTime()` is `NaN`) will be rendered as an empty string.
@@ -30743,13 +30743,13 @@ $provide.value("$locale", {
       "PM"
     ],
     "DAY": [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday"
+      "Domingo",
+      "Segunda",
+      "Terca",
+      "Quarta",
+      "Quinta",
+      "Sexta",
+      "Sabado"
     ],
     "ERANAMES": [
       "Before Christ",
@@ -30761,27 +30761,27 @@ $provide.value("$locale", {
     ],
     "FIRSTDAYOFWEEK": 6,
     "MONTH": [
-      "January",
-      "February",
-      "March",
-      "April",
+      "Janeiro",
+      "Fevereiro",
+      "Marco",
+      "Abril",
       "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December"
+      "Junho",
+      "Julho",
+      "Agosto",
+      "Setembro",
+      "Outubro",
+      "Novembro",
+      "Dezembro"
     ],
     "SHORTDAY": [
-      "Sun",
-      "Mon",
-      "Tue",
-      "Wed",
-      "Thu",
-      "Fri",
-      "Sat"
+      "Dom",
+      "Seg",
+      "Ter",
+      "Qua",
+      "Qui",
+      "Sex",
+      "Sab"
     ],
     "SHORTMONTH": [
       "Jan",
@@ -30798,18 +30798,18 @@ $provide.value("$locale", {
       "Dec"
     ],
     "STANDALONEMONTH": [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December"
+      "Janeiro",
+      "Fevereiro",
+      "Marco",
+      "Abril",
+      "Maio",
+      "Junho",
+      "Julho",
+      "Agosto",
+      "Setembro",
+      "Outubro",
+      "Novembro",
+      "Dezembro"
     ],
     "WEEKENDRANGE": [
       5,

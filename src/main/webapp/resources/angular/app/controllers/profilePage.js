@@ -1,5 +1,6 @@
-flyk.controller("profilePageCtrl", function ($scope, $rootScope, $location, $http, fileReader) {
+flyk.controller("profilePageCtrl", function ($scope, $rootScope, $location, $http, fileReader, $locale) {
 
+	
     $scope.showProfilePageEdit = function() {
     	$location.path('/profilePageEdit');
     }
@@ -25,6 +26,7 @@ flyk.controller("profilePageCtrl", function ($scope, $rootScope, $location, $htt
 					$rootScope.idUsuarioLogado = response.data.cliente.id;
 					$rootScope.data = response.data.cliente;
 					localStorage.setItem("dadosCliente", JSON.stringify($rootScope.data));
+					console.log(JSON.stringify($rootScope.data));
 					$location.path('/profilePage');
 					
 				} else {
@@ -54,6 +56,7 @@ flyk.controller("profilePageCtrl", function ($scope, $rootScope, $location, $htt
 					$rootScope.idUsuarioLogado = response.data.cliente.id;
 					$rootScope.data = response.data.cliente;
 					localStorage.setItem("dadosCliente", JSON.stringify($rootScope.data));
+					//console.log(JSON.stringify($rootScope.data));
 				} else {
 					$location.path('/profilePage');
 				}
@@ -63,10 +66,12 @@ flyk.controller("profilePageCtrl", function ($scope, $rootScope, $location, $htt
       });
 	 
 
+	
+	 
 		  $scope.options = {
 		    customClass: getDayClass,
 		    minDate: new Date(),
-		    showWeeks: true
+		    showWeeks: false
 		  };
 
 
@@ -85,20 +90,62 @@ flyk.controller("profilePageCtrl", function ($scope, $rootScope, $location, $htt
 		  
 		  
 		
-		  $scope.events = [
-		    {
-		      date: tomorrow,
-		      status: 'full'
-		    },
-		    {
-		      date: afterTomorrow,
-		      status: 'full'
-		    },
-		    {
-			      date: dateTest,
-			      status: 'full'
-			  }
-		  ];
+		  $scope.events = [];
+
+		  
+		 $scope.datasCalendario = function()
+		  {
+			 
+			$scope.datas = [];
+			  
+			  /*
+			   * Obtem todas as datas da listaContratosServicosPrestados e insere em scope.datas
+			   */
+			  
+			  angular.forEach($rootScope.data.listaContratosServicosPrestados, function(value, key) {
+			    	
+			        $scope.datas.push(value);
+			   });
+			    
+			   var i=0;
+			   $scope.eventsY= [];
+				
+			   
+			    for( i=0;i<$scope.datas.length;i++)
+			    {				  
+
+				    var dataIni = $scope.datas[i].dataInicio.substring(0, 10);
+	
+				    $scope.dataInicio =dataIni.replace(/[^0-9]+/g, "-");				    				    
+	
+				    /*
+					 * Formatando data para mm-dd-yyyy
+					 */
+				    $scope.dataParametro = $scope.dataInicio.substring(3, 6) + $scope.dataInicio.substring(0, 3).replace(/^0+/, '') + $scope.dataInicio.substring(6, 10);
+	
+	                console.log($scope.dataParametro);
+	
+	
+	
+				    var dataFormatada= new Date($scope.dataParametro);
+				    
+				    $scope.eventsY = [ {			
+				    	date : dataFormatada,
+				    	status : 'full'
+				    } ];
+				    		
+				    		
+				    		$scope.events = $scope.events.concat($scope.eventsY);
+				  
+			    }
+			    
+				
+
+			    console.log( $scope.events);
+			    
+
+		 
+		  }
 
 		  function getDayClass(data) {
 		    var date = data.date,
@@ -116,26 +163,6 @@ flyk.controller("profilePageCtrl", function ($scope, $rootScope, $location, $htt
 		    }
 
 		    return '';
-		  }
-		  
-		 $scope.datasCalendario = function()
-		  {
-		  for(var i=0;i<=$rootScope.data.listaContratosServicosPrestados.length;i++)
-			  {
-			  
-			  	$scope.dates = [];
-			  	$scope.date = new Date();
-			  	$scope.date = $rootScope.data.listaContratosServicosPrestados.dataInicio[i];
-			  	$scope.dates[i] = date;
-			  	
-			  	$scope.eventsTest[i] = [
-			 		       		    {
-			 		       		      date: $scope.dates[i],
-			 		       		      status: 'full'
-			 		       		    }
-			 		       		  ];
-			 		  }
-		 
 		  }
 		  
 		 

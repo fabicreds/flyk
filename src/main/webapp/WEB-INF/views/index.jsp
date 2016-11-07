@@ -23,6 +23,7 @@
 
 <script
 	src="${pageContext.request.contextPath}/resources/angular/angular.js"></script>
+	
 <script
 	src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
 <script src="https://cdn.jsdelivr.net/ngstorage/0.3.6/ngStorage.min.js"></script>
@@ -87,6 +88,7 @@
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/directives/fileReaderDirective.js"></script>
 <!--   <script src="//rawgithub.com/GoDisco/ngFacebook/master/ngFacebook.js"></script> -->
+
 
 </head>
 

@@ -177,7 +177,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				// Busca a lista de servicos prestador e coloca na servicosDB
 				BasicDBList servicosContratadosPrestadorDB = (BasicDBList) resultado.get("servicos_prestados");
 	
-				System.out.print(servicosContratadosPrestadorDB);
+				//System.out.print(servicosContratadosPrestadorDB);
 				if (servicosContratadosPrestadorDB != null) {
 					// Varre a lista de conversa, preenchendo o array mensagens
 					List<Compromisso> listaContratosServicosPrestados = dbUtil.montarDadosListaContratosServicosPrestados(servicosContratadosPrestadorDB);
@@ -213,6 +213,10 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 	
 	//Calcula a media de avaliações de todos os serviços que de fato receberam avaliação
 	private double calculaMediaDeEstrelas(List<Compromisso> lista){
+		
+		if (lista == null)
+			return 0;
+		
 		if (lista.size()>0){
 			int qtd = lista.size();
 			int qtdAvaliados = 0; //quantidade de serviços que foram avaliados pelo cliente

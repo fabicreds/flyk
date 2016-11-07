@@ -1,14 +1,71 @@
+
 <style>
   .full button {
-    background-color: red;
-    color: black;
-    border-radius: 100px;
+    background-color: #286090;
+    opacity: 1 !important;
+    color: white;
+    /*border-radius: 100px;*/
+    
   }
   .partially button span {
     background-color: orange;
     border-radius: 32px;
     color: black;
   }
+   div.ebcs-calendar {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px !important;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+    width: 100%;
+}
+
+   div.ebcs-calendar td {
+    }
+
+   
+     div.ebcs-calendar table {
+    width: 100%;
+}
+
+div.ebcs-calendar button{
+
+padding: 12px;
+border-color: rgba(139, 144, 146, 0.25); 
+
+
+
+}
+
+div.ebcs-calendar button,
+div.ebcs-calendar input,
+div.ebcs-calendar optgroup,
+div.ebcs-calendar select,
+div.ebcs-calendar textarea {
+    /*color: inherit;
+    font: inherit;
+    margin: 0;*/
+}
+       
+div.ebcs-calendar input[type="button"],
+div.ebcs-calendar input[type="submit"],
+div.ebcs-calendar input[type="reset"],
+div.ebcs-calendar > button {
+    align-items: flex-start;
+    text-align: center;
+    cursor: default;
+    color: buttontext;
+    padding: 2px 6px 3px;
+    border: 2px outset buttonface;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    background-color: buttonface;
+    box-sizing: border-box;
+}
 </style>
 
 <link href="https://fonts.googleapis.com/css?family=Amaranth"
@@ -568,10 +625,12 @@
 									<div class="panel panel-default">
 										<div class="panel-body">
 											
-											    <div style="display:inline-block; min-height:290px;">
+											    <!--   <div style="display:inline-block; min-height:290px;">
 											      <div uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></div>
+											    </div>-->
+											    	    <div style="display:inline-block; min-height:290px;" class="ebcs-calendar">
+											      <div uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"  ></div>
 											    </div>
-											    
 											    <div ng-repeat="compromisso in $root.data.listaContratosServicosPrestados">
 											    
 											    {{compromisso.dataInicio}}
