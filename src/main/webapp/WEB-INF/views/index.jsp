@@ -67,7 +67,9 @@
 	src="${pageContext.request.contextPath}/resources/angular/app/controllers/contratarServico.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/controllers/avaliarServico.js"></script>
-	<script
+<script
+	src="${pageContext.request.contextPath}/resources/angular/app/controllers/talkWithFriend.js"></script>
+<script
 	src="${pageContext.request.contextPath}/resources/angular/app/uploadFactory.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/directives/ngFileSelect.js"></script>
@@ -175,22 +177,22 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="#"> <span
+						<li class="link"><a ng-click="adminPage()" ng-controller="adminPageCtrl"> <span
 								class="glyphicon glyphicon-home"></span> <span class="text">HOME</span>
 						</a></li>
-						<li><a href="#"> <span class="glyphicon glyphicon-user"></span>
-								<span class="text">SOBRE NÓS</span>
-						</a></li>
-						<li><a href="#"> <span class="glyphicon glyphicon-search"></span>
-								<span class="text">COMO USAR</span>
-						</a></li>
-						<li id="linkadm"><a href="#"> <span
-								class="glyphicon glyphicon-heart-empty"></span> <span
-								class="text">ADMINISTRADOR</span>
-						</a></li>
-						<li><a ng-click="showFormLogin()"> <span
-								class="glyphicon glyphicon-envelope"></span> <span class="text">CONTATO</span>
-						</a></li>
+<!-- 						<li><a href="#"> <span class="glyphicon glyphicon-user"></span> -->
+<!-- 								<span class="text">SOBRE NÓS</span> -->
+<!-- 						</a></li> -->
+<!-- 						<li><a href="#"> <span class="glyphicon glyphicon-search"></span> -->
+<!-- 								<span class="text">COMO USAR</span> -->
+<!-- 						</a></li> -->
+<!-- 						<li id="linkadm"><a href="#"> <span -->
+<!-- 								class="glyphicon glyphicon-heart-empty"></span> <span -->
+<!-- 								class="text">ADMINISTRADOR</span> -->
+<!-- 						</a></li> -->
+<!-- 						<li><a ng-click="showFormLogin()"> <span -->
+<!-- 								class="glyphicon glyphicon-envelope"></span> <span class="text">CONTATO</span> -->
+<!-- 						</a></li> -->
 
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
@@ -248,6 +250,10 @@
 							ng-controller="servicosPrestadosCtrl"> <span
 								class="glyphicon glyphicon-wrench"></span> <span class="text">SERVIÇOS
 									PRESTADOS</span>
+						</a></li>
+						<li class="link" ><a ng-click="showTalkWithFriend()"
+							ng-controller="talkCtrl"> <span
+								class="glyphicon glyphicon-comment"></span> <span class="text">CHAT</span>
 						</a></li>
 
 					</ul>

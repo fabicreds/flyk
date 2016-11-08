@@ -320,7 +320,6 @@ public class DataBaseUtil {
 		BasicDBObject[] lightArr = conversaDB.toArray(new BasicDBObject[0]);
 		for (BasicDBObject mensagemDB : lightArr) {
 			// shows each item from the lights array
-			System.out.println("id_usuario_conversa" + mensagemDB.get("id_usuario_conversa"));
 
 			Conversa mensagem = new Conversa();
 

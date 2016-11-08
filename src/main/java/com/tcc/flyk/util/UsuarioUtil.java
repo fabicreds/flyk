@@ -30,6 +30,8 @@ public class UsuarioUtil {
 		}
 		if (usuario.getEmail() != null) {
 			jObjt.put("email", usuario.getEmail());
+			String[] email = usuario.getEmail().split("@");
+			jObjt.put("usuario",  email[0]);
 		}
 		if (usuario.getTipoCadastro() != null) {
 			jObjt.put("tipoCadastro", usuario.getTipoCadastro().getCodigo());
@@ -40,6 +42,9 @@ public class UsuarioUtil {
 			jObjt.put("btn", "Desativar");
 		} else {
 			jObjt.put("btn", "Ativar");
+		}
+		if (usuario.getFotoPerfil() != null) {
+			jObjt.put("fotoPerfil", usuario.getFotoPerfil());
 		}
 		return jObjt;
 	}

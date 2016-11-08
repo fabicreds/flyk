@@ -114,7 +114,7 @@ public class ClienteUtil {
 					listaPrestadoresRecomendadosJSON(cliente.getListaPrestadoresRecomendados()));
 		}
 		if (cliente.getlistaMensagensConversa() != null) {
-			jObjt.put("listaMensagensConversa", listaMensagensConversaJSON(cliente.getlistaMensagensConversa()));
+			jObjt.put("listaMensagensConversa", conversaUtil.listaMensagensConversaJSON(cliente.getlistaMensagensConversa()));
 		}
 		return jObjt;
 	}
@@ -144,18 +144,7 @@ public class ClienteUtil {
 		return jObjt;
 	}
 
-	public JSONObject listaMensagensConversaJSON(List<Conversa> listaMensagensConversa) {
-		JSONObject jObjt = new JSONObject();
-		if (listaMensagensConversa != null) {
-			int i = 0;
-			for (Conversa conversa : listaMensagensConversa) {
-				JSONObject jObjt1 = conversaUtil.toJSON(conversa);
-				jObjt.put("conversa" + i, jObjt1);
-				i++;
-			}
-		}
-		return jObjt;
-	}
+
 
 	public JSONObject listaServicosContratadosJSON(List<Compromisso> listaServicosContratados) {
 		JSONObject jObjt = new JSONObject();

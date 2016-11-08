@@ -11,7 +11,7 @@
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
-   <div class="row" data-ng-init="init()">
+   <div class="row  center-block container" data-ng-init="init()">
       <!--<div class="row"> -->
       <div class="col-sm-6">
          <form class="form-horizontal" name="inactivateForm" novalidate role="form" ng-submit="pesquisar()" ng-controller="adminPageCtrl">
@@ -126,7 +126,7 @@
       </div>
       </fieldset>
    </div>
-   <div class="row">
+   <div class="row  center-block container" data-ng-init="init()">
       <div class="col-sm-6">
          <form class="form-horizontal" name="serviceForm" novalidate role="form" ng-submit="sendPostServices()">
             <fieldset>

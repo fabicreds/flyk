@@ -1,5 +1,10 @@
 flyk.controller("userPageInfosCtrl", function ($scope, $rootScope, $location, $http) {
 	
+	$scope.init = function(){
+		$rootScope.usuarioLogado = localStorage.getItem("usuarioLogado");
+		$rootScope.tipoUsuarioLogado = localStorage.getItem("tipoUsuarioLogado");
+		$rootScope.idUsuarioLogado = localStorage.getItem("idUsuarioLogado");
+	}
 	
 	$scope.inativar = function(){
 		$http({

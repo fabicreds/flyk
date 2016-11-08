@@ -357,7 +357,7 @@
 							<input type="submit" class="btn btn-success" value="Finalizar"
 								 /> <input type="reset"
 								class="btn btn-default" value="Limpar"
-								ng-click="resetcadastroform()" />
+								 />
 						</div>
 					</div>
 					

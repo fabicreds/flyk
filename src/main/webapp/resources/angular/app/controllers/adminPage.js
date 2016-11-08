@@ -144,7 +144,9 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
             console.log();
             $scope.message = response;
         });
-		
+		$rootScope.usuarioLogado = localStorage.getItem("usuarioLogado");
+		$rootScope.tipoUsuarioLogado = localStorage.getItem("tipoUsuarioLogado");
+		$rootScope.idUsuarioLogado = localStorage.getItem("idUsuarioLogado");
 	}
 
 
@@ -187,6 +189,10 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 	{
 		this.edit = !this.edit;
 		this.add = !this.add;
+	}
+	
+	$scope.adminPage = function(){
+		$location.path('/adminPage');
 	}
 	
 	

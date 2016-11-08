@@ -58,6 +58,10 @@ flyk.controller("loginPageCtrl", function($rootScope, $scope, $location, $http, 
     $scope.logOff = function(){
     	$rootScope.usuarioLogado = "";
 		$rootScope.tipoUsuarioLogado = "";
+		$rootScope.idUsuarioLogado = "";
+		localStorage.setItem("usuarioLogado", "");
+		localStorage.setItem("tipoUsuarioLogado", "");
+		localStorage.setItem("idUsuarioLogado", "");
 		$location.path('/home');
     }
    

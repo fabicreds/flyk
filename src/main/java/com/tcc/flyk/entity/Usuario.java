@@ -17,6 +17,8 @@ public class Usuario {
 	private String senha;
 
 	private boolean ativo;
+	
+	private String fotoPerfil;
 
 	public String getNome() {
 		return nome;
@@ -72,6 +74,14 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getFotoPerfil() {
+		return fotoPerfil;
+	}
+
+	public void setFotoPerfil(String fotoPerfil) {
+		this.fotoPerfil = fotoPerfil;
 	}
 
 	

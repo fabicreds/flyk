@@ -45,5 +45,8 @@ public interface ClienteDAO {
 	public boolean atualizarListaConversa(String idUsuario, List<Conversa> listaConversa);
 	
 	public List<Conversa> consultarListaConversa(String idUsuario);
+	
+	public List<Conversa> consultarListaConversaAmigo(String idUsuario, String idAmigo);
+	
 }
 

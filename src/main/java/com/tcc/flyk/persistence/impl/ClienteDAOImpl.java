@@ -1,6 +1,7 @@
 package com.tcc.flyk.persistence.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.bson.Document;
@@ -504,17 +505,9 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				} else {
 					user.setAtivo(false);
 				}
-				/*************************
-				 * MENSAGENS DE TESTE, REMOVA CASO QUERIA, MAS Nï¿½O Dï¿½ COMMIT
-				 * PLEASE
-				 **********************/
-				//System.out.println("**************");
-				//System.out.println(user.getNome());
-				//System.out.println(user.getId());
-				//System.out.println(user.getSenha());
-				//System.out.println(user.getTipoCadastro());
-				//System.out.println("**************");
-
+				if (resultado.get("foto") != null) {
+					user.setFotoPerfil(String.valueOf(resultado.get("foto")));
+				}
 			} else {
 				System.out.println("Consulta de cliente pelo email " + email + " nï¿½o encontrou valores.");
 				super.desconecta();
@@ -1270,6 +1263,64 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 
 		return listaConversa;
 	}
+	
+	@Override
+	public List<Conversa> consultarListaConversaAmigo(String idUsuario, String idAmigo){
+		List<Conversa> listaConversa = new ArrayList<Conversa>();
+		
+		//Busca as conversas do usuário
+		super.conecta();
+		DBCollection collection = db.getCollection("FLYK");
+		
+		List<BasicDBObject> pipeline = new ArrayList<BasicDBObject>();
+		/**
+		 *  db.FLYK.aggregate(  [ { $unwind: '$mensagens_de_conversa' } ,  
+								 { $match: { email: "teste" , "mensagens_de_conversa.id_usuario_conversa" : "57e19276dbd536224cf0ea0e"} } , 
+								 { $sort: { "mensagens_de_conversa.data_hora_mensagem":1} },  
+								 { $project : { "_id": 1, "mensagens_de_conversa": 1}}  
+								])
+		 */
+		BasicDBObject unwind = new BasicDBObject("$unwind", "$mensagens_de_conversa");
+		BasicDBObject match = new BasicDBObject("$match", new BasicDBObject("_id", new ObjectId(idUsuario)).append("mensagens_de_conversa.id_usuario_conversa", idAmigo) );
+		BasicDBObject sort = new BasicDBObject("$sort", new BasicDBObject("mensagens_de_conversa.data_hora_mensagem", -1) );
+		BasicDBObject project = new BasicDBObject("$project", new BasicDBObject("mensagens_de_conversa", 1));
+
+		pipeline.add(unwind);
+		pipeline.add(match);
+		pipeline.add(sort);
+		pipeline.add(project);
+		
+		Iterable<DBObject> resultados= collection.aggregate(pipeline).results();
+
+		for(DBObject mensagemDB:resultados){
+			DBObject conversaDB = (DBObject) mensagemDB.get("mensagens_de_conversa");
+			Conversa mensagem = new Conversa();
+
+			// flag enviado ou recebido
+			mensagem.setflagEnviadoRecebido(String.valueOf(conversaDB.get("flagEnviadoOuRecebido")));
+
+			// id
+			mensagem.setidUsuario(String.valueOf(conversaDB.get("id_usuario_conversa")));
+
+			// data_hora_mensagem
+			if (conversaDB.get("data_hora_mensagem") != null) {
+				mensagem.setData((Date) conversaDB.get("data_hora_mensagem"));
+			}
+
+			// mensagem
+			if (conversaDB.get("mensagem") != null) {
+				mensagem.setMsg(conversaDB.get("mensagem").toString());
+			}
+
+			listaConversa.add(mensagem);
+		}
+		
+
+		super.desconecta();
+
+		return listaConversa;
+	}
+	
 	
 	@Override
 	public List<String> consultarRecomendacoesDadasById(String id) {
