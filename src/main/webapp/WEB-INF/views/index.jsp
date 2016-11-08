@@ -125,7 +125,7 @@
 						<li><a href="#"> <span class="glyphicon glyphicon-search"></span>
 								<span class="text">COMO USAR</span>
 						</a></li>
-						<li><a href="#"> <span
+						<li><a ng-click="showClientsPage()"> <span
 								class="glyphicon glyphicon-heart-empty"></span> <span
 								class="text">CLIENTES</span>
 						</a></li>

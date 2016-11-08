@@ -77,6 +77,9 @@ flyk.config(function($routeProvider) {
 		templateUrl : "avaliarCliente.html",
 		controller : "avaliarServicoCtrl"
 			
+	}).when("/clientes", {
+		templateUrl : "clientes.html"
+			
 	}).otherwise({
 		redirectTo : "/home"
 	});
@@ -123,6 +126,11 @@ flyk.controller("flykCtrl", function($rootScope, $scope, $location, $http,
 		$location.path('/adminPage');
 	};
 
+	
+	$scope.showClientsPage = function() {
+		$location.path('/clientes');
+	};
+	
 
 	
 });

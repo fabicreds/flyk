@@ -32,4 +32,10 @@ public class InicioController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/clientes", method = RequestMethod.GET)
+	public String telaClientes() {
+
+		return "clientes";
+	}
+	
 }

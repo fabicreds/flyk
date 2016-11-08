@@ -633,8 +633,7 @@ div.ebcs-calendar > button {
 											    </div>
 											    <div ng-repeat="compromisso in $root.data.listaContratosServicosPrestados">
 											    
-											    {{compromisso.dataInicio}}
-											    {{eventsTest}}
+											    
 											    </div>
 											
 	
