@@ -40,7 +40,7 @@ public class SearchService {
 	 * Busca por cliente - parametro Nome
 	 * Busca por servico - parametro Lista de categorias, nomePrestador
 	 */
-	
+	//yasmin não usa
 	public JSONObject efetuaBusca(List<String> idCategorias, int qtdMinimaEstrelas, String nomePrestador) {
 		
 		JSONObject jsonListaCli = new JSONObject();
@@ -68,6 +68,7 @@ public class SearchService {
 	}
 	
 
+	//Efetua busca de cliente
 	public JSONObject efetuaBusca(String chaveBusca) {
 		/*
 		 * COMENTAR BEM O METODO ABAIXO
@@ -153,11 +154,8 @@ public class SearchService {
 		return jsonListaCli.put("listaClientes", jsonCli);
 
 	}
-	
-	public JSONObject buscaServico(List<String> idCategorias, int qtdMinimaEstrelas, String nomePrestador, String cidadeDoCliente){
-		
-		JSONObject JSONPrestadores = new JSONObject();
-		JSONObject listaJSONPrestadores = new JSONObject();
+
+	public List<Prestador> buscaServico(List<String> idCategorias, int qtdMinimaEstrelas, String nomePrestador, String cidadeDoCliente){
 		List<Prestador> prestadores = new ArrayList<Prestador>();
 		List<Prestador> prestadores1 = new ArrayList<Prestador>();//1° Prestadores premium da mesma cidade do cliente
 		List<Prestador> prestadores2 = new ArrayList<Prestador>();//2° Prestadores normais da mesma cidade do cliente
@@ -193,6 +191,11 @@ public class SearchService {
 			}
 		}
 
+		//Ordena cada vetor por media de estrelas descrescente
+		ordenaPrestadoresPorMediaDeEstrelas(prestadores1);
+		ordenaPrestadoresPorMediaDeEstrelas(prestadores2);
+		ordenaPrestadoresPorMediaDeEstrelas(prestadores3);
+		ordenaPrestadoresPorMediaDeEstrelas(prestadores4);
 		
 		//Depois de preencher todas as listas com a devida prioridade, preenche a lista resultado na ordem correta(pronta para exibir na tela)
 		//1° Prestadores premium da mesma cidade do cliente
@@ -211,20 +214,49 @@ public class SearchService {
 		for(int i=0;i<prestadores4.size();i++){
 			resultado.add(prestadores4.get(i));
 		}
-		//return prestadores;
+		return prestadores;
+	}
+	
+
+	public void ordenaPrestadoresPorMediaDeEstrelas(List<Prestador> lista){
+		int tamanho = lista.size();
+		String[] listaID = new String[tamanho];
+		Double[] listaMedia = new Double[tamanho];// = new ArrayList<String>();
 		
-		for (int i = 0; i < prestadores.size(); i++) {
-			Prestador prestador = new Prestador();
-			prestador = prestadores.get(i);
-			profileService.buscarListaServicos(prestador);
-			
-			JSONPrestadores.put("prestador" + i, pUtil.toJSON(prestador));
+		//Preenche as listas de ID e Medias de estrelas
+		for(int i=0;i<tamanho;i++){
+			//listaID[i] =  new String();
+			listaID[i] = lista.get(i).getId();
+			//listaMedia[i] = new Double(lista.get(i).getMediaDeEstrelas());
+			listaMedia[i] = lista.get(i).getMediaDeEstrelas();
 		}
 		
+		//Faz o sort menos rápido do mundo
+		for(int i=0;i<tamanho-1;i++){
+			String idAtual;
+			Double mediaAtual;
+			idAtual = listaID[i];
+			mediaAtual = listaMedia[i];
+			for(int j=0;j<tamanho-1;j++){
+				if(listaMedia[j]<listaMedia[j+1]){
+					String idAux = listaID[j+1];
+					Double mediaAux = listaMedia[j+1];
+					listaID[j+1] = listaID[j];
+					listaMedia[j+1] = listaMedia[j];
+					listaID[j] = idAux;
+					listaMedia[j] = mediaAux;
+					
+					
+				}
+			}
+		}
 		
-		return listaJSONPrestadores.put("listaClientes", JSONPrestadores);
+		//Preenche a lista novamente buscando os prestadores por ID
+		lista.clear();
+		for(int i=0;i<tamanho;i++){
+			Prestador prestador = prestadorDAO.consultaPrestadorPorId(listaID[i]);
+			lista.add(prestador);
+		}
 	}
-
-
 
 }

@@ -18,6 +18,8 @@ public class Prestador extends Cliente{
 	
 	// se o perfil for PREMIUM, peso na busca deve ser maior para perfil ficar em destaque
 	private int pesoBusca;
+	
+	private double mediaDeEstrelas;
 
 	public String getCnpj() {
 		return cnpj;
@@ -59,12 +61,19 @@ public class Prestador extends Cliente{
 		this.pesoBusca = pesoBusca;
 	}
 
-
 	public List<String> getListaRecomendacoesRecebidas() {
 		return listaRecomendacoesRecebidas;
 	}
 
 	public void setListaRecomendacoesRecebidas(List<String> listaRecomendacoesRecebidas) {
 		this.listaRecomendacoesRecebidas = listaRecomendacoesRecebidas;
+	}
+
+	public Double getMediaDeEstrelas() {
+		return mediaDeEstrelas;
+	}
+
+	public void setMediaDeEstrelas(Double mediaDeEstrelas) {
+		this.mediaDeEstrelas = mediaDeEstrelas;
 	}
 }

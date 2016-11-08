@@ -153,6 +153,11 @@ public class PrestadorService {
 			}
 		}
 
+		//Ordena cada vetor por media de estrelas descrescente
+		ordenaPrestadoresPorMediaDeEstrelas(prestadores1);
+		ordenaPrestadoresPorMediaDeEstrelas(prestadores2);
+		ordenaPrestadoresPorMediaDeEstrelas(prestadores3);
+		ordenaPrestadoresPorMediaDeEstrelas(prestadores4);
 		
 		//Depois de preencher todas as listas com a devida prioridade, preenche a lista resultado na ordem correta(pronta para exibir na tela)
 		//1° Prestadores premium da mesma cidade do cliente
@@ -174,4 +179,44 @@ public class PrestadorService {
 		return prestadores;
 	}
 	
+	public void ordenaPrestadoresPorMediaDeEstrelas(List<Prestador> lista){
+		int tamanho = lista.size();
+		String[] listaID = new String[tamanho];
+		Double[] listaMedia = new Double[tamanho];// = new ArrayList<String>();
+		
+		//Preenche as listas de ID e Medias de estrelas
+		for(int i=0;i<tamanho;i++){
+			//listaID[i] =  new String();
+			listaID[i] = lista.get(i).getId();
+			//listaMedia[i] = new Double(lista.get(i).getMediaDeEstrelas());
+			listaMedia[i] = lista.get(i).getMediaDeEstrelas();
+		}
+		
+		//Faz o sort menos rápido do mundo
+		for(int i=0;i<tamanho-1;i++){
+			String idAtual;
+			Double mediaAtual;
+			idAtual = listaID[i];
+			mediaAtual = listaMedia[i];
+			for(int j=0;j<tamanho-1;j++){
+				if(listaMedia[j]<listaMedia[j+1]){
+					String idAux = listaID[j+1];
+					Double mediaAux = listaMedia[j+1];
+					listaID[j+1] = listaID[j];
+					listaMedia[j+1] = listaMedia[j];
+					listaID[j] = idAux;
+					listaMedia[j] = mediaAux;
+					
+					
+				}
+			}
+		}
+		
+		//Preenche a lista novamente buscando os prestadores por ID
+		lista.clear();
+		for(int i=0;i<tamanho;i++){
+			Prestador prestador = prestadorDAO.consultaPrestadorPorId(listaID[i]);
+			lista.add(prestador);
+		}
+	}
 }
