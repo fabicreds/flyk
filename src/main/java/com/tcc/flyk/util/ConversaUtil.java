@@ -3,6 +3,7 @@ package com.tcc.flyk.util;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
@@ -30,13 +31,14 @@ public class ConversaUtil {
 		return jObjt;
 	}
 
-	public JSONObject listaMensagensConversaJSON(List<Conversa> listaMensagensConversa) {
-		JSONObject jObjt = new JSONObject();
+	public JSONArray listaMensagensConversaJSON(List<Conversa> listaMensagensConversa) {
+		JSONArray jObjt = new JSONArray();
 		if (listaMensagensConversa != null) {
 			int i = 0;
 			for (Conversa conversa : listaMensagensConversa) {
 				JSONObject jObjt1 = toJSON(conversa);
-				jObjt.put("conversa" + i, jObjt1);
+				jObjt1.put("conversa", i);
+				jObjt.put(jObjt1);
 				i++;
 			}
 		}
