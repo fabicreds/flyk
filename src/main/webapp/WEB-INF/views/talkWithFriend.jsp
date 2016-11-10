@@ -51,7 +51,7 @@ h2 {
 					</div>
 				</div>
 				<div ng-if="$root.data.chat.listaConversa!=null && $root.data.chat.numMensagens!=0">
-				<div  class="col-md-12"  ng-style="{'height': '400px', 'overflow-y': (parentScrollable && 'scroll')}">
+				<div  class="col-md-12"  ng-style="{'height': '400px', 'overflow-y': (parentScrollable && 'scroll')}" id="div-chat">
 				<div ng-repeat="conversa in $root.data.chat.listaConversa | orderBy:'conversa':true " style="position:relative ;">
 					<div ng-if="conversa.flagEnviadoOuRecebido=='R'"
 						style="text-align: left ;">
@@ -79,13 +79,18 @@ h2 {
 						<br>
 						<textarea rows="3" id="nova_mensagem" name="nova_mensagem"
 							class="form-control" ng-model="$root.data.nova_mensagem"
-							placeholder="Escreva uma mensagem..."></textarea>
+							placeholder="Escreva uma mensagem..." ng-keypress="mostrarConversaEnter($event)"></textarea>
+						<div class="checkbox form-group" style="text-align: right;color: grey">
+							<label> <input type="checkbox" name="sendWithEnter" ng-change="changeSendWithEnter()"
+								value="sendWithEnter" ng-model="$root.data.chat.sendWithEnter" /> Clicar Enter para Enviar
+							</label><br />
+						</div>
 					</div>
 					<div class="col-md-1" ng-click="enviarNovaMensagem()" style="height: 80px;vertical-align: middle; ">
 						<br>
 						<button class="btn btn-success">Enviar</button>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-10">
 					<font color="red">{{mensagemErro}}</font>
 					</div>
 				</div>

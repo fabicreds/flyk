@@ -1,6 +1,14 @@
 flyk.controller("talkCtrl", function($scope, $rootScope, $location,
-		$http, fileReader) {
+		$http, fileReader, $interval, $anchorScroll) {
+	
 	$scope.parentScrollable = true;
+	$interval(callAtInterval, 3000);
+	
+	function callAtInterval() {
+	    if($rootScope.data.chat !=null && $rootScope.data.chat.amigo !=null && $rootScope.data.chat.amigo != ''){
+	    	$scope.mostrarConversa($rootScope.data.chat.amigo);
+	    }
+	}
 	
 	$scope.init = function () {
 		
@@ -13,6 +21,7 @@ flyk.controller("talkCtrl", function($scope, $rootScope, $location,
 		if($rootScope.data.chat.amigo!=null && $rootScope.data.chat.amigo!= ''){
 			$scope.mostrarConversa($rootScope.data.chat.amigo);
 		}
+		$rootScope.data.chat.sendWithEnter = Boolean(localStorage.getItem("sendWithEnter")=="true");
     }
 	
 	$scope.showTalkWithFriend = function (){
@@ -20,6 +29,14 @@ flyk.controller("talkCtrl", function($scope, $rootScope, $location,
 		$rootScope.data.chat.amigo = '';
 		localStorage.setItem("chat", $rootScope.data.chat.amigo);
 		$location.path('/talkWithFriend');
+	}
+	$scope.mostrarConversaEnter = function(keyEvent){
+		if (keyEvent.which == 13){
+			if($rootScope.data.chat.sendWithEnter && $rootScope.data.nova_mensagem!=null && $rootScope.data.nova_mensagem != ''){
+				$scope.enviarNovaMensagem();
+			}
+		}
+		
 	}
 	
 	$scope.mostrarConversa = function(idAmigo){
@@ -45,6 +62,8 @@ flyk.controller("talkCtrl", function($scope, $rootScope, $location,
 		}, function(response) {
 
 		});
+//		var scroller = document.getElementById("div-chat");
+//	    scroller.scrollTop = 100000000;
 	}
 	
 	$scope.enviarNovaMensagem = function(){
@@ -74,5 +93,9 @@ flyk.controller("talkCtrl", function($scope, $rootScope, $location,
 	}else{
 		$scope.mensagemErro = "Faltando Dados para o Envio";
 	}
+	}
+	
+	$scope.changeSendWithEnter = function(){
+		localStorage.setItem("sendWithEnter", $rootScope.data.chat.sendWithEnter);
 	}
 });
