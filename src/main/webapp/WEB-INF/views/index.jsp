@@ -41,6 +41,7 @@
 	src="${pageContext.request.contextPath}/resources/angular/app/app.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/controllers/cadastro.js"></script>
+
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/controllers/adminPage.js"></script>
 <script

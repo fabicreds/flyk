@@ -28,8 +28,7 @@
 					<select class="form-control" ng-model="campotipoBusca"
 						ng-options="item as item.label for item in tipoBusca">
 
-					</select> 
-					<select class="form-control" ng-model="servicos"
+					</select> <select class="form-control" ng-model="servicos"
 						ng-options="item.id as item.nome for item in categoriasServico">
 					</select>
 					<div class="form-group">
@@ -63,26 +62,33 @@
 				</header>
 
 				<div class="w3-container">
-					<p ng-if="resultado.apelido == null"> - </p>
-					<p ng-if="resultado.apelido != null"> {{resultado.apelido}}</p>
+					<p ng-if="resultado.apelido == null">-</p>
+					<p ng-if="resultado.apelido != null">{{resultado.apelido}}</p>
 					<hr>
 					{{resultado.telefone}} <img ng-src={{resultado.fotoPerfil}}
 						alt="Avatar" class="w3-left w3-circle"
 						style="height: 90px; width: 90px; margin-right: 6px;">
-					<p>{{resultado.endereco.cidade}}</p>
-					
+					<p style="margin-bottom: 10px">{{resultado.endereco.cidade}}</p>
+
 					<p>{{resultado.perfil}}</p>
-					<div ng-repeat="categoria in resultado.listaCategoriaServicosPrestados track by $index ">
-						<p>{{categoria.nome}}</p>
-					</div>
+
 				</div>
-				
-				<button class="w3-btn-block w3-teal"
-					ng-click="sendPostPerfilAmigo(resultado.id, resultado.tipoCadastro)"
-					ng-controller="friendsProfilePageCtrl">Ver perfil</button>
+
+
+				<div
+					ng-repeat="categoria in resultado.listaCategoriaServicosPrestados track by $index ">
+					<ul class="w3-ul">
+						<li>{{categoria.nome}}</li>
+					</ul>
+				</div>
 			</div>
+
+			<button class="w3-btn-block w3-teal"
+				ng-click="sendPostPerfilAmigo(resultado.id, resultado.tipoCadastro)"
+				ng-controller="friendsProfilePageCtrl">Ver perfil</button>
 		</div>
-		
+	</div>
+
 	</div>
 
 

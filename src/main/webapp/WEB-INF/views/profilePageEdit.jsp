@@ -141,7 +141,7 @@
 									<div class="col-sm-2">
 										<select class="form-control"
 											ng-options="item as item.label for item in operadoras track by operadoras.id"
-											selected="telefone.operadora" ng-model="telefone.operadora"></select>
+											 ng-model="telefone.operadora" ng-selected="item==$rootScope.data.listaTelefone.telefone0.operadora"></select>
 									</div>
 									<div class="col-sm-2">
 										<select class="form-control"
@@ -294,9 +294,10 @@
 									</div>	
 									</uib-tab> 
 									
-									<uib-tab ng-hide="!prestador.flag" index="1"
-										heading="Serviços" data-ng-init="carregaCategorias()">
-
+									 <uib-tab ng-hide="!prestador.flag" index="1"
+										heading="Serviços" >
+										
+										
 									<div class="panel panel-default">
 										<div class="panel-body">
 
@@ -331,7 +332,7 @@
 																	<label for="serviços" class="col-sm-4 control-label">
 																		Categoria do Serviço </label>
 																	<div class=" col-sm-4">
-																		<select class="form-control" ng-model="servicos[i.id]"
+																		<select class="form-control" ng-model="servicos[i.id]" ng-click="carregaCategorias()"
 																			ng-options="item.id as item.nome for item in categoriasServico">
 																		</select>
 																	</div>

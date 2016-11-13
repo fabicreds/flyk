@@ -69,7 +69,7 @@ public class AtualizarPerfilController {
 					
 					
 
-					System.out.println("dadosCli enviado ao service eh " + dadosCli.toString());
+					//System.out.println("dadosCli enviado ao service eh " + dadosCli.toString());
 					prest = atualizaPerfilService.atualizaPerfilPrestador(dadosCli.getString("id"), dadosCli);
 					
 					

@@ -276,6 +276,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 			// ENDEREï¿½O
 			Endereco enderecoPessoa = dbUtil.montarDadosEndereco(resultado);
 			pessoa.setEndereco(enderecoPessoa);
+			
 
 			// PRIVACIDADE
 			Privacidade privacidade = dbUtil.montarDadosPrivacidade(resultado);

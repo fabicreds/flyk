@@ -1,7 +1,5 @@
-flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,
-		$http, fileReader) {
-	$scope.cidade = "Campinas";
-
+flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, fileReader) {
+	
 	
 	$scope.tipoBusca = [ {
 		id : 1,
@@ -19,9 +17,10 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,
 		$rootScope.usuarioLogado = localStorage.getItem("usuarioLogado");
 		$rootScope.tipoUsuarioLogado = localStorage.getItem("tipoUsuarioLogado");
 		$rootScope.idUsuarioLogado = localStorage.getItem("idUsuarioLogado");
-		$rootScope.cliente = localStorage.getItem("dadosCliente");
-		console.log(	$rootScope.cliente);	
-		$scope.cidade = "Campinas";
+		$rootScope.cliente = angular.fromJson(localStorage.getItem("dadosCliente"));
+		
+		
+		$scope.cidade = $rootScope.cliente.endereco.cidade;
     }
 
 	$scope.showSearchPage = function() {
@@ -31,6 +30,7 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,
 	
 	$scope.carregaCategorias = function() {
 		
+	//	console.log(localStorage.getItem("dadosCliente"));
 		
 		$http({
 			url : 'consultaCategoriaCadastradasCadastro',
@@ -78,7 +78,7 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,
                 'tipoPesquisa' : $scope.campotipoBusca,
                 'stringBusca' : $scope.valorBusca,
                 'idCateg': $scope.servicos,
-                'cidade': "Campinas",
+                'cidade': $scope.cidade,
                 'idUsuarioLogado': $rootScope.idUsuarioLogado
                 
 
