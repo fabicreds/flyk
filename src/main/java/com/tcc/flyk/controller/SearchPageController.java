@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tcc.flyk.entity.Categoria;
+import com.tcc.flyk.entity.Prestador;
 import com.tcc.flyk.service.SearchService;
 
 @Controller
@@ -74,6 +75,12 @@ public class SearchPageController {
 			listaCategorias.add(idCategoria);			
 
 			//jsonArrayClientes = searchService.efetuaBusca(listaCategorias, 1, stringParametroBusca);
+			
+			List<Prestador> listaPrestadores = new ArrayList<Prestador>();
+	
+
+			
+			
 			
 			jsonArrayClientes = searchService.buscaServico(listaCategorias, 1, stringParametroBusca, cidade);
 		}

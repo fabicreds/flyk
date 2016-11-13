@@ -155,7 +155,7 @@ public class SearchService {
 
 	}
 
-	public List<Prestador> buscaServico(List<String> idCategorias, int qtdMinimaEstrelas, String nomePrestador, String cidadeDoCliente){
+	public JSONObject buscaServico(List<String> idCategorias, int qtdMinimaEstrelas, String nomePrestador, String cidadeDoCliente){
 		List<Prestador> prestadores = new ArrayList<Prestador>();
 		List<Prestador> prestadores1 = new ArrayList<Prestador>();//1° Prestadores premium da mesma cidade do cliente
 		List<Prestador> prestadores2 = new ArrayList<Prestador>();//2° Prestadores normais da mesma cidade do cliente
@@ -214,7 +214,17 @@ public class SearchService {
 		for(int i=0;i<prestadores4.size();i++){
 			resultado.add(prestadores4.get(i));
 		}
-		return prestadores;
+		JSONObject jsonPrestadores = new JSONObject();
+		
+		for (int i = 0; i < prestadores.size(); i++) {
+			Prestador prestador = new Prestador();
+			prestador = prestadores.get(i);
+			
+			
+			jsonPrestadores.put("prestador" + i, pUtil.toJSON(prestador));
+		}
+		
+		return jsonPrestadores;
 	}
 	
 
