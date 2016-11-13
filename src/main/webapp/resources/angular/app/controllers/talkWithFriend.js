@@ -62,8 +62,6 @@ flyk.controller("talkCtrl", function($scope, $rootScope, $location,
 		}, function(response) {
 
 		});
-//		var scroller = document.getElementById("div-chat");
-//	    scroller.scrollTop = 100000000;
 	}
 	
 	$scope.enviarNovaMensagem = function(){

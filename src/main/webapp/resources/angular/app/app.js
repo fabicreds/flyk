@@ -73,6 +73,10 @@ flyk.config(function($routeProvider) {
 		templateUrl : "talkWithFriend.html",
 		controller : "talkCtrl"
 			
+	}).when("/contato", {
+		templateUrl : "contato.html",
+		controller : "contatoCtrl"
+			
 	}).when("/avaliarCliente", {
 		templateUrl : "avaliarCliente.html",
 		controller : "avaliarServicoCtrl"

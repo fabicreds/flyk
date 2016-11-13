@@ -1,4 +1,5 @@
-
+<link href="https://fonts.googleapis.com/css?family=Amaranth"
+	rel="stylesheet">
 <style>
 .footer {
 	position: fixed;
@@ -71,6 +72,8 @@
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/controllers/talkWithFriend.js"></script>
 <script
+	src="${pageContext.request.contextPath}/resources/angular/app/controllers/contato.js"></script>
+<script
 	src="${pageContext.request.contextPath}/resources/angular/app/uploadFactory.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/directives/ngFileSelect.js"></script>
@@ -130,7 +133,7 @@
 								class="glyphicon glyphicon-heart-empty"></span> <span
 								class="text">CLIENTES</span>
 						</a></li>
-						<li><a ng-click="showFormLogin()"> <span
+						<li><a ng-click="showContatoPage()" ng-controller="contatoCtrl"> <span
 								class="glyphicon glyphicon-envelope"></span> <span class="text">CONTATO</span>
 						</a></li>
 
@@ -278,6 +281,7 @@
 		<!-- ng-if -->
 	</nav>
 	<div ng-view>
+<%-- 	<div ng-view style="background-image: url('${pageContext.request.contextPath}/images/ferramentas-fundo.jpg')"> --%>
 		<!--Permite rotear a página-->
 
 	</div>
