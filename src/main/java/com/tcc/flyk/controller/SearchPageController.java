@@ -32,7 +32,7 @@ public class SearchPageController {
 			"application/json;charset=UTF-8" }, produces = "application/json")
 	public @ResponseBody String realizaBusca(@RequestBody String JSONParametrosBusca) {
 
-		System.out.println(" JSON BUSCA" + JSONParametrosBusca);
+		//System.out.println(" JSON BUSCA" + JSONParametrosBusca);
 
 		JSONObject jsonArrayClientes = new JSONObject();
 

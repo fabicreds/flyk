@@ -95,6 +95,7 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, 
 
 			} else {
 				$scope.listaClientes = response.data.listaClientes;
+				console.log(response.data);
 				
 			}
              // $rootScope.data.listaClientes = response.data.listaClientes;

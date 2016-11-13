@@ -215,6 +215,7 @@ public class SearchService {
 			resultado.add(prestadores4.get(i));
 		}
 		JSONObject jsonPrestadores = new JSONObject();
+		JSONObject jsonListaPrestadores = new JSONObject();
 		
 		for (int i = 0; i < prestadores.size(); i++) {
 			Prestador prestador = new Prestador();
@@ -224,7 +225,7 @@ public class SearchService {
 			jsonPrestadores.put("prestador" + i, pUtil.toJSON(prestador));
 		}
 		
-		return jsonPrestadores;
+		return jsonListaPrestadores.put("listaClientes", jsonPrestadores);
 	}
 	
 
