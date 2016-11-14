@@ -167,14 +167,3 @@ flyk.directive('ngCarousel', function() {
 	};
 });
 
-flyk.controller("homeCtrl", function($animate, $rootScope, $scope) {
-	$rootScope.usuarioLogado = "";
-	$rootScope.tipoUsuarioLogado = "";
-	$rootScope.idUsuarioLogado = "";
-	$rootScope.data = "";
-	localStorage.setItem("usuarioLogado", "");
-	localStorage.setItem("idUsuarioLogado", "");
-	localStorage.setItem("tipoUsuarioLogado", "");
-	localStorage.setItem("dadosCliente", "")
-
-});

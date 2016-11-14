@@ -68,11 +68,14 @@
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/controllers/contratarServico.js"></script>
 <script
+
 	src="${pageContext.request.contextPath}/resources/angular/app/controllers/avaliarServico.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/controllers/talkWithFriend.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/controllers/contato.js"></script>
+	<script
+	src="${pageContext.request.contextPath}/resources/angular/app/controllers/homePage.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/uploadFactory.js"></script>
 <script
