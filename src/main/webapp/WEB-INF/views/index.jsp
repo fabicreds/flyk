@@ -126,10 +126,10 @@
 						<li class="active"><a href="#"> <span
 								class="glyphicon glyphicon-home"></span> <span class="text">HOME</span>
 						</a></li>
-						<li><a href="#"> <span class="glyphicon glyphicon-user"></span>
+						<li><a ng-click="showSobreNosPage()"><span class="glyphicon glyphicon-user"></span>
 								<span class="text">SOBRE NÓS</span>
 						</a></li>
-						<li><a href="#"> <span class="glyphicon glyphicon-search"></span>
+						<li><a ng-click="showComoUsarPage()"> <span class="glyphicon glyphicon-search"></span>
 								<span class="text">COMO USAR</span>
 						</a></li>
 						<li><a ng-click="showClientsPage()"> <span

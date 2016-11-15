@@ -38,6 +38,18 @@ public class InicioController {
 		return "clientes";
 	}
 	
+	@RequestMapping(value = "/sobreNos", method = RequestMethod.GET)
+	public String telaSobreNos() {
+
+		return "sobreNos";
+	}
+	
+	@RequestMapping(value = "/comoUsar", method = RequestMethod.GET)
+	public String telaComoUsar() {
+
+		return "comoUsar";
+	}
+	
 
 	
 }

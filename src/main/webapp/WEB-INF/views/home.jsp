@@ -25,6 +25,8 @@
 }
 </style> 
  
+ 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
  <body>
        
         <div ng-controller="homeCtrl" id="slides_control">

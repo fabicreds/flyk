@@ -83,6 +83,12 @@ flyk.config(function($routeProvider) {
 			
 	}).when("/clientes", {
 		templateUrl : "clientes.html"
+	
+	}).when("/sobreNos", {
+		templateUrl : "sobreNos.html"
+			
+	}).when("/comoUsar", {
+		templateUrl : "comoUsar.html"
 			
 	}).otherwise({
 		redirectTo : "/home"
@@ -106,6 +112,7 @@ flyk.config(function($routeProvider) {
 flyk.controller("flykCtrl", function($rootScope, $scope, $location, $http,
 		$uibModal) {
 
+	
 	// $scope.isLoggedIn = false;
 
 	/*
@@ -134,6 +141,14 @@ flyk.controller("flykCtrl", function($rootScope, $scope, $location, $http,
 	$scope.showClientsPage = function() {
 		$location.path('/clientes');
 	};
+	
+	$scope.showComoUsarPage = function() {
+		$location.path('/comoUsar');
+	};
+	$scope.showSobreNosPage = function() {
+		$location.path('/sobreNos');
+	};
+	
 	
 
 	
