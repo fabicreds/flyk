@@ -193,13 +193,10 @@
 						<li><a ng-click="adminPagePromocoes()" ng-controller="adminPageCtrl"> <span class="glyphicon glyphicon-piggy-bank"></span>
 								<span class="text">PROMOÇÕES</span>
 						</a></li>
-<!-- 						<li id="linkadm"><a href="#"> <span -->
-<!-- 								class="glyphicon glyphicon-heart-empty"></span> <span -->
-<!-- 								class="text">ADMINISTRADOR</span> -->
-<!-- 						</a></li> -->
-<!-- 						<li><a ng-click="showFormLogin()"> <span -->
-<!-- 								class="glyphicon glyphicon-envelope"></span> <span class="text">CONTATO</span> -->
-<!-- 						</a></li> -->
+						<li id="linkadm"><a ng-click="adminPageAdministradores()" ng-controller="adminPageCtrl"> <span
+								class="glyphicon glyphicon-user"></span> <span
+								class="text">ADMINISTRADORES</span>
+						</a></li>
 
 					</ul>
 					<ul class="nav navbar-nav navbar-right">

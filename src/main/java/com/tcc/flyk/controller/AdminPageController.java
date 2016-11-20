@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tcc.flyk.entity.Categoria;
+import com.tcc.flyk.entity.Usuario;
+import com.tcc.flyk.service.AdministradorService;
 import com.tcc.flyk.service.CategoriaService;
 import com.tcc.flyk.util.CategoriaUtil;
+import com.tcc.flyk.util.UsuarioUtil;
 
 @Controller
 public class AdminPageController {
@@ -23,8 +26,14 @@ public class AdminPageController {
 	@Autowired
 	private CategoriaService categService;
 	
+	@Autowired
+	private AdministradorService adminService;
+	
 	@Resource
 	private CategoriaUtil categoriaUtil;
+	
+	@Resource
+	private UsuarioUtil usuarioUtil;
 
 	@RequestMapping(value = "/adminPage", method = RequestMethod.GET)
 	public String iniciarTelaAdmin(ModelMap model) {
@@ -55,7 +64,7 @@ public class AdminPageController {
 			List<Categoria> listaCateg = categService.consultarTodasCategorias();
 			return mensagemSucesso(listaCateg);
 		} catch (Exception e) {
-			return mensagemErro("Erro ao acessar página de perfil");
+			return mensagemErro("Erro ao acessar pï¿½gina de perfil");
 		}
 	}
 	
@@ -71,5 +80,27 @@ public class AdminPageController {
 		jObjt.put("retorno", "sucesso");
 		jObjt.put("listaCategoria", categoriaUtil.listaCategoriaJSON(listaCateg));
 		return jObjt.toString();
+	}
+	
+	private String mensagemSucessoUsuario(List<Usuario> listaUsuario) {
+		JSONObject jObjt = new JSONObject();
+		jObjt.put("retorno", "sucesso");
+		jObjt.put("listaAdministradores", usuarioUtil.listaUsuarioJSON(listaUsuario));
+		return jObjt.toString();
+	}
+	
+	@RequestMapping(value = "/adminPageAdministradores", method = RequestMethod.GET)
+	public String adminPageAdministradores(ModelMap model) {
+		return "adminPageAdministradores";
+	}
+	
+	@RequestMapping(value = "/adminPageAdministradores", method = RequestMethod.POST)
+	public @ResponseBody String telaAdministradores(@RequestBody String request) {
+		try {
+			List<Usuario> listaUsuario = adminService.listarUsuariosAdministradores();
+			return mensagemSucessoUsuario(listaUsuario);
+		} catch (Exception e) {
+			return mensagemErro("Erro ao acessar pï¿½gina de perfil");
+		}
 	}
 }

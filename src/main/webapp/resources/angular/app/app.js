@@ -96,6 +96,9 @@ flyk.config(function($routeProvider) {
 	}).when("/adminPagePromocoes", {
 		templateUrl : "adminPagePromocoes.html",
 		controller : "adminPageCtrl"
+	}).when("/adminPageAdministradores", {
+		templateUrl : "adminPageAdministradores.html",
+		controller : "adminPageCtrl"
 	}).otherwise({
 		redirectTo : "/home"
 	});

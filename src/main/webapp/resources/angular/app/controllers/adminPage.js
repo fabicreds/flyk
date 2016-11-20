@@ -7,6 +7,7 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 		$rootScope.idUsuarioLogado = localStorage.getItem("idUsuarioLogado");
 		$scope.buscarTodasCategoria();
 		$scope.buscarTodasPromocoes()
+		$scope.buscarTodosAdministradores();
     }
 	
 	$scope.pesquisar = function() {
@@ -268,6 +269,23 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 		}).then(function(response) {
 			if(response.data.retorno != "erro"){
 				$rootScope.listaTotalCategorias = response.data.listaCategoria;
+			}
+		}, function(response) {
+		});
+	}
+	$scope.adminPageAdministradores = function(){
+		$scope.buscarTodosAdministradores();
+		$location.path('/adminPageAdministradores');
+	}
+	$scope.buscarTodosAdministradores = function(){
+		$http({
+			url : 'adminPageAdministradores', // nome do request mapping da classe java criada para cadastro de serviços
+			method : "POST",
+			data : {
+			}
+		}).then(function(response) {
+			if(response.data.retorno != "erro"){
+				$rootScope.listaAdministradores = response.data.listaAdministradores;
 			}
 		}, function(response) {
 		});

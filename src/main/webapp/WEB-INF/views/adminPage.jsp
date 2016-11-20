@@ -15,7 +15,7 @@
             <fieldset>
                <div class="card" style="height:50%; margin-bottom:1%">
                   <div class="info-box bg-main">
-                     <span class="info-box-icon"><i class="ion glyphicon glyphicon-user"></i></span>
+                     <span class="info-box-icon"><i class="ion glyphicon glyphicon glyphicon-pencil"></i></span>
                      <div class="info-box-content">
                         <span class="info-box-text">Usuários</span>
                         <span class="info-box-number">Inativação</span>
@@ -204,7 +204,7 @@
                <div  class="card" style="height:50%;">
                   <!-- <legend class="tituloCadAdm" >Cadastrar administrador</legend>-->
                   <div class="info-box bg-main">
-                     <span class="info-box-icon"><i class="ion glyphicon glyphicon glyphicon-heart-empty"></i></span>
+                     <span class="info-box-icon"><i class="ion glyphicon glyphicon glyphicon-user"></i></span>
                      <div class="info-box-content">
                         <span class="info-box-text">Administrador</span>
                         <span class="info-box-number">Cadastro</span>

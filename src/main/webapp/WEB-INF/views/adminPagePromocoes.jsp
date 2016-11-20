@@ -36,6 +36,7 @@
 				<td style="vertical-align: middle; text-align: center;">
 				<div ng-if="promocao.status">Ativo</div>
 				<div ng-if="!promocao.status">Inativo</div>
+				</td>
 				<td  style="vertical-align: middle; "><div style="height: 30px;border-left: 2px solid;color: #ddd"></div></td>
 				
 				<td style="vertical-align: middle; text-align: center;">

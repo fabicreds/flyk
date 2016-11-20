@@ -49,4 +49,13 @@ public class UsuarioUtil {
 		return jObjt;
 	}
 
+	public JSONArray listaUsuarioJSON(List<Usuario> listaUsuarios) {
+		JSONArray jObjt = new JSONArray();
+		if (listaUsuarios != null) {
+			for (Usuario usuario : listaUsuarios) {
+				jObjt.put(toJSON(usuario));
+			}
+		}
+		return jObjt;
+	}
 }

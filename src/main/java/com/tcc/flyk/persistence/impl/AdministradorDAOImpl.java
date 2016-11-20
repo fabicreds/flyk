@@ -1,8 +1,12 @@
 package com.tcc.flyk.persistence.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.tcc.flyk.entity.Administrador;
 import com.tcc.flyk.entity.Usuario;
@@ -23,7 +27,7 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 			super.db.getCollection("FLYK")
 					.insert(new BasicDBObject().append("nome", adm.getNome()).append("usuario", adm.getUsuario())
 							.append("senha", adm.getSenha()).append("ativo", adm.isAtivo())
-							.append("data", adm.getDataCadastro()));
+							.append("data", adm.getDataCadastro()).append("tipo_perfil", TipoCadastroEnum.ADMINISTRADOR.getCodigo()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -109,6 +113,59 @@ public class AdministradorDAOImpl extends MongoDB implements AdministradorDAO {
 			return true;
 		} catch (Exception e) {
 			return false;
+		}
+	}
+	
+	@Override
+	public List<Usuario> listarUsuariosAdministradores(){
+		try{
+			super.conecta();
+			db.getCollection("FLYK");
+	
+			final List<Usuario> retorno = new ArrayList<Usuario>();
+	
+			DBCollection collection = db.getCollection("FLYK");
+			BasicDBObject filtro = new BasicDBObject("tipo_perfil", 4);
+			
+			DBCursor cursor = collection.find(filtro);
+			DBObject resultado;
+	
+			// Busca campos de resultado
+			while (cursor.hasNext()) {
+				resultado = cursor.next();
+				Usuario user = new Usuario();
+				if (resultado.get("_id") != null) {
+					user.setId(String.valueOf(resultado.get("_id")));
+				}
+				if (resultado.get("nome") != null) {
+					user.setNome(String.valueOf(resultado.get("nome")));
+				}
+				if (resultado.get("usuario") != null) {
+					user.setUsuario(String.valueOf(resultado.get("usuario")));
+				}
+				if (resultado.get("email") != null) {
+					user.setEmail(String.valueOf(resultado.get("email")));
+				}
+				if (resultado.get("tipo_perfil") != null) {
+					Double tipoCadastro = Double.valueOf(resultado.get("tipo_perfil").toString());
+					user.setTipoCadastro(tipoCadastro.intValue());
+				}
+				if (resultado.get("ativo") != null) {
+					user.setAtivo((boolean)resultado.get("ativo"));
+				}
+	
+				// Adiciona a categoria na lista de retorno
+				retorno.add(user);
+			}
+			
+			super.desconecta();
+			
+			return retorno;
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+			
 		}
 	}
 
