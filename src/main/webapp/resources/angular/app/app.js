@@ -90,6 +90,12 @@ flyk.config(function($routeProvider) {
 	}).when("/comoUsar", {
 		templateUrl : "comoUsar.html"
 			
+	}).when("/adminPageCategorias", {
+		templateUrl : "adminPageCategorias.html",
+		controller : "adminPageCtrl"
+	}).when("/adminPagePromocoes", {
+		templateUrl : "adminPagePromocoes.html",
+		controller : "adminPageCtrl"
 	}).otherwise({
 		redirectTo : "/home"
 	});

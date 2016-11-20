@@ -1,6 +1,14 @@
 flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, $uibModal) {
 
 
+	$scope.initAdmin = function () {
+		$rootScope.usuarioLogado = localStorage.getItem("usuarioLogado");
+		$rootScope.tipoUsuarioLogado = localStorage.getItem("tipoUsuarioLogado");
+		$rootScope.idUsuarioLogado = localStorage.getItem("idUsuarioLogado");
+		$scope.buscarTodasCategoria();
+		$scope.buscarTodasPromocoes()
+    }
+	
 	$scope.pesquisar = function() {
 	
 		
@@ -111,11 +119,11 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
           
         }).then(function(response) {           
         	
-              $rootScope.data = response.data;   	 
+              $rootScope.data = response.data.listaCategoria;   	 
   
-              $scope.dadosCateg=JSON.stringify(response.data);  			 
+              $scope.dadosCateg=JSON.stringify(response.data.listaCategoria);  			 
   			
-  			console.log($scope.dadosCateg);
+//  			console.log($scope.dadosCateg);
   			
   				$scope.categorias = [];
   				angular.forEach(response.data, function(item, key) {
@@ -127,7 +135,7 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
   			  var obj = []
   			  	//$scope.choices = [{option: 'Office', number: '9090909090'}, {option: 'Mobile', number: '9090909090'}];
   			  	// $scope.choices=[{"id":1,"nome":"Manicure"},{"id":2,"nome":"Fotografia"}];
-  			  $scope.listaCategorias= response.data;
+  			  $scope.listaCategorias= response.data.listaCategoria;
   			  	//console.log(response.data);
   			  $scope.addNewChoice = function() {
   			  var newItemNo = $scope.listaCategorias.length+1;
@@ -193,6 +201,76 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 	
 	$scope.adminPage = function(){
 		$location.path('/adminPage');
+	}
+	
+	$scope.adminPageCategorias = function(){
+		$scope.buscarTodasCategoria();
+		$location.path('/adminPageCategorias');
+	}
+	
+	$scope.adminPagePromocoes = function(){
+		$scope.buscarTodasPromocoes();
+		$location.path('/adminPagePromocoes');
+	}
+	
+	$scope.buscarTodasCategoria = function(){
+		$http({
+			url : 'adminPageCategorias', // nome do request mapping da classe java criada para cadastro de serviços
+			method : "POST",
+			data : {
+			}
+		}).then(function(response) {
+			if(response.data.retorno != "erro"){
+				$rootScope.listaTotalCategorias = response.data.listaCategoria;
+			}
+		}, function(response) {
+		});
+	}
+	
+	$scope.buscarTodasPromocoes = function(){
+		$http({
+			url : 'adminPagePromocoes', // nome do request mapping da classe java criada para cadastro de serviços
+			method : "POST",
+			data : {
+			}
+		}).then(function(response) {
+			if(response.data.retorno != "erro"){
+				$rootScope.listaPromocoes = response.data.listaPromocao;
+			}
+		}, function(response) {
+		});
+	}
+	
+	$scope.desativarCategoria = function(id){
+		$http({
+			url : 'atualizarCategoria', // nome do request mapping da classe java criada para cadastro de serviços
+			method : "POST",
+			data : {
+				idCategoria: id,
+				acao: 1
+			}
+		}).then(function(response) {
+			if(response.data.retorno != "erro"){
+				$rootScope.listaTotalCategorias = response.data.listaCategoria;
+			}
+		}, function(response) {
+		});
+	}
+	
+	$scope.ativarCategoria = function(id){
+		$http({
+			url : 'atualizarCategoria', // nome do request mapping da classe java criada para cadastro de serviços
+			method : "POST",
+			data : {
+				idCategoria: id,
+				acao: 2
+			}
+		}).then(function(response) {
+			if(response.data.retorno != "erro"){
+				$rootScope.listaTotalCategorias = response.data.listaCategoria;
+			}
+		}, function(response) {
+		});
 	}
 	
 	

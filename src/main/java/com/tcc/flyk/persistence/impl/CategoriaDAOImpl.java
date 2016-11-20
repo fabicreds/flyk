@@ -7,10 +7,13 @@ import java.util.List;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.Block;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.mongodb.client.FindIterable;
 import com.tcc.flyk.entity.Categoria;
-
 import com.tcc.flyk.persistence.CategoriaDAO;
 import com.tcc.flyk.persistence.MongoDB;
 
@@ -139,7 +142,7 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 	// ****************************CONSULTA TODAS AS
 	// CATEGORIAS****************************//
 	@Override
-	public List<Categoria> consultarTodasCategorias() {
+	public List<Categoria> consultarTodasCategoriasAtivas() {
 		try {
 
 			System.out.println("consultando todas as categorias");
@@ -171,6 +174,9 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 					}
 					if (document.getDate("inicio_vigencia_categoria") != null) {
 						cat.setInicioVigencia(document.getDate("inicio_vigencia_categoria"));
+					}
+					if (document.getDate("fim_vigencia_categoria") != null) {
+						cat.setFimVigencia(document.getDate("fim_vigencia_categoria"));
 					}
 					if (document.getString("status_categoria") != null) {
 						cat.setStatusCategoria(document.getString("status_categoria"));
@@ -246,21 +252,82 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 			return null;
 		}
 	}
-
-	// ****************************CONSULTA TODOS OS DOCUMENTOS DO
-	// BANCO****************************//
+	
 	@Override
-	public void consultaTudo() {
-
-		super.conecta();
-		FindIterable<Document> iterable = super.mongoDatabase.getCollection("FLYK").find();
-
-		iterable.forEach(new Block<Document>() {
-			@Override
-			public void apply(final Document document) {
-				//System.out.println(document);
+	public boolean atualizarStatusCategoria(String id, int acao) {
+		try {
+			BasicDBObject updateQuery = new BasicDBObject();
+			//desativar
+			if(acao==1){
+				updateQuery.append("$set", new BasicDBObject().append("status_categoria", "I").append("fim_vigencia_categoria", new Date()));
 			}
-		});
-		super.desconecta();
+			//ativar
+			if(acao==2){
+				updateQuery.append("$set", new BasicDBObject().append("status_categoria", "A").append("fim_vigencia_categoria", null));
+			}
+			BasicDBObject searchQuery = new BasicDBObject();
+			searchQuery.append("_id", new ObjectId(id));
+
+			super.conecta();
+			db.getCollection("FLYK").update(searchQuery, updateQuery);
+			super.desconecta();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
+	
+	@Override
+	public List<Categoria> consultarTodasCategorias() {
+		try {
+
+			super.conecta();
+			db.getCollection("FLYK");
+
+			final List<Categoria> retorno = new ArrayList<Categoria>();
+
+			DBCollection collection = db.getCollection("FLYK");
+			BasicDBObject filtro = new BasicDBObject("nome_categoria", new BasicDBObject("$exists", true));
+			
+			DBCursor cursor = collection.find(filtro);
+			DBObject resultado;
+
+			// Busca campos de resultado
+			while (cursor.hasNext()) {
+				resultado = cursor.next();
+				Categoria cat = new Categoria();
+				if (resultado.get("_id") != null) {
+					cat.setId(String.valueOf(resultado.get("_id")));
+				}
+				if (resultado.get("nome_categoria") != null) {
+					cat.setNomeCategoria(String.valueOf(resultado.get("nome_categoria")));
+				}
+				if (resultado.get("descricao_categoria") != null) {
+					cat.setDescricaoCategoria(String.valueOf(resultado.get("descricao_categoria")));
+				}
+				if (resultado.get("inicio_vigencia_categoria") != null) {
+					cat.setInicioVigencia((Date) resultado.get("inicio_vigencia_categoria"));
+				}
+				if (resultado.get("fim_vigencia_categoria") != null) {
+					cat.setFimVigencia((Date) resultado.get("fim_vigencia_categoria"));
+				}
+				if (resultado.get("status_categoria") != null) {
+					cat.setStatusCategoria(String.valueOf(resultado.get("status_categoria")));
+				}
+
+				// Adiciona a categoria na lista de retorno
+				retorno.add(cat);
+			}
+			
+			super.desconecta();
+			
+			return retorno;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
 }

@@ -244,10 +244,10 @@ public class SearchService {
 		
 		//Faz o sort menos rápido do mundo
 		for(int i=0;i<tamanho-1;i++){
-			String idAtual;
-			Double mediaAtual;
-			idAtual = listaID[i];
-			mediaAtual = listaMedia[i];
+//			String idAtual;
+//			Double mediaAtual;
+//			idAtual = listaID[i];
+//			mediaAtual = listaMedia[i];
 			for(int j=0;j<tamanho-1;j++){
 				if(listaMedia[j]<listaMedia[j+1]){
 					String idAux = listaID[j+1];

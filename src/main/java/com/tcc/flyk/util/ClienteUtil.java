@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import com.tcc.flyk.entity.Amizade;
 import com.tcc.flyk.entity.Cliente;
 import com.tcc.flyk.entity.Compromisso;
-import com.tcc.flyk.entity.Conversa;
 import com.tcc.flyk.entity.Endereco;
 import com.tcc.flyk.entity.Privacidade;
 import com.tcc.flyk.entity.Telefone;

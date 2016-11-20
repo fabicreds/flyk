@@ -129,7 +129,7 @@ public class ContratarServicoService {
 
 	private void buscarDadosContratos(List<Compromisso> clienteListaServicosContratados) {
 
-		List<Categoria> listaCategoriasCadastradas = categoriaDAO.consultarTodasCategorias();
+		List<Categoria> listaCategoriasCadastradas = categoriaDAO.consultarTodasCategoriasAtivas();
 
 		if (clienteListaServicosContratados != null) {
 			for (Compromisso compromisso : clienteListaServicosContratados) {

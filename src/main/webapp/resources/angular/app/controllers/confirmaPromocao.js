@@ -25,11 +25,10 @@ flyk.controller("confirmaPromocaoCtrl", function($rootScope, $scope, $location, 
 	        }).then(function(response) {           
 	        	
 	              $rootScope.data = response.data;     
-	              $scope.dadosCateg=JSON.stringify(response.data);  		  			
-	  			   console.log($scope.dadosCateg);
+	              $scope.dadosCateg=JSON.stringify(response.data.listaCategoria);  		  			
 	  			
 	  				$scope.categorias = [];
-	  				angular.forEach(response.data, function(item, key) {
+	  				angular.forEach(response.data.listaCategoria, function(item, key) {
 	  							
 	  					$scope.categorias.push(item.nome);
 	  			  
@@ -38,8 +37,7 @@ flyk.controller("confirmaPromocaoCtrl", function($rootScope, $scope, $location, 
 	  			  var obj = []
 	  			  				//$scope.choices = [{option: 'Office', number: '9090909090'}, {option: 'Mobile', number: '9090909090'}];
 	  			  				// $scope.choices=[{"id":1,"nome":"Manicure"},{"id":2,"nome":"Fotografia"}];
-	  			  $scope.listaCategorias= response.data;
-	  			  console.log(response.data);
+	  			  $scope.listaCategorias= response.data.listaCategoria;
 	  			  $scope.addNewCategoria = function() {
 	  			    var newItemNo = $scope.listaCategorias.length+1;
 	  			    $scope.listaCategorias.push({'id':''+newItemNo});

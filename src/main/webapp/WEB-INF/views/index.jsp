@@ -187,12 +187,12 @@
 						<li class="link"><a ng-click="adminPage()" ng-controller="adminPageCtrl"> <span
 								class="glyphicon glyphicon-home"></span> <span class="text">HOME</span>
 						</a></li>
-<!-- 						<li><a href="#"> <span class="glyphicon glyphicon-user"></span> -->
-<!-- 								<span class="text">SOBRE NÓS</span> -->
-<!-- 						</a></li> -->
-<!-- 						<li><a href="#"> <span class="glyphicon glyphicon-search"></span> -->
-<!-- 								<span class="text">COMO USAR</span> -->
-<!-- 						</a></li> -->
+						<li><a ng-click="adminPageCategorias()" ng-controller="adminPageCtrl"> <span class="glyphicon  glyphicon-th-large"></span>
+								<span class="text">CATEGORIAS</span>
+						</a></li>
+						<li><a ng-click="adminPagePromocoes()" ng-controller="adminPageCtrl"> <span class="glyphicon glyphicon-piggy-bank"></span>
+								<span class="text">PROMOÇÕES</span>
+						</a></li>
 <!-- 						<li id="linkadm"><a href="#"> <span -->
 <!-- 								class="glyphicon glyphicon-heart-empty"></span> <span -->
 <!-- 								class="text">ADMINISTRADOR</span> -->

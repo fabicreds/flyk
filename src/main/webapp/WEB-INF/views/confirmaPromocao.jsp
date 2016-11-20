@@ -1,13 +1,14 @@
-<legend>PromoÃ§Ã£o </legend>
-<meta charset="utf-8"/>
-<div data-ng-init="init()"></div>
+<div data-ng-init="init()" class="container">
+<fieldset><legend>Promoção </legend></fieldset>
+
+
 <div class=" col-md-12 " >
    <div class="panel  panel-default">
-      <div class="panel-heading head-promo">Confirme o cadastro da promoÃ§Ã£o</div>
+      <div class="panel-heading head-promo">Confirme o cadastro da promoção</div>
       <div class="panel-body">
          <form class="form-horizontal" name="confirmaProm"  ng-submit="cadProm()">
             <div class="form-group col-md-8" >
-               <label for="nomepromocao" class="control-label">Nome da promoÃ§Ã£o</label>
+               <label for="nomepromocao" class="control-label">Nome da promoção</label>
                <input type="text" name="nomeprom" ng-model="nomepromo"  class="form-control" >
             </div>
             <div ng-bind="nome">{{nome}}</div>
@@ -91,5 +92,6 @@
    </div>
    <div class="alert alert-success" role="alert" ng-show="msg">
       <p>{{mensagem.msgSucesso}}</p>
+   </div>
    </div>
 </div>

@@ -1,32 +1,23 @@
 package com.tcc.flyk.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Promocao {
-	
-	private int codigo;
-	
-	
+
+	private String id;
+
 	private Date dataInicio;
-	
+
 	private Date dataFim;
-	
+
 	private String descricao;
-	
+
 	private String nomePromocao;
-	
-	private ArrayList<Preco> listaPreco = new ArrayList<Preco> ();
 
-	private Categoria categoriaServico;
-	
-	public ArrayList<Preco> getListaPreco() {
-		return listaPreco;
-	}
+	private List<Preco> listaPreco;
 
-	public void setListaPreco(ArrayList<Preco> listaPreco) {
-		this.listaPreco = listaPreco;
-	}
+	private String status;
 
 	public String getDescricao() {
 		return descricao;
@@ -44,15 +35,6 @@ public class Promocao {
 		this.nomePromocao = nomePromocao;
 	}
 
-	public int getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
-	}
-
-	
 	public Date getDataInicio() {
 		return dataInicio;
 	}
@@ -69,12 +51,28 @@ public class Promocao {
 		this.dataFim = dataFim;
 	}
 
-	public Categoria getCategoriaServico() {
-		return categoriaServico;
+	public String getId() {
+		return id;
 	}
 
-	public void setCategoriaServico(Categoria categoriaServico) {
-		this.categoriaServico = categoriaServico;
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public List<Preco> getListaPreco() {
+		return listaPreco;
+	}
+
+	public void setListaPreco(List<Preco> listaPreco) {
+		this.listaPreco = listaPreco;
 	}
 
 }

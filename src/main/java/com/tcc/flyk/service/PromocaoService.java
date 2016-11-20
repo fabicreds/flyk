@@ -1,5 +1,7 @@
 package com.tcc.flyk.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.tcc.flyk.entity.Promocao;
@@ -15,7 +17,7 @@ public class PromocaoService {
 		try {
 			if (validaAdministrador(prom)) {
 
-				promDAO.inserirNovaPromocao(prom);
+				return promDAO.inserirNovaPromocao(prom);
 			} else {
 				return false;
 			}
@@ -24,7 +26,6 @@ public class PromocaoService {
 			e.printStackTrace();
 			return false;
 		}
-		return true;
 	}
 
 	private boolean validaAdministrador(Promocao prom) {
@@ -34,5 +35,9 @@ public class PromocaoService {
 		}
 
 		return true;
+	}
+	
+	public List<Promocao> consultarTodasPromocoes(){
+		return promDAO.consultaPromocao();
 	}
 }

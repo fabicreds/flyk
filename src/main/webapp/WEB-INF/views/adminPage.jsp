@@ -7,9 +7,6 @@
    color:black;
    }
 </style>
-<head>
-   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-</head>
 <body>
    <div class="row  center-block container" data-ng-init="init()">
       <!--<div class="row"> -->

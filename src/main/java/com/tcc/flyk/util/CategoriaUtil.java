@@ -3,6 +3,7 @@ package com.tcc.flyk.util;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +33,11 @@ public class CategoriaUtil {
 			if(categoria.getInicioVigencia()!=null){
 				jObjt.put("inicio_vigencia", format.format(categoria.getInicioVigencia()));
 			}
+			if(categoria.getFimVigencia()!=null){
+				jObjt.put("fim_vigencia", format.format(categoria.getFimVigencia()));
+			}else{
+				jObjt.put("fim_vigencia", "-");
+			}
 //			status_categoria
 			if(categoria.getStatusCategoria()!=null){
 				jObjt.put("status", categoria.getStatusCategoria());
@@ -40,14 +46,11 @@ public class CategoriaUtil {
 		return jObjt;
 	}
 	
-	public JSONObject listaCategoriaJSON(List<Categoria> listaCategorias) {
-		JSONObject jObjt = new JSONObject();
+	public JSONArray listaCategoriaJSON(List<Categoria> listaCategorias) {
+		JSONArray jObjt = new JSONArray();
 		if (listaCategorias != null) {
-			int i = 0;
 			for (Categoria categoria : listaCategorias) {
-				JSONObject jObjt1 = toJSON(categoria);
-				jObjt.put("categoria" + i, jObjt1);
-				i++;
+				jObjt.put(toJSON(categoria));
 			}
 		}
 		return jObjt;

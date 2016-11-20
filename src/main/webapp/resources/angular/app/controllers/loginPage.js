@@ -38,11 +38,8 @@ flyk.controller("loginPageCtrl", function($rootScope, $scope, $location, $http, 
 				localStorage.setItem("tipoUsuarioLogado", $rootScope.tipoUsuarioLogado);
 				localStorage.setItem("idUsuarioLogado", $rootScope.idUsuarioLogado);
 				localStorage.setItem("dadosCliente", angular.toJson	(response.data.cliente));
-				var dadosCli = angular.fromJson(localStorage.getItem("dadosCliente"));
+//				var dadosCli = angular.fromJson(localStorage.getItem("dadosCliente"));
 
-				
-				
-			
 				if(response.data.tipoCadastro == "4"){
 					$location.path('/adminPage');
 				}else{

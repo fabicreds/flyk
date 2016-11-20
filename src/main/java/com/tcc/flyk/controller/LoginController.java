@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tcc.flyk.entity.form.EfetuarLoginForm;
-import com.tcc.flyk.persistence.banco;
 import com.tcc.flyk.service.EfetuarLoginService;
 import com.tcc.flyk.util.EfetuarLoginUtil;
 

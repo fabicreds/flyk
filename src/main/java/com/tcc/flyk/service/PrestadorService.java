@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.json.JSONObject;
+import org.json.JSONArray;
 import org.springframework.stereotype.Service;
 
 import com.tcc.flyk.entity.Categoria;
@@ -99,9 +99,9 @@ public class PrestadorService {
 		}
 	}
 	
-	public JSONObject consultaCategoriaCadastradasCadastro() {
-		JSONObject jsonRetorno = new JSONObject();
-		List<Categoria> listaCategoriasCadastradas = categoriaDAO.consultarTodasCategorias();
+	public JSONArray consultaCategoriaCadastradasCadastro() {
+		JSONArray jsonRetorno = new JSONArray();
+		List<Categoria> listaCategoriasCadastradas = categoriaDAO.consultarTodasCategoriasAtivas();
 		if (listaCategoriasCadastradas != null) {
 			jsonRetorno = categoriaUtil.listaCategoriaJSON(listaCategoriasCadastradas);
 		}
@@ -194,10 +194,10 @@ public class PrestadorService {
 		
 		//Faz o sort menos rápido do mundo
 		for(int i=0;i<tamanho-1;i++){
-			String idAtual;
-			Double mediaAtual;
-			idAtual = listaID[i];
-			mediaAtual = listaMedia[i];
+//			String idAtual;
+//			Double mediaAtual;
+//			idAtual = listaID[i];
+//			mediaAtual = listaMedia[i];
 			for(int j=0;j<tamanho-1;j++){
 				if(listaMedia[j]<listaMedia[j+1]){
 					String idAux = listaID[j+1];

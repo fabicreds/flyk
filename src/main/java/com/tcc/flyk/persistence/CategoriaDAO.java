@@ -11,11 +11,12 @@ public interface CategoriaDAO {
 	
 	public List<Categoria> consultarCategoriaPorParteDoNome(String nome);
 	
-	public List<Categoria> consultarTodasCategorias();
+	public List<Categoria> consultarTodasCategoriasAtivas();
 	
 	public Categoria consultarCategoriaPorId(String id);
 	
-	public void consultaTudo();
-
+	public boolean atualizarStatusCategoria(String id, int acao);
+	
+	public List<Categoria> consultarTodasCategorias();
 }
 

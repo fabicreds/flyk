@@ -15,6 +15,8 @@ public class Categoria {
 	//Inicio da vig�ncia da categoria
 	private Date inicioVigencia;
 	
+	private Date fimVigencia;
+	
 	//Status da categoria
 	private String statusCategoria;
 
@@ -56,6 +58,14 @@ public class Categoria {
 
 	public void setStatusCategoria(String statusCategoria) {
 		this.statusCategoria = statusCategoria;
+	}
+
+	public Date getFimVigencia() {
+		return fimVigencia;
+	}
+
+	public void setFimVigencia(Date fimVigencia) {
+		this.fimVigencia = fimVigencia;
 	}
 
 	

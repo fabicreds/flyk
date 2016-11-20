@@ -5,9 +5,14 @@ flyk.controller("talkCtrl", function($scope, $rootScope, $location,
 	$interval(callAtInterval, 3000);
 	
 	function callAtInterval() {
-	    if($rootScope.data.chat !=null && $rootScope.data.chat.amigo !=null && $rootScope.data.chat.amigo != ''){
-	    	$scope.mostrarConversa($rootScope.data.chat.amigo);
-	    }
+		$rootScope.usuarioLogado = localStorage.getItem("usuarioLogado");
+		$rootScope.tipoUsuarioLogado = localStorage.getItem("tipoUsuarioLogado");
+		$rootScope.idUsuarioLogado = localStorage.getItem("idUsuarioLogado");
+		if($rootScope.tipoUsuarioLogado!=4){
+		    if($rootScope.data!=null && $rootScope.data.chat !=null && $rootScope.data.chat.amigo !=null && $rootScope.data.chat.amigo != ''){
+		    	$scope.mostrarConversa($rootScope.data.chat.amigo);
+		    }
+		}
 	}
 	
 	$scope.init = function () {

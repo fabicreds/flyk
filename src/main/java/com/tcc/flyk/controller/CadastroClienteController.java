@@ -2,6 +2,7 @@ package com.tcc.flyk.controller;
 
 import javax.annotation.Resource;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -105,7 +106,7 @@ public class CadastroClienteController {
 	public @ResponseBody String consultaCategoriaCadastradasCadastro() {
 		JSONObject ret = new JSONObject();
 		try {
-			JSONObject listaCategorias = prestadorService.consultaCategoriaCadastradasCadastro();
+			JSONArray listaCategorias = prestadorService.consultaCategoriaCadastradasCadastro();
 			ret.put("retorno", "sucesso");
 			ret.put("listaCategorias", listaCategorias);
 		} catch (Exception e) {

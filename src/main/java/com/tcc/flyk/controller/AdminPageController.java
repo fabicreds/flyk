@@ -2,8 +2,10 @@ package com.tcc.flyk.controller;
 
 import java.util.List;
 
-import org.json.JSONArray;
+import javax.annotation.Resource;
+
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,11 +15,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tcc.flyk.entity.Categoria;
 import com.tcc.flyk.service.CategoriaService;
+import com.tcc.flyk.util.CategoriaUtil;
 
 @Controller
 public class AdminPageController {
 
-	private CategoriaService categService = new CategoriaService();
+	@Autowired
+	private CategoriaService categService;
+	
+	@Resource
+	private CategoriaUtil categoriaUtil;
 
 	@RequestMapping(value = "/adminPage", method = RequestMethod.GET)
 	public String iniciarTelaAdmin(ModelMap model) {
@@ -27,35 +34,42 @@ public class AdminPageController {
 	@RequestMapping(value = "/getValueCatList", method = RequestMethod.GET)
 	public @ResponseBody String preencherListaCat(@RequestBody String prom, ModelMap model) {
 
-		JSONArray arrayCatJson = new JSONArray();
+		List<Categoria> listaCateg = categService.consultarTodasCategoriasAtivas();
 
-		List<Categoria> listaCateg = categService.consultarTodasCategorias();
-
-		for (int i = 0; i < listaCateg.size(); i++) {
-			JSONObject listaCatJson = new JSONObject();
-			listaCatJson.put("id", i);
-			listaCatJson.put("nome", listaCateg.get(i).getNomeCategoria());
-			arrayCatJson.put(listaCatJson);
-		}
-
-		JSONObject listaCatJson = new JSONObject();
-
-		listaCatJson.put("id", 1);
-		listaCatJson.put("nome", "Fotografia");
-
-		// listaCat.add(listaCatJson);
-
-		JSONObject listaCatJson2 = new JSONObject();
-
-		listaCatJson2.put("id", 2);
-		listaCatJson2.put("nome", "Manicure");
-
-		// listaCat.add(listaCatJson2);
-
-		// arrayCatJson.put(listaCatJson2);
-		// arrayCatJson.put(listaCatJson);
-
-		return arrayCatJson.toString();
+		return mensagemSucesso(listaCateg);
 	}
 
+	@RequestMapping(value = "/adminPageCategorias", method = RequestMethod.GET)
+	public String adminPageCategorias(ModelMap model) {
+		return "adminPageCategorias";
+	}
+
+	@RequestMapping(value = "/adminPagePromocoes", method = RequestMethod.GET)
+	public String adminPagePromocoes(ModelMap model) {
+		return "adminPagePromocoes";
+	}
+
+	@RequestMapping(value = "/adminPageCategorias", method = RequestMethod.POST)
+	public @ResponseBody String telaCategorias(@RequestBody String request) {
+		try {
+			List<Categoria> listaCateg = categService.consultarTodasCategorias();
+			return mensagemSucesso(listaCateg);
+		} catch (Exception e) {
+			return mensagemErro("Erro ao acessar página de perfil");
+		}
+	}
+	
+	private String mensagemErro(String mensagem) {
+		JSONObject jObjt = new JSONObject();
+		jObjt.put("retorno", "erro");
+		jObjt.put("mensagem", mensagem);
+		return jObjt.toString();
+	}
+	
+	private String mensagemSucesso(List<Categoria> listaCateg) {
+		JSONObject jObjt = new JSONObject();
+		jObjt.put("retorno", "sucesso");
+		jObjt.put("listaCategoria", categoriaUtil.listaCategoriaJSON(listaCateg));
+		return jObjt.toString();
+	}
 }

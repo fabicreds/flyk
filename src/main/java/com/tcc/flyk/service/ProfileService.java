@@ -43,7 +43,7 @@ public class ProfileService {
 	}
 
 	public void buscarDadosContratos(Cliente cliente) {
-		listaCategoriasCadastradas = categoriaDAO.consultarTodasCategorias();
+		listaCategoriasCadastradas = categoriaDAO.consultarTodasCategoriasAtivas();
 		if (cliente.getListaServicosContratados() != null) {
 			for (Compromisso compromisso : cliente.getListaServicosContratados()) {
 				if (compromisso.getContrato() != null) {
@@ -83,7 +83,7 @@ public class ProfileService {
 	}
 
 	public void buscarListaServicos(Prestador prestador) {
-		listaCategoriasCadastradas = categoriaDAO.consultarTodasCategorias();
+		listaCategoriasCadastradas = categoriaDAO.consultarTodasCategoriasAtivas();
 		if (prestador.getListaCategoriaServicosPrestados() != null && listaCategoriasCadastradas != null) {
 			for (Categoria servico : prestador.getListaCategoriaServicosPrestados()) {
 				for (Categoria cat : listaCategoriasCadastradas) {
@@ -107,7 +107,7 @@ public class ProfileService {
 	}
 	
 	public void buscarDadosContratosPrestados(Prestador prestador) {
-		listaCategoriasCadastradas = categoriaDAO.consultarTodasCategorias();
+		listaCategoriasCadastradas = categoriaDAO.consultarTodasCategoriasAtivas();
 		if (prestador.getListaContratosServicosPrestados() != null) {
 			for (Compromisso compromisso : prestador.getListaContratosServicosPrestados()) {
 				if (compromisso.getContrato() != null) {
