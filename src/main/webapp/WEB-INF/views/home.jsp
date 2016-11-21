@@ -25,22 +25,23 @@
 }
 </style> 
  
- 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+</head>
  <body>
        
-        <div ng-controller="homeCtrl" id="slides_control">
+        <div ng-controller="homeCtrl" id="slides_control" style="margin-top:-20px">
         <div>
           <uib-carousel interval="myInterval">
             <uib-slide ng-repeat="slide in slides" active="active" index="$index">
-              <img ng-src="{{slide.image}}" style="margin:auto;  height:90%; width:100%" />
+              <img ng-src="{{slide.image}}" style="margin:auto;  height:92%; width:100%" />
               <div class="carousel-caption">
                 <hgroup>
             		<h1>{{slide.text}}</h1>        
             		<h3>{{slide.subtext}}</h3>
         		</hgroup>
         		</div>
-              </div>
             </uib-slide>
           </uib-carousel>
           </div>

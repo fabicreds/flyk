@@ -1,12 +1,20 @@
-<meta charset="ISO-8859-1">
+<style>
+.broun-block {
+    background: url("images/banner.jpg") repeat scroll center top rgba(0, 0, 0, 0);
+    height:100%;
+    padding-bottom: 34px;
+}
+</style>
 
+<meta charset="ISO-8859-1">
+<div class="broun-block">
 <link href="https://fonts.googleapis.com/css?family=Amaranth"
 	rel="stylesheet">
 
 
 <form class="form-horizontal" name="userForm" novalidate role="form">
-	<div class="container">
-		<fieldset>
+	<div class="container" style="margin-top:-20px">
+		<fieldset style="margin-top:20px;">
 			<legend>FLYK - Rede social de contratação e prestação de serviços</legend>
 		</fieldset>
 		<h4>Você, consumidor/prestador de serviços, já deve ter passado por alguma das seguintes situações:
@@ -22,3 +30,4 @@
 		
 	</div>
 </form>
+</div>

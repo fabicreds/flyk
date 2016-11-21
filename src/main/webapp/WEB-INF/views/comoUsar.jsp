@@ -1,9 +1,18 @@
+<style>
+.broun-block {
+    background: url("images/banner.jpg") repeat scroll center top rgba(0, 0, 0, 0);
+    height:100%;
+    padding-bottom: 34px;
+}
+</style>
+
+<div class="broun-block">
 <link href="https://fonts.googleapis.com/css?family=Amaranth"
 	rel="stylesheet">
 
 <form class="form-horizontal" name="userForm" novalidate role="form">
-	<div class="container">
-		<fieldset>
+	<div class="container" style="margin-top:-20px">
+		<fieldset style="margin-top:20px">
 			<legend>Buscando eficiência e rapidez para contratar e prestar serviços? Aqui é seu lugar!</legend>
 		</fieldset>
 		<h4><b>Prestadores de serviços:</b>
@@ -19,3 +28,4 @@
 		
 	</div>
 </form>
+</div>
