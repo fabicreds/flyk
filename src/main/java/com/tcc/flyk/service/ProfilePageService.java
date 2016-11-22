@@ -32,11 +32,11 @@ public class ProfilePageService {
 	@Autowired
 	private ProfileService profileService;
 
-	public String montarDadosPerfil(String id, TipoCadastroEnum tipoCadastro) {
+	public String montarDadosPerfil(String idUsuarioLogado, String idUsuarioConsulta, TipoCadastroEnum tipoCadastro) {
 
 		if (tipoCadastro == TipoCadastroEnum.CLIENTE) {
 			Cliente cliente = new Cliente();
-			cliente = cliDAO.consultaClientePorId(id);
+			cliente = cliDAO.consultaClientePorId(idUsuarioConsulta);
 			// buscando os detalhes dos Amigos
 			profileService.buscarDadosAmigos(cliente);
 			// buscando os detalhes do servicos contratados
@@ -48,7 +48,7 @@ public class ProfilePageService {
 		} else {
 			// busca pelos Dados do Prestador
 			Prestador prestador = new Prestador();
-			prestador = prestadorDAO.consultaPrestadorPorId(id);
+			prestador = prestadorDAO.consultaPrestadorPorId(idUsuarioConsulta);
 			// buscando os detalhes dos servicos do prestador
 			profileService.buscarListaServicos(prestador);
 			// buscando os detalhes dos Amigos
