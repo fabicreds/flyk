@@ -6,18 +6,39 @@ flyk.controller("atualizaPerfilCtrl",function($scope, $rootScope, $location, $ht
 	$scope.cliente = {};
 	$scope.cliente.id = $rootScope.data.id;
 	$scope.categoriasServico = [];
-	$rootScope.servicos = $rootScope.data.listaCategoriaServicosPrestados;
+	/*$rootScope.servicos = $rootScope.data.listaCategoriaServicosPrestados;
 	$scope.numServicos = Object	.keys($rootScope.data.listaCategoriaServicosPrestados).length;
-	$scope.servicos = [];
+	$scope.servicos = [];*/
 	$scope.cliente.imagem = $rootScope.data.fotoPerfil;
 
+	console.log($rootScope.data.listaTelefone);
 	
-	
+
 	
 	/*
 	 * Function init - Executado ao carregar a pagina
 	 */
 	$scope.init = function() {
+		
+		
+		$scope.getIndexFromValue = function(value) {
+			var x=0;
+			console.log(value);
+			for (x=0; x < $scope.operadoras.length; x++)
+				{
+				
+				 if($scope.operadoras[x].id == value)
+					{
+					 console.log(x);
+					 return x;
+					}
+		            
+				}
+			
+			
+			
+		   }
+
 	
 				$rootScope.usuarioLogado = localStorage	.getItem("usuarioLogado");
 				$rootScope.tipoUsuarioLogado = localStorage	.getItem("tipoUsuarioLogado");
@@ -27,21 +48,6 @@ flyk.controller("atualizaPerfilCtrl",function($scope, $rootScope, $location, $ht
 				
 				
 				
-				
-				angular
-				.forEach(
-						$rootScope.cliente.listaCategoriaServicosPrestados,
-						function(
-								item,
-								key) {
-							var itemCategoria = {
-								id : item.id,
-								nome : item.nome
-							};
-							$scope.categoriasServico
-									.push(itemCategoria);
-						});
-				
 				/* 
 				 * Definicao do tipo de usuario logado, consultando localStorage
 				 */
@@ -49,7 +55,28 @@ flyk.controller("atualizaPerfilCtrl",function($scope, $rootScope, $location, $ht
 					
 					$scope.prestador = {};
 					
-					if ($rootScope.tipoUsuarioLogado == 2) {
+					$scope.numServicos = Object	.keys($rootScope.cliente.listaCategoriaServicosPrestados).length;
+
+
+					$scope.categoriasServico =$rootScope.cliente.listaCategoriaServicosPrestados ;
+					$scope.servicos=[];
+					$scope.categoriasServico=[];
+					
+					
+					angular
+					.forEach(
+							$rootScope.cliente.listaCategoriaServicosPrestados,
+							function(
+									item,
+									key) {
+								var itemCategoria = {
+									id : item.id,
+									nome : item.nome
+								};
+								$scope.categoriasServico
+										.push(itemCategoria);
+							});
+				if ($rootScope.tipoUsuarioLogado == 2) {
 						
 						$scope.prestador.flag = true;
 						$scope.prestador.type = "free";
@@ -140,7 +167,8 @@ flyk.controller("atualizaPerfilCtrl",function($scope, $rootScope, $location, $ht
 		}, {
 			id : 6,
 			label : 'OUTROS',
-		} ];
+		},
+		];
 		
 		$scope.tipoprivacidade = [ {
 			id : 1,
@@ -166,12 +194,18 @@ flyk.controller("atualizaPerfilCtrl",function($scope, $rootScope, $location, $ht
 			$scope.cliente.id = $rootScope.idUsuarioLogado;
 			
 					
-			if ($scope.prestador.flag) {
+			if  (angular.isDefined($scope.prestador))
+				
+			{
+			
+			if (angular.isDefined($scope.prestador.flag) && $scope.prestador.flag) {
 				$scope.data.tipoCadastro = 2;
 				if ($scope.prestador.type == "premium")
 					$scope.data.tipoCadastro = 3;
 			
-			} else
+				}
+			}
+			else
 			$scope.data.tipoCadastro = 1;
 			
 							
@@ -183,10 +217,9 @@ flyk.controller("atualizaPerfilCtrl",function($scope, $rootScope, $location, $ht
 			
 			})
 				.then(function(response) {
-								
+					console.log(response.data.cliente);			
 					$rootScope.usuarioLogado = response.data.usuario;
 					$rootScope.tipoUsuarioLogado = response.data.tipoCadastro;
-					
 						if (response.data.tipoCadastro == "1"|| response.data.tipoCadastro == "2") 
 						{
 							$rootScope.data = response.data.cliente;
@@ -203,7 +236,7 @@ flyk.controller("atualizaPerfilCtrl",function($scope, $rootScope, $location, $ht
 					},
 					function(response) {
 						$rootScope.data = response.data.cliente;
-						console.log(response.data.cliente);
+						//console.log(response.data.cliente);
 					
 						localStorage
 								.setItem(

@@ -34,7 +34,7 @@ public class ProfilePageController {
 		JSONObject json = new JSONObject(request);
 		try{
 		if(!json.isNull("idUsuario") && !json.isNull("tipoUsuario")){
-			return profilePageService.montarDadosPerfil(json.getString("idUsuario"), tipoCadastroEnumUtil.definirTipoCadastro(json.getInt("tipoUsuario")));
+			return profilePageService.montarDadosPerfil(json.getString("idUsuario"),json.getString("idUsuario"),  tipoCadastroEnumUtil.definirTipoCadastro(json.getInt("tipoUsuario")));
 		}else{
 			return mensagemErro("Dados Necessários indisponíveis!");
 		}

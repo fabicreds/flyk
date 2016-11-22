@@ -196,8 +196,9 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				//PRINTANDO NA TELA, REMOVER ISSO DEPOIS
 				if(resultado.containsField("foto")){
 					resultado.put("foto", "string da foto");
+					pessoa.setFotoPerfil(resultado.get("foto").toString());
 				}
-				System.out.println(resultado);
+				//System.out.println(resultado);
 				
 			}
 		} else {

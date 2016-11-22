@@ -1,3 +1,4 @@
+
 <!--  <link href="https://fonts.googleapis.com/css?family=Amaranth"
 	rel="stylesheet">-->
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
@@ -57,43 +58,69 @@
 		<div class="col-md-4">
 			<div class="w3-card-4 ">
 
-				<header class="w3-container">
+				<header class="w3-container w3-light-grey"">
 					<h3>{{resultado.nome}}</h3>
 				</header>
 
+
 				<div class="w3-container">
-					<p ng-if="resultado.apelido == null">-</p>
+				
+				<p>{{resultado.perfil}} {{resultado.nome}}</p>
+				
+					<!-- <p ng-if="resultado.apelido == null">-</p>
 					<p ng-if="resultado.apelido != null">{{resultado.apelido}}</p>
+ -->
+ 
 					<hr>
-					{{resultado.telefone}} <img ng-src={{resultado.fotoPerfil}}
-						alt="Avatar" class="w3-left w3-circle"
+
+
+					<img ng-src={{resultado.fotoPerfil}} alt="Avatar"
+						class="w3-left w3-circle"
 						style="height: 90px; width: 90px; margin-right: 6px;">
-					<p style="margin-bottom: 10px">{{resultado.endereco.cidade}}</p>
-
-					<p>{{resultado.perfil}}</p>
-
-				</div>
-
-
-				<div
+					<!-- <p style="margin-bottom: 10px"> {{resultado.endereco.cidade}}</p>-->
+						<div
 					ng-repeat="categoria in resultado.listaCategoriaServicosPrestados track by $index ">
 					<ul class="w3-ul">
 						<li>{{categoria.nome}}</li>
 					</ul>
 				</div>
+
+					
+
+				</div>
+
+
+				<div ng-hide="isUndefined(resultado.listaRecomendacoesRecebidas)">
+					<span class="glyphicon glyphicon-heart " style="color: #e91e63"></span>
+					Usuário Recomendado
+				</div>
+
+
+   
+			
+				<button class="w3-btn-block w3-teal"
+					ng-click="sendPostPerfilAmigo(resultado.id, resultado.tipoCadastro)"
+					ng-controller="friendsProfilePageCtrl">Ver perfil</button>
 			</div>
 
-			<button class="w3-btn-block w3-teal"
-				ng-click="sendPostPerfilAmigo(resultado.id, resultado.tipoCadastro)"
-				ng-controller="friendsProfilePageCtrl">Ver perfil</button>
+
 		</div>
 	</div>
 
+<div ng-controller="searchPageCtrl">
+      <div mass-autocomplete>
+        <input ng-model="dirty.value"
+               mass-autocomplete-item="autocomplete_options">
+      </div>
+    </div>
+
+<!-- 
+	<input type="text" ng-keyup="pesquisarCat(search)" ng-model="search"
+		class="form-control input-lg" placeholder="O que vocï¿½ procura?"
+		autofocus autocomplete="off">
+
+	<div class="autocomplete" ng-show="completing">
+		<a class="link" ng-repeat="dica in dicas"> </a>
 	</div>
-
-
-
-
-
-
-</body>
+	 -->
+	</div>

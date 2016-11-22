@@ -203,7 +203,7 @@ public class CategoriaDAOImpl extends MongoDB implements CategoriaDAO {
 		try {
 
 			System.out.println("consultando categoria");
-
+			super.conecta();
 			db.getCollection("FLYK");
 
 			final Categoria retorno = new Categoria();

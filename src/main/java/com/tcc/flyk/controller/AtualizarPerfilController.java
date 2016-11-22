@@ -51,6 +51,9 @@ public class AtualizarPerfilController {
 
 		
 	try {
+	
+
+		
 			JSONObject dadosPerfil = new JSONObject(perfil);
 			JSONObject dadosCli = new JSONObject();
 			dadosCli = dadosPerfil.getJSONObject("cliente");
@@ -63,13 +66,10 @@ public class AtualizarPerfilController {
 				if ((!dadosCli.isNull("tipoCadastro") && (dadosCli.getInt("tipoCadastro") == 2)
 						|| dadosCli.getInt("tipoCadastro") == 3)) {
 					
-					Prestador prest = new Prestador();
-					
-				
+					Prestador prest = new Prestador();				
 					
 					
 
-					//System.out.println("dadosCli enviado ao service eh " + dadosCli.toString());
 					prest = atualizaPerfilService.atualizaPerfilPrestador(dadosCli.getString("id"), dadosCli);
 					
 					
@@ -79,7 +79,7 @@ public class AtualizarPerfilController {
 					//Prestador prestadorAtualizado = new Prestador();
 
 					//prestadorAtualizado = util.toPrestador(dadosCli);
-					System.out.println("dadosCli para fazer o toPrestador " + dadosCli.toString());
+					//System.out.println("dadosCli para fazer o toPrestador " + dadosCli.toString());
 
 					Prestador prestadorAtualizado = prestadorUtil.toPrestador(dadosCli);
 
@@ -110,7 +110,7 @@ public class AtualizarPerfilController {
 							dadosPerfil.getJSONObject("cliente"));
 
 					System.out.println("RESULTADO DO PROFILE PAGE SERVICE " + profileService.montarDadosPerfil(
-							dadosPerfil.getJSONObject("cliente").getString("id"), cli.getTipoCadastro()));
+							dadosPerfil.getJSONObject("cliente").getString("id"), dadosPerfil.getJSONObject("cliente").getString("id"), cli.getTipoCadastro()));
 
 					dadosPerfil.put("cliente", util.toJSON(cli));
 
@@ -166,7 +166,7 @@ public class AtualizarPerfilController {
 			return mensagemErro("Erro ao atualizar Cliente" + e.getMessage() + e.getLocalizedMessage());
 		}
 
-		
+	System.out.println("dadosCli enviado ao service eh " + perfil.toString());
 			return perfil;
 	}
 

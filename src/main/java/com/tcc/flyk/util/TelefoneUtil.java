@@ -29,6 +29,10 @@ public class TelefoneUtil {
 					JSONObject operadoraJSON = (JSONObject) telefone.get("operadora");
 					tel.setOperadora(operadoraJSON.getInt("id"));
 				}
+				if (!telefone.isNull("operadoraa")) {
+					JSONObject operadoraJSON = (JSONObject) telefone.get("operadoraa");
+					tel.setOperadora(operadoraJSON.getInt("id"));
+				}
 				listaTelefone.add(tel);
 			}
 		}
@@ -84,13 +88,23 @@ public class TelefoneUtil {
 					t.setOperadora((jsonTel.getJSONObject("operadora").getInt("id")));
 				}
 
-				else {
+				else if (!jsonTel.isNull("operadoraa")) {
+					ope = jsonTel.get("operadoraa");
+					if (ope instanceof JSONObject) {
+						t.setOperadora((jsonTel.getJSONObject("operadoraa").getInt("id")));
+					}
+				}
+					
+			 else		
+				
+				
+				{
 					t.setOperadora((jsonTel.getInt("operadora")));
 				}
 			}
 
 			if (!jsonTel.isNull("categoria")) {
-				Object ope = jsonTel.get("categoria");
+				 Object ope = jsonTel.get("categoria");
 				if (ope instanceof JSONObject) {
 					t.setOperadora((jsonTel.getJSONObject("categoria").getInt("id")));
 				}

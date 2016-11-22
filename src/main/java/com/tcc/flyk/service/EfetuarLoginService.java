@@ -45,7 +45,7 @@ public class EfetuarLoginService {
 					
 					
 						
-						return profilePageService.montarDadosPerfil(usuario.getId(), usuario.getTipoCadastro());
+						return profilePageService.montarDadosPerfil(usuario.getId(), usuario.getId(),usuario.getTipoCadastro());
 					}
 					return mensagemSucesso(usuario);
 				} else {

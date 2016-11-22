@@ -138,15 +138,17 @@
 											class="form-control" ng-model="telefone.numero"
 											ng-bind="telefone.numero" />
 									</div>
+									
+									{{telefone.operadora}}
 									<div class="col-sm-2">
 										<select class="form-control"
-											ng-options="item as item.label for item in operadoras track by operadoras.id"
-											 ng-model="telefone.operadora" ng-selected="item==$rootScope.data.listaTelefone.telefone0.operadora"></select>
+											ng-options="item as item.label for item in operadoras"
+											 ng-model="telefone.operadoraa" ng-init= "telefone.operadoraa = operadoras[getIndexFromValue(telefone.operadora)] ""></select>
 									</div>
 									<div class="col-sm-2">
 										<select class="form-control"
 											ng-options="item as item.label for item in categorias track by categorias.id"
-											selected="telefone.categoria" ng-model="telefone.categoria"></select>
+											 ng-model="telefone.categoria"></select>
 									</div>
 
 								</div>
@@ -295,7 +297,7 @@
 									</uib-tab> 
 									
 									 <uib-tab ng-hide="!prestador.flag" index="1"
-										heading="Serviços" >
+										heading="Serviços" data-ng-init="carregaCategorias()" >
 										
 										
 									<div class="panel panel-default">
@@ -332,7 +334,7 @@
 																	<label for="serviços" class="col-sm-4 control-label">
 																		Categoria do Serviço </label>
 																	<div class=" col-sm-4">
-																		<select class="form-control" ng-model="servicos[i.id]" ng-click="carregaCategorias()"
+																		<select class="form-control" ng-model="servicos[i.id]" 
 																			ng-options="item.id as item.nome for item in categoriasServico">
 																		</select>
 																	</div>

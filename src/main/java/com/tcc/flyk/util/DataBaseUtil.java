@@ -21,6 +21,8 @@ import com.tcc.flyk.entity.Prestador;
 import com.tcc.flyk.entity.Privacidade;
 import com.tcc.flyk.entity.Telefone;
 import com.tcc.flyk.entity.enumerator.TipoCadastroEnum;
+import com.tcc.flyk.persistence.CategoriaDAO;
+import com.tcc.flyk.persistence.impl.CategoriaDAOImpl;
 
 @Component
 public class DataBaseUtil {
@@ -349,8 +351,17 @@ public class DataBaseUtil {
 		BasicDBObject[] lightArr = servicosDB.toArray(new BasicDBObject[0]);
 		for (BasicDBObject servicoDB : lightArr) {
 			Categoria categoriaServico = new Categoria();
+			CategoriaDAO catDAO = new CategoriaDAOImpl();
+		
+			
+			
 			if (servicoDB.get("id_categoria_servico_prestado") != null) {
 				categoriaServico.setId(servicoDB.getString("id_categoria_servico_prestado"));
+				
+				//Categoria x = catDAO.consultarCategoriaPorId(categoriaServico.getId());
+				//System.out.println(x.getDescricaoCategoria());
+				categoriaServico.setNomeCategoria(catDAO.consultarCategoriaPorId((String) servicoDB.get("id_categoria_servico_prestado")).getNomeCategoria());
+				
 			}
 			listaServicos.add(categoriaServico);
 		}

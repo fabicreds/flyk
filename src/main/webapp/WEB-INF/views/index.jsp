@@ -34,6 +34,12 @@
 	rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/resources/css/app.css"
 	rel="stylesheet" />
+	
+	<link href="${pageContext.request.contextPath}/resources/css/massautocomplete.theme.css"
+	rel="stylesheet" />
+	
+	
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-sanitize.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/angular/angular-ui/ui-bootstrap-tpls.js"></script>
 <script
@@ -94,6 +100,9 @@
 	src="${pageContext.request.contextPath}/resources/angular/app/directives/uiCEPDirective.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/directives/uiNumberCardDirective.js"></script>
+	
+	<script
+	src="${pageContext.request.contextPath}/resources/angular/app/massautocomplete.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/directives/fileReaderDirective.js"></script>
 <!--   <script src="//rawgithub.com/GoDisco/ngFacebook/master/ngFacebook.js"></script> -->
