@@ -27,8 +27,6 @@ public class LoginController {
 	@RequestMapping(value = "/efetuarLogin", method = RequestMethod.POST)
 	public @ResponseBody String efetuarLogin(@RequestBody String request) {
 		try {
-			banco banco = new banco();
-			banco.formataBanco();
 			EfetuarLoginForm form = util.convertJSONToForm(request);
 			String mensagem = "";
 			if (form != null) {
