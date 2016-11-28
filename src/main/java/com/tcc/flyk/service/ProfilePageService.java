@@ -41,40 +41,14 @@ public class ProfilePageService {
 			Cliente cliente = new Cliente();
 			cliente = cliDAO.consultaClientePorId(idUsuarioConsulta);
 
-			//Verifica se o usuário logado é amigo do usuário consulta
-			boolean flagAmigo = false;
-			if (cliente.getListaAmigos() != null && idUsuarioLogado != idUsuarioConsulta) {
-				for (Amizade amizade : cliente.getListaAmigos()) {
-					if(amizade.getAmigo().getId()==idUsuarioLogado){
-						flagAmigo = true;
-					}
-				}
-			}
 			
 			// buscando os detalhes dos Amigos
 			profileService.buscarDadosAmigos(cliente);
 			
 			// buscando os detalhes do servicos contratados
-			if(cliente.getPrivacidade().getExibeAgenda()==PrivacidadeEnum.PUBLICO||(cliente.getPrivacidade().getExibeAgenda()==PrivacidadeEnum.APENAS_AMIGOS && flagAmigo)||idUsuarioLogado==idUsuarioConsulta){
-				profileService.buscarDadosContratos(cliente);	
-			}
+			profileService.buscarDadosContratos(cliente);	
 
 			profileService.buscarRecomendacoesDadas(cliente);
-
-			//Privacidade CPF
-			if(!(cliente.getPrivacidade().getExibeCPF()==PrivacidadeEnum.PUBLICO||(cliente.getPrivacidade().getExibeCPF()==PrivacidadeEnum.APENAS_AMIGOS && flagAmigo)||idUsuarioLogado==idUsuarioConsulta)){
-				cliente.setCPF(informacaoPrivada);
-			}
-			
-			//Privacidade endereço
-			if(!(cliente.getPrivacidade().getExibeEndereco()==PrivacidadeEnum.PUBLICO||(cliente.getPrivacidade().getExibeEndereco()==PrivacidadeEnum.APENAS_AMIGOS && flagAmigo)||idUsuarioLogado==idUsuarioConsulta)){
-				cliente.setEndereco(null);
-			}
-			
-			//Privacidade telefone
-			if(!(cliente.getPrivacidade().getExibeTelefone()==PrivacidadeEnum.PUBLICO||(cliente.getPrivacidade().getExibeTelefone()==PrivacidadeEnum.APENAS_AMIGOS && flagAmigo)||idUsuarioLogado==idUsuarioConsulta)){
-				cliente.setListaTelefone(null);
-			}
 			
 			return mensagemSucesso(cliente);
 		} else {
@@ -82,26 +56,13 @@ public class ProfilePageService {
 			Prestador prestador = new Prestador();
 			prestador = prestadorDAO.consultaPrestadorPorId(idUsuarioConsulta);
 			
-
-			//Verifica se o usuário logado é amigo do usuário consulta
-			boolean flagAmigo = false;
-			if (prestador.getListaAmigos() != null && idUsuarioLogado != idUsuarioConsulta) {
-				for (Amizade amizade : prestador.getListaAmigos()) {
-					if(amizade.getAmigo().getId()==idUsuarioLogado){
-						flagAmigo = true;
-					}
-				}
-			}
-			
 			
 			// buscando os detalhes dos servicos do prestador
 			profileService.buscarListaServicos(prestador);
 			// buscando os detalhes dos Amigos
 			profileService.buscarDadosAmigos(prestador);
 			// buscando os detalhes dos servicos contratados pelo prestador
-			if(prestador.getPrivacidade().getExibeAgenda()==PrivacidadeEnum.PUBLICO||(prestador.getPrivacidade().getExibeAgenda()==PrivacidadeEnum.APENAS_AMIGOS && flagAmigo)||idUsuarioLogado==idUsuarioConsulta){
-				profileService.buscarDadosContratos(prestador);	
-			}
+			profileService.buscarDadosContratos(prestador);	
 
 			profileService.buscarDadosContratosPrestados(prestador);
 			
@@ -110,21 +71,6 @@ public class ProfilePageService {
 			profileService.buscarRecomendacoesRecebidas(prestador);
 
 
-			//Privacidade CNPJ
-			if(!(prestador.getPrivacidade().getExibeCPF()==PrivacidadeEnum.PUBLICO||(prestador.getPrivacidade().getExibeCPF()==PrivacidadeEnum.APENAS_AMIGOS && flagAmigo)||idUsuarioLogado==idUsuarioConsulta)){
-				prestador.setCPF("");
-				prestador.setCnpj(informacaoPrivada);
-			}
-			
-			//Privacidade endereço
-			if(!(prestador.getPrivacidade().getExibeEndereco()==PrivacidadeEnum.PUBLICO||(prestador.getPrivacidade().getExibeEndereco()==PrivacidadeEnum.APENAS_AMIGOS && flagAmigo)||idUsuarioLogado==idUsuarioConsulta)){
-				prestador.setEndereco(null);
-			}
-			
-			//Privacidade telefone
-			if(!(prestador.getPrivacidade().getExibeTelefone()==PrivacidadeEnum.PUBLICO||(prestador.getPrivacidade().getExibeTelefone()==PrivacidadeEnum.APENAS_AMIGOS && flagAmigo)||idUsuarioLogado==idUsuarioConsulta)){
-				prestador.setListaTelefone(null);
-			}
 			return mensagemSucesso(prestador);
 		}
 
