@@ -66,6 +66,10 @@ public class PrestadorUtil {
 		if (prestador.getPesoBusca() != 0) {
 			jObjt.put("pesoBusca", prestador.getPesoBusca());
 		}
+		
+		if (prestador.getMediaDeEstrelas() != 0) {
+			jObjt.put("mediaEstrelas", prestador.getMediaDeEstrelas());
+		}
 		return jObjt;
 	}
 
@@ -216,6 +220,10 @@ public class PrestadorUtil {
 			privacidade = privacidadeUtil.toPrivacidade(json.getJSONObject("privacidade"));
 			prestador.setPrivacidade(privacidade);
 
+		}
+		
+		if (!json.isNull("mediaEstrelas") && !json.getString("mediaEstrelas").isEmpty()) {
+			prestador.setMediaDeEstrelas(json.getDouble("mediaEstrelas"));
 		}
 
 		return prestador;

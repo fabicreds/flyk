@@ -1,4 +1,4 @@
-flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, fileReader) {
+flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, fileReader, $filter) {
 	
 	
 	$scope.tipoBusca = [ {
@@ -12,8 +12,11 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, 
 	$scope.listaCategorias = [];
 	$scope.categoriasServico = [];
 
+	$scope.makeLowerCase = function(string){
+		   return angular.lowercase(string);
+		};
 	
-	
+
 	
 	
 	$scope.init = function () {
@@ -21,9 +24,13 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, 
 		$rootScope.tipoUsuarioLogado = localStorage.getItem("tipoUsuarioLogado");
 		$rootScope.idUsuarioLogado = localStorage.getItem("idUsuarioLogado");
 		$rootScope.cliente = angular.fromJson(localStorage.getItem("dadosCliente"));
-		
-		
 		$scope.cidade = $rootScope.cliente.endereco.cidade;
+		console.log($rootScope.cliente);
+		$scope.getCidade = function(){
+		       $scope.cidade=$rootScope.cliente.endereco.cidade;
+		        
+	};
+		
     }
 
 	$scope.showSearchPage = function() {
@@ -33,7 +40,7 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, 
 	
 	$scope.carregaCategorias = function() {
 		
-	//	console.log(localStorage.getItem("dadosCliente"));
+	
 		
 		$http({
 			url : 'consultaCategoriaCadastradasCadastro',
@@ -45,7 +52,7 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, 
 							console.log(response.data);
 							if (response.data.retorno != "erro") {
 								console.log(response.data.listaCategorias);
-								//$rootScope.data.listaCategorias = response.data.listaCategorias.listaCategorias;
+								
 								if (response.data.listaCategorias != null) {
 									angular
 											.forEach(
@@ -91,7 +98,7 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, 
 								console.log(response.data);
 								if (response.data.retorno != "erro") {
 									console.log(response.data.listaCategorias);
-									//$rootScope.data.listaCategorias = response.data.listaCategorias.listaCategorias;
+									
 									if (response.data.listaCategorias != null) {
 										angular
 												.forEach(
@@ -100,7 +107,7 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, 
 																item,
 																key) {
 															var itemCategoria = {
-																id : item.id,
+																//id : item.id,
 																nome : item.nome
 															};
 															$scope.dicas
@@ -118,31 +125,17 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, 
 		}
 	};
 	
-	$scope.dirty = {};
-
-	  var states = ['Alabama', 'Alaska', 'California', /* ... */ ];
-
-	  function suggest_state(term) {
-	    var q = term.toLowerCase().trim();
-	    var results = [];
-
-	    // Find first 10 states that start with `term`.
-	    for (var i = 0; i < states.length && results.length < 10; i++) {
-	      var state = states[i];
-	      if (state.toLowerCase().indexOf(q) === 0)
-	        results.push({ label: state, value: state });
-	    }
-
-	    return results;
-	  }
-
-	  $scope.autocomplete_options = {
-	    suggest: suggest_state
-	  };
+	
+	  
 	
 	$scope.find = function () {
-		$rootScope.cliente = localStorage.getItem("dadosCliente");
-		//console.log(	$rootScope.cliente.endereco.cidade );	
+		delete $scope.msgErro;
+		$scope.listaClientes=[];
+		$rootScope.cliente = localStorage.getItem("dadosCliente");			
+	
+		$scope.servicos= angular.toJson($scope.foo);
+		
+		
 		$http({
 
             url : 'efetuarBusca',
@@ -152,7 +145,7 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, 
                 'tipoPesquisa' : $scope.campotipoBusca,
                 'stringBusca' : $scope.valorBusca,
                 'idCateg': $scope.servicos,
-                'cidade': $scope.cidade,
+                'cidade': $scope.nomeCidade,
                 'idUsuarioLogado': $rootScope.idUsuarioLogado
                 
 
@@ -165,42 +158,13 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, 
 
 
 			if (response.data.retornoVazio == "Nenhum cliente encontrado.") {
-				$scope.listaClientes = response.data.retornoVazio;
+				$scope.msgErro = response.data.retornoVazio;
+				console.log($scope.msgErro);
 
 			} else {
 				$scope.listaClientes = response.data.listaClientes;
-				console.log($scope.listaClientes);
-				
-				var i=0;
-				angular
-				.forEach($scope.listaClientes,function(item,key) {
-							
-					if($scope.listaClientes.cliente + i.listaRecomendacoesRecebidas != 'undefined' || $scope.listaClientes.cliente0.listaRecomendacoesRecebidas === null)
-					{
-						console.log("usuario recomendando");
-						//str = $parse("cliente" + i);
-						var str="cliente";
-						var a=i;
-						
-						$scope.indice=str + a;
-						console.log($scope.indice);
-						//console.log($scope.listaClientes.$scope.indice);
-						
-					
-						
-						console.log(i);
-					}
-						
-						i++;
-						});
-				
-				
-				
-				console.log($scope.listaClientes.cliente0.listaRecomendacoesRecebidas);
 
-			}
-			
-				
+			}			
 				
 				if( typeof $rootScope.cliente.listaRecomendacoesRecebidas === 'undefined' || $rootScope.cliente.listaRecomendacoesRecebidas === null ){
 				    // Do stuff
@@ -209,22 +173,13 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, 
 					console.log("usuario recomendado");
 				}
 			
-             // $rootScope.data.listaClientes = response.data.listaClientes;
-             // $scope.listaClientes = response.data.listaClientes;
-             
-             // $scope.mensagem=response.data;
-              //$scope.msg=true;
-              //console.log(JSON.stringify(response.data));
-  			//$location.path('/confirmaPromocao');
             
-        	
-        	console.log($scope.listaClientes);
       
         }, function(response) {
            
         
             
-            //$scope.message = response;
+           
         });
 		
 		
@@ -235,6 +190,34 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, 
 	$scope.isUndefined = function (thing) {
 	    return (typeof thing === "undefined");
 	}
-	
+	 $scope.source1 = ["this", "is", "array", "of", "text"]; 
+     $scope.source2 = [{id:1, value:'One'}, {id:2, value:'Two'}, {id:3, value:'Three'}, {id:4, value:'Four'}];
+     $scope.callback = function(selected) {
+       $scope.foo_ids = $scope.foo.map(function(el) {return el;}).join(',');
+       $scope.selected = selected;
+     };
+     $scope.servicos = [];
+     $scope.foo_ids = '1,2';
+     $scope.source = $scope.categoriasServico;
+   //$scope.source =  $scope.source1;
 
+     $scope.disabled = false;
+     $scope.customListFormatter = function(data) {
+       return ''+data.nome+'';
+     };
+     $scope.prefillFunc = function(url) {
+       $http.get(url).success(function(data) {
+         $scope.foo = data;
+       });
+     }
+
+     var printHTML = function(selector) {
+         document.write('<pre>'+
+           document.querySelector(selector).outerHTML.replace(/</g,'\n&lt;').replace(/[ ]([a-z])/g,"\n  $1") +
+         '</pre>')
+       };
+       
+       $scope.listFormatter = function(data) {
+           return ''+data.nome+''
+         };
 });

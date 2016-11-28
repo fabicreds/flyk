@@ -3,6 +3,7 @@ package com.tcc.flyk.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,8 +33,16 @@ public class SearchPageController {
 			"application/json;charset=UTF-8" }, produces = "application/json")
 	public @ResponseBody String realizaBusca(@RequestBody String JSONParametrosBusca) {
 
-		//System.out.println(" JSON BUSCA" + JSONParametrosBusca);
+		System.out.println(" JSON BUSCA" + JSONParametrosBusca);
 
+		
+		
+		
+		
+	
+		
+		
+		
 		JSONObject jsonArrayClientes = new JSONObject();
 
 		JSONObject JSONBusca = new JSONObject(JSONParametrosBusca);
@@ -66,20 +75,32 @@ public class SearchPageController {
 		 * Obter lista de categorias, buscar prestadores da categoria informada
 		 */
 		else {
-
-			String idCategoria = JSONBusca.getString("idCateg");
+			
+			//JSONObject listaCategoria = new JSONObject("idCateg");
+			JSONArray listaCategoria = new JSONArray(JSONBusca.getString("idCateg"));
 
 			List<String> listaCategorias = new ArrayList<String>();
-			Categoria categoria = new Categoria();
-			categoria.setId(idCategoria);
-			listaCategorias.add(idCategoria);			
+		   
+			for (int i = 0; i < listaCategoria.length(); i++) {
+				JSONObject jsonCategoria = listaCategoria.getJSONObject(i);
+				String idCategoria= jsonCategoria.getString("id");
+				Categoria categoria = new Categoria();
+				categoria.setId(idCategoria);
+				listaCategorias.add(idCategoria);	
+				}
+			
+
+			
+
+			
+					
 
 			//jsonArrayClientes = searchService.efetuaBusca(listaCategorias, 1, stringParametroBusca);
 			
 			List<Prestador> listaPrestadores = new ArrayList<Prestador>();
 	
 
-			
+			System.out.println(cidade);
 			
 			
 			jsonArrayClientes = searchService.buscaServico(listaCategorias, 1, stringParametroBusca, cidade);

@@ -189,13 +189,14 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				//Calcula a m�dia de estrelas do prestador
 				double media = calculaMediaDeEstrelas(pessoa.getListaContratosServicosPrestados());
 				System.out.println("Media do prestador: " + String.valueOf(media));
+				pessoa.setMediaDeEstrelas(media);
 				if(media>=qtdMinimaEstrelas||media==0){
 					retorno.add(pessoa);
 				}
 				
 				//PRINTANDO NA TELA, REMOVER ISSO DEPOIS
 				if(resultado.containsField("foto")){
-					resultado.put("foto", "string da foto");
+					//resultado.put("foto", "string da foto");
 					pessoa.setFotoPerfil(resultado.get("foto").toString());
 				}
 				//System.out.println(resultado);
@@ -314,6 +315,8 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				List<Compromisso> agenda = dbUtil.montarDadosServicosContratados(servicosContratadosDB);
 				// Adiciona o array compromissos na pessoa
 				pessoa.setListaContratosServicosPrestados(agenda);
+				Double mediaEstrelas = this.calculaMediaDeEstrelas(agenda);
+				pessoa.setMediaDeEstrelas(mediaEstrelas);
 			}
 
 			// ********************* LISTA DE RECOMENDAï¿½ï¿½ES DADAS
@@ -361,7 +364,11 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				// Adiciona o array mensagens na pessoa
 				pessoa.setListaContratosServicosPrestados(listaContratosServicosPrestados);
 			}
-
+			double media = calculaMediaDeEstrelas(pessoa.getListaContratosServicosPrestados());
+			pessoa.setMediaDeEstrelas(media);
+			
+		
+			
 
 			// LISTA DE RECOMENDACOES RECEBIDAS
 			// Busca a lista de prestadores recomendados e coloca na telefonesBD
@@ -1189,9 +1196,9 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 							.append("categorias_de_servicos_prestados", categoriasPrestadas)
 							.append("tipo_perfil", prestador.getTipoCadastro().getCodigo())
 
-							//.append("privacidade_bloco_cpf_cnpj",pdor.getPrivacidade().getExibeCPF().getCodigo())
-							//.append("privacidade_bloco_telefone",pdor.getPrivacidade().getExibeTelefone().getCodigo())
-							//.append("privacidade_bloco_endereco",pdor.getPrivacidade().getExibeEndereco().getCodigo())						
+							.append("privacidade_bloco_cpf_cnpj",pdor.getPrivacidade().getExibeCPF().getCodigo())
+							.append("privacidade_bloco_telefone",pdor.getPrivacidade().getExibeTelefone().getCodigo())
+							.append("privacidade_bloco_endereco",pdor.getPrivacidade().getExibeEndereco().getCodigo())						
 							//.append("foto", pdor.getFotoPerfil())
 
 

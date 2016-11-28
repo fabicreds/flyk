@@ -103,8 +103,22 @@
 	
 	<script
 	src="${pageContext.request.contextPath}/resources/angular/app/massautocomplete.js"></script>
+	
+	
 <script
 	src="${pageContext.request.contextPath}/resources/angular/app/directives/fileReaderDirective.js"></script>
+	
+	
+	<script
+	src="${pageContext.request.contextPath}/resources/angular/app/directives/auto-complete.js"></script>
+	<script
+	src="${pageContext.request.contextPath}/resources/angular/app/directives/auto-complete-multi.js"></script>
+	<script
+	src="${pageContext.request.contextPath}/resources/angular/app/directives/auto-complete-div.js"></script>
+	
+	
+		<script
+	src="${pageContext.request.contextPath}/resources/angular/app/auto-complete.js""></script>
 <!--   <script src="//rawgithub.com/GoDisco/ngFacebook/master/ngFacebook.js"></script> -->
 
 

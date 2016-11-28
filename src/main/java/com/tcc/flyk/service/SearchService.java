@@ -70,11 +70,6 @@ public class SearchService {
 
 	//Efetua busca de cliente
 	public JSONObject efetuaBusca(String chaveBusca) {
-		/*
-		 * COMENTAR BEM O METODO ABAIXO
-		 */
-		
-		
 
 		JSONObject jsonCli = new JSONObject();
 
@@ -116,38 +111,7 @@ public class SearchService {
 
 				}
 
-				// System.out.println(cUtil.toJSON(cliente).toString());
-
-				// jsonArrayCli.put( i, jsonCli);
-
 			}
-
-			/*
-			 * List<Cliente> listaCli =new ArrayList<Cliente>();
-			 * 
-			 * listaCli=cliDAO.consultaClientePorParteDoNome(chaveBusca);
-			 * 
-			 * 
-			 * for (int i=0; i < listaCli.size(); i++) {
-			 * 
-			 * 
-			 * 
-			 * Cliente cliente = new Cliente();
-			 * 
-			 * cliente = listaCli.get(i);
-			 * 
-			 * 
-			 * jsonCli.put("cliente" + i ,cUtil.toJSON(cliente));
-			 * 
-			 * //System.out.println(cUtil.toJSON(cliente).toString());
-			 * 
-			 * //jsonArrayCli.put( i, jsonCli);
-			 * 
-			 * 
-			 * 
-			 * }
-			 * 
-			 */
 
 		}
 
@@ -166,6 +130,15 @@ public class SearchService {
 		//Busca os prestadores que se encaixam nos filtros
 		PrestadorDAO preDAO = new PrestadorDAOImpl();
 		prestadores = preDAO.buscaServico(idCategorias, qtdMinimaEstrelas, nomePrestador);
+		
+		if (prestadores==null)
+		{
+			JSONObject jsonPrestadores = new JSONObject();
+			jsonPrestadores.put("retornoVazio", "Nenhum cliente encontrado.");
+			return jsonPrestadores;
+			
+		}
+		
 		
 		//Ordena a lista com as seguintes prioridades
 		//1° Prestadores premium da mesma cidade do cliente
