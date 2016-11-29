@@ -510,7 +510,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				}
 			} else {
 				System.out.println("Consulta de cliente pelo email " + email + " n�o encontrou valores.");
-				super.desconecta();
+				//super.desconecta();
 				return null;
 			}
 			super.desconecta();
@@ -691,7 +691,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			return null;
 		}
 
-		super.desconecta();
+		//super.desconecta();
 		// Retorna a pessoa para o chamador
 		return pessoa;
 	}
@@ -840,6 +840,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 	@Override
 	public Cliente atualizaCliente(String id, Cliente c) {
 		try {
+			super.conecta();
 			Cliente cli = new Cliente();
 			BasicDBObject updateQuery = new BasicDBObject();
 			cli = this.consultaClientePorId(String.valueOf(id));		
@@ -891,7 +892,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 						.append("privacidade_bloco_cpf_cnpj",c.getPrivacidade().getExibeCPF().getCodigo())
 						.append("privacidade_bloco_telefone",c.getPrivacidade().getExibeTelefone().getCodigo())
 						.append("privacidade_bloco_endereco",c.getPrivacidade().getExibeEndereco().getCodigo())						
-						
+						.append("foto", c.getFotoPerfil())
 
 					
 								
@@ -905,11 +906,11 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 			BasicDBObject searchQuery = new BasicDBObject();
 			searchQuery.append("_id", new ObjectId(id));
 
-			super.conecta();
+			
 			DBCollection collection = db.getCollection("FLYK");
 
 			collection.update(searchQuery, updateQuery);
-			super.desconecta();
+			
 			cli = this.consultaClientePorId(String.valueOf(id));
 
 			return cli;

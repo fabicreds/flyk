@@ -1199,7 +1199,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 							.append("privacidade_bloco_cpf_cnpj",pdor.getPrivacidade().getExibeCPF().getCodigo())
 							.append("privacidade_bloco_telefone",pdor.getPrivacidade().getExibeTelefone().getCodigo())
 							.append("privacidade_bloco_endereco",pdor.getPrivacidade().getExibeEndereco().getCodigo())						
-							//.append("foto", pdor.getFotoPerfil())
+							.append("foto", prestador.getFotoPerfil())
 
 
 						
@@ -1217,7 +1217,7 @@ public class PrestadorDAOImpl extends MongoDB implements PrestadorDAO {
 				super.conecta();
 				DBCollection collection = db.getCollection("FLYK");
 				collection.update(searchQuery, updateQuery);
-				super.desconecta();
+				
 				
 				pdor = this.consultaPrestadorPorId(String.valueOf(idPrestador));
 

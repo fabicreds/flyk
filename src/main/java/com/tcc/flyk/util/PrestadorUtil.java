@@ -178,8 +178,8 @@ public class PrestadorUtil {
 		}
 
 		// 'imagem' :$scope.imageSrc
-		if (!json.isNull("imagem")) {
-			prestador.setFotoPerfil(json.getString("imagem"));
+		if (!json.isNull("fotoPerfil")) {
+			prestador.setFotoPerfil(json.getString("fotoPerfil"));
 		}
 
 		if (!json.isNull("servicos")) {

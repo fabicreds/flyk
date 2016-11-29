@@ -263,9 +263,11 @@ public class ClienteUtil {
 
 		}
 		// 'imagem' :$scope.imageSrc
-		if (!json.isNull("imagem")) {
-			cli.setFotoPerfil(json.getString("imagem"));
+		if (!json.isNull("fotoPerfil")) {
+			cli.setFotoPerfil(json.getString("fotoPerfil"));
 		}
+		
+		
 
 		return cli;
 	}

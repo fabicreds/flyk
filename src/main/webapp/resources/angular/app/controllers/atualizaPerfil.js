@@ -9,9 +9,8 @@ flyk.controller("atualizaPerfilCtrl",function($scope, $rootScope, $location, $ht
 	/*$rootScope.servicos = $rootScope.data.listaCategoriaServicosPrestados;
 	$scope.numServicos = Object	.keys($rootScope.data.listaCategoriaServicosPrestados).length;
 	$scope.servicos = [];*/
-	$scope.cliente.imagem = $rootScope.data.fotoPerfil;
 
-//	console.log($rootScope.data.listaTelefone);
+	console.log($rootScope.data.listaTelefone);
 	
 
 	
@@ -19,17 +18,36 @@ flyk.controller("atualizaPerfilCtrl",function($scope, $rootScope, $location, $ht
 	 * Function init - Executado ao carregar a pagina
 	 */
 	$scope.init = function() {
-		
+		$scope.cliente.fotoPerfil= $rootScope.data.fotoPerfil;
+
 		
 		$scope.getIndexFromValue = function(value) {
 			var x=0;
-//			console.log(value);
+			console.log(value);
 			for (x=0; x < $scope.operadoras.length; x++)
 				{
 				
 				 if($scope.operadoras[x].id == value)
 					{
-//					 console.log(x);
+					 console.log(x);
+					 return x;
+					}
+		            
+				}
+			
+			
+			
+		   }
+		
+		$scope.getIndexFromValuePrivacidade = function(value) {
+			var x=0;
+			console.log(value);
+			for (x=0; x < $scope.tipoprivacidade.length; x++)
+				{
+				
+				 if($scope.tipoprivacidade[x].label == value)
+					{
+					 console.log(x);
 					 return x;
 					}
 		            
@@ -186,6 +204,9 @@ flyk.controller("atualizaPerfilCtrl",function($scope, $rootScope, $location, $ht
 		 * Function atualizaPerfil, envia objeto cliente e retorna objeto cliente atualizado
 		 */
 		$scope.atualizaPerfil = function() {
+			
+			delete $scope.mensagemErro;
+			
 							
 			$scope.cliente.listaTelefone = {};
 			$scope.cliente.listaTelefone = $rootScope.data.listaTelefone;
@@ -217,32 +238,44 @@ flyk.controller("atualizaPerfilCtrl",function($scope, $rootScope, $location, $ht
 			
 			})
 				.then(function(response) {
-//					console.log(response.data.cliente);			
+					console.log(response.data);			
 					$rootScope.usuarioLogado = response.data.usuario;
 					$rootScope.tipoUsuarioLogado = response.data.tipoCadastro;
-						if (response.data.tipoCadastro == "1"|| response.data.tipoCadastro == "2") 
+					console.log(response.data);
+					
+					if(response.data.retorno == "erro")
+					{
+						$scope.mensagemErro = response.data.retorno.mensagem;
+							
+					}
+					else {
+					
+						if (response.data.cliente.tipoCadastro == "1"|| response.data.cliente.tipoCadastro == "2") 
 						{
-							$rootScope.data = response.data.cliente;
+							
 							$scope.listaTelefone = response.data.cliente.listaTelefone;
-							localStorage.setItem("dadosCliente",JSON.stringify($rootScope.data));
-							$location.path('/profilePage');
+							localStorage.setItem("dadosCliente",JSON.stringify(response.data.cliente));
+							console.log(response.data);
+							//$location.path('/profilePage');
 						} else {
 											
-							$rootScope.data = response.data.cliente;
-							localStorage.setItem("dadosCliente",JSON.stringify($rootScope.data));
-//							console.log(response.data);
+							//$rootScope.data = response.data.cliente;
+							localStorage.setItem("dadosCliente",JSON.stringify(response.data.cliente));
+							console.log(response.data);
+							//$location.path('/profilePage');
 						}
+					}
 					
 					},
 					function(response) {
-						$rootScope.data = response.data.cliente;
+						//$rootScope.data.cliente = response.data.cliente;
 						//console.log(response.data.cliente);
 					
 						localStorage
 								.setItem(
 										"dadosCliente",
 										JSON
-												.stringify($rootScope.data));
+												.stringify(response.data.cliente));
 			});
 
 		}
@@ -253,7 +286,7 @@ flyk.controller("atualizaPerfilCtrl",function($scope, $rootScope, $location, $ht
 			fileReader.readAsDataUrl($scope.file, $scope).then(
 					function(result) {
 						$scope.imageSrc = result;
-						$scope.cliente.imagem = result;
+						$scope.cliente.fotoPerfil = result;
 						console.log($scope.cliente.imagem);
 					});
 		};
@@ -261,6 +294,10 @@ flyk.controller("atualizaPerfilCtrl",function($scope, $rootScope, $location, $ht
 		$scope.$on("fileProgress", function(e, progress) {
 			$scope.progress = progress.loaded / progress.total;
 		});
+		
+		$scope.isUndefined = function (thing) {
+		    return (typeof thing === "undefined");
+		}
 
 					$scope.carregaCategorias = function() {
 						

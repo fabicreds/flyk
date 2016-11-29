@@ -35,27 +35,18 @@ public class SearchPageController {
 
 		System.out.println(" JSON BUSCA" + JSONParametrosBusca);
 
-		
-		
-		
-		
-	
-		
-		
-		
 		JSONObject jsonArrayClientes = new JSONObject();
 
 		JSONObject JSONBusca = new JSONObject(JSONParametrosBusca);
 
-		String stringParametroBusca,cidade;
-		
+		String stringParametroBusca, cidade;
+
 		if (!JSONBusca.isNull("cidade")) {
 
 			cidade = JSONBusca.getString("cidade");
-		}
-		else {
-			cidade ="";
-			
+		} else {
+			cidade = "";
+
 		}
 
 		if (!JSONBusca.isNull("stringBusca")) {
@@ -75,34 +66,27 @@ public class SearchPageController {
 		 * Obter lista de categorias, buscar prestadores da categoria informada
 		 */
 		else {
-			
-			//JSONObject listaCategoria = new JSONObject("idCateg");
+
+			// JSONObject listaCategoria = new JSONObject("idCateg");
 			JSONArray listaCategoria = new JSONArray(JSONBusca.getString("idCateg"));
 
 			List<String> listaCategorias = new ArrayList<String>();
-		   
+
 			for (int i = 0; i < listaCategoria.length(); i++) {
 				JSONObject jsonCategoria = listaCategoria.getJSONObject(i);
-				String idCategoria= jsonCategoria.getString("id");
+				String idCategoria = jsonCategoria.getString("id");
 				Categoria categoria = new Categoria();
 				categoria.setId(idCategoria);
-				listaCategorias.add(idCategoria);	
-				}
-			
+				listaCategorias.add(idCategoria);
+			}
 
-			
+			// jsonArrayClientes = searchService.efetuaBusca(listaCategorias, 1,
+			// stringParametroBusca);
 
-			
-					
-
-			//jsonArrayClientes = searchService.efetuaBusca(listaCategorias, 1, stringParametroBusca);
-			
 			List<Prestador> listaPrestadores = new ArrayList<Prestador>();
-	
 
 			System.out.println(cidade);
-			
-			
+
 			jsonArrayClientes = searchService.buscaServico(listaCategorias, 1, stringParametroBusca, cidade);
 		}
 

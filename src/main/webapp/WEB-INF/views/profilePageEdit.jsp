@@ -7,6 +7,7 @@
 			<div class="well panel panel-default">
 				<div class="panel-heading">
 					<h3>Perfil do Usuário</h3>
+					{{data.privacidade.exibeEndereco}}
 				</div>
 				<div class="panel-body">
 					<div class="row">
@@ -21,7 +22,7 @@
 
 
 								</form>
-								<b>Preview:</b><br /> <img ng-src="{{cliente.imagem}}"
+								<b>Preview:</b><br /> <img ng-src="{{cliente.fotoPerfil}}"
 									style="height: 200px; width: 200px; border-radius: 50%; border: none;" /><br />
 
 								
@@ -67,8 +68,8 @@
 								</div>
 								<div class="col-sm-2">
 									<select class="form-control"
-										ng-options="x as x.label for x in tipoprivacidade track by tipoprivacidade.id"
-										ng-model="cliente.privacidade.endereco"></select>
+										ng-options="x as x.label for x in tipoprivacidade"
+										ng-model="cliente.privacidade.endereco" ng-init="cliente.privacidade.endereco =tipoprivacidade[getIndexFromValuePrivacidade(data.privacidade.exibeEndereco)]" ></select>
 								</div>
 							</div>
 							<div class="form-group">
@@ -124,8 +125,8 @@
 
 
 							<label for="telefone">Telefone:</label> <select
-								ng-options="x as x.label for x in tipoprivacidade track by tipoprivacidade.id"
-								ng-model="cliente.privacidade.telefone">
+								ng-options="x as x.label for x in tipoprivacidade"
+								ng-model="cliente.privacidade.telefone" ng-init="cliente.privacidade.telefone =tipoprivacidade[getIndexFromValuePrivacidade(data.privacidade.exibeTelefone)]" >
 							</select>
 							<div ng-repeat="telefone in data.listaTelefone">
 								<div class="form-group">
@@ -137,9 +138,8 @@
 										<input type="text" id="numero" name="numero"
 											class="form-control" ng-model="telefone.numero"
 											ng-bind="telefone.numero" />
-									</div>
+									</div>									
 									
-									{{telefone.operadora}}
 									<div class="col-sm-2">
 										<select class="form-control"
 											ng-options="item as item.label for item in operadoras"
@@ -163,8 +163,8 @@
 								</div>
 								<div class="col-sm-2">
 									<select class="form-control"
-										ng-options="x as x.label for x in tipoprivacidade track by tipoprivacidade.id"
-										ng-model="cliente.privacidade.cpf"></select>
+										ng-options="x as x.label for x in tipoprivacidade"
+										ng-model="cliente.privacidade.cpf" ng-init="cliente.privacidade.cpf =tipoprivacidade[getIndexFromValuePrivacidade(data.privacidade.exibeCPF)]" ></select>
 								</div>
 							</div>
 
@@ -367,6 +367,11 @@
 					
 				</div>
 			</div>
+		</div>
+		
+		<div ng-hide="!isUndefined(mensagemErro)">
+		<p> Ocorreu um erro ao atualizar o cliente </p>
+		
 		</div>
 	</form>
 </body>

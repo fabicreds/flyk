@@ -7,6 +7,8 @@ flyk.controller("profilePageCtrl", function ($scope, $rootScope, $location, $htt
     
     $scope.init = function () {
     	$scope.showProfilePage();
+    	$rootScope.data = angular.fromJson(localStorage.getItem("dadosCliente"));
+    	console.log($rootScope.data);
     }
     
     $scope.showProfilePage = function() {
@@ -26,17 +28,20 @@ flyk.controller("profilePageCtrl", function ($scope, $rootScope, $location, $htt
 					$rootScope.idUsuarioLogado = response.data.cliente.id;
 					$rootScope.data = response.data.cliente;
 					localStorage.setItem("dadosCliente", JSON.stringify($rootScope.data));
-					console.log(JSON.stringify($rootScope.data));
+					
 					$location.path('/profilePage');
 					
 				} else {
 					$location.path('/profilePage');
+					
 				}
 			}, function(response) {
 
 			});
 		} else {
 			$location.path('/profilePage');
+			
+			
 		}
 	};
 	
@@ -54,11 +59,13 @@ flyk.controller("profilePageCtrl", function ($scope, $rootScope, $location, $htt
 					$rootScope.usuarioLogado = response.data.usuario;
 					$rootScope.tipoUsuarioLogado = response.data.tipoCadastro;
 					$rootScope.idUsuarioLogado = response.data.cliente.id;
-					$rootScope.data = response.data.cliente;
-					localStorage.setItem("dadosCliente", JSON.stringify($rootScope.data));
-					//console.log(JSON.stringify($rootScope.data));
+					//$rootScope.data = response.data.cliente;
+					localStorage.setItem("dadosCliente", JSON.stringify(response.data.cliente));
+					console.log(JSON.stringify(response.data.cliente));
+					console.log(JSON.stringify(response.data.cliente.fotoPerfil));
 				} else {
 					$location.path('/profilePage');
+					
 				}
 			}, function(response) {
 
