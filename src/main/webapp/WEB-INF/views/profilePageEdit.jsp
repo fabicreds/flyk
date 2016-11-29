@@ -369,9 +369,6 @@
 			</div>
 		</div>
 		
-		<div ng-hide="!isUndefined(mensagemErro)">
-		<p> Ocorreu um erro ao atualizar o cliente </p>
-		
-		</div>
+	
 	</form>
 </body>
