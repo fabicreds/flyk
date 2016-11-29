@@ -25,7 +25,6 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, 
 		$rootScope.idUsuarioLogado = localStorage.getItem("idUsuarioLogado");
 		$rootScope.cliente = angular.fromJson(localStorage.getItem("dadosCliente"));
 		$scope.cidade = $rootScope.cliente.endereco.cidade;
-		console.log($rootScope.cliente);
 		$scope.getCidade = function(){
 		       $scope.cidade=$rootScope.cliente.endereco.cidade;
 		        
@@ -49,9 +48,7 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, 
 		})
 				.then(
 						function(response) {
-							console.log(response.data);
 							if (response.data.retorno != "erro") {
-								console.log(response.data.listaCategorias);
 								
 								if (response.data.listaCategorias != null) {
 									angular
@@ -71,7 +68,6 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, 
 							}
 						}, function(response) {
 							// fail case
-							console.log(response);
 							$scope.message = response;
 						});
 	};
@@ -95,9 +91,7 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, 
 			})
 					.then(
 							function(response) {
-								console.log(response.data);
 								if (response.data.retorno != "erro") {
-									console.log(response.data.listaCategorias);
 									
 									if (response.data.listaCategorias != null) {
 										angular
@@ -117,7 +111,6 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, 
 								}
 							}, function(response) {
 								// fail case
-								console.log(response);
 								$scope.message = response;
 							});
 
@@ -159,7 +152,6 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, 
 
 			if (response.data.retornoVazio == "Nenhum cliente encontrado.") {
 				$scope.msgErro = response.data.retornoVazio;
-				console.log($scope.msgErro);
 
 			} else {
 				$scope.listaClientes = response.data.listaClientes;
@@ -170,7 +162,6 @@ flyk.controller("searchPageCtrl", function($scope, $rootScope, $location,$http, 
 				    // Do stuff
 				}
 				else {
-					console.log("usuario recomendado");
 				}
 			
             

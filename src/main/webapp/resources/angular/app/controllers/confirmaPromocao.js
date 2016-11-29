@@ -50,7 +50,6 @@ flyk.controller("confirmaPromocaoCtrl", function($rootScope, $scope, $location, 
 
 	        }, function(response) {
 	           
-	            console.log();
 	            $scope.message = response;
 	        });
 			
@@ -64,7 +63,6 @@ flyk.controller("confirmaPromocaoCtrl", function($rootScope, $scope, $location, 
 
    $scope.datainicio =$filter('date')( $scope.dtini, "dd/MM/yyyy");    
    $scope.datafim =$filter('date')( $scope.dtfim, "dd/MM/yyyy"); 
-   console.log(JSON.stringify($scope.listaCategorias));	
 		$http({
 
             url : 'confirmaPromocao',
@@ -87,13 +85,10 @@ flyk.controller("confirmaPromocaoCtrl", function($rootScope, $scope, $location, 
               $rootScope.data = response.data;  		
               $scope.mensagem=response.data;
               $scope.msg=true;
-             // console.log(JSON.stringify(response.data));
   			//$location.path('/confirmaPromocao');
-              console.log(response.data);
       
         }, function(response) {
            
-            console.log();	
             $scope.message = response;
         });
 	}	

@@ -337,8 +337,7 @@ div.ebcs-calendar input[type="button"], div.ebcs-calendar input[type="submit"],
 											<div class="panel-body">
 												<div class="col-md-3 vcenter">
 													<div class="text-center">
-														<img
-															src="${pageContext.request.contextPath}/images/pessoa-feliz.png"
+														<img ng-src={{amizade.amigo.fotoPerfil}}
 															class="avatar img-circle img-thumbnail" alt="avatar"
 															style="height: 150px; width: 150px;">
 													</div>

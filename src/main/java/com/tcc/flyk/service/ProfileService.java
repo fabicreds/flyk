@@ -35,6 +35,7 @@ public class ProfileService {
 						amizade.getAmigo().setEmail(usuario.getEmail());
 						amizade.getAmigo().setUsuario(usuario.getUsuario());
 						amizade.getAmigo().setTipoCadastro(usuario.getTipoCadastro());
+						amizade.getAmigo().setFotoPerfil(usuario.getFotoPerfil());
 					}
 				}
 			}

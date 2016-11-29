@@ -45,7 +45,6 @@ flyk.controller("loginPageCtrl", function($rootScope, $scope, $location, $http, 
 				}else{
 					$rootScope.data = response.data.cliente;
 					$location.path('/profilePage');
-					console.log(response.data.cliente);
 				}
 			}
 			

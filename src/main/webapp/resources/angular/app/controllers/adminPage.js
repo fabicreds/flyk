@@ -43,7 +43,6 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 				'senha' : $scope.admpassword
 			}
 		}).then(function(response) {
-			console.log(response.data);
 			if(response.data.retorno == "erro"){
 				$scope.messageErroCadastro = response.data.mensagem;
 				$scope.messageSucessoCadastro = "";
@@ -57,7 +56,6 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 			
 		}, function(response) {
 			// fail case
-			console.log(response);
 			$scope.message = response;
 		});
 
@@ -65,7 +63,6 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 	};
 	
    $scope.sendPostServices = function() {
-		console.log($scope.servname);
 		$http({
 			url : 'cadastroServicos', // nome do request mapping da classe java criada para cadastro de serviços
 			method : "POST",
@@ -74,7 +71,6 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 				'descricao' : $scope.servdescription
 			}
 		}).then(function(response) {
-			console.log(response.data);
 			if(response.data.retorno == "erro"){
 				$scope.messageSucesso = response.data.mensagem; // configurar mensagem se o serviço já estiver cadastrado
 			}else{
@@ -85,7 +81,6 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 			
 		}, function(response) {
 			// fail case
-			console.log(response);
 			$scope.message = response;
 		});
 
@@ -124,7 +119,6 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
   
               $scope.dadosCateg=JSON.stringify(response.data.listaCategoria);  			 
   			
-//  			console.log($scope.dadosCateg);
   			
   				$scope.categorias = [];
   				angular.forEach(response.data, function(item, key) {
@@ -137,7 +131,6 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
   			  	//$scope.choices = [{option: 'Office', number: '9090909090'}, {option: 'Mobile', number: '9090909090'}];
   			  	// $scope.choices=[{"id":1,"nome":"Manicure"},{"id":2,"nome":"Fotografia"}];
   			  $scope.listaCategorias= response.data.listaCategoria;
-  			  	//console.log(response.data);
   			  $scope.addNewChoice = function() {
   			  var newItemNo = $scope.listaCategorias.length+1;
   			    $scope.listaCategorias.push({'id':''+newItemNo});
@@ -150,7 +143,6 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 
         }, function(response) {
            
-            console.log();
             $scope.message = response;
         });
 		$rootScope.usuarioLogado = localStorage.getItem("usuarioLogado");
@@ -162,7 +154,6 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
 	
 	  
 	$scope.sendPostProm = function() {
-		console.log($scope.choices);
 		
 		$http({
 
@@ -180,7 +171,6 @@ flyk.controller("adminPageCtrl", function($rootScope, $scope, $location, $http, 
       
         }, function(response) {
            
-            console.log();
             $scope.message = response;
         });
 	}

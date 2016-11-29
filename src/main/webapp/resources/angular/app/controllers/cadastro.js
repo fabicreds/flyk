@@ -44,7 +44,6 @@ flyk.controller("cadastroCtrl", function($scope, $rootScope, $location, $http,
 	};
 
 	$scope.pesquisaCep = function(userCEP) {
-		console.log(userCEP);
 		$http.get('http://api.postmon.com.br/v1/cep/' + userCEP).success(
 				function(local) {
 					$scope.address = local;
@@ -97,7 +96,6 @@ flyk.controller("cadastroCtrl", function($scope, $rootScope, $location, $http,
 				'servicos' : $scope.servicos
 			}
 		}).then(function(response) {
-			console.log(response.data);
 			if (response.data.retorno == "erro") {
 				$scope.messageErroCadastro = response.data.mensagem;
 				$scope.messageSucessoCadastro = "";
@@ -128,7 +126,6 @@ flyk.controller("cadastroCtrl", function($scope, $rootScope, $location, $http,
 
 		}, function(response) {
 			// fail case
-			console.log(response);
 			$scope.message = response;
 		});
 
@@ -157,14 +154,12 @@ flyk.controller("cadastroCtrl", function($scope, $rootScope, $location, $http,
 					}
 				}, function(response) {
 					// fail case
-					console.log(response);
 					$scope.message = response;
 				});
 		var servico = {id: 0, label: "Serviço 1"};
 		$scope.servicosSelecionados.push(servico);
 	};
 	// Upload imagem de perfil
-	console.log(fileReader)
 	$scope.getFile = function() {
 		$scope.progress = 0;
 		fileReader.readAsDataUrl($scope.file, $scope).then(function(result) {
