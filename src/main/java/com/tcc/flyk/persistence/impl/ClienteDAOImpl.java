@@ -731,7 +731,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 		*/
 	}
 
-	public Usuario consultaLoginById(String id) {//Este método funciona, mas não usaremos
+	public Usuario consultaLoginById(String id) {//Este mï¿½todo funciona, mas nï¿½o usaremos
 		try {
 			super.conecta();
 			DBCollection collection = db.getCollection("FLYK");
@@ -778,16 +778,9 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 				} else {
 					user.setAtivo(false);
 				}
-				/*************************
-				 * MENSAGENS DE TESTE, REMOVA CASO QUERIA, MAS Nï¿½O Dï¿½ COMMIT
-				 * PLEASE
-				 *********************
-				System.out.println("**************");
-				System.out.println(user.getNome());
-				System.out.println(user.getId());
-				System.out.println(user.getSenha());
-				System.out.println(user.getTipoCadastro());
-				System.out.println("**************");*/
+				if (resultado.get("foto") != null) {
+					user.setFotoPerfil(String.valueOf(resultado.get("foto")));
+				}
 
 			} else {
 				System.out.println("Consulta de cliente pelo id " + id + " nï¿½o encontrou valores.");
@@ -1241,7 +1234,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 	public List<Conversa> consultarListaConversa(String idUsuario){
 		List<Conversa> listaConversa = new ArrayList<Conversa>();
 		
-		//Busca as conversas do usuário
+		//Busca as conversas do usuï¿½rio
 		super.conecta();
 		DBCollection collection = db.getCollection("FLYK");
 		BasicDBObject filtro = new BasicDBObject("_id", new ObjectId(idUsuario));
@@ -1268,7 +1261,7 @@ public class ClienteDAOImpl extends MongoDB implements ClienteDAO {
 	public List<Conversa> consultarListaConversaAmigo(String idUsuario, String idAmigo){
 		List<Conversa> listaConversa = new ArrayList<Conversa>();
 		
-		//Busca as conversas do usuário
+		//Busca as conversas do usuï¿½rio
 		super.conecta();
 		DBCollection collection = db.getCollection("FLYK");
 		

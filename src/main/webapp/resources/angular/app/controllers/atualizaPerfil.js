@@ -11,7 +11,7 @@ flyk.controller("atualizaPerfilCtrl",function($scope, $rootScope, $location, $ht
 	$scope.servicos = [];*/
 	$scope.cliente.imagem = $rootScope.data.fotoPerfil;
 
-	console.log($rootScope.data.listaTelefone);
+//	console.log($rootScope.data.listaTelefone);
 	
 
 	
@@ -23,13 +23,13 @@ flyk.controller("atualizaPerfilCtrl",function($scope, $rootScope, $location, $ht
 		
 		$scope.getIndexFromValue = function(value) {
 			var x=0;
-			console.log(value);
+//			console.log(value);
 			for (x=0; x < $scope.operadoras.length; x++)
 				{
 				
 				 if($scope.operadoras[x].id == value)
 					{
-					 console.log(x);
+//					 console.log(x);
 					 return x;
 					}
 		            
@@ -217,7 +217,7 @@ flyk.controller("atualizaPerfilCtrl",function($scope, $rootScope, $location, $ht
 			
 			})
 				.then(function(response) {
-					console.log(response.data.cliente);			
+//					console.log(response.data.cliente);			
 					$rootScope.usuarioLogado = response.data.usuario;
 					$rootScope.tipoUsuarioLogado = response.data.tipoCadastro;
 						if (response.data.tipoCadastro == "1"|| response.data.tipoCadastro == "2") 
@@ -230,7 +230,7 @@ flyk.controller("atualizaPerfilCtrl",function($scope, $rootScope, $location, $ht
 											
 							$rootScope.data = response.data.cliente;
 							localStorage.setItem("dadosCliente",JSON.stringify($rootScope.data));
-							console.log(response.data);
+//							console.log(response.data);
 						}
 					
 					},

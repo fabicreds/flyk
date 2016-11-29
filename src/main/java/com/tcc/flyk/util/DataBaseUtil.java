@@ -47,7 +47,7 @@ public class DataBaseUtil {
 		// EMAIL
 		if (resultado.get("data_nascimento") != null) {
 			pessoa.setNascimento((Date) resultado.get("data_nascimento"));
-			System.out.print("Data nascimento do cliente: " + pessoa.getNascimento());
+//			System.out.print("Data nascimento do cliente: " + pessoa.getNascimento());
 		}
 		// ALIAS
 		if (resultado.get("alias") != null) {
@@ -147,7 +147,7 @@ public class DataBaseUtil {
 		BasicDBObject[] lightArr = telefonesDB.toArray(new BasicDBObject[0]);
 		for (BasicDBObject telefone : lightArr) {
 			// shows each item from the lights array
-			System.out.println("numero_telefone: " + telefone.get("numero_telefone"));
+//			System.out.println("numero_telefone: " + telefone.get("numero_telefone"));
 
 			Telefone tel = new Telefone();
 
@@ -184,7 +184,7 @@ public class DataBaseUtil {
 		BasicDBObject[] lightArr = amigosDB.toArray(new BasicDBObject[0]);
 		for (BasicDBObject amigoDB : lightArr) {
 			// shows each item from the lights array
-			System.out.println("id_amigo: " + amigoDB.get("id_amigo"));
+//			System.out.println("id_amigo: " + amigoDB.get("id_amigo"));
 
 			Amizade amizade = new Amizade();
 			Cliente amigo = new Cliente();
@@ -201,7 +201,7 @@ public class DataBaseUtil {
 			// status_amizade
 			if (amigoDB.get("status_amizade") != null) {
 				int codigoStatusAmizade = Integer.valueOf(amigoDB.getString("status_amizade"));
-				// faz o set do enum de acordo com o código
+				// faz o set do enum de acordo com o cï¿½digo
 				amizade.setStatusEnum(codigoStatusAmizade);
 			}
 

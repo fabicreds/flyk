@@ -5,11 +5,12 @@ flyk.controller("friendsPageCtrl", function ($scope, $rootScope, $location, $htt
 		$rootScope.tipoUsuarioLogado = localStorage.getItem("tipoUsuarioLogado");
 		$rootScope.idUsuarioLogado = localStorage.getItem("idUsuarioLogado");
 		$rootScope.data = JSON.parse(localStorage.getItem("dadosCliente"));
-    	$scope.showFriendsPage();
+//    	$scope.showFriendsPage();
+    	$rootScope.$emit("CallProfilePageMethod", {});
     }
 	
 	$scope.showFriendsPage = function() {
-		if ($rootScope.data == null) {
+//		if ($rootScope.data == null) {
 			$http({
 				url : 'friendsPage',
 				method : "POST",
@@ -28,11 +29,11 @@ flyk.controller("friendsPageCtrl", function ($scope, $rootScope, $location, $htt
 			}, function(response) {
 
 			});
-		} else {
-			if($rootScope.data.listaAmigos == null){
-				$rootScope.data.numAmigos = 0;
-			}
-			$location.path('/friendsPage');
-		}
+//		} else {
+//			if($rootScope.data.listaAmigos == null){
+//				$rootScope.data.numAmigos = 0;
+//			}
+//			$location.path('/friendsPage');
+//		}
 	};
 });

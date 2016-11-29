@@ -7,10 +7,9 @@
 				<div class="panel-body">
 					<div class="col-md-3 vcenter">
 						<div class="text-center">
-							<img
-								src="${pageContext.request.contextPath}/images/pessoa-feliz.png"
-								class="avatar img-circle img-thumbnail" alt="avatar"
-								style="height: 150px; width: 150px;">
+							<img ng-src={{amizade.amigo.fotoPerfil}}
+										class="avatar img-circle img-thumbnail" alt="avatar"
+										style="height: 150px; width: 150px;">
 						</div>
 					</div>
 					<!--/col-->

@@ -41,6 +41,7 @@ public class AmizadeService {
 							amizade.getAmigo().setEmail(usuario.getEmail());
 							amizade.getAmigo().setUsuario(usuario.getUsuario());
 							amizade.getAmigo().setTipoCadastro(usuario.getTipoCadastro());
+							amizade.getAmigo().setFotoPerfil(usuario.getFotoPerfil());
 						}
 					} else {
 						//apenas enviar amizades com status ativo ou solicitada
