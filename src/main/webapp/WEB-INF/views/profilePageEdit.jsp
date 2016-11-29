@@ -7,7 +7,7 @@
 			<div class="well panel panel-default">
 				<div class="panel-heading">
 					<h3>Perfil do Usuário</h3>
-					{{data.privacidade.exibeEndereco}}
+					
 				</div>
 				<div class="panel-body">
 					<div class="row">

@@ -256,13 +256,13 @@ flyk.controller("atualizaPerfilCtrl",function($scope, $rootScope, $location, $ht
 							$scope.listaTelefone = response.data.cliente.listaTelefone;
 							localStorage.setItem("dadosCliente",JSON.stringify(response.data.cliente));
 							console.log(response.data);
-							//$location.path('/profilePage');
+							$location.path('/profilePage');
 						} else {
 											
 							//$rootScope.data = response.data.cliente;
 							localStorage.setItem("dadosCliente",JSON.stringify(response.data.cliente));
 							console.log(response.data);
-							//$location.path('/profilePage');
+							$location.path('/profilePage');
 						}
 					}
 					
